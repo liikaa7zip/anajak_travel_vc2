@@ -18,7 +18,7 @@
       <!-- Buttons -->
       <div class="flex items-center space-x-4">
         <router-link to="/login" class="text-gray-700 hover:text-gray-900 font-medium">Login</router-link>
-        <router-link to="/signup" class="bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-700 font-medium">Sign Up</router-link>
+        <router-link to="/register" class="bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-700 font-medium">Sign Up</router-link>
       </div>
 
       <!-- Mobile Menu Button -->
