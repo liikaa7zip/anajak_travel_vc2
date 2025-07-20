@@ -1,11 +1,12 @@
-<!-- src/App.vue -->
-<template>
-  <RouterView />
-</template>
-
 <script setup>
+import Navbar from '@/components/Navbar.vue'
 </script>
 
-<style>
-/* Optional global styles */
-</style>
+<template>
+  <div>
+    <Navbar />
+    <!-- Your page content -->
+  </div>
+
+  <router-view />
+</template>
