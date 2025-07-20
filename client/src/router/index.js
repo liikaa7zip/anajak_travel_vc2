@@ -5,6 +5,7 @@ import HomePage from '../views/HomePage.vue'
 import AboutPage from '../views/AboutPage.vue'
 import BlogPage from '../views/BlogPage.vue'
 import TravelingGuide from '../views/TravelingGuide.vue'
+import AdminDashboard from '../views/AdminDashboard.vue' 
 
 
 
@@ -15,7 +16,21 @@ const routes = [
   { path: '/home', component: HomePage },
   { path: '/about', component: AboutPage },
   { path: '/blog', component: BlogPage },
-  { path: '/guide', component: TravelingGuide }
+  { path: '/guide', component: TravelingGuide },
+
+  // ✅ Add this protected route
+  {
+    path: '/admin-dashboard',
+    component: AdminDashboard,
+    beforeEnter: (to, from, next) => {
+      const user = JSON.parse(localStorage.getItem('user'))
+      if (user && user.role === 'admin') {
+        next()
+      } else {
+        next('/home') // or redirect to 403 page
+      }
+    }
+  }
 ]
 
 const router = createRouter({

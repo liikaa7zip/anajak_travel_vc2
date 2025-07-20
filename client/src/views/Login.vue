@@ -56,11 +56,13 @@
 <script setup>
 import { ref } from 'vue'
 import axios from 'axios'
+import { useRouter } from 'vue-router'
 
 const email = ref('')
 const password = ref('')
 const rememberMe = ref(false)
 const message = ref('')
+const router = useRouter() // ← Import router
 
 const login = async () => {
   try {
@@ -68,11 +70,25 @@ const login = async () => {
       email: email.value,
       password: password.value
     })
+
+    const user = res.data.user
+    const token = res.data.token
+
     message.value = 'Login successful!'
-    localStorage.setItem('token', res.data.token)
+    localStorage.setItem('token', token)
+    localStorage.setItem('user', JSON.stringify(user))
+
     if (rememberMe.value) {
       localStorage.setItem('rememberedEmail', email.value)
     }
+
+    // ✅ Redirect admin to dashboard
+    if (user.role === 'admin') {
+      router.push('/admin-dashboard') // Make sure this route exists in router
+    } else {
+      router.push('/') // Or another page for other roles
+    }
+
     email.value = ''
     password.value = ''
   } catch (err) {
@@ -80,6 +96,7 @@ const login = async () => {
   }
 }
 </script>
+
 
 <style scoped>
 @keyframes fade-in {
