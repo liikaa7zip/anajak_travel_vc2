@@ -1,15 +1,13 @@
+// C:\Users\Panha.Nhean\Desktop\Anajak_Travel_VC2\server\routes\userRoutes.js
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
-const { authenticate, authorize } = require('../middleware/auth');
 
-// Public routes
-router.post('/', userController.createUser);
-
-// Protected routes
-router.get('/', authenticate, authorize(['admin']), userController.getAllUsers);
-router.get('/:id', authenticate, userController.getUserById);
-router.put('/:id', authenticate, userController.updateUser);
-router.delete('/:id', authenticate, authorize(['admin']), userController.deleteUser);
+router.post('/register', userController.createUser);
+router.post('/login', userController.loginUser);
+router.get('/', userController.getAllUsers);
+router.get('/:id', userController.getUserById);
+router.put('/:id', userController.updateUser);
+router.delete('/:id', userController.deleteUser);
 
 module.exports = router;

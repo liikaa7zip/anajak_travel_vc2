@@ -2,15 +2,18 @@
 const db = require('../models');
 const bcrypt = require('bcrypt');
 const saltRounds = 10; // Adjust based on your security requirements
+const jwt = require('jsonwebtoken'); // Add for token generation
 const User = db.User;
+
+const secretKey = 'your-secret-key'; // Replace with a secure secret key (e.g., from .env)
 
 // CREATE - Register new user
 exports.createUser = async (req, res) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { username, email, password, role } = req.body;
     
-    if (!email || !password) {
-      return res.status(400).json({ message: 'Email and password are required' });
+    if (!email || !password || !username) {
+      return res.status(400).json({ message: 'Username, email, and password are required' });
     }
 
     const existingUser = await User.findOne({ where: { email } });
@@ -22,14 +25,43 @@ exports.createUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     const newUser = await User.create({ 
-      name, 
+      username,
       email, 
-      password: hashedPassword, // Store only the hash
+      password: hashedPassword, 
       role: role || 'student'
     });
 
     const { password: _, ...userWithoutPassword } = newUser.toJSON();
     res.status(201).json(userWithoutPassword);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// LOGIN - Authenticate user
+exports.loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ message: 'Email and password are required' });
+    }
+
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+
+    // Generate JWT token
+    const token = jwt.sign({ id: user.id, email: user.email, role: user.role }, secretKey, { expiresIn: '1h' });
+
+    const { password: _, ...userWithoutPassword } = user.toJSON();
+    res.json({ user: userWithoutPassword, token });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -73,7 +105,7 @@ exports.updateUser = async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    const { name, email, role } = req.body;
+    const { username, email, role } = req.body;
     
     // Prevent email updates to existing accounts
     if (email && email !== user.email) {
@@ -81,7 +113,8 @@ exports.updateUser = async (req, res) => {
     }
 
     await user.update({ 
-      name: name || user.name,
+      username: username || user.username,
+      name: username || user.name, // Assuming name and username are interchangeable here
       role: role || user.role
     });
 
