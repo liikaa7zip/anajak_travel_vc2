@@ -62,7 +62,7 @@ const login = async () => {
       email: email.value,
       password: password.value
     })
-    message.value = 'Login successful!'
+    message.value = 'Login successfully!'
     localStorage.setItem('token', res.data.token) // Store the JWT token
     // Optional: Redirect to dashboard or emit event
     // await router.push('/dashboard') // Uncomment and adjust if using Vue Router
