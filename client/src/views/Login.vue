@@ -83,11 +83,13 @@ const login = async () => {
     }
 
     // ✅ Redirect admin to dashboard
-    if (user.role === 'admin') {
-      router.push('/admin-dashboard') // Make sure this route exists in router
-    } else {
-      router.push('/') // Or another page for other roles
-    }
+    // After successful login
+if (user.role === 'admin') {
+  this.$router.push('/admin/dashboard')  // <-- Use this path
+} else {
+  this.$router.push('/home')
+}
+
 
     email.value = ''
     password.value = ''
