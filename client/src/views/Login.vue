@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-green-100 via-blue-100 to-purple-100 flex items-center justify-center px-4 py-12">
+  <div class="min-h-screen flex items-center justify-center px-4 py-12">
     <div class="flex w-full max-w-4xl bg-white rounded-xl shadow-2xl overflow-hidden transform transition-all duration-500 hover:scale-105">
       <!-- Left Side: Background Image with Text -->
       <div class="w-1/2 bg-gray-100 p-8 flex items-center justify-center relative overflow-hidden">
@@ -62,7 +62,7 @@ const email = ref('')
 const password = ref('')
 const rememberMe = ref(false)
 const message = ref('')
-const router = useRouter() // ← Import router
+const router = useRouter()
 
 const login = async () => {
   try {
@@ -82,14 +82,11 @@ const login = async () => {
       localStorage.setItem('rememberedEmail', email.value)
     }
 
-    // ✅ Redirect admin to dashboard
-    // After successful login
-if (user.role === 'admin') {
-  this.$router.push('/admin/dashboard')  // <-- Use this path
-} else {
-  this.$router.push('/home')
-}
-
+    if (user.role === 'admin') {
+      router.push('/admin/dashboard')
+    } else {
+      router.push('/home')
+    }
 
     email.value = ''
     password.value = ''
@@ -98,7 +95,6 @@ if (user.role === 'admin') {
   }
 }
 </script>
-
 
 <style scoped>
 @keyframes fade-in {
@@ -123,3 +119,4 @@ if (user.role === 'admin') {
 .animate-bounce { animation: pulse-slow 1s ease-in-out; }
 .animate-pulse-slow { animation: pulse-slow 4s ease-in-out infinite; }
 </style>
+

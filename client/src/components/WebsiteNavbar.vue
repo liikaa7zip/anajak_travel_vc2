@@ -50,3 +50,7 @@ const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
 }
 </script>
+
+<style scoped>
+/* Add any additional styles here if needed */
+</style>

@@ -30,28 +30,38 @@ const routes = [
     ]
   },
   {
-  path: '/admin',
-  component: AdminLayout,
-  beforeEnter: (to, from, next) => {
-    const user = JSON.parse(localStorage.getItem('user'))
-    if (user && user.role === 'admin') {
+    path: '/admin',
+    component: AdminLayout,
+    beforeEnter: (to, from, next) => {
+      // Fix: Check if user exists and handle JSON parse errors
+      let user = null
+      try {
+        user = JSON.parse(localStorage.getItem('user'))
+      } catch (e) {
+        user = null
+      }
+      // If not logged in, redirect to login
+      if (!user) {
+        next('/login')
+        return
+      }
+      // If not admin, redirect to home
+      if (user.role !== 'admin') {
+        next('/home')
+        return
+      }
       next()
-    } else {
-      next('/home')
-    }
+    },
+    children: [
+      { path: '', redirect: 'dashboard' },
+      { path: 'dashboard', component: AdminDashboard }
+    ]
   },
-
-  children: [
-    { path: '', redirect: 'dashboard' },
-    { path: 'dashboard', component: AdminDashboard }
-  ]
-},
-// Add a direct route for /admin-dashboard
-{
-  path: '/admin-dashboard',
-  component: AdminDashboard
-}
-
+  // Redirect /dashboard to /admin/dashboard
+  {
+    path: '/dashboard',
+    redirect: '/admin/dashboard'
+  }
 ]
 
 const router = createRouter({

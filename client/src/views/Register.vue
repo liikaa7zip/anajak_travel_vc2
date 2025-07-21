@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-green-100 via-blue-100 to-purple-100 flex items-center justify-center px-4 py-12">
+  <div class="min-h-screen flex items-center justify-center px-4 py-12">
     <div class="flex w-full max-w-4xl bg-white rounded-xl shadow-2xl overflow-hidden transform transition-all duration-500 hover:scale-105">
       <!-- Left Side: Background Image with Text -->
       <div class="w-1/2 bg-gray-100 p-8 flex items-center justify-center relative overflow-hidden">
@@ -105,3 +105,4 @@ const register = async () => {
 .animate-bounce-slow { animation: bounce-slow 3s ease-in-out infinite; }
 .animate-bounce { animation: bounce-slow 1s ease-in-out; }
 </style>
+
