@@ -2,33 +2,33 @@
 const express = require('express');
 const { sequelize } = require('./models');
 const userRoutes = require('./routes/userRoutes');
-const cors = require('cors'); // Import cors
+const createDefaultAdmin = require('./seeders/createDefaultAdmin');
+const cors = require('cors');
 
-const app = express(); // Initialize app first
-
+const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Enable CORS for all routes (or specify origins)
 app.use(cors({
-  origin: 'http://localhost:3000', // Allow your Vue app origin
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
-  credentials: true // Allow cookies/auth credentials if needed
+  origin: 'http://localhost:3000',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
 }));
 
-// Middleware to parse JSON bodies
 app.use(express.json());
-
-// Use user routes
 app.use('/api/users', userRoutes);
 
-// Sync database and start server
+// Sync DB and run server
 sequelize.sync({ alter: true })
-  .then(() => {
-    console.log('Database & tables synced');
+  .then(async () => {
+    console.log('✅ Database & tables synced');
+
+    // Create default admin here
+    await createDefaultAdmin();
+
     app.listen(PORT, () => {
-      console.log(`Server running on http://localhost:${PORT}`);
+      console.log(`🚀 Server running on http://localhost:${PORT}`);
     });
   })
   .catch((error) => {
-    console.error('Unable to sync database:', error);
+    console.error('❌ Unable to sync database:', error);
   });
