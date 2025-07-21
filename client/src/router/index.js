@@ -54,7 +54,8 @@ const routes = [
     },
     children: [
       { path: '', redirect: 'dashboard' },
-      { path: 'dashboard', component: AdminDashboard }
+      { path: 'dashboard', component: AdminDashboard },
+      { path: 'users', component: AdminUsers } // <-- Add this line for /admin/users
     ]
   },
   // Redirect /dashboard to /admin/dashboard
