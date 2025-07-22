@@ -10,6 +10,18 @@
     <!-- Navigation -->
     <nav class="flex-1">
       <ul class="space-y-1">
+        <!-- Link to public website -->
+        <li>
+  <router-link
+    to="/home"
+    class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-[#181c2f] font-semibold text-yellow-400"
+    active-class="bg-[#181c2f] text-yellow-300"
+  >
+    <span>🌐</span> Go to Website
+  </router-link>
+</li>
+
+
         <li>
           <router-link to="/admin/dashboard" class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-[#181c2f] font-semibold"
             active-class="bg-[#181c2f] text-yellow-300">
@@ -86,7 +98,7 @@
 </template>
 
 <script setup>
-// ...existing code...
+// Your existing script code here (if any)
 </script>
 
 <style scoped>
