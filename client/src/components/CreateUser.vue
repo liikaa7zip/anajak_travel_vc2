@@ -1,7 +1,7 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gray-900">
-    <div class="w-[400px] p-6 bg-gray-800 bg-opacity-90 rounded-xl shadow-lg border border-gray-700 backdrop-blur-sm">
-      <h2 class="text-2xl font-bold mb-6 text-white text-center">
+  <div class="min-h-screen flex items-center justify-center bg-white-900">
+    <div class="w-[400px] p-6 bg-white-800 bg-opacity-90 rounded-xl shadow-lg border border-gray-200 backdrop-blur-sm">
+      <h2 class="text-2xl font-bold mb-6 text-gray text-center">
         Add New User
       </h2>
 
@@ -17,7 +17,7 @@
             type="text"
             required
             placeholder="Enter name"
-            class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
+            class="w-full px-4 py-2 bg-gray-100 border border-gray-200 rounded-lg text-gray focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
           />
         </div>
 
@@ -32,7 +32,7 @@
             type="email"
             required
             placeholder="admin@gmail.com"
-            class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
+            class="w-full px-4 py-2 bg-gray-100 border border-gray-200 rounded-lg text-gray focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
           />
         </div>
 
@@ -47,7 +47,7 @@
             type="password"
             required
             placeholder="Enter password"
-            class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
+            class="w-full px-4 py-2 bg-gray-100 border border-gray-200 rounded-lg text-gray focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
           />
         </div>
 
@@ -60,7 +60,7 @@
             id="role"
             v-model="form.role"
             required
-            class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
+            class="w-full px-4 py-2 bg-gray-100 border border-gray-600 rounded-lg text-gray focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
           >
             <option disabled value="">-- Select role --</option>
             <option value="admin">Admin</option>
@@ -74,7 +74,7 @@
         <div class="flex justify-between">
           <button
             type="submit"
-            class="w-5/12 py-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg shadow-md transition"
+            class="w-5/12 py-2 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-lg shadow-md transition"
           >
             Create
           </button>

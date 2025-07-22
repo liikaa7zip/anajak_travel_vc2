@@ -1,9 +1,9 @@
 <template>
-  <div class="bg-[#181c2f] min-h-screen p-6">
+  <div class="bg-white min-h-screen p-6">
     <!-- Header -->
     <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
       <div>
-        <h1 class="text-2xl md:text-3xl font-extrabold text-white flex items-center gap-2 mb-2">
+        <h1 class="text-2xl md:text-3xl font-extrabold text-gray flex items-center gap-2 mb-2">
           <span class="text-blue-400 text-3xl">👤</span>
           User Management
         </h1>
@@ -20,30 +20,30 @@
 
     <!-- Stats -->
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-      <div class="bg-[#23263a] rounded-xl p-4 flex flex-col items-center shadow border border-gray-700">
+      <div class="bg-white rounded-xl p-4 flex flex-col items-center shadow border border-orange-300">
         <span class="text-blue-400 text-2xl mb-1">👥</span>
-        <div class="text-gray-300 text-sm">Total Users</div>
-        <div class="text-white text-xl font-bold">{{ filteredUsers.length }}</div>
+        <div class="text-gray-500 text-sm">Total Users</div>
+        <div class="text-gray text-xl font-bold">{{ filteredUsers.length }}</div>
       </div>
-      <div class="bg-[#23263a] rounded-xl p-4 flex flex-col items-center shadow border border-gray-700">
+      <div class="bg-white rounded-xl p-4 flex flex-col items-center shadow border border-purple-300">
         <span class="text-green-400 text-2xl mb-1">✔️</span>
-        <div class="text-gray-300 text-sm">Active Users</div>
-        <div class="text-white text-xl font-bold">{{ countByStatus('Active') }}</div>
+        <div class="text-gray-500 text-sm">Active Users</div>
+        <div class="text-gray text-xl font-bold">{{ countByStatus('Active') }}</div>
       </div>
-      <div class="bg-[#23263a] rounded-xl p-4 flex flex-col items-center shadow border border-gray-700">
+      <div class="bg-white rounded-xl p-4 flex flex-col items-center shadow border border-pink-300">
         <span class="text-orange-400 text-2xl mb-1">➕</span>
-        <div class="text-gray-300 text-sm">New Signups (Last 7 days)</div>
-        <div class="text-white text-xl font-bold">{{ countNewSignups() }}</div>
+        <div class="text-gray-500 text-sm">New Signups (Last 7 days)</div>
+        <div class="text-gray text-xl font-bold">{{ countNewSignups() }}</div>
       </div>
     </div>
 
     <!-- Search & Filters -->
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
       <div
-        class="flex items-center bg-[#23263a] rounded-lg px-3 py-2 w-full md:w-1/3 border border-gray-700"
+        class="flex items-center bg-white rounded-lg px-3 py-2 w-full md:w-1/3 border border-purple-300"
       >
         <svg
-          class="w-5 h-5 text-gray-400 mr-2"
+          class="w-5 h-5 text-gray-500 mr-2"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -59,17 +59,17 @@
           v-model="searchQuery"
           type="text"
           placeholder="Search by name or email"
-          class="bg-transparent outline-none text-gray-200 w-full"
+          class="bg-transparent outline-none text-gray-500 w-full"
         />
       </div>
       <div class="flex gap-2">
-        <select v-model="selectedStatus" class="bg-[#23263a] text-gray-200 px-3 py-2 rounded-lg border border-gray-700">
+        <select v-model="selectedStatus" class="bg-white text-gray-500 px-3 py-2 rounded-lg border border-pink-300">
           <option value="">Status: All</option>
           <option>Active</option>
           <option>Inactive</option>
           <option>Banned</option>
         </select>
-        <select v-model="selectedRole" class="bg-[#23263a] text-gray-200 px-3 py-2 rounded-lg border border-gray-700">
+        <select v-model="selectedRole" class="bg-white text-gray-500 px-3 py-2 rounded-lg border border-pink-300">
           <option value="">Role: All</option>
           <option>User</option>
           <option>Business</option>
@@ -80,12 +80,12 @@
 
     <!-- User Table -->
     <div
-      class="bg-[#23263a] rounded-xl shadow border border-gray-700 overflow-x-auto"
+      class="bg-white rounded-xl shadow border border-purple-700 overflow-x-auto"
     >
       <table class="min-w-full text-left">
     <thead>
       <tr
-        class="text-gray-400 text-xs uppercase tracking-wider border-b border-gray-700"
+        class="text-gray-500 text-xs uppercase tracking-wider border-b border-gray-700"
       >
         <th @click="sortBy('name')" class="py-3 px-4 cursor-pointer select-none">
           Name
@@ -105,7 +105,7 @@
       <tr
         v-for="(user, idx) in paginatedUsers"
         :key="user.id"
-        class="border-b border-[#23263a] hover:bg-[#20243a] transition"
+        class="border-b border-[#6ccfdf] hover:bg-[#aab7fd] transition"
       >
         <td class="py-3 px-4 flex items-center gap-2">
           <img
@@ -113,9 +113,9 @@
             class="w-7 h-7 rounded-full border-2 border-blue-500"
             alt="user avatar"
           />
-          <span class="text-gray-200 font-medium">{{ user.name }}</span>
+          <span class="text-gray-500 font-medium">{{ user.name }}</span>
         </td>
-        <td class="py-3 px-4 text-gray-200">{{ user.email }}</td>
+        <td class="py-3 px-4 text-gray-500">{{ user.email }}</td>
         <td class="py-3 px-4 text-center">
           <span
             :class="{
@@ -148,7 +148,7 @@
           <div class="relative inline-block text-left">
             <button
               @click="toggleDropdown(idx)"
-              class="bg-[#23263a] border border-gray-700 px-3 py-1 rounded text-xs font-semibold text-gray-200 hover:bg-[#181c2f] flex items-center gap-1"
+              class="bg-white border border-gray-100 px-3 py-1 rounded text-xs font-semibold text-gray-500 hover:bg-[#97a6f3] flex items-center gap-1"
               aria-haspopup="true"
               :aria-expanded="dropdownOpen === idx"
             >
@@ -166,7 +166,7 @@
             <transition name="fade">
               <div
                 v-if="dropdownOpen === idx"
-                class="absolute right-0 mt-2 w-36 bg-[#23263a] border border-gray-700 rounded shadow-lg z-10"
+                class="absolute right-0 mt-2 w-36 bg-white border border-gray-700 rounded shadow-lg z-10"
                 @click.stop
               >
                 <button
@@ -248,7 +248,7 @@
           <button
             @click="prevPage"
             :disabled="currentPage === 1"
-            class="bg-[#181c2f] text-gray-300 px-3 py-1 rounded hover:bg-[#23263a]"
+            class="bg-white text-gray-500 px-3 py-1 rounded hover:bg-blue-500"
           >
             ❮
           </button>
@@ -267,7 +267,7 @@
           <button
             @click="nextPage"
             :disabled="currentPage === totalPages"
-            class="bg-[#181c2f] text-gray-300 px-3 py-1 rounded hover:bg-[#23263a]"
+            class="bg-white text-gray-500 px-3 py-1 rounded hover:bg-blue-500"
           >
             ❯
           </button>
@@ -275,85 +275,7 @@
       </div>
     </div>
 
-    <!-- Add User Modal -->
-    <transition name="fade">
-      <div
-        v-if="showAddUserModal"
-        class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50"
-      >
-        <div class="bg-[#23263a] rounded-lg p-6 w-96 text-white relative">
-          <h2 class="text-xl font-semibold mb-4">Add New User</h2>
-          <form @submit.prevent="submitNewUser" class="space-y-4">
-            <div>
-              <label class="block text-gray-300 mb-1">Name</label>
-              <input
-                v-model="newUser.name"
-                required
-                type="text"
-                class="w-full px-3 py-2 rounded bg-[#181c2f] border border-gray-700 text-white outline-none focus:border-blue-600"
-              />
-            </div>
-            <div>
-              <label class="block text-gray-300 mb-1">Email</label>
-              <input
-                v-model="newUser.email"
-                required
-                type="email"
-                class="w-full px-3 py-2 rounded bg-[#181c2f] border border-gray-700 text-white outline-none focus:border-blue-600"
-              />
-            </div>
-            <div>
-              <label class="block text-gray-300 mb-1">Role</label>
-              <select
-                v-model="newUser.role"
-                required
-                class="w-full px-3 py-2 rounded bg-[#181c2f] border border-gray-700 text-white outline-none focus:border-blue-600"
-              >
-                <option disabled value="">Select role</option>
-                <option>User</option>
-                <option>Business</option>
-                <option>Admin</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-gray-300 mb-1">Status</label>
-              <select
-                v-model="newUser.status"
-                required
-                class="w-full px-3 py-2 rounded bg-[#181c2f] border border-gray-700 text-white outline-none focus:border-blue-600"
-              >
-                <option disabled value="">Select status</option>
-                <option>Active</option>
-                <option>Inactive</option>
-                <option>Banned</option>
-              </select>
-            </div>
-            <div class="flex justify-end gap-2 mt-6">
-              <button
-                type="button"
-                @click="closeAddUserModal"
-                class="px-4 py-2 rounded bg-gray-600 hover:bg-gray-700"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                class="px-4 py-2 rounded bg-blue-600 hover:bg-blue-700"
-              >
-                Add User
-              </button>
-            </div>
-          </form>
-          <button
-            @click="closeAddUserModal"
-            class="absolute top-3 right-3 text-gray-400 hover:text-gray-200"
-            aria-label="Close modal"
-          >
-            ✕
-          </button>
-        </div>
-      </div>
-    </transition>
+    
   </div>
 </template>
 
