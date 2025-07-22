@@ -63,10 +63,9 @@
             class="w-full px-4 py-2 bg-gray-100 border border-gray-600 rounded-lg text-gray focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition"
           >
             <option disabled value="">-- Select role --</option>
-            <option value="admin">Admin</option>
             <option value="user">User</option>
             <option value="restaurant_owner">Restaurant Owner</option>
-            <option value="food_owner">Food Owner</option>
+            <option value="food_owner">Hotel Owner</option>
           </select>
         </div>
 
