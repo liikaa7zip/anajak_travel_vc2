@@ -11,6 +11,7 @@ import TravelingGuide from '../views/TravelingGuide.vue'
 
 import AdminDashboard from '../views/admin/AdminDashboard.vue'
 import AdminUsers from '../views/admin/AdminUsers.vue'
+import CreateUser from '../components/CreateUser.vue' 
 
 const routes = [
   {
@@ -62,7 +63,12 @@ const routes = [
   {
     path: '/dashboard',
     redirect: '/admin/dashboard'
-  }
+  },
+  {
+    path: '/users/create',
+    name: 'CreateUser',
+    component: CreateUser,
+  },
 ]
 
 const router = createRouter({
