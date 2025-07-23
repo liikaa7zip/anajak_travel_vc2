@@ -1,6 +1,5 @@
-// server/models/user.js
 'use strict';
-const { Sequelize, DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 
 const User = sequelize.define('User', {
@@ -10,16 +9,18 @@ const User = sequelize.define('User', {
   },
   email: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    unique: true,
+    validate: { isEmail: true }
   },
   password: {
     type: DataTypes.STRING,
     allowNull: false
   },
   role: {
-    type: DataTypes.STRING,
+    type: DataTypes.ENUM('admin', 'user', 'restaurant_owner', 'hotel_owner'),
     allowNull: false,
-    defaultValue: 'student'
+    defaultValue: 'user'
   }
 }, {
   tableName: 'users',
