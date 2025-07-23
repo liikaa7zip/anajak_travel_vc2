@@ -27,12 +27,6 @@
           </div>
 
           <div class="relative">
-            <label class="block text-sm font-medium text-gray-700">Username</label>
-            <input v-model="username" type="text" placeholder="Username" autocomplete="username"
-              class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 transition-all duration-300 hover:border-purple-500" />
-          </div>
-
-          <div class="relative">
             <label class="block text-sm font-medium text-gray-700">Password</label>
             <input v-model="password" type="password" placeholder="••••••••" autocomplete="new-password"
               class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 transition-all duration-300 hover:border-purple-500" />
@@ -71,11 +65,11 @@ const message = ref('')
 
 const register = async () => {
   try {
+    // POST data without role, backend assigns 'user' role automatically
     const res = await axios.post('http://localhost:5000/api/users/register', {
       username: username.value,
       email: email.value,
-      password: password.value,
-      role: 'student' // Default role
+      password: password.value
     })
     message.value = 'Registration successful!'
     username.value = ''
@@ -105,4 +99,3 @@ const register = async () => {
 .animate-bounce-slow { animation: bounce-slow 3s ease-in-out infinite; }
 .animate-bounce { animation: bounce-slow 1s ease-in-out; }
 </style>
-

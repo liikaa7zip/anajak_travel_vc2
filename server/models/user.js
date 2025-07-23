@@ -1,36 +1,6 @@
-// // server/models/user.js
-// 'use strict';
-// const { Sequelize, DataTypes } = require('sequelize');
-// const sequelize = require('../config/db');
-
-// const User = sequelize.define('User', {
-//   username: {
-//     type: DataTypes.STRING,
-//     allowNull: false
-//   },
-//   email: {
-//     type: DataTypes.STRING,
-//     allowNull: false
-//   },
-//   password: {
-//     type: DataTypes.STRING,
-//     allowNull: false
-//   },
-//   role: {
-//     type: DataTypes.STRING,
-//     allowNull: false,
-//     defaultValue: 'student'
-//   }
-// }, {
-//   tableName: 'users',
-//   timestamps: true
-// });
-
-// module.exports = User;
-
-// server/models/user.js
-const { DataTypes } = require('sequelize')
-const sequelize = require('../config/db')
+'use strict';
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/db');
 
 const User = sequelize.define('User', {
   username: {
@@ -41,16 +11,17 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,
+    validate: { isEmail: true }
   },
   password: {
     type: DataTypes.STRING,
     allowNull: false,
   },
   role: {
-    type: DataTypes.ENUM('admin', 'user', 'restaurant owner', 'food owner'),
+    type: DataTypes.ENUM('admin', 'user', 'restaurant_owner', 'hotel_owner'),
     allowNull: false,
-    defaultValue: 'user',  // changed default here
-  },
+    defaultValue: 'user'
+  }
 }, {
   tableName: 'users',
   timestamps: true,
@@ -58,3 +29,4 @@ const User = sequelize.define('User', {
 
 module.exports = User
 
+module.exports = User;

@@ -10,9 +10,9 @@ export default {
 </script> -->
 
 <template>
-  <div class="flex min-h-screen bg-[#181c2f]">
+  <div class="flex min-h-screen bg-white">
     <!-- Sidebar: fixed width -->
-    <aside class="w-64 h-screen fixed top-0 left-0 z-10 bg-[#23263a] shadow">
+    <aside class="w-64 h-screen fixed top-0 left-0 z-10 bg-white shadow">
       <AdminNavbar />
     </aside>
 

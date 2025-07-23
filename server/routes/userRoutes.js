@@ -1,28 +1,18 @@
-// // C:\Users\Panha.Nhean\Desktop\Anajak_Travel_VC2\server\routes\userRoutes.js
-// const express = require('express');
-// const router = express.Router();
-// const userController = require('../controllers/userController');
+const express = require('express');
+const router = express.Router();
+const userController = require('../controllers/userController');
+const { verifyToken, verifyAdmin } = require('../middlewares/authMiddleware');
 
-// router.post('/register', userController.createUser);
-// router.post('/login', userController.loginUser);
-// router.get('/', userController.getAllUsers);
-// router.get('/:id', userController.getUserById);
-// router.put('/:id', userController.updateUser);
-// router.delete('/:id', userController.deleteUser);
+// Public register (everyone)
+router.post('/register', userController.registerUser);
 
-// module.exports = router;
+// Login
+router.post('/login', userController.loginUser);
 
+// Admin routes protected by auth & admin check
+router.post('/admin/create-user', verifyToken, verifyAdmin, userController.adminCreateUser);
+router.get('/admin/users', verifyToken, verifyAdmin, userController.getAllUsers);
 
-// === server/routes/userRoutes.js ===
-const express = require('express')
-const router = express.Router()
-const userController = require('../controllers/userController')
+// Add other admin routes as needed
 
-router.post('/register', userController.createUser)
-router.post('/login', userController.loginUser)
-router.get('/', userController.getAllUsers)
-router.get('/:id', userController.getUserById)
-router.put('/:id', userController.updateUser)
-router.delete('/:id', userController.deleteUser)
-
-module.exports = router
+module.exports = router;

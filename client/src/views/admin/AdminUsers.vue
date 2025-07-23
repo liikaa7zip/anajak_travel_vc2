@@ -1,9 +1,9 @@
 <template>
-  <div class="bg-[#181c2f] min-h-screen p-6">
+  <div class="bg-white min-h-screen p-6">
     <!-- Header -->
     <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
       <div>
-        <h1 class="text-2xl md:text-3xl font-extrabold text-white flex items-center gap-2 mb-2">
+        <h1 class="text-2xl md:text-3xl font-extrabold text-gray flex items-center gap-2 mb-2">
           <span class="text-blue-400 text-3xl">👤</span>
           User Management
         </h1>
@@ -20,30 +20,30 @@
 
     <!-- Stats -->
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-      <div class="bg-[#23263a] rounded-xl p-4 flex flex-col items-center shadow border border-gray-700">
+      <div class="bg-white rounded-xl p-4 flex flex-col items-center shadow border border-orange-300">
         <span class="text-blue-400 text-2xl mb-1">👥</span>
-        <div class="text-gray-300 text-sm">Total Users</div>
-        <div class="text-white text-xl font-bold">{{ filteredUsers.length }}</div>
+        <div class="text-gray-500 text-sm">Total Users</div>
+        <div class="text-gray text-xl font-bold">{{ filteredUsers.length }}</div>
       </div>
-      <div class="bg-[#23263a] rounded-xl p-4 flex flex-col items-center shadow border border-gray-700">
+      <div class="bg-white rounded-xl p-4 flex flex-col items-center shadow border border-purple-300">
         <span class="text-green-400 text-2xl mb-1">✔️</span>
-        <div class="text-gray-300 text-sm">Active Users</div>
-        <div class="text-white text-xl font-bold">{{ countByStatus('Active') }}</div>
+        <div class="text-gray-500 text-sm">Active Users</div>
+        <div class="text-gray text-xl font-bold">{{ countByStatus('Active') }}</div>
       </div>
-      <div class="bg-[#23263a] rounded-xl p-4 flex flex-col items-center shadow border border-gray-700">
+      <div class="bg-white rounded-xl p-4 flex flex-col items-center shadow border border-pink-300">
         <span class="text-orange-400 text-2xl mb-1">➕</span>
-        <div class="text-gray-300 text-sm">New Signups (Last 7 days)</div>
-        <div class="text-white text-xl font-bold">{{ countNewSignups() }}</div>
+        <div class="text-gray-500 text-sm">New Signups (Last 7 days)</div>
+        <div class="text-gray text-xl font-bold">{{ countNewSignups() }}</div>
       </div>
     </div>
 
     <!-- Search & Filters -->
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
       <div
-        class="flex items-center bg-[#23263a] rounded-lg px-3 py-2 w-full md:w-1/3 border border-gray-700"
+        class="flex items-center bg-white rounded-lg px-3 py-2 w-full md:w-1/3 border border-purple-300"
       >
         <svg
-          class="w-5 h-5 text-gray-400 mr-2"
+          class="w-5 h-5 text-gray-500 mr-2"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -59,17 +59,17 @@
           v-model="searchQuery"
           type="text"
           placeholder="Search by name or email"
-          class="bg-transparent outline-none text-gray-200 w-full"
+          class="bg-transparent outline-none text-gray-500 w-full"
         />
       </div>
       <div class="flex gap-2">
-        <select v-model="selectedStatus" class="bg-[#23263a] text-gray-200 px-3 py-2 rounded-lg border border-gray-700">
+        <select v-model="selectedStatus" class="bg-white text-gray-500 px-3 py-2 rounded-lg border border-pink-300">
           <option value="">Status: All</option>
           <option>Active</option>
           <option>Inactive</option>
           <option>Banned</option>
         </select>
-        <select v-model="selectedRole" class="bg-[#23263a] text-gray-200 px-3 py-2 rounded-lg border border-gray-700">
+        <select v-model="selectedRole" class="bg-white text-gray-500 px-3 py-2 rounded-lg border border-pink-300">
           <option value="">Role: All</option>
           <option>User</option>
           <option>Business</option>
@@ -80,161 +80,162 @@
 
     <!-- User Table -->
     <div
-      class="bg-[#23263a] rounded-xl shadow border border-gray-700 overflow-x-auto"
+      class="bg-white rounded-xl shadow border border-purple-700 overflow-x-auto"
     >
       <table class="min-w-full text-left">
-        <thead>
-          <tr
-            class="text-gray-400 text-xs uppercase tracking-wider border-b border-gray-700"
+    <thead>
+      <tr
+        class="text-gray-500 text-xs uppercase tracking-wider border-b border-gray-700"
+      >
+        <th @click="sortBy('name')" class="py-3 px-4 cursor-pointer select-none">
+          Name
+          <span v-if="sortKey === 'name'">{{ sortOrder === 1 ? '▲' : '▼' }}</span>
+        </th>
+        <th @click="sortBy('email')" class="py-3 px-4 cursor-pointer select-none">
+          Email
+          <span v-if="sortKey === 'email'">{{ sortOrder === 1 ? '▲' : '▼' }}</span>
+        </th>
+        <th class="py-3 px-4 select-none cursor-default text-center">Role</th>
+        <th class="py-3 px-4 select-none cursor-default">Status</th>
+        <th class="py-3 px-4 select-none cursor-default">Created</th>
+        <th class="py-3 px-4 select-none cursor-default">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        v-for="(user, idx) in paginatedUsers"
+        :key="user.id"
+        class="border-b border-[#6ccfdf] hover:bg-[#aab7fd] transition"
+      >
+        <td class="py-3 px-4 flex items-center gap-2">
+          <img
+            src="https://randomuser.me/api/portraits/men/32.jpg"
+            class="w-7 h-7 rounded-full border-2 border-blue-500"
+            alt="user avatar"
+          />
+          <span class="text-gray-500 font-medium">{{ user.name }}</span>
+        </td>
+        <td class="py-3 px-4 text-gray-500">{{ user.email }}</td>
+        <td class="py-3 px-4 text-center">
+          <span
+            :class="{
+              'text-blue-700 px-2 py-1 rounded text-sm': user.role === 'user',
+              'text-yellow-700 px-2 py-1 rounded text-sm': user.role === 'food Owner',
+              'text-green-700 px-2 py-1 rounded text-sm': user.role === 'restaurant Owner',
+              'text-red-700 px-2 py-1 rounded text-sm': user.role === 'admin',
+            }"
+            class="inline-block"
           >
-            <th @click="sortBy('name')" class="py-3 px-4 cursor-pointer select-none">
-              Name
-              <span v-if="sortKey === 'name'">{{ sortOrder === 1 ? '▲' : '▼' }}</span>
-            </th>
-            <th @click="sortBy('email')" class="py-3 px-4 cursor-pointer select-none">
-              Email
-              <span v-if="sortKey === 'email'">{{ sortOrder === 1 ? '▲' : '▼' }}</span>
-            </th>
-            <th class="py-3 px-4 select-none cursor-default">Role</th>
-            <th class="py-3 px-4 select-none cursor-default">Status</th>
-            <th class="py-3 px-4 select-none cursor-default">Created</th>
-            <th class="py-3 px-4 select-none cursor-default">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="(user, idx) in paginatedUsers"
-            :key="user.id"
-            class="border-b border-[#23263a] hover:bg-[#20243a] transition"
+            {{ user.role }}
+          </span>
+        </td>
+        <td class="py-3 px-4">
+          <span
+            :class="{
+              'bg-green-700 text-green-200 px-2 py-1 rounded-full text-xs font-semibold':
+                user.status === 'Active',
+              'bg-yellow-700 text-yellow-200 px-2 py-1 rounded-full text-xs font-semibold':
+                user.status === 'Inactive',
+              'bg-red-700 text-red-200 px-2 py-1 rounded-full text-xs font-semibold':
+                user.status === 'Banned',
+            }"
           >
-            <td class="py-3 px-4 flex items-center gap-2">
-              <img
-                src="https://randomuser.me/api/portraits/men/32.jpg"
-                class="w-7 h-7 rounded-full border-2 border-blue-500"
-                alt="user avatar"
-              />
-              <span class="text-gray-200 font-medium">{{ user.name }}</span>
-            </td>
-            <td class="py-3 px-4 text-gray-200">{{ user.email }}</td>
-            <td class="py-3 px-4">
-              <span
-                :class="{
-                  'text-blue-700 px-2 py-1 rounded text-x': user.role === 'user',
-                  'text-yellow-700 px-2 py-1 rounded text-x': user.role === 'food Owner',
-                  'text-green-700 px-2 py-1 rounded text-x': user.role === 'restaurant Owner',
-                  'text-red-700 px-2 py-1 rounded text-x': user.role === 'admin',
-                }"
+            {{ user.status }}
+          </span>
+        </td>
+        <td class="py-3 px-4 text-gray-400">{{ user.created }}</td>
+        <td class="py-3 px-4 relative">
+          <div class="relative inline-block text-left">
+            <button
+              @click="toggleDropdown(idx)"
+              class="bg-white border border-gray-100 px-3 py-1 rounded text-xs font-semibold text-gray-500 hover:bg-[#97a6f3] flex items-center gap-1"
+              aria-haspopup="true"
+              :aria-expanded="dropdownOpen === idx"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
               >
-                {{ user.role }}
-              </span>
-            </td>
-            <td class="py-3 px-4">
-              <span
-                :class="{
-                  'bg-green-700 text-green-200 px-2 py-1 rounded-full text-xs font-semibold':
-                    user.status === 'Active',
-                  'bg-yellow-700 text-yellow-200 px-2 py-1 rounded-full text-xs font-semibold':
-                    user.status === 'Inactive',
-                  'bg-red-700 text-red-200 px-2 py-1 rounded-full text-xs font-semibold':
-                    user.status === 'Banned',
-                }"
+                <circle cx="12" cy="12" r="2" />
+                <circle cx="19" cy="12" r="2" />
+                <circle cx="5" cy="12" r="2" />
+              </svg>
+            </button>
+            <transition name="fade">
+              <div
+                v-if="dropdownOpen === idx"
+                class="absolute right-0 mt-2 w-36 bg-white border border-gray-700 rounded shadow-lg z-10"
+                @click.stop
               >
-                {{ user.status }}
-              </span>
-            </td>
-            <td class="py-3 px-4 text-gray-400">{{ user.created }}</td>
-            <td class="py-3 px-4 relative">
-              <div class="relative inline-block text-left">
                 <button
-                  @click="toggleDropdown(idx)"
-                  class="bg-[#23263a] border border-gray-700 px-3 py-1 rounded text-xs font-semibold text-gray-200 hover:bg-[#181c2f] flex items-center gap-1"
-                  aria-haspopup="true"
-                  :aria-expanded="dropdownOpen === idx"
+                  @click="viewUser(user)"
+                  class="block w-full text-left px-4 py-2 text-sm text-blue-400 hover:bg-[#181c2f] flex items-center gap-2"
                 >
                   <svg
-                    class="w-5 h-5"
+                    class="w-4 h-4"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
                   >
-                    <circle cx="12" cy="12" r="2" />
-                    <circle cx="19" cy="12" r="2" />
-                    <circle cx="5" cy="12" r="2" />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
                   </svg>
+                  View
                 </button>
-                <transition name="fade">
-                  <div
-                    v-if="dropdownOpen === idx"
-                    class="absolute right-0 mt-2 w-36 bg-[#23263a] border border-gray-700 rounded shadow-lg z-10"
-                    @click.stop
+                <button
+                  @click="editUser(user)"
+                  class="block w-full text-left px-4 py-2 text-sm text-yellow-400 hover:bg-[#181c2f] flex items-center gap-2"
+                >
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
                   >
-                    <button
-                      @click="viewUser(user)"
-                      class="block w-full text-left px-4 py-2 text-sm text-blue-400 hover:bg-[#181c2f] flex items-center gap-2"
-                    >
-                      <svg
-                        class="w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                      View
-                    </button>
-                    <button
-                      @click="editUser(user)"
-                      class="block w-full text-left px-4 py-2 text-sm text-yellow-400 hover:bg-[#181c2f] flex items-center gap-2"
-                    >
-                      <svg
-                        class="w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M15.232 5.232l3.536 3.536M9 11l6 6M3 21h6l11.293-11.293a1 1 0 000-1.414l-3.586-3.586a1 1 0 00-1.414 0L3 15v6z"
-                        />
-                      </svg>
-                      Edit
-                    </button>
-                    <button
-                      @click="banUser(user)"
-                      class="block w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-[#181c2f] flex items-center gap-2"
-                    >
-                      <svg
-                        class="w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      </svg>
-                      Ban
-                    </button>
-                  </div>
-                </transition>
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15.232 5.232l3.536 3.536M9 11l6 6M3 21h6l11.293-11.293a1 1 0 000-1.414l-3.586-3.586a1 1 0 00-1.414 0L3 15v6z"
+                    />
+                  </svg>
+                  Edit
+                </button>
+                <button
+                  @click="banUser(user)"
+                  class="block w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-[#181c2f] flex items-center gap-2"
+                >
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                  Ban
+                </button>
               </div>
-            </td>
-          </tr>
-          <tr v-if="paginatedUsers.length === 0">
-            <td colspan="6" class="text-center text-gray-400 p-4">No users found.</td>
-          </tr>
-        </tbody>
-      </table>
+            </transition>
+          </div>
+        </td>
+      </tr>
+      <tr v-if="paginatedUsers.length === 0">
+        <td colspan="6" class="text-center text-gray-400 p-4">No users found.</td>
+      </tr>
+    </tbody>
+  </table>
 
       <!-- Pagination -->
       <div
@@ -247,7 +248,7 @@
           <button
             @click="prevPage"
             :disabled="currentPage === 1"
-            class="bg-[#181c2f] text-gray-300 px-3 py-1 rounded hover:bg-[#23263a]"
+            class="bg-white text-gray-500 px-3 py-1 rounded hover:bg-blue-500"
           >
             ❮
           </button>
@@ -266,7 +267,7 @@
           <button
             @click="nextPage"
             :disabled="currentPage === totalPages"
-            class="bg-[#181c2f] text-gray-300 px-3 py-1 rounded hover:bg-[#23263a]"
+            class="bg-white text-gray-500 px-3 py-1 rounded hover:bg-blue-500"
           >
             ❯
           </button>
@@ -274,85 +275,7 @@
       </div>
     </div>
 
-    <!-- Add User Modal -->
-    <transition name="fade">
-      <div
-        v-if="showAddUserModal"
-        class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50"
-      >
-        <div class="bg-[#23263a] rounded-lg p-6 w-96 text-white relative">
-          <h2 class="text-xl font-semibold mb-4">Add New User</h2>
-          <form @submit.prevent="submitNewUser" class="space-y-4">
-            <div>
-              <label class="block text-gray-300 mb-1">Name</label>
-              <input
-                v-model="newUser.name"
-                required
-                type="text"
-                class="w-full px-3 py-2 rounded bg-[#181c2f] border border-gray-700 text-white outline-none focus:border-blue-600"
-              />
-            </div>
-            <div>
-              <label class="block text-gray-300 mb-1">Email</label>
-              <input
-                v-model="newUser.email"
-                required
-                type="email"
-                class="w-full px-3 py-2 rounded bg-[#181c2f] border border-gray-700 text-white outline-none focus:border-blue-600"
-              />
-            </div>
-            <div>
-              <label class="block text-gray-300 mb-1">Role</label>
-              <select
-                v-model="newUser.role"
-                required
-                class="w-full px-3 py-2 rounded bg-[#181c2f] border border-gray-700 text-white outline-none focus:border-blue-600"
-              >
-                <option disabled value="">Select role</option>
-                <option>User</option>
-                <option>Business</option>
-                <option>Admin</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-gray-300 mb-1">Status</label>
-              <select
-                v-model="newUser.status"
-                required
-                class="w-full px-3 py-2 rounded bg-[#181c2f] border border-gray-700 text-white outline-none focus:border-blue-600"
-              >
-                <option disabled value="">Select status</option>
-                <option>Active</option>
-                <option>Inactive</option>
-                <option>Banned</option>
-              </select>
-            </div>
-            <div class="flex justify-end gap-2 mt-6">
-              <button
-                type="button"
-                @click="closeAddUserModal"
-                class="px-4 py-2 rounded bg-gray-600 hover:bg-gray-700"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                class="px-4 py-2 rounded bg-blue-600 hover:bg-blue-700"
-              >
-                Add User
-              </button>
-            </div>
-          </form>
-          <button
-            @click="closeAddUserModal"
-            class="absolute top-3 right-3 text-gray-400 hover:text-gray-200"
-            aria-label="Close modal"
-          >
-            ✕
-          </button>
-        </div>
-      </div>
-    </transition>
+    
   </div>
 </template>
 
@@ -575,6 +498,13 @@ td:last-child {
 }
 .fade-enter-from,
 .fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.2s;
+}
+.fade-enter, .fade-leave-to {
   opacity: 0;
 }
 </style>
