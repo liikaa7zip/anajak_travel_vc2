@@ -19,7 +19,7 @@ exports.registerUser = async (req, res) => {
 
     const existingUser = await User.findOne({ where: { email } });
     if (existingUser) {
-      return res.status(400).json({ message: 'User already exists with that email' });
+      return res.status(409).json({ message: 'Email already in use' });
     }
 
     const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -31,9 +31,10 @@ exports.registerUser = async (req, res) => {
       role: 'user' // force role to user
     });
 
-    res.status(201).json({ message: 'User created successfully', user: newUser });
+    const { password: _, ...userWithoutPassword } = newUser.toJSON();
+    res.status(201).json(userWithoutPassword);
   } catch (err) {
-    res.status(500).json({ message: 'Failed to create user', error: err.message });
+    res.status(500).json({ message: err.message });
   }
 };
 
@@ -76,21 +77,26 @@ exports.loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
+    if (!email || !password) {
+      return res.status(400).json({ message: 'Email and password are required' });
+    }
+
     const user = await User.findOne({ where: { email } });
     if (!user) {
-      return res.status(400).json({ message: 'Invalid email or password' });
+      return res.status(401).json({ message: 'Invalid email or password' });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: 'Invalid email or password' });
+      return res.status(401).json({ message: 'Invalid email or password' });
     }
 
     const token = jwt.sign({ id: user.id, email: user.email, role: user.role }, secretKey, { expiresIn: '1h' });
 
-    res.status(200).json({ message: 'Login successful', token, user });
+    const { password: _, ...userWithoutPassword } = user.toJSON();
+    res.json({ user: userWithoutPassword, token });
   } catch (err) {
-    res.status(500).json({ message: 'Failed to login', error: err.message });
+    res.status(500).json({ message: err.message });
   }
 };
 
@@ -102,7 +108,7 @@ exports.getAllUsers = async (req, res) => {
     });
     res.json(users);
   } catch (err) {
-    res.status(500).json({ message: 'Failed to get users', error: err.message });
+    res.status(500).json({ message: err.message });
   }
 };
 

@@ -3,8 +3,8 @@ const cors = require('cors');
 const { sequelize } = require('./models');
 const userRoutes = require('./routes/userRoutes');
 
-// const app = express();
-// const PORT = process.env.PORT || 5000;
+const app = express();
+const PORT = process.env.PORT || 5000;
 
 app.use(cors({
   origin: 'http://localhost:3000', // your frontend URL
