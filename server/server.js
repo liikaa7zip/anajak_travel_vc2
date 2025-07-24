@@ -1,6 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 const { sequelize } = require('./models');
+const sequelize = require('./config/db');
+const bookingRoutes = require('./routes/bookingRoute');
+const transportRoutes = require('./routes/transportRoutes')
 const userRoutes = require('./routes/userRoutes');
 
 const app = express();
@@ -14,8 +17,14 @@ app.use(cors({
 
 app.use(express.json());
 
+app.get('/', (req, res) => {
+  res.send('Server is running')
+})
+app.use('/api/bookings', bookingRoutes);
+app.use('/api/transports', transportRoutes)
 app.use('/api/users', userRoutes);
 
+const sequelize = require('./config/db'); 
 sequelize.sync({ alter: true })
   .then(() => {
     console.log('Database synced');
@@ -24,3 +33,4 @@ sequelize.sync({ alter: true })
     });
   })
   .catch(err => console.error('DB sync failed:', err));
+

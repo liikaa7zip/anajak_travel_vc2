@@ -35,6 +35,10 @@ const requireAuth = (to, from, next) => {
   }
   next()
 }
+import CreateUser from '../components/CreateUser.vue' 
+
+import BookingConfirmation from '../components/BookingConfirmation.vue'
+import BusTickets from '@/views/Travelingbooking/BusTickets.vue'
 
 const routes = [
   {
@@ -68,6 +72,7 @@ const routes = [
         component: UserSettings,
         beforeEnter: requireAuth
       },
+      { path: 'guide', component: TravelingGuide }
     ]
   },
   {
@@ -107,6 +112,16 @@ const routes = [
     name: 'CreateUser',
     component: CreateUser,
   },
+    {
+    path: '/Bustickets',   
+    name: 'BusTicket',
+    component: BusTickets
+  },
+    {
+    path: '/confirmation',
+    name: 'BookingConfirmation',
+    component: BookingConfirmation
+  }
 ]
 
 const router = createRouter({
