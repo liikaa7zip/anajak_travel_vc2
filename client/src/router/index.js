@@ -35,10 +35,10 @@ const requireAuth = (to, from, next) => {
   }
   next()
 }
-import CreateUser from '../components/CreateUser.vue' 
+// import CreateUser from '../components/CreateUser.vue' 
 
 import BookingConfirmation from '../components/BookingConfirmation.vue'
-import BusTickets from '@/views/Travelingbooking/BusTickets.vue'
+// import BusTickets from '@/views/Travelingbooking/BusTickets.vue'
 
 const routes = [
   {
