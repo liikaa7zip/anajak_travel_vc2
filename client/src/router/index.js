@@ -12,12 +12,9 @@ import TravelingGuide from '../views/TravelingGuide.vue'
 import AdminDashboard from '../views/admin/AdminDashboard.vue'
 import AdminUsers from '../views/admin/AdminUsers.vue'
 import CreateUser from '../components/CreateUser.vue' 
-import HotelBooking from '../views/Travelingbooking/HotelBooking.vue' 
-import resturant from '../views/Travelingbooking/Resturant.vue'
-import BoatTickets from '../views/Travelingbooking/BoatTickets.vue' 
-import BusTickets from '../views/Travelingbooking/BusTickets.vue' 
-import CarRental from '../views/Travelingbooking/CarRental.vue'
-import FlightReservation from '../views/Travelingbooking/FlightReservation.vue'
+
+import BookingConfirmation from '../components/BookingConfirmation.vue'
+import BusTickets from '@/views/Travelingbooking/BusTickets.vue'
 
 const routes = [
   {
@@ -33,15 +30,7 @@ const routes = [
       { path: 'home', component: HomePage },
       { path: 'about', component: AboutPage },
       { path: 'blog', component: BlogPage },
-      { path: 'guide', component: TravelingGuide },
-      { path: 'hotel', component: HotelBooking },
-      { path: 'resturant', component: resturant },
-      { path: 'Boatickets', component: BoatTickets },
-      { path: 'Bustickets', component: BusTickets },
-      { path: 'CarRental', component: CarRental },
-      { path: 'FlightReservation', component: FlightReservation },
-
-
+      { path: 'guide', component: TravelingGuide }
     ]
   },
   {
@@ -83,6 +72,16 @@ const routes = [
     name: 'CreateUser',
     component: CreateUser,
   },
+    {
+    path: '/Bustickets',   
+    name: 'BusTicket',
+    component: BusTickets
+  },
+    {
+    path: '/confirmation',
+    name: 'BookingConfirmation',
+    component: BookingConfirmation
+  }
 ]
 
 const router = createRouter({
