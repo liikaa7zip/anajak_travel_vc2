@@ -5,14 +5,20 @@
       <div class="w-full">
         <div class="grid lg:grid-cols-2 gap-12 items-center max-w-none">
           <div class="space-y-8">
+            <div
+                class="bg-white-600 text-pink-500 shadow-lg px-8 py-4 rounded-full text-lg font-medium"
+                style="width: fit-content;"
+              >Explore the world!</div>
             <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-800 leading-tight">
-              From Cambodia
+              From 
               <br />
-              <span class="text-purple-600">to the World.</span>
+              Cambodia
+              <br />
+              <span class="text-pink-500">to the World.</span>
             </h1>
             <p
               class="text-gray-600 text-lg lg:text-xl leading-relaxed max-w-2xl"
-            >Stay updated with recommendations and discover amazing destinations across Cambodia and beyond.</p>
+            >Stay updated with travel tips, recommendations, and latest promos.</p>
             <div class="flex flex-col sm:flex-row gap-4">
               <button
                 @click="explore"
@@ -51,6 +57,13 @@
                 />
               </div>
             </div>
+            <!-- Animated Paths and Airplanes -->
+            <svg class="absolute inset-0 pointer-events-none" viewBox="0 0 100 100">
+              <path d="M20,30 C40,10 60,10 80,30" class="path" />
+              <path d="M20,70 C40,50 60,50 80,70" class="path" />
+              <circle class="airplane" cx="20" cy="30" r="1.5" />
+              <circle class="airplane" cx="20" cy="70" r="1.5" />
+            </svg>
           </div>
         </div>
       </div>
@@ -65,7 +78,7 @@
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 lg:gap-8 max-w-7xl mx-auto">
-          <div class="bg-white rounded-lg shadow-md p-4 flex flex-col items-center">
+          <div class="bg-white rounded-lg shadow-lg p-4 flex flex-col items-center transition-transform transform hover:scale-105">
             <div class="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mb-2">
               <span class="text-white text-2xl">🏙️</span>
             </div>
@@ -73,7 +86,7 @@
             <p class="text-sm text-gray-600">100+ Tours</p>
           </div>
 
-          <div class="bg-white rounded-lg shadow-md p-4 flex flex-col items-center">
+          <div class="bg-white rounded-lg shadow-lg p-4 flex flex-col items-center transition-transform transform hover:scale-105">
             <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mb-2">
               <span class="text-white text-2xl">🏛️</span>
             </div>
@@ -81,7 +94,7 @@
             <p class="text-sm text-gray-600">100+ Tours</p>
           </div>
 
-          <div class="bg-white rounded-lg shadow-md p-4 flex flex-col items-center">
+          <div class="bg-white rounded-lg shadow-lg p-4 flex flex-col items-center transition-transform transform hover:scale-105">
             <div class="w-16 h-16 bg-purple-700 rounded-full flex items-center justify-center mb-2">
               <span class="text-white text-2xl">🚢</span>
             </div>
@@ -89,24 +102,24 @@
             <p class="text-sm text-gray-600">100+ Tours</p>
           </div>
 
-          <div class="bg-white rounded-lg shadow-md p-4 flex flex-col items-center">
-            <div class="w-16 h-16 bg-orange-800 rounded-full flex items-center justify-center mb-2">
+          <div class="bg-white rounded-lg shadow-lg p-4 flex flex-col items-center transition-transform transform hover:scale-105">
+            <div class="w-16 h-16 bg-maroon-600 rounded-full flex items-center justify-center mb-2">
               <span class="text-white text-2xl">🚌</span>
             </div>
             <h3 class="font-bold text-lg">Bus Tours</h3>
             <p class="text-sm text-gray-600">100+ Tours</p>
           </div>
 
-          <div class="bg-white rounded-lg shadow-md p-4 flex flex-col items-center">
-            <div class="w-16 h-16 bg-rose-600 rounded-full flex items-center justify-center mb-2">
+          <div class="bg-white rounded-lg shadow-lg p-4 flex flex-col items-center transition-transform transform hover:scale-105">
+            <div class="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center mb-2">
               <span class="text-white text-2xl">🏖️</span>
             </div>
             <h3 class="font-bold text-lg">Beach Tours</h3>
             <p class="text-sm text-gray-600">100+ Tours</p>
           </div>
 
-          <div class="bg-white rounded-lg shadow-md p-4 flex flex-col items-center">
-            <div class="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center mb-2">
+          <div class="bg-white rounded-lg shadow-lg p-4 flex flex-col items-center transition-transform transform hover:scale-105">
+            <div class="w-16 h-16 bg-coral-500 rounded-full flex items-center justify-center mb-2">
               <span class="text-white text-2xl">🍽️</span>
             </div>
             <h3 class="font-bold text-lg">Food Tours</h3>
@@ -941,94 +954,53 @@ export default {
 </script>
 
 <style scoped>
-/* Custom animations and transitions */
-.group:hover .group-hover:scale-110 {
-  transform: scale(1.1);
+/* Custom styles for the Popular Things to Do section */
+.bg-purple-100 {
+  background-color: #f3e8ff; /* Soft light purple */
 }
 
-/* Smooth scrolling for carousel */
-.carousel-container {
-  scroll-behavior: smooth;
+.shadow-lg {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
-/* Custom scrollbar for carousel */
-.carousel-container::-webkit-scrollbar {
-  display: none;
+.transition-transform {
+  transition: transform 0.3s ease; /* Smooth scaling effect */
 }
 
-/* Smooth transitions for carousel */
-.carousel-slide {
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+.hover\:scale-105:hover {
+  transform: scale(1.05); /* Slightly enlarge on hover */
 }
 
-/* Hover effects for navigation buttons */
-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+/* Additional styles can be added here */
+
+.path {
+  fill: none;
+  stroke: #a855f7; /* Purple color */
+  stroke-width: 2;
+  stroke-dasharray: 5, 5; /* Dotted line */
+  animation: dash 5s linear infinite;
 }
 
-/* Enhanced card hover effects */
-.review-card {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+.airplane {
+  fill: #ec4899; /* Pink color */
+  animation: fly 5s linear infinite;
 }
 
-.review-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-}
-
-/* Full-screen responsive adjustments */
-@media (max-width: 768px) {
-  .review-card {
-    margin-bottom: 1rem;
+@keyframes dash {
+  to {
+    stroke-dashoffset: -100; /* Adjust based on path length */
   }
 }
 
-/* Ensure full viewport usage */
-.min-h-screen {
-  min-height: 100vh;
-}
-
-/* Smooth transitions for all interactive elements */
-* {
-  transition: all 0.3s ease;
-}
-
-/* Enhanced hover effects for full-screen layout */
-.group:hover img {
-  transform: scale(1.05);
-}
-
-/* Better spacing for full-screen sections */
-section {
-  scroll-margin-top: 2rem;
-}
-
-/* Enhanced grid hover effects */
-.group:hover img {
-  transform: scale(1.05);
-}
-
-/* Smooth transitions for grid items */
-.group {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.group:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-}
-
-/* Ensure proper aspect ratios for different screen sizes */
-@media (min-width: 1024px) {
-  .grid-cols-4.grid-rows-2 {
-    height: 400px;
+@keyframes fly {
+  0% {
+    transform: translate(0, 0);
   }
-}
-
-@media (min-width: 768px) and (max-width: 1023px) {
-  .md\:grid:not(.lg\:hidden) {
-    height: 400px;
+  50% {
+    transform: translate(60px, -10px); /* Adjust for path */
+  }
+  100% {
+    transform: translate(0, 0);
   }
 }
 </style>
