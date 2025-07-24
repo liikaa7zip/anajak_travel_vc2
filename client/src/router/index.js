@@ -9,6 +9,9 @@ import AboutPage from '../views/AboutPage.vue'
 import BlogPage from '../views/BlogPage.vue'
 import TravelingGuide from '../views/TravelingGuide.vue'
 
+// 👇 Import Battambang province page
+import Battambang from '../views/provinces/Battambang.vue'
+
 import AdminDashboard from '../views/admin/AdminDashboard.vue'
 import AdminUsers from '../views/admin/AdminUsers.vue'
 import CreateUser from '../components/CreateUser.vue' 
@@ -27,7 +30,10 @@ const routes = [
       { path: 'home', component: HomePage },
       { path: 'about', component: AboutPage },
       { path: 'blog', component: BlogPage },
-      { path: 'guide', component: TravelingGuide }
+      { path: 'guide', component: TravelingGuide },
+
+      // ✅ Add this route for Battambang page
+      { path: 'guide/battambang', component: Battambang }
     ]
   },
   {
