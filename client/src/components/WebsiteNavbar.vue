@@ -13,6 +13,7 @@
         <router-link to="/about" class="text-gray-700 hover:text-gray-900 font-medium">About Us</router-link>
         <router-link to="/guide" class="text-gray-700 hover:text-gray-900 font-medium">Traveling Guide</router-link>
         <router-link to="/blog" class="text-gray-700 hover:text-gray-900 font-medium">Blog Page</router-link>
+        <router-link to="/chat" class="text-gray-700 hover:text-gray-900 font-medium">Chat</router-link>
       </div>
 
       <!-- Buttons -->
