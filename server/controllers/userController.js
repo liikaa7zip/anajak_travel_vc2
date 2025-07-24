@@ -8,11 +8,10 @@ const secretKey = process.env.JWT_SECRET || 'your-secret-key';
 
 const validRoles = ['admin', 'user', 'restaurant_owner', 'hotel_owner'];
 
-// Public registration - role forced 'user'
+// Public registration — role forced to 'user'
 exports.registerUser = async (req, res) => {
   try {
     const { username, email, password } = req.body;
-
     if (!username || !email || !password) {
       return res.status(400).json({ message: 'Username, email, and password are required' });
     }
@@ -28,21 +27,22 @@ exports.registerUser = async (req, res) => {
       username,
       email,
       password: hashedPassword,
-      role: 'user' // force role to user
+      role: 'user',
     });
 
+    // Exclude password from response
     const { password: _, ...userWithoutPassword } = newUser.toJSON();
     res.status(201).json(userWithoutPassword);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.error('Register error:', err);
+    res.status(500).json({ message: 'Server error' });
   }
 };
 
-// Admin create user with role selection
+// Admin creates user with specified role
 exports.adminCreateUser = async (req, res) => {
   try {
     const { username, email, password, role } = req.body;
-
     if (!username || !email || !password || !role) {
       return res.status(400).json({ message: 'Username, email, password, and role are required' });
     }
@@ -62,21 +62,21 @@ exports.adminCreateUser = async (req, res) => {
       username,
       email,
       password: hashedPassword,
-      role
+      role,
     });
 
     const { password: _, ...userWithoutPassword } = newUser.toJSON();
     res.status(201).json(userWithoutPassword);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.error('Admin create user error:', err);
+    res.status(500).json({ message: 'Server error' });
   }
 };
 
-// LOGIN
+// User login
 exports.loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-
     if (!email || !password) {
       return res.status(400).json({ message: 'Email and password are required' });
     }
@@ -91,25 +91,29 @@ exports.loginUser = async (req, res) => {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
 
-    const token = jwt.sign({ id: user.id, email: user.email, role: user.role }, secretKey, { expiresIn: '1h' });
+    const token = jwt.sign(
+      { id: user.id, email: user.email, role: user.role },
+      secretKey,
+      { expiresIn: '1h' }
+    );
 
     const { password: _, ...userWithoutPassword } = user.toJSON();
     res.json({ user: userWithoutPassword, token });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.error('Login error:', err);
+    res.status(500).json({ message: 'Server error' });
   }
 };
 
-// GET all users (admin only)
+// Get all users (admin only)
 exports.getAllUsers = async (req, res) => {
   try {
     const users = await User.findAll({
-      attributes: { exclude: ['password'] }
+      attributes: { exclude: ['password'] },
     });
     res.json(users);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.error('Get all users error:', err);
+    res.status(500).json({ message: 'Server error' });
   }
 };
-
-// Additional CRUD methods as you already have...
