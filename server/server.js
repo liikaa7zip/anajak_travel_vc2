@@ -160,46 +160,48 @@ const http = require('http');
 const cors = require('cors');
 const { Server } = require('socket.io');
 
-const userRoutes = require('./routes/userRoutes'); // your user routes
-const adminUserRoutes = require('./routes/adminUserRoutes'); // admin routes
-const messageRoutes = require('./routes/messageRoutes'); // message routes (optional, if you want fetch API)
 const db = require('./models'); // Sequelize models
 const Message = db.Message;
+
+const userRoutes = require('./routes/userRoutes'); 
+const adminUserRoutes = require('./routes/adminUserRoutes');
+const messageRoutes = require('./routes/messageRoutes');
+const bookingRoutes = require('./routes/bookingRoute');
+const transportRoutes = require('./routes/transportRoutes');
 
 const app = express();
 const server = http.createServer(app);
 
 app.use(cors({
-  origin: 'http://localhost:3000', // Vue frontend origin
+  origin: 'http://localhost:3000',  // Your frontend URL
   credentials: true,
 }));
 
 app.use(express.json());
 
-// API routes
-app.use('/api/users', userRoutes);  
-// app.use('/api/users/admin', adminUserRoutes);
+// API Routes
+app.use('/api/users', userRoutes);
+// app.use('/api/admin-users', adminUserRoutes);
 app.use('/api/messages', messageRoutes);
-// app.use('/api', messageRoutes);
+app.use('/api/bookings', bookingRoutes);
+app.use('/api/transports', transportRoutes);
 
 // Socket.IO setup
 const io = new Server(server, {
   cors: {
     origin: 'http://localhost:3000',
     methods: ['GET', 'POST'],
-  }
+  },
 });
 
 io.on('connection', (socket) => {
   console.log('User connected', socket.id);
 
-  // Join user/admin to their own room (room name = username)
   socket.on('join', (username) => {
     socket.join(username);
     console.log(`${username} joined room ${username}`);
   });
 
-  // Receive a message, save to DB, emit to sender & receiver rooms
   socket.on('send_message', async (data, callback) => {
     try {
       const savedMsg = await Message.create({
@@ -208,7 +210,6 @@ io.on('connection', (socket) => {
         message: data.message,
       });
 
-      // Emit to sender and receiver rooms so both get the message realtime
       io.to(data.sender).emit('receive_message', savedMsg);
       io.to(data.receiver).emit('receive_message', savedMsg);
 
@@ -224,10 +225,12 @@ io.on('connection', (socket) => {
   });
 });
 
-// Start server after DB sync
+// Sync DB and start server
 const PORT = process.env.PORT || 5000;
-db.sequelize.sync().then(() => {
+db.sequelize.sync({ alter: true }).then(() => {
   server.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
   });
+}).catch(err => {
+  console.error('DB sync failed:', err);
 });
