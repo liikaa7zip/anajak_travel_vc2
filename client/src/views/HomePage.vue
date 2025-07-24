@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen bg-gray-50 w-full">
     <!-- Hero Section -->
-    <section class="min-h-screen flex items-center bg-gray-50 px-4 sm:px-8 lg:px-16">
+    <section class="min-h-screen flex items-center bg-gray-50 px-4 sm:px-8 lg:px-16 mx-auto">
       <div class="w-full">
         <div class="grid lg:grid-cols-2 gap-12 items-center max-w-none">
           <div class="space-y-8">
@@ -18,7 +18,7 @@
             </h1>
             <p
               class="text-gray-600 text-lg lg:text-xl leading-relaxed max-w-2xl"
-            >Stay updated with travel tips, recommendations, and latest promos.</p>
+            >Stay updated with recommendations and discover amazing destinations across Cambodia and beyond.</p>
             <div class="flex flex-col sm:flex-row gap-4">
               <button
                 @click="explore"
@@ -57,13 +57,6 @@
                 />
               </div>
             </div>
-            <!-- Animated Paths and Airplanes -->
-            <svg class="absolute inset-0 pointer-events-none" viewBox="0 0 100 100">
-              <path d="M20,30 C40,10 60,10 80,30" class="path" />
-              <path d="M20,70 C40,50 60,50 80,70" class="path" />
-              <circle class="airplane" cx="20" cy="30" r="1.5" />
-              <circle class="airplane" cx="20" cy="70" r="1.5" />
-            </svg>
           </div>
         </div>
       </div>
@@ -408,18 +401,10 @@
           <div class="relative w-full">
             <div class="grid grid-cols-2 gap-6">
               <div class="space-y-6">
-                <img
-                  :src="heroImages[0].src"
-                  alt="Cambodia destination"
-                  class="rounded-2xl w-full h-48 sm:h-56 lg:h-64 xl:h-72 object-cover shadow-lg"
-                />
+                <img src="@/assets/img-home-page/angkorwat.jpg" alt="Cambodia destination" class="rounded-2xl w-full h-48 sm:h-56 lg:h-64 xl:h-72 object-cover shadow-lg">
               </div>
               <div class="space-y-6 mt-8">
-                <img
-                  :src="heroImages[3].src"
-                  alt="Cambodia destination"
-                  class="rounded-2xl w-full h-48 sm:h-56 lg:h-64 xl:h-72 object-cover shadow-lg"
-                />
+                <img src="@/assets/img-home-page/waterfall.png" alt="Cambodia destination" class="rounded-2xl w-full h-48 sm:h-56 lg:h-64 xl:h-72 object-cover shadow-lg">
               </div>
             </div>
           </div>
@@ -972,35 +957,4 @@ export default {
 }
 
 /* Additional styles can be added here */
-
-.path {
-  fill: none;
-  stroke: #a855f7; /* Purple color */
-  stroke-width: 2;
-  stroke-dasharray: 5, 5; /* Dotted line */
-  animation: dash 5s linear infinite;
-}
-
-.airplane {
-  fill: #ec4899; /* Pink color */
-  animation: fly 5s linear infinite;
-}
-
-@keyframes dash {
-  to {
-    stroke-dashoffset: -100; /* Adjust based on path length */
-  }
-}
-
-@keyframes fly {
-  0% {
-    transform: translate(0, 0);
-  }
-  50% {
-    transform: translate(60px, -10px); /* Adjust for path */
-  }
-  100% {
-    transform: translate(0, 0);
-  }
-}
 </style>
