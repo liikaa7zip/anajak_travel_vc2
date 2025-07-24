@@ -36,14 +36,15 @@
 // module.exports = db;
 
 const sequelize = require('../config/db');
-const User = require('./user'); // if exists
-const Bus = require('./bus');
+const UserModel = require('./user');
+
 
 const db = {};
 
 db.sequelize = sequelize;
-db.User = User;
-db.Bus = Bus;
+db.User = UserModel(sequelize);
+
 
 module.exports = db;
+
 
