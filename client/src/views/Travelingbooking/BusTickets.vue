@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-xl mx-auto p-6 bg-white rounded-xl shadow-lg mt-10">
-    <h1 class="text-3xl font-bold mb-6 text-center text-blue-700">Book Your Ride</h1>
+    <h1 class="text-3xl font-bold mb-6 text-center text-blue-700">Bus Tickets Across Cambodia</h1>
 
     <!-- Booking Form -->
     <form @submit.prevent="submitBooking" class="space-y-4 mb-10">

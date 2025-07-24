@@ -1,8 +1,6 @@
 const express = require('express')
 const router = express.Router()
 const { Transport } = require('../models')
-
-// GET /api/transports — return all transports
 router.get('/', async (req, res) => {
   try {
     const transports = await Transport.findAll()
