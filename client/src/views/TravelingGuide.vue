@@ -1,7 +1,7 @@
 <template>
-  <div class="font-sans bg-gray-100 text-gray-900 min-h-screen">
+  <div class="w-full font-poppins bg-gray-100 text-gray-900 min-h-screen">
     <!-- Hero Section -->
-    <section class="relative w-full h-60 overflow-hidden mb- rounded-b-md">
+    <section class="relative w-full h-60 overflow-hidden rounded-b-md">
       <img
         src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80"
         alt="Cambodia"
@@ -39,6 +39,12 @@
         <img :src="province.image" :alt="province.name" class="w-full h-40 object-cover" />
         <div class="p-4 pb-2">
           <h4 class="text-lg font-semibold mb-2">{{ province.name }}</h4>
+           <div class="flex flex-wrap gap-2">
+                        <button @click="viewProvince(province.name)" class="bg-purple-500 hover:bg-purple-600 text-white px-3 py-2 rounded text-sm"><i class="fa-solid fa-house-chimney"></i></button>
+                        <button @click="viewFood(province.name)" class="bg-purple-500 hover:bg-purple-600 text-white px-3 py-2 rounded text-sm"><i class="fa-solid fa-bowl-food"></i></button>
+                        <button @click="bookTransport(province.name)" class="bg-purple-500 hover:bg-purple-600 text-white px-3 py-2 rounded text-sm"><i class="fa-solid fa-bus"></i></button>
+                        <button @click="checkWeather(province.name)" class="bg-purple-500 hover:bg-purple-600 text-white px-3 py-2 rounded text-sm"><i class="fa-solid fa-cloud-sun"></i></button>
+                    </div>
           <div class="flex gap-2">
             <span
               v-for="icon in icons"
@@ -175,12 +181,24 @@ export default {
             "https://upload.wikimedia.org/wikipedia/commons/7/7e/Kampong_Speu_Province_Monument.jpg",
         },
       ],
-      icons: [
-        `<svg width="18" height="18" fill="#7b3ff2" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>`,
-        `<svg width="18" height="18" fill="#7b3ff2" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>`,
-        `<svg width="18" height="18" fill="#7b3ff2" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5 0 2.76 2.24 5 5 5s5-2.24 5-5c0-2.76-2.24-5-5-5zm0 8c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3z"/></svg>`,
-        `<svg width="18" height="18" fill="#7b3ff2" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>`,
-      ],
+       methods: {
+                viewProvince(name) {
+                    alert(`Exploring ${name} details!`);
+                    // Add logic to navigate to province details page
+                },
+                viewFood(name) {
+                    alert(`Discovering local food in ${name}!`);
+                    // Add logic to show food menu
+                },
+                bookTransport(name) {
+                    alert(`Booking transportation for ${name}!`);
+                    // Add logic for transportation booking
+                },
+                checkWeather(name) {
+                    alert(`Checking weather for ${name}!`);
+                    // Add logic to fetch and display weather
+                }
+            }
     };
   },
   computed: {
