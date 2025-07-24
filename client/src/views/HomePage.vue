@@ -336,6 +336,9 @@ import mountain from '@/assets/img-home-page/mountain.jpg'
 import cruises from '@/assets/img-home-page/cruises.webp'
 import kohrong from '@/assets/img-home-page/kohrong.webp'
 import museum from '@/assets/img-home-page/museum.jpg'
+import food from '@/assets/img-home-page/food.jpg'
+import hiking from '@/assets/img-home-page/hiking.jpg'
+import city from '@/assets/img-home-page/city.jpg'
 
 
 export default {
@@ -405,45 +408,39 @@ export default {
           id: 1,
           src: cruises,
           name: "Cruises",
-          description: "Ancient temple complex",
+          description: "Scenic island cruise adventure",
           badge: "Popular"
         },
         {
           id: 2,
           src: kohrong,
           name: "Koh Rong",
-          description: "Cultural heritage city"
+          description: "Tropical beach getaway"
         },
         {
           id: 3,
           src: museum,
           name: "Museum Tour",
-          description: "Capital city",
+          description: "Explore Khmer history and culture",
           badge: "Trending"
         },
         {
           id: 4,
-          src:
-            "https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=500&q=80",
-          src: "https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=500&q=80",
-          name: "Kampot",
-          description: "Riverside town"
+          src: food,
+          name: "Food",
+          description: "Authentic Khmer dishes by the river"
         },
         {
           id: 5,
-          src:
-            "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=500&q=80",
-          src: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=500&q=80",
-          name: "Koh Rong",
-          description: "Paradise island"
+          src: hiking,
+          name: "Hiking",
+          description: "Jungle trek and nature walk"
         },
         {
           id: 6,
-          src:
-            "https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=500&q=80",
-          src: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=500&q=80",
-          name: "Battambang",
-          description: "Art and culture hub"
+          src: city,
+          name: "City Tour",
+          description: "Discover Phnom Penh’s urban charm"
         }
       ],
       features: [
