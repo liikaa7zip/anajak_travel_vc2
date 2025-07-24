@@ -1,5 +1,6 @@
 'use strict';
 const { DataTypes } = require('sequelize');
+const { sequelize } = require('./index');
 const sequelize = require('../config/db');
 
 const User = sequelize.define('User', {
