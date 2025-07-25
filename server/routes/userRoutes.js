@@ -13,6 +13,8 @@ router.post('/login', userController.loginUser);
 router.post('/admin/create-user', verifyToken, verifyAdmin, userController.adminCreateUser);
 router.get('/admin/users', verifyToken, verifyAdmin, userController.getAllUsers);
 router.delete('/admin/users/:id', userController.deleteUser);
+router.put('/admin/users/:id', userController.updateUser);
+router.put('/:id', userController.updateUser);
 
 // router.delete('/admin/users/:id', userController.deleteUser);
 
