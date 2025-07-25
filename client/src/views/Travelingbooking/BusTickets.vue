@@ -3,7 +3,7 @@
     <h1 class="text-3xl font-bold mb-6 text-center text-blue-700">Bus Tickets Across Cambodia</h1>
 
     <!-- Booking Form -->
-    <form @submit.prevent="submitBooking" class="space-y-4 mb-10">
+    <form @submit.prevent="submitBooking" class="space-y-4 mb-6">
       <div>
         <label class="block font-semibold mb-1">From</label>
         <input v-model="form.depart" required class="w-full border rounded px-3 py-2 focus:outline-blue-500" />
@@ -40,6 +40,16 @@
     <!-- Confirmation message -->
     <div v-if="confirmation" class="mb-6 p-4 bg-green-100 border border-green-400 rounded text-green-700">
       ✅ {{ confirmation }}
+    </div>
+
+    <!-- View Booking History Link -->
+    <div class="text-center">
+      <router-link
+        to="/booking-history"
+        class="inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+      >
+        View Booking History
+      </router-link>
     </div>
   </div>
 </template>

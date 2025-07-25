@@ -36,14 +36,15 @@
 // module.exports = db;
 
 const sequelize = require('../config/db');
-const User = require('./user'); // if exists
-const Bus = require('./bus');
+const User = require('./user');
+const Booking = require('./booking'); 
 
 const db = {};
 
 db.sequelize = sequelize;
 db.User = User;
-db.Bus = Bus;
+db.Booking = Booking;
 
 module.exports = db;
+
 
