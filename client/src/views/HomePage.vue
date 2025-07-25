@@ -497,7 +497,7 @@
                             v-for="star in 5"
                             :key="star"
                             class="text-lg"
-                          >{{ star <= review.stars ? '★' : '☆' }}</span>
+                          >{{ star = review.stars ? '★' : '☆' }}</span>
                         </div>
                       </div>
                     </div>
