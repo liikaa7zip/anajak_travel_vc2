@@ -188,25 +188,33 @@
                   </svg>
                   View
                 </button>
-                <button
-                  @click="editUser(user)"
-                  class="block w-full text-left px-4 py-2 text-sm text-yellow-400 hover:bg-[#181c2f] flex items-center gap-2"
-                >
-                  <svg
-                    class="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M15.232 5.232l3.536 3.536M9 11l6 6M3 21h6l11.293-11.293a1 1 0 000-1.414l-3.586-3.586a1 1 0 00-1.414 0L3 15v6z"
-                    />
-                  </svg>
-                  Edit
-                </button>
+                <!-- Edit Button -->
+<button
+      @click="editUser(user)"
+      class="block w-full text-left px-4 py-2 text-sm text-yellow-400 hover:bg-[#181c2f] flex items-center gap-2"
+    >
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M15.232 5.232l3.536 3.536M9 11l6 6M3 21h6l11.293-11.293a1 1 0 000-1.414l-3.586-3.586a1 1 0 00-1.414 0L3 15v6z"
+        />
+      </svg>
+      Edit
+    </button>
+
+    <!-- Show UpdateUser form only when clicked -->
+    <UpdateUser
+  v-if="showEditForm"
+  :user="selectedUser"
+  @close="showEditForm = false"
+  @updated="handleUserUpdated"
+/>
+
+
+
+
                 <button
   @click="banUser(user)"
   class="block w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-[#181c2f] flex items-center gap-2"
@@ -278,6 +286,7 @@
 import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
+import UpdateUser from '@/components/UpdateUser.vue'
 
 const users = ref([])
 const dropdownOpen = ref(null)
@@ -292,6 +301,8 @@ const props = defineProps({
 const emit = defineEmits(['user-deleted'])
 const currentPage = ref(1)
 const itemsPerPage = 6
+const selectedUser = ref(null);
+const showEditForm = ref(false);
 
 
 // Add User Modal state
@@ -407,11 +418,6 @@ function viewUser(user) {
   alert(`Viewing user: ${user.name} (${user.email})`)
   dropdownOpen.value = null
 }
-function editUser(user) {
-  alert(`Editing user: ${user.name}`)
-  dropdownOpen.value = null
-}
-
 // Stats helpers
 function countByStatus(status) {
   return users.value.filter(u => u.status === status).length
@@ -483,6 +489,19 @@ const banUser = async (user) => {
     alert('Failed to delete user.')
   }
 }
+
+function editUser(user) {
+  selectedUser.value = { ...user }; // Copy user object
+  showEditForm.value = true;
+}
+
+const handleUserUpdated = (updatedUser) => {
+  const index = users.value.findIndex(u => u.id === updatedUser.id)
+  if (index !== -1) {
+    users.value[index] = { ...updatedUser }
+  }
+}
+
 </script>
 
 <style scoped>
