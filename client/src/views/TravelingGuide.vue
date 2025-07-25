@@ -61,7 +61,8 @@
     <!-- Province Cards -->
     <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mx-6">
         <div class="bg-white rounded-xl shadow-md overflow-hidden flex flex-col transform hover:-translate-y-1 hover:scale-105 transition">
-            <img src="https://i0.wp.com/www.cambodialifestyle.com/wp-content/uploads/2024/04/Banteay-Meanchey2.jpg?fit=1024%2C683&ssl=1" alt="Banteay Meanchey" class="w-full h-60 object-cover" />
+            <router-link :to="{ name: 'BanteayMeanchey' }" class="bg-white rounded-xl shadow-md overflow-hidden flex flex-col transform hover:-translate-y-1 hover:scale-105 transition cursor-pointer">
+                <img src="https://i0.wp.com/www.cambodialifestyle.com/wp-content/uploads/2024/04/Banteay-Meanchey2.jpg?fit=1024%2C683&ssl=1" alt="Banteay Meanchey" class="w-full h-60 object-cover" />
             <div class="p-4 pb-2">
                 <h4 class="text-lg font-semibold mb-2">Banteay Meanchey</h4>
                 <div class="flex flex-wrap gap-2">
@@ -71,6 +72,8 @@
                     <button class="bg-purple-500 hover:bg-purple-600 text-white px-3 py-2 rounded text-sm"><i class="fa-solid fa-cloud-sun"></i></button>
                 </div>
             </div>
+            </router-link>
+            
         </div>
         <div class="bg-white rounded-xl shadow-md overflow-hidden flex flex-col transform hover:-translate-y-1 hover:scale-105 transition">
             <img src="https://www.birdguideasso.org/wp-content/uploads/2018/09/Preah-Vihear-Temple-1-e1545105862913.jpg" alt="Preah Vihear" class="w-full h-60 object-cover" />
@@ -365,7 +368,7 @@
 </template>
 
 <script>
-
+   
 </script>
 
 <style>
