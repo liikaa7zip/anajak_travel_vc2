@@ -70,12 +70,19 @@ onBeforeUnmount(() => {
       <div
         v-for="msg in messages"
         :key="msg.id"
-        :class="['chat-message', msg.sender === username ? 'user' : 'admin']"
+        :class="['chat-message-wrapper', msg.sender === username ? 'user' : 'admin']"
       >
-        <div class="message-content">
-          <p class="sender">{{ msg.sender === username ? 'You' : msg.sender }}</p>
-          <p class="text">{{ msg.message }}</p>
-          <span class="time">{{ formatDate(msg.createdAt) }}</span>
+        <!-- Message Bubble -->
+        <div class="chat-message">
+          <div class="message-content">
+            <p class="sender">{{ msg.sender === username ? 'You' : msg.sender }}</p>
+            <p class="text">{{ msg.message }}</p>
+          </div>
+        </div>
+
+        <!-- Date/Time Under Bubble -->
+        <div class="message-time">
+          {{ formatDate(msg.createdAt) }}
         </div>
       </div>
     </div>
@@ -91,6 +98,7 @@ onBeforeUnmount(() => {
     </div>
   </div>
 </template>
+
 
 
 <script setup>
@@ -179,122 +187,156 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .chat-container {
-  max-width: 700px;
+  max-width: 720px;
   height: 90vh;
-  margin: 30px auto;
+  margin: -40px auto;
   display: flex;
   flex-direction: column;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(to bottom, #f9fafb, #ffffff);
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
   overflow: hidden;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Inter', sans-serif;
+  border: 1px solid #e5e7eb;
 }
 
+/* Header */
 .chat-header {
-  background: #4f46e5;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
   color: white;
-  padding: 20px;
+  padding: 2px;
   text-align: center;
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.15);
 }
 
 .chat-header h2 {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
+  font-weight: 600;
 }
 
 .chat-header .subtext {
-  font-size: 0.9rem;
-  margin-top: 5px;
-  color: #c7d2fe;
+  font-size: 0.95rem;
+  color: #e0e7ff;
+  margin-top: 6px;
 }
 
+/* Chat Body */
 .chat-body {
   flex-grow: 1;
-  padding: 20px;
+  padding: 24px 20px;
   overflow-y: auto;
-  background-color: #f9fafb;
+  background-color: #f8fafc;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
+  scroll-behavior: smooth;
 }
 
+/* Message wrapper for alignment */
+.chat-message-wrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 80%;
+  margin-bottom: 14px;
+}
+
+.chat-message-wrapper.user {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+
+.chat-message-wrapper.admin {
+  align-self: flex-start;
+  align-items: flex-start;
+}
+
+/* Chat message bubble */
 .chat-message {
   display: flex;
-  max-width: 80%;
-}
-
-.chat-message.admin {
-  justify-content: flex-start;
-}
-
-.chat-message.user {
-  justify-content: flex-end;
-  align-self: flex-end;
 }
 
 .message-content {
-  padding: 12px 16px;
-  border-radius: 16px;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 14px 18px;
+  border-radius: 18px;
   background-color: #e0e7ff;
   color: #1e3a8a;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
   max-width: 100%;
+  word-wrap: break-word;
 }
 
-.chat-message.admin .message-content {
+.chat-message-wrapper.user .message-content {
+  background-color: #bbf7d0;
+  color: #065f46;
+}
+
+.chat-message-wrapper.admin .message-content {
   background-color: #f3f4f6;
   color: #111827;
 }
 
+/* Sender & Message Text */
 .sender {
-  font-weight: bold;
+  font-weight: 600;
+  font-size: 0.85rem;
   margin-bottom: 4px;
-  font-size: 0.9rem;
 }
 
 .text {
   margin: 0;
+  font-size: 1rem;
 }
 
-.time {
+/* Time under message bubble */
+.message-time {
   font-size: 0.75rem;
   color: #6b7280;
-  margin-top: 6px;
-  display: block;
-  text-align: right;
+  margin-top: 4px;
 }
 
+/* Footer Input Area */
 .chat-footer {
   display: flex;
-  padding: 16px;
-  border-top: 1px solid #e5e7eb;
+  padding: 16px 20px;
   background-color: #f3f4f6;
+  border-top: 1px solid #e2e8f0;
 }
 
 .message-input {
   flex: 1;
-  padding: 12px;
+  padding: 12px 16px;
   border: 1px solid #cbd5e1;
-  border-radius: 12px;
-  margin-right: 12px;
+  border-radius: 14px;
   font-size: 1rem;
+  transition: border 0.3s;
   outline: none;
+  background-color: white;
+}
+
+.message-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
 }
 
 .send-button {
-  padding: 12px 20px;
-  background-color: #4f46e5;
+  margin-left: 12px;
+  padding: 12px 22px;
+  background: linear-gradient(to right, #6366f1, #8b5cf6);
   color: white;
-  font-weight: bold;
+  font-weight: 600;
   border: none;
-  border-radius: 12px;
+  border-radius: 14px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background 0.3s, transform 0.2s;
 }
 
 .send-button:hover {
-  background-color: #4338ca;
+  background: linear-gradient(to right, #4f46e5, #7c3aed);
+  transform: translateY(-1px);
 }
 </style>
+
 

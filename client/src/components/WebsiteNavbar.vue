@@ -25,7 +25,7 @@
         <router-link to="/" class="nav-link">Home</router-link>
         <router-link to="/about" class="nav-link">About Us</router-link>
         <router-link to="/guide" class="nav-link">Traveling Guide</router-link>
-        <router-link to="/chat" class="nav-link">Chat</router-link>
+        <!-- <router-link to="/chat" class="nav-link">Chat</router-link> -->
 
         <!-- Travel Bookings Dropdown -->
         <div @mouseenter="showDropdown = true" @mouseleave="showDropdown = false" class="relative">
