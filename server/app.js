@@ -18,8 +18,8 @@ app.get('/', (req, res) => {
 
 // Book routes
 app.use('/api/books', require('./routes/bookRoutes'));
-// bus routes
-app.use('/api/buses', require('./routes/busRoutes'));
+// Booking routes
+app.use('/api/bookings', require('./routes/bookingRoute'));
 // User routes
 app.use('/api/users', require('./routes/userRoutes'));
 

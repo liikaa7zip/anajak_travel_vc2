@@ -166,6 +166,10 @@ const Message = db.Message;
 const userRoutes = require('./routes/userRoutes'); 
 const adminUserRoutes = require('./routes/adminUserRoutes');
 const messageRoutes = require('./routes/messageRoutes');
+
+
+const { sequelize } = require('./models'); // Keep this import
+
 const bookingRoutes = require('./routes/bookingRoute');
 const transportRoutes = require('./routes/transportRoutes');
 
