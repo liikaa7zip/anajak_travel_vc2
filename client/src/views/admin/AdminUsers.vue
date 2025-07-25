@@ -208,24 +208,19 @@
                   Edit
                 </button>
                 <button
-                  @click="banUser(user)"
-                  class="block w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-[#181c2f] flex items-center gap-2"
-                >
-                  <svg
-                    class="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                  Ban
-                </button>
+  @click="banUser(user)"
+  class="block w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-[#181c2f] flex items-center gap-2"
+>
+  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M6 18L18 6M6 6l12 12"
+    />
+  </svg>
+  Ban
+</button>
               </div>
             </transition>
           </div>
@@ -282,6 +277,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
+import { useRouter } from 'vue-router'
 
 const users = ref([])
 const dropdownOpen = ref(null)
@@ -290,9 +286,13 @@ const selectedRole = ref('')
 const selectedStatus = ref('')
 const sortKey = ref('name')
 const sortOrder = ref(1) // 1 asc, -1 desc
-
+const props = defineProps({
+  users: Array
+})
+const emit = defineEmits(['user-deleted'])
 const currentPage = ref(1)
 const itemsPerPage = 6
+
 
 // Add User Modal state
 const showAddUserModal = ref(false)
@@ -307,7 +307,7 @@ const newUser = ref({
 const fetchUsers = async () => {
   try {
     // Example: Adjust URL accordingly
-    const response = await axios.get('http://localhost:5000/api/users')
+    const response = await axios.get('http://localhost:5000/api/admin/users')
     users.value = response.data.map(user => ({
       id: user.id,
       name: user.username || user.name || 'Unknown',
@@ -411,12 +411,6 @@ function editUser(user) {
   alert(`Editing user: ${user.name}`)
   dropdownOpen.value = null
 }
-function banUser(user) {
-  if (confirm(`Ban user ${user.name}?`)) {
-    user.status = 'Banned'
-    dropdownOpen.value = null
-  }
-}
 
 // Stats helpers
 function countByStatus(status) {
@@ -474,6 +468,20 @@ if (typeof window !== 'undefined') {
       dropdownOpen.value = null
     }
   })
+}
+
+const banUser = async (user) => {
+  const confirmDelete = confirm(`Are you sure you want to delete user "${user.username}"?`)
+  if (!confirmDelete) return
+
+  try {
+    await axios.delete(`http://localhost:5000/api/admin/users/${user.id}`)
+    alert(`User ${user.username} deleted successfully.`)
+    emit('user-deleted', user.id)
+  } catch (error) {
+    console.error('Error deleting user:', error)
+    alert('Failed to delete user.')
+  }
 }
 </script>
 
