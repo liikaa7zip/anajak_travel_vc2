@@ -180,6 +180,7 @@ import BookingConfirmation from '../components/BookingConfirmation.vue'
 import UserChat from '../views/UserChat.vue'
 import AdminChat from '../views/admin/AdminChat.vue'
 
+
 // Auth guard
 const requireAuth = (to, from, next) => {
   let user = null

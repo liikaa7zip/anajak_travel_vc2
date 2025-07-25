@@ -4,11 +4,7 @@
     <div class="w-64 bg-white border-r shadow relative">
       <div class="p-4 text-lg font-bold border-b">👥 Users</div>
       <ul class="overflow-y-auto h-full">
-        <li
-          v-for="user in users"
-          :key="user"
-          class="relative group"
-        >
+        <li v-for="user in users" :key="user" class="relative group">
           <div
             @click="selectUser(user)"
             :class="[
@@ -37,6 +33,7 @@
             >
               ✏️ Rename
             </button>
+
             <button
               @click="deleteUser(user)"
               class="block px-4 py-2 hover:bg-gray-100 text-red-600 w-full text-left"
@@ -50,11 +47,8 @@
 
     <!-- Chat window -->
     <div class="flex-1 flex flex-col">
-      <!-- Header -->
       <div class="p-4 bg-white border-b shadow flex items-center justify-between">
-        <h2 class="text-xl font-bold">
-          Chat with {{ selectedUser || '...' }}
-        </h2>
+        <h2 class="text-xl font-bold">Chat with {{ selectedUser || '...' }}</h2>
       </div>
 
       <!-- Chat messages -->
@@ -65,7 +59,7 @@
           :class="msg.sender === adminName ? 'text-right' : 'text-left'"
         >
           <div
-            :class="[ 
+            :class="[
               'inline-block px-4 py-2 rounded-lg max-w-xs',
               msg.sender === adminName ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'
             ]"
@@ -93,170 +87,176 @@
           Send
         </button>
       </div>
+
+      <!-- Popup -->
       <div
-  v-if="popupMessage"
-  class="fixed bottom-4 right-4 bg-white border shadow-lg px-4 py-2 rounded text-sm text-gray-800"
->
-  {{ popupMessage }}
-</div>
+        v-if="popupMessage"
+        class="fixed bottom-4 right-4 bg-white border shadow-lg px-4 py-2 rounded text-sm text-gray-800"
+      >
+        {{ popupMessage }}
+      </div>
     </div>
+
+    <!-- Rename Modal -->
+    <RenameUserForm
+      v-if="showRenameModal"
+      :user="renameTarget"
+      @close="showRenameModal = false"
+      @renamed="(newName) => handleRename({ oldUsername: renameTarget, newUsername: newName })"
+    />
   </div>
 </template>
 
-
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue';
-import axios from 'axios';
-import { io } from 'socket.io-client';
+import { ref, onMounted, onBeforeUnmount } from 'vue'
+import axios from 'axios'
+import { io } from 'socket.io-client'
+import RenameUserForm from '@/components/RenameUserForm.vue'
 
-const adminName = 'admin';
-const socket = io('http://localhost:5000');
+const adminName = 'admin'
+const socket = io('http://localhost:5000')
 
-const users = ref([]);
-const selectedUser = ref('');
-const chatMessages = ref([]);
-const newMessage = ref('');
-const dropdownUser = ref(null);
-const popupMessage = ref('');
-const popupType = ref('');
-let popupTimeout = null;
+const users = ref([])
+const selectedUser = ref('')
+const chatMessages = ref([])
+const newMessage = ref('')
+const dropdownUser = ref(null)
+const popupMessage = ref('')
+const popupType = ref('')
+const showRenameModal = ref(false)
+const renameTarget = ref('')
 
-// Show temporary popup
+let popupTimeout = null
+
 function showPopup(message, type = 'success') {
-  popupMessage.value = message;
-  popupType.value = type;
-
-  if (popupTimeout) clearTimeout(popupTimeout);
+  popupMessage.value = message
+  popupType.value = type
+  if (popupTimeout) clearTimeout(popupTimeout)
   popupTimeout = setTimeout(() => {
-    popupMessage.value = '';
-  }, 3000);
+    popupMessage.value = ''
+  }, 3000)
 }
 
-// Fetch all users
 async function fetchUsers() {
   try {
-    const res = await axios.get('http://localhost:5000/api/messages/users');
-    users.value = res.data;
+    const res = await axios.get('http://localhost:5000/api/messages/users')
+    users.value = res.data
     if (res.data.length > 0) {
-      selectedUser.value = res.data[0];
-      loadChatWithUser();
+      selectedUser.value = res.data[0]
+      loadChatWithUser()
     }
   } catch (e) {
-    console.error('fetchUsers error', e);
+    console.error('fetchUsers error', e)
   }
 }
 
-// Load conversation between admin and selected user
 async function loadChatWithUser() {
   if (!selectedUser.value) {
-    chatMessages.value = [];
-    return;
+    chatMessages.value = []
+    return
   }
   try {
-    const res = await axios.get(`http://localhost:5000/api/messages/conversation?user1=${adminName}&user2=${selectedUser.value}`);
-    chatMessages.value = res.data;
+    const res = await axios.get(
+      `http://localhost:5000/api/messages/conversation?user1=${adminName}&user2=${selectedUser.value}`
+    )
+    chatMessages.value = res.data
   } catch (e) {
-    console.error('loadChatWithUser error', e);
+    console.error('loadChatWithUser error', e)
   }
 }
 
-// Select a user from the sidebar
 function selectUser(user) {
-  selectedUser.value = user;
-  loadChatWithUser();
+  selectedUser.value = user
+  loadChatWithUser()
 }
 
-// Send a message from admin
 function sendMessage() {
-  if (!newMessage.value.trim() || !selectedUser.value) return;
-
+  if (!newMessage.value.trim() || !selectedUser.value) return
   const msg = {
     sender: adminName,
     receiver: selectedUser.value,
     message: newMessage.value.trim(),
-  };
-
+  }
   socket.emit('send_message', msg, (response) => {
     if (response.status === 'ok') {
-      chatMessages.value.push({ ...msg, createdAt: new Date().toISOString() });
-      newMessage.value = '';
+      chatMessages.value.push({ ...msg, createdAt: new Date().toISOString() })
+      newMessage.value = ''
     } else {
-      alert('Message send failed');
+      alert('Message send failed')
     }
-  });
+  })
 }
 
-// Socket event: receive new message
 socket.on('receive_message', (msg) => {
   const isRelevant =
     (msg.sender === adminName && msg.receiver === selectedUser.value) ||
-    (msg.sender === selectedUser.value && msg.receiver === adminName);
-
+    (msg.sender === selectedUser.value && msg.receiver === adminName)
   if (isRelevant) {
-    chatMessages.value.push(msg);
+    chatMessages.value.push(msg)
   }
-});
+})
 
-// Dropdown toggle logic
 function toggleDropdown(user) {
-  dropdownUser.value = dropdownUser.value === user ? null : user;
+  dropdownUser.value = dropdownUser.value === user ? null : user
 }
 
-// Rename a user (UI only)
 function renameUser(user) {
-  const newName = prompt('Enter new name:', user);
-  if (newName && newName !== user) {
-    users.value = users.value.map(u => (u === user ? newName : u));
-    if (selectedUser.value === user) {
-      selectedUser.value = newName;
-    }
-  }
-  dropdownUser.value = null;
+  renameTarget.value = user
+  showRenameModal.value = true
+  dropdownUser.value = null
 }
 
-// Delete all messages of a user
+async function handleRename({ oldUsername, newUsername }) {
+  try {
+    const res = await axios.put('http://localhost:5000/api/messages/rename', {
+      oldUsername,
+      newUsername
+    })
+
+    showPopup(res.data.message || 'User renamed')
+    users.value = users.value.map(u => u === oldUsername ? newUsername : u)
+    if (selectedUser.value === oldUsername) {
+      selectedUser.value = newUsername
+    }
+  } catch (err) {
+    console.error('Rename error', err)
+    showPopup('❌ Rename failed', 'error')
+  }
+  showRenameModal.value = false
+}
+
 async function deleteUser(user) {
-  if (confirm(`Are you sure you want to delete all messages from '${user}'?`)) {
-    try {
-      await axios.delete(`http://localhost:5000/api/messages/user/${user}`);
-
-      users.value = users.value.filter(u => u !== user);
-
-      if (selectedUser.value === user) {
-        selectedUser.value = users.value[0] || '';
-        await loadChatWithUser();
-      }
-
-      showPopup(`🗑️ Messages from '${user}' have been deleted.`);
-    } catch (err) {
-      console.error('Failed to delete user messages:', err);
-      showPopup('❌ Error deleting user messages', 'error');
+  if (!confirm(`Are you sure you want to delete all messages from '${user}'?`)) return
+  try {
+    await axios.delete(`http://localhost:5000/api/messages/user/${user}`)
+    users.value = users.value.filter(u => u !== user)
+    if (selectedUser.value === user) {
+      selectedUser.value = users.value[0] || ''
+      await loadChatWithUser()
     }
+    showPopup(`🗑️ Messages from '${user}' have been deleted.`)
+  } catch (err) {
+    console.error('Delete error', err)
+    showPopup('❌ Error deleting user messages', 'error')
   }
-
-  dropdownUser.value = null;
+  dropdownUser.value = null
 }
 
-// Format timestamps
 function formatDate(dateString) {
-  return new Date(dateString).toLocaleTimeString();
+  return new Date(dateString).toLocaleTimeString()
 }
 
-// Lifecycle hooks
 onMounted(() => {
-  socket.emit('join', adminName);
-  fetchUsers();
-});
+  socket.emit('join', adminName)
+  fetchUsers()
+})
 
 onBeforeUnmount(() => {
-  socket.disconnect();
-});
+  socket.disconnect()
+})
 </script>
 
-
-
 <style scoped>
-/* Optional scrollbar styling */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -265,4 +265,3 @@ onBeforeUnmount(() => {
   border-radius: 3px;
 }
 </style>
-
