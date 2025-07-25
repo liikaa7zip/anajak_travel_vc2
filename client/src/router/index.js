@@ -38,6 +38,10 @@ const requireAuth = (to, from, next) => {
 // import CreateUser from '../components/CreateUser.vue' 
 
 import BookingConfirmation from '../components/BookingConfirmation.vue'
+
+import BusTickets from '@/views/Travelingbooking/BusTickets.vue'
+import BookingHistory from '@/views/BookingHistory.vue'
+=======
 // import BusTickets from '@/views/Travelingbooking/BusTickets.vue'
 
 const routes = [
@@ -121,6 +125,11 @@ const routes = [
     path: '/confirmation',
     name: 'BookingConfirmation',
     component: BookingConfirmation
+  },
+  {
+    path: '/booking-history',
+    name: 'BookingHistory',
+    component: BookingHistory
   }
 ]
 
