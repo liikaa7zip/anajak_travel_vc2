@@ -24,6 +24,9 @@ router.get('/users', async (req, res) => {
 router.get('/conversation', messageController.getConversationBetweenUsers);
 // router.delete('/messages/:id', messageController.deleteMessage);
 router.delete('/user/:sender', messageController.deleteMessagesBySender); 
+router.put('/rename', messageController.renameUserInMessages);
+
+
 // Send message
 router.post('/', messageController.sendMessage);
 

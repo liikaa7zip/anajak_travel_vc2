@@ -4,6 +4,8 @@
 // controllers/messageController.js
 const { Message, Sequelize } = require('../models');
 const { Op } = Sequelize;
+const db = require('../models');
+
 
 // Fetch conversation between two users
 exports.getConversationBetweenUsers = async (req, res) => {
@@ -53,5 +55,33 @@ exports.deleteMessagesBySender = async (req, res) => {
     res.status(200).json({ message: 'Messages deleted successfully' });
   } catch (error) {
     res.status(500).json({ error: 'Failed to delete messages' });
+  }
+};
+
+
+exports.renameUserInMessages = async (req, res) => {
+  const { oldUsername, newUsername } = req.body;
+
+  if (!oldUsername || !newUsername) {
+    return res.status(400).json({ error: 'oldUsername and newUsername are required' });
+  }
+
+  try {
+    const [updatedCount] = await db.Message.update(
+      { sender: newUsername },
+      { where: { sender: oldUsername } }
+    );
+
+    if (updatedCount === 0) {
+      return res.status(404).json({ error: 'No messages found for the old username' });
+    }
+
+    res.json({ message: 'Username updated in messages', updatedCount });
+  } catch (err) {
+    console.error('Rename user error:', err);
+    res.status(500).json({ 
+      error: 'Error renaming user in messages', 
+      details: err.message || err.toString() 
+    });
   }
 };
