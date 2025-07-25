@@ -3,20 +3,23 @@
     <!-- Hero Section -->
     <section class="relative w-full h-64 overflow-hidden rounded-b-md">
       <img
-        src="https://upload.wikimedia.org/wikipedia/commons/2/28/Kampot_in_Cambodia.svg"
-        alt="Kampot Province"
+        src="https://images.unsplash.com/photo-1581317849586-b8dc240134f5?auto=format&fit=crop&w=1200&q=80"
+        alt="Kampong Speu"
         class="w-full h-full object-cover"
       />
       <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-        <h1 class="text-3xl md:text-5xl text-white font-bold">Kampot Province</h1>
+        <h1 class="text-3xl md:text-5xl text-white font-bold">Kampong Speu Province</h1>
       </div>
     </section>
 
     <!-- About Section -->
     <section class="px-6 py-10 max-w-4xl mx-auto">
-      <h2 class="text-2xl font-semibold mb-4">About Kampot</h2>
+      <h2 class="text-2xl font-semibold mb-4">About Kampong Speu</h2>
       <p class="text-gray-700 leading-relaxed">
-        Kampot is a coastal province in southern Cambodia known for its pepper plantations, scenic rivers, and charming colonial architecture.
+        Kampong Speu, located just west of Phnom Penh, is known for its scenic countryside,
+        mountain ranges, and palm sugar production. It is a province rich in natural beauty and
+        traditional Khmer lifestyle. Kampong Speu offers eco-tourism experiences, hiking trails,
+        and cultural sites, making it a perfect getaway from the city.
       </p>
     </section>
 
@@ -65,7 +68,7 @@
       <h2 class="text-2xl font-semibold mb-4 text-center">Province Map</h2>
       <div class="max-w-4xl mx-auto">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31331.97315827817!2d104.22317719209124!3d10.608130049675132!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3107cdcaed4acbd1%3A0x99d4af7eb893bd65!2sKampot!5e0!3m2!1sen!2skh!4v1699625074743!5m2!1sen!2skh"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d391689.4628322239!2d104.57845173726902!3d11.473598974501187!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310fa8f01961c1ab%3A0xd2b61b7c3d2df4e7!2sKampong%20Speu%20Province!5e0!3m2!1sen!2skh!4v1721861276722"
           width="100%"
           height="400"
           style="border:0;"
@@ -82,41 +85,45 @@
 import { ref } from 'vue'
 
 const topAttractions = ref([
-  { name: 'Kampot Pepper Plantations', description: 'World-famous pepper farms producing high-quality Kampot pepper.' },
-  { name: 'Bokor National Park', description: 'A beautiful park with waterfalls, hiking trails, and misty mountain views.' },
-  { name: 'Kampot River', description: 'A scenic riverfront area perfect for sunset cruises and relaxing walks.' },
+  { name: 'Phnom Aural', description: 'Cambodia’s highest peak, great for trekking and adventure.' },
+  { name: 'Kirirom National Park', description: 'Known for pine forests, cool climate, and waterfalls.' },
+  { name: 'Chambok Ecotourism Site', description: 'Community-based eco experiences and nature trails.' },
+  { name: 'Te Teuk Pus Hot Springs', description: 'Natural hot spring with therapeutic benefits.' },
+  { name: 'Historical Temples', description: 'Ancient Khmer architecture scattered across the province.' },
 ])
 
 const thingsToDo = ref([
-  'Visit the pepper plantations.',
-  'Hike in Bokor National Park.',
-  'Take a boat ride on the Kampot River.',
-  'Explore the colonial-era architecture in Kampot town.',
+  'Hike to the top of Phnom Aural for breathtaking views.',
+  'Camp overnight at Kirirom National Park.',
+  'Visit sugar palm farms and taste fresh palm sugar.',
+  'Explore waterfalls and hidden trails around Chambok.',
+  'Take a relaxing dip in natural hot springs.',
 ])
 
 const travelTips = ref([
-  'Best time to visit is from November to March.',
-  'Bring insect repellent for outdoor activities.',
-  'Try the local seafood and Kampot pepper dishes.',
-  'Rent a motorbike to explore nearby countryside easily.',
+  '🌤 Best time to visit is during the dry season (November–March).',
+  '🚗 Bring a motorbike or rent a car for rural exploration.',
+  '🥾 Wear sturdy shoes if planning to hike Phnom Aural or Kirirom.',
+  '💧 Bring your own water and snacks for remote areas.',
+  '📱 Limited mobile signal in mountainous areas — plan ahead.',
 ])
 
 const galleryPhotos = ref([
   {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Kampot_Pepper_Field.jpg',
-    alt: 'Kampot Pepper Field',
+    src: 'https://images.unsplash.com/photo-1565372510940-2360ed0c305c?auto=format&fit=crop&w=800&q=80',
+    alt: 'Phnom Aural',
   },
   {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/3/35/Bokor_National_Park_Sign.jpg',
-    alt: 'Bokor National Park',
+    src: 'https://images.unsplash.com/photo-1613605324724-e0425ab5adfd?auto=format&fit=crop&w=800&q=80',
+    alt: 'Kirirom National Park',
   },
   {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/a/a7/Kampot_River_Sunset.jpg',
-    alt: 'Kampot River Sunset',
+    src: 'https://images.unsplash.com/photo-1608354706496-fb804dd6d41c?auto=format&fit=crop&w=800&q=80',
+    alt: 'Palm Sugar Production',
   },
 ])
 </script>
 
 <style scoped>
-/* Add your custom styles here */
+/* Add any specific styles if needed */
 </style>

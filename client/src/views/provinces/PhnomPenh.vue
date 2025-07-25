@@ -3,20 +3,20 @@
     <!-- Hero Section -->
     <section class="relative w-full h-64 overflow-hidden rounded-b-md">
       <img
-        src="https://upload.wikimedia.org/wikipedia/commons/2/28/Kampot_in_Cambodia.svg"
-        alt="Kampot Province"
+        src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Phnom_Penh_Cityscape.jpg"
+        alt="Phnom Penh Province"
         class="w-full h-full object-cover"
       />
       <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-        <h1 class="text-3xl md:text-5xl text-white font-bold">Kampot Province</h1>
+        <h1 class="text-3xl md:text-5xl text-white font-bold">Phnom Penh Province</h1>
       </div>
     </section>
 
     <!-- About Section -->
     <section class="px-6 py-10 max-w-4xl mx-auto">
-      <h2 class="text-2xl font-semibold mb-4">About Kampot</h2>
+      <h2 class="text-2xl font-semibold mb-4">About Phnom Penh</h2>
       <p class="text-gray-700 leading-relaxed">
-        Kampot is a coastal province in southern Cambodia known for its pepper plantations, scenic rivers, and charming colonial architecture.
+        Phnom Penh is the capital and largest city of Cambodia, known for its rich history, vibrant culture, and beautiful riverside.
       </p>
     </section>
 
@@ -65,7 +65,7 @@
       <h2 class="text-2xl font-semibold mb-4 text-center">Province Map</h2>
       <div class="max-w-4xl mx-auto">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31331.97315827817!2d104.22317719209124!3d10.608130049675132!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3107cdcaed4acbd1%3A0x99d4af7eb893bd65!2sKampot!5e0!3m2!1sen!2skh!4v1699625074743!5m2!1sen!2skh"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.677346322752!2d104.89516457466644!3d11.56210844184976!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31095110d3bf41d1%3A0x71abf1643f3ef9e8!2sPhnom%20Penh%2C%20Cambodia!5e0!3m2!1sen!2skh!4v1699625987310!5m2!1sen!2skh"
           width="100%"
           height="400"
           style="border:0;"
@@ -82,41 +82,41 @@
 import { ref } from 'vue'
 
 const topAttractions = ref([
-  { name: 'Kampot Pepper Plantations', description: 'World-famous pepper farms producing high-quality Kampot pepper.' },
-  { name: 'Bokor National Park', description: 'A beautiful park with waterfalls, hiking trails, and misty mountain views.' },
-  { name: 'Kampot River', description: 'A scenic riverfront area perfect for sunset cruises and relaxing walks.' },
+  { name: 'Royal Palace', description: 'A stunning example of Khmer architecture and residence of the King.' },
+  { name: 'National Museum of Cambodia', description: 'Home to a vast collection of Khmer art and artifacts.' },
+  { name: 'Wat Phnom', description: 'A Buddhist temple and the city’s namesake.' },
 ])
 
 const thingsToDo = ref([
-  'Visit the pepper plantations.',
-  'Hike in Bokor National Park.',
-  'Take a boat ride on the Kampot River.',
-  'Explore the colonial-era architecture in Kampot town.',
+  'Visit the Royal Palace and Silver Pagoda.',
+  'Explore the riverside area (Sisowath Quay).',
+  'Discover the history at the Tuol Sleng Genocide Museum.',
+  'Shop and eat at the Central Market (Phsar Thmei).',
 ])
 
 const travelTips = ref([
-  'Best time to visit is from November to March.',
-  'Bring insect repellent for outdoor activities.',
-  'Try the local seafood and Kampot pepper dishes.',
-  'Rent a motorbike to explore nearby countryside easily.',
+  'Best time to visit is from November to February.',
+  'Dress respectfully when visiting temples and royal sites.',
+  'Use tuk-tuks to explore the city conveniently.',
+  'Stay hydrated and watch out for the tropical heat.',
 ])
 
 const galleryPhotos = ref([
   {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Kampot_Pepper_Field.jpg',
-    alt: 'Kampot Pepper Field',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/3/31/Royal_Palace_Phnom_Penh.jpg',
+    alt: 'Royal Palace Phnom Penh',
   },
   {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/3/35/Bokor_National_Park_Sign.jpg',
-    alt: 'Bokor National Park',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/a/a7/National_Museum_of_Cambodia.jpg',
+    alt: 'National Museum of Cambodia',
   },
   {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/a/a7/Kampot_River_Sunset.jpg',
-    alt: 'Kampot River Sunset',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/6/6e/Wat_Phnom%2C_Phnom_Penh_01.jpg',
+    alt: 'Wat Phnom Temple',
   },
 ])
 </script>
 
 <style scoped>
-/* Add your custom styles here */
+/* Add your custom styles here if needed */
 </style>

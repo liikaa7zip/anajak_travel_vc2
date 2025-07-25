@@ -3,20 +3,20 @@
     <!-- Hero Section -->
     <section class="relative w-full h-64 overflow-hidden rounded-b-md">
       <img
-        src="https://upload.wikimedia.org/wikipedia/commons/2/28/Kampot_in_Cambodia.svg"
-        alt="Kampot Province"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Svay_Rieng_in_Cambodia.svg/1200px-Svay_Rieng_in_Cambodia.svg.png"
+        alt="Svay Rieng Province"
         class="w-full h-full object-cover"
       />
       <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-        <h1 class="text-3xl md:text-5xl text-white font-bold">Kampot Province</h1>
+        <h1 class="text-3xl md:text-5xl text-white font-bold">Svay Rieng Province</h1>
       </div>
     </section>
 
     <!-- About Section -->
     <section class="px-6 py-10 max-w-4xl mx-auto">
-      <h2 class="text-2xl font-semibold mb-4">About Kampot</h2>
+      <h2 class="text-2xl font-semibold mb-4">About Svay Rieng</h2>
       <p class="text-gray-700 leading-relaxed">
-        Kampot is a coastal province in southern Cambodia known for its pepper plantations, scenic rivers, and charming colonial architecture.
+        Svay Rieng province is located in southeastern Cambodia. It shares a border with Vietnam and is known for its rich agricultural land, cultural heritage, and traditional Khmer lifestyle.
       </p>
     </section>
 
@@ -65,7 +65,7 @@
       <h2 class="text-2xl font-semibold mb-4 text-center">Province Map</h2>
       <div class="max-w-4xl mx-auto">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31331.97315827817!2d104.22317719209124!3d10.608130049675132!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3107cdcaed4acbd1%3A0x99d4af7eb893bd65!2sKampot!5e0!3m2!1sen!2skh!4v1699625074743!5m2!1sen!2skh"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31440.71335183087!2d106.6285448839339!3d11.121162517418434!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31051ee2bca932e3%3A0xb3c73984af6f2283!2sSvay%20Rieng%20Province!5e0!3m2!1sen!2skh!4v1699624637000!5m2!1sen!2skh"
           width="100%"
           height="400"
           style="border:0;"
@@ -82,41 +82,41 @@
 import { ref } from 'vue'
 
 const topAttractions = ref([
-  { name: 'Kampot Pepper Plantations', description: 'World-famous pepper farms producing high-quality Kampot pepper.' },
-  { name: 'Bokor National Park', description: 'A beautiful park with waterfalls, hiking trails, and misty mountain views.' },
-  { name: 'Kampot River', description: 'A scenic riverfront area perfect for sunset cruises and relaxing walks.' },
+  { name: 'Chrey Thom Pagoda', description: 'A beautiful and peaceful pagoda known for its architecture.' },
+  { name: 'Tonle Basak Lake', description: 'A scenic lake ideal for fishing and relaxing.' },
+  { name: 'Svay Rieng Rice Fields', description: 'Expansive rice fields showcasing traditional farming.' },
 ])
 
 const thingsToDo = ref([
-  'Visit the pepper plantations.',
-  'Hike in Bokor National Park.',
-  'Take a boat ride on the Kampot River.',
-  'Explore the colonial-era architecture in Kampot town.',
+  'Visit the Chrey Thom Pagoda.',
+  'Explore the Tonle Basak Lake area.',
+  'Tour traditional rice farming villages.',
+  'Enjoy local markets and Khmer cuisine.',
 ])
 
 const travelTips = ref([
-  'Best time to visit is from November to March.',
-  'Bring insect repellent for outdoor activities.',
-  'Try the local seafood and Kampot pepper dishes.',
-  'Rent a motorbike to explore nearby countryside easily.',
+  'Visit during the dry season from November to April.',
+  'Bring sun protection for outdoor activities.',
+  'Try local dishes unique to the province.',
+  'Be respectful of local customs and traditions.',
 ])
 
 const galleryPhotos = ref([
   {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Kampot_Pepper_Field.jpg',
-    alt: 'Kampot Pepper Field',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/6/66/Chrey_Thom_Pagoda%2C_Svay_Rieng.jpg',
+    alt: 'Chrey Thom Pagoda',
   },
   {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/3/35/Bokor_National_Park_Sign.jpg',
-    alt: 'Bokor National Park',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/1/16/Tonle_Basak_Lake_Svay_Rieng.jpg',
+    alt: 'Tonle Basak Lake',
   },
   {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/a/a7/Kampot_River_Sunset.jpg',
-    alt: 'Kampot River Sunset',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/e/e7/Svay_Rieng_rice_fields.jpg',
+    alt: 'Rice Fields in Svay Rieng',
   },
 ])
 </script>
 
 <style scoped>
-/* Add your custom styles here */
+/* Add your styles here */
 </style>
