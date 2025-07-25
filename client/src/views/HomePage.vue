@@ -453,8 +453,7 @@
           <button
             @click="nextSlide"
             class="absolute right-0 top-1/2 transform -translate-y-1/2 z-20 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full p-4 transition-all duration-300"
-            :disabled="currentSlide >= maxSlides"
-          >
+            :disabled="currentSlide >= maxSlides">
             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 stroke-linecap="round"
