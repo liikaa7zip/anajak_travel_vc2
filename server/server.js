@@ -37,7 +37,11 @@
 
 const express = require('express');
 const cors = require('cors');
+
+const { sequelize } = require('./models');
+=======
 const { sequelize } = require('./models'); // Keep this import
+
 const bookingRoutes = require('./routes/bookingRoute');
 const transportRoutes = require('./routes/transportRoutes');
 const userRoutes = require('./routes/userRoutes');
@@ -53,9 +57,12 @@ app.use(cors({
 
 app.use(express.json());
 
+
+=======
 app.get('/', (req, res) => {
   res.send('Server is running');
 });
+
 
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/transports', transportRoutes);
