@@ -70,9 +70,9 @@ const requireAdmin = (to, from, next) => {
   }
   next()
 }
-import BookingConfirmation from '../components/BookingConfirmation.vue'
+// import BookingConfirmation from '../components/BookingConfirmation.vue'
 
-import BusTickets from '@/views/Travelingbooking/BusTickets.vue'
+// import BusTickets from '@/views/Travelingbooking/BusTickets.vue'
 import BookingHistory from '@/views/BookingHistory.vue'
 
 // import BusTickets from '@/views/Travelingbooking/BusTickets.vue'
