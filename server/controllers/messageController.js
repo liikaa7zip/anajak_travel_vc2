@@ -1,47 +1,4 @@
-// const db = require('../models');
-// const Message = db.Message;
-// const Sequelize = db.Sequelize;
 
-// exports.getMessagesBetweenUsers = async (req, res) => {
-//   const { user1, user2 } = req.query;
-
-//   if (!user1 || !user2) {
-//     return res.status(400).json({ message: 'user1 and user2 query params required' });
-//   }
-
-//   try {
-//     const messages = await Message.findAll({
-//       where: {
-//         [Sequelize.Op.or]: [
-//           { sender: user1, receiver: user2 },
-//           { sender: user2, receiver: user1 },
-//         ],
-//       },
-//       order: [['createdAt', 'ASC']],
-//     });
-
-//     res.json(messages);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ message: 'Failed to get messages' });
-//   }
-// };
-
-// exports.sendMessage = async (req, res) => {
-//   const { sender, receiver, content } = req.body;
-
-//   if (!sender || !receiver || !content) {
-//     return res.status(400).json({ message: 'sender, receiver, and content are required' });
-//   }
-
-//   try {
-//     const message = await Message.create({ sender, receiver, message: content });
-//     res.status(201).json(message);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ message: 'Failed to send message' });
-//   }
-// };
 
 
 // controllers/messageController.js
@@ -88,3 +45,13 @@ exports.sendMessage = async (req, res) => {
   }
 };
 
+// DELETE a message by ID
+exports.deleteMessagesBySender = async (req, res) => {
+  const sender = req.params.sender;
+  try {
+    await Message.destroy({ where: { sender } });
+    res.status(200).json({ message: 'Messages deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to delete messages' });
+  }
+};

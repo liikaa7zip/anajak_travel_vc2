@@ -22,7 +22,8 @@ router.get('/users', async (req, res) => {
 
 // Get conversation between two users (user1 and user2)
 router.get('/conversation', messageController.getConversationBetweenUsers);
-
+// router.delete('/messages/:id', messageController.deleteMessage);
+router.delete('/user/:sender', messageController.deleteMessagesBySender); 
 // Send message
 router.post('/', messageController.sendMessage);
 

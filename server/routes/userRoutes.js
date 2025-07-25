@@ -13,6 +13,8 @@ router.post('/login', userController.loginUser);
 router.post('/admin/create-user', verifyToken, verifyAdmin, userController.adminCreateUser);
 router.get('/admin/users', verifyToken, verifyAdmin, userController.getAllUsers);
 
+// router.delete('/admin/users/:id', userController.deleteUser);
+
 // Add other admin routes as needed
 
 module.exports = router;
