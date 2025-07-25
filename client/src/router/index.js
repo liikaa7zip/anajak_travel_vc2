@@ -15,7 +15,7 @@ import CreateUser from '../components/CreateUser.vue'
 
 import BookingConfirmation from '../components/BookingConfirmation.vue'
 import BusTickets from '@/views/Travelingbooking/BusTickets.vue'
-import BookingHistory from '@/components/BookingHistory.vue'
+import BookingHistory from '@/views/BookingHistory.vue'
 
 const routes = [
   {
