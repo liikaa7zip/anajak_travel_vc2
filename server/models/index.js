@@ -1,45 +1,29 @@
-// // server/models/index.js
-// 'use strict';
+const { Sequelize, DataTypes } = require('sequelize');
+const sequelize = require('../config/db');
 
-// const fs = require('fs');
-// const path = require('path');
-// const Sequelize = require('sequelize');
-// const basename = path.basename(__filename);
-// const db = {};
+const User = require('./user');
+const Booking = require('./booking'); 
 
-// const sequelize = require('../config/db');
+const UserModel = require('./user');
 
-// fs
-//   .readdirSync(__dirname)
-//   .filter(file => {
-//     return (
-//       file.indexOf('.') !== 0 &&
-//       file !== basename &&
-//       file.slice(-3) === '.js' &&
-//       file.indexOf('.test.js') === -1
-//     );
-//   })
-//   .forEach(file => {
-//     const model = require(path.join(__dirname, file)); 
-//     db[model.name] = model;
-//   });
 
-// Object.keys(db).forEach(modelName => {
-//   if (db[modelName].associate) {
-//     db[modelName].associate(db);
-//   }
-// });
 
-// db.sequelize = sequelize;
-// db.Sequelize = Sequelize;
+const db = {};
 
-// module.exports = db;
+db.Sequelize = Sequelize;
+db.sequelize = sequelize;
 
-const sequelize = require('../config/db')
-const User = require('./user')
+db.User = User;
+db.Booking = Booking;
 
-const db = {}
-db.sequelize = sequelize
-db.User = User
+db.User = UserModel(sequelize);
 
-module.exports = db
+// Import models once, passing (sequelize, DataTypes)
+db.User = require('./user')(sequelize, DataTypes);
+db.Message = require('./message')(sequelize, DataTypes);
+
+// Define associations here if needed
+// e.g. db.User.hasMany(db.Message, { foreignKey: 'sender' });
+
+
+module.exports = db;
