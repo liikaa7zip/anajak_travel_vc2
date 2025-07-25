@@ -17,7 +17,7 @@ export default {
     </aside>
 
     <!-- Main content: shifted right by sidebar width -->
-    <main class="ml-64 flex-grow p-6 overflow-auto">
+    <main >
       <router-view />
     </main>
   </div>
@@ -33,4 +33,16 @@ html, body {
   height: 100%;
   margin: 0;
 }
+</style>
+<style scoped>
+main {
+  min-height: 100vh;
+  padding: 1.5rem;
+  overflow-y: auto;
+  width: 100%;
+  transition: margin-left 0.3s ease;
+}
+
+
+
 </style>
