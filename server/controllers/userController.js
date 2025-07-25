@@ -109,12 +109,29 @@ exports.loginUser = async (req, res) => {
 exports.getAllUsers = async (req, res) => {
   try {
     const users = await User.findAll({
-      attributes: { exclude: ['password'] },
+
     });
-    res.json(users);
-  } catch (err) {
-    console.error('Get all users error:', err);
-    res.status(500).json({ message: 'Server error' });
+    res.json(users); // ✅ Send full user objects
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+// DELETE user by ID
+exports.deleteUser = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const deleted = await User.destroy({ where: { id } });
+
+    if (deleted) {
+      res.json({ message: 'User deleted successfully' });
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 };
 
