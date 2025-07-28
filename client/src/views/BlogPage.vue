@@ -1,5 +1,5 @@
 <template>
-  <h1>Hello Blog Page</h1>
+  
 </template>
 
 <script>
