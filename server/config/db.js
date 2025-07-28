@@ -25,7 +25,7 @@
 
 
 // config/db.js
-const { Sequelize } = require('sequelize');
+const { Sequelize} = require('sequelize');
 
 const sequelize = new Sequelize(
   'anajak_travel_vc2', // database name
