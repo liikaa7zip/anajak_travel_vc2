@@ -1,10 +1,13 @@
-const Booking = require('../models/booking');
+const { Booking } = require('../models');
+
+
 
 exports.getAllBookings = async (req, res) => {
   try {
     const bookings = await Booking.findAll();
-    res.json(bookings);  // Send all bookings as JSON response
+    res.json(bookings);
   } catch (error) {
+    console.error('Error fetching bookings:', error);
     res.status(500).json({ message: 'Error fetching bookings', error: error.message });
   }
 };
