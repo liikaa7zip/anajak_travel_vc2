@@ -1,9 +1,9 @@
 <template>
   <div class="font-sans bg-gray-100 text-gray-900 min-h-screen">
     <!-- Hero Section -->
-    <section class="relative w-full h-60">
+    <section class="relative w-full h-80">
       <img
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Banteay_Meanchey_Province_Gate.jpg/1280px-Banteay_Meanchey_Province_Gate.jpg"
+        src="https://i0.wp.com/www.cambodialifestyle.com/wp-content/uploads/2024/04/Banteay-Meanchey2.jpg?fit=1024%2C683&ssl=1"
         alt="Banteay Meanchey"
         class="w-full h-full object-cover rounded-b-md"
       />
@@ -37,8 +37,8 @@
       <h2 class="text-xl font-semibold mb-4">Top Attractions</h2>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div v-for="(attraction, index) in topAttractions" :key="index" class="bg-white rounded shadow overflow-hidden">
-          <img :src="attraction.img" alt="" class="w-full h-24 object-cover" />
-          <p class="p-2 text-sm font-medium">{{ attraction.name }}</p>
+          <img :src="attraction.img" alt="" class="w-full h-40 object-cover" />
+          <p class="p-2 text-sm font-medium text-center">{{ attraction.name }}</p>
         </div>
       </div>
     </section>
@@ -94,10 +94,10 @@
 
 <script setup>
 const topAttractions = [
-  { name: 'Banteay Chhmar Temple', img: 'https://www.visitcambodia.org/wp-content/uploads/2020/10/Banteay-Chhmar.jpg' },
-  { name: 'Phnom Bak & Phnom Chenh Chiang', img: 'https://upload.wikimedia.org/wikipedia/commons/f/f1/Phnom_Bak_Banteay_Meanchey.jpg' },
-  { name: 'Wat Banteay Neang', img: 'https://upload.wikimedia.org/wikipedia/commons/d/d9/Wat_Banteay_Neang.jpg' },
-  { name: 'Ang Trapeang Thmor', img: 'https://upload.wikimedia.org/wikipedia/commons/8/8a/Ang_Trapeang_Thmor_Bird_Sanctuary.jpg' }
+  { name: 'Banteay Chhmar Temple', img: 'https://www.devata.org/dat-devata/uploads/2010/12/001-Banteay-Chhmar-architectural-reconstruction.jpg' },
+  { name: 'Phnom Bak', img: 'https://www.greeneratravel.com/userfiles/850phnombakphnomchenhchang.jpg' },
+  { name: 'Wat Banteay Neang', img: 'https://visitlocaltravel.com/blog/wp-content/uploads/2024/03/Banteay-Neang-Temple.png' },
+  { name: 'Ang Trapeang Thmor', img: 'https://scckampongthom.wordpress.com/wp-content/uploads/2015/10/ang-trapeang-thmor.jpg' }
 ]
 
 const galleryPhotos = [
