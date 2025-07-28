@@ -68,7 +68,7 @@ app.use('/api/bookings', bookingRoutes);
 app.use('/api/transports', transportRoutes);
 app.use('/api/users', userRoutes);
 
-sequelize.sync({ alter: true })
+sequelize.sync({ force: false })
   .then(() => {
     console.log('Database synced');
     app.listen(PORT, () => {

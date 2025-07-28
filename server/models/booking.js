@@ -1,3 +1,4 @@
+// models/booking.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 
@@ -13,6 +14,9 @@ const Booking = sequelize.define('Booking', {
   type: {
     type: DataTypes.STRING,
     allowNull: false,
+    validate: {
+      isIn: [['bus', 'private_car', 'van', 'luxury']]
+    }
   },
   date: {
     type: DataTypes.DATEONLY,
@@ -22,12 +26,19 @@ const Booking = sequelize.define('Booking', {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
-      isEmail: true,
-    },
+      isEmail: true
+    }
   },
+  status: {
+    type: DataTypes.STRING,
+    defaultValue: 'confirmed',
+    validate: {
+      isIn: [['confirmed', 'cancelled', 'pending', 'completed']]
+    }
+  }
 }, {
+  tableName: 'bookings',
   timestamps: true,
-  tableName: 'bookings',  // optional, specify table name
 });
 
 module.exports = Booking;
