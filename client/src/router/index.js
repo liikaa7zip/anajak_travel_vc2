@@ -40,6 +40,8 @@ import TbongKhmum from '../views/provinces/TbongKhmum.vue'
 import KampongSpeu from '../views/provinces/KampongSpeu.vue'
 import PreyVeng from '../views/provinces/PreyVeng.vue'
 
+import BookingHistory from '@/views/BookingHistory.vue'
+
 
 
 import AdminDashboard from '../views/admin/AdminDashboard.vue'
@@ -68,6 +70,7 @@ const routes = [
       { path: 'CarRental', component: CarRental },
       { path: 'hotel', component: HotelBooking },
       { path: 'chat', component: UserChat },
+      {path: 'booking-history', component: BookingHistory },
 
 
       { path: 'guide/battambang', name: 'BattamBang', component: BattamBang },
