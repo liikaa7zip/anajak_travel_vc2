@@ -38,8 +38,8 @@
 const express = require('express');
 const cors = require('cors');
 
-const { sequelize } = require('./models');
-=======
+// const { sequelize } = require('./models');
+
 const { sequelize } = require('./models'); // Keep this import
 
 const bookingRoutes = require('./routes/bookingRoute');
@@ -58,7 +58,7 @@ app.use(cors({
 app.use(express.json());
 
 
-=======
+
 app.get('/', (req, res) => {
   res.send('Server is running');
 });

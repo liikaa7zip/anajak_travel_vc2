@@ -39,7 +39,7 @@ const sequelize = require('../config/db');
 
 const User = require('./user');
 const Booking = require('./booking'); 
-=======
+
 const UserModel = require('./user');
 
 
@@ -50,7 +50,7 @@ db.sequelize = sequelize;
 
 db.User = User;
 db.Booking = Booking;
-=======
+
 db.User = UserModel(sequelize);
 
 

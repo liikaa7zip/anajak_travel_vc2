@@ -6,4 +6,3 @@ router.get('/', bookingController.getAllBookings);
 router.post('/', bookingController.createBooking); 
 
 module.exports = router;
-
