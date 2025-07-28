@@ -146,18 +146,18 @@
           </div>
           <div class="relative w-full">
             <div class="grid grid-cols-2 gap-6">
-              <div class="space-y-6">
+              <div class="space-y-6 w-72">
                 <img
                   src="https://cambodiataxidriver.com/wp-content/uploads/2023/09/Cambodia-Taxi-Driver-2706.webp"
                   alt="Cambodia destination"
-                  class="rounded-2xl w-full h-48 sm:h-56 lg:h-64 xl:h-72 object-cover shadow-lg"
+                  class="rounded-2xl w-full h-48 sm:h-56 lg:h-64 xl:h-52 object-cover shadow-lg"
                 />
               </div>
-              <div class="space-y-6 mt-8">
+              <div class="space-y-6 mt-10 w-72">
                 <img
                   src="https://i.pinimg.com/564x/72/e7/3e/72e73e179a29e7d8f4a6eafce3760423.jpg"
                   alt="Cambodia destination"
-                  class="rounded-2xl w-full h-48 sm:h-56 lg:h-64 xl:h-72 object-cover shadow-lg"
+                  class="rounded-2xl w-full h-48 sm:h-56 lg:h-64 xl:h-52 object-cover shadow-lg"
                 />
               </div>
             </div>
