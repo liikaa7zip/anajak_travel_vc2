@@ -22,6 +22,11 @@ app.use('/api/books', require('./routes/bookRoutes'));
 // User routes
 app.use('/api/users', require('./routes/userRoutes'));
 
+// ...existing code...
+// Province routes
+app.use('/api/provinces', require('./routes/provinceRoutes'));
+// ...existing code...
+
 // Database sync (without starting server)
 db.sequelize.sync()
   .then(() => console.log("Database synced"))
