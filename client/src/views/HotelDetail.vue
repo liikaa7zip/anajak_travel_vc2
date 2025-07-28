@@ -28,13 +28,11 @@
         <!-- Title, Location, Price -->
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
-            <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900">
-              {{ hotel.name || 'Unnamed Hotel' }}
-            </h1>
-            <p class="text-gray-600 mt-1 text-sm sm:text-base flex items-center">
-              <i class="fas fa-map-marker-alt mr-2 text-blue-500"></i>
-              {{ hotel.location || 'Unknown Location' }}
-            </p>
+           <h1 class="text-gray-600 text-sm mb-2">
+            <i class="fas fa-map-marker-alt mr-2 text-blue-500"></i>
+            {{ hotel.locationName || "Unknown Location" }}
+          </h1>
+            
           </div>
           <p class="text-purple-600 font-bold text-2xl sm:text-3xl">
             ${{ isValidPrice(hotel.pricePerNight) ? hotel.pricePerNight.toFixed(2) : 'N/A' }}
