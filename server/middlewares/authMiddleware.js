@@ -1,27 +1,23 @@
-// server/middleware/authMiddleware.js
 const jwt = require('jsonwebtoken');
 const secretKey = process.env.JWT_SECRET || 'your-secret-key';
 
-// Verify JWT token middleware
 exports.verifyToken = (req, res, next) => {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1]; // Bearer token
+  const token = req.headers.authorization?.split(' ')[1]; // Bearer token
 
-  if (!token) {
-    return res.status(401).json({ message: 'Access token missing' });
-  }
+  if (!token) return res.status(401).json({ message: 'No token provided' });
 
-  jwt.verify(token, secretKey, (err, user) => {
-    if (err) return res.status(403).json({ message: 'Invalid token' });
-    req.user = user;
+  try {
+    const decoded = jwt.verify(token, secretKey);
+    req.user = decoded; // Attach user data to request
     next();
-  });
+  } catch (err) {
+    return res.status(401).json({ message: 'Invalid token' });
+  }
 };
 
-// Verify Admin role middleware
 exports.verifyAdmin = (req, res, next) => {
-  if (!req.user || req.user.role !== 'admin') {
-    return res.status(403).json({ message: 'Admin role required' });
+  if (req.user?.role !== 'admin') {
+    return res.status(403).json({ message: 'Access denied, admin only' });
   }
   next();
 };
