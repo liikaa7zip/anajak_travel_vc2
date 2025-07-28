@@ -426,7 +426,6 @@
               </div>
             </div>
           </div>
-
           <div class="relative w-full">
             <div class="grid grid-cols-2 gap-6">
               <div class="space-y-6">

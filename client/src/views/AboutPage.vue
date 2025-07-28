@@ -130,42 +130,36 @@
       </div>
     </section>
     <!-- About Us Section -->
-    <section class="bg-white py-16 relative overflow-hidden">
-      <!-- Background Pattern -->
-      <!-- Removed background pattern div -->
-      <div class="max-w-7xl mx-auto px-4 relative">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <!-- Left Content -->
+    <section class="py-16 lg:py-24 bg-white w-full px-4 sm:px-8 lg:px-16">
+      <div class="w-full max-w-7xl mx-auto">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div class="relative z-10">
             <p class="text-purple-600 font-medium mb-2 text-sm uppercase tracking-wide">Our Story</p>
             <h2 class="text-4xl font-bold text-gray-900 mb-6">About Us</h2>
-            <p class="text-gray-600 text-lg leading-relaxed mb-8">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum
-              tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae
-              erat.
-            </p>
-            <button class="bg-purple-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-purple-700 transition-colors shadow-lg">
-              Contact Us
-            </button>
+            <p
+              class="text-gray-600 text-lg leading-relaxed mb-8"
+            >We are a passionate travel team dedicated to helping you discover the beauty of Cambodia. From ancient temples and cultural heritage to stunning natural landscapes, we offer unforgettable travel experiences. Whether you're planning an adventure, a family trip, or a relaxing getaway, we make your journey easy, safe, and memorable.</p>
+            <button
+              @click="goToContactPage"
+              class="bg-purple-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-purple-700 transition-colors shadow-lg"
+            >Contact Us</button>
           </div>
-          <!-- Right Images -->
-          <div class="flex justify-center items-center gap-6">
-            <!-- Removed Airplane decoration -->
-            <!-- First Image Container -->
-            <div class="w-64 h-80 rounded-2xl overflow-hidden shadow-lg">
-              <img
-                src="https://cambodiataxidriver.com/wp-content/uploads/2023/09/Cambodia-Taxi-Driver-2706.webp"
-                alt="preah vihear"
-                class="w-full h-full object-cover"
-              />
-            </div>
-            <!-- Second Image Container -->
-            <div class="w-64 h-80 rounded-2xl overflow-hidden shadow-lg ">
-              <img
-                src="https://i.pinimg.com/564x/72/e7/3e/72e73e179a29e7d8f4a6eafce3760423.jpg"
-                alt="Cambodian Waterfall"
-                class="w-full h-full object-cover"
-              />
+          <div class="relative w-full">
+            <div class="grid grid-cols-2 gap-6">
+              <div class="space-y-6">
+                <img
+                  src="https://cambodiataxidriver.com/wp-content/uploads/2023/09/Cambodia-Taxi-Driver-2706.webp"
+                  alt="Cambodia destination"
+                  class="rounded-2xl w-full h-48 sm:h-56 lg:h-64 xl:h-72 object-cover shadow-lg"
+                />
+              </div>
+              <div class="space-y-6 mt-8">
+                <img
+                  src="https://i.pinimg.com/564x/72/e7/3e/72e73e179a29e7d8f4a6eafce3760423.jpg"
+                  alt="Cambodia destination"
+                  class="rounded-2xl w-full h-48 sm:h-56 lg:h-64 xl:h-72 object-cover shadow-lg"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -190,20 +184,26 @@
         </div>
       </div>
       <div class="text-center mt-12">
-        <button
-          class="bg-purple-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-purple-700 transition-colors"
-        >View All</button>
+        <router-link to="/guide">
+          <button
+            class="bg-purple-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-purple-700 transition-colors"
+          >View All</button>
+        </router-link>
       </div>
     </section>
     <!-- FAQ Section -->
     <section class="bg-gray-100 py-16">
       <div class="max-w-4xl mx-auto px-4">
         <h2 class="text-4xl font-bold text-gray-900 text-center mb-4">FAQs</h2>
-        <p class="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
-          Find quick answers to common questions about booking, payments, cancellations, security, and travel requirements. This section helps you get the information you need—fast and hassle-free.
-        </p>
+        <p
+          class="text-center text-gray-600 mb-12 max-w-3xl mx-auto"
+        >Find quick answers to common questions about booking, payments, cancellations, security, and travel requirements. This section helps you get the information you need—fast and hassle-free.</p>
         <div class="space-y-0">
-          <div v-for="faq in faqs" :key="faq.id" class="bg-white rounded-lg border-b border-blue-100 last:border-b-0">
+          <div
+            v-for="faq in faqs"
+            :key="faq.id"
+            class="bg-white rounded-lg border-b border-blue-100 last:border-b-0"
+          >
             <button
               @click="toggleFaq(faq)"
               class="flex justify-between items-center w-full py-4 px-6 text-lg font-semibold text-gray-900 focus:outline-none"
@@ -234,10 +234,12 @@
     <!-- Insights Section -->
     <section class="max-w-7xl mx-auto px-4 py-16">
       <div class="flex justify-between items-center mb-12">
-        <h2 class="text-4xl font-bold text-gray-900">Insights on Branding</h2>
-        <button
-          class="bg-purple-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-purple-700 transition-colors"
-        >View All</button>
+        <h2 class="text-4xl font-bold text-gray-900">Popular Blogs</h2>
+        <router-link to="/blog">
+          <button
+            class="bg-purple-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-purple-700 transition-colors"
+          >View All</button>
+        </router-link>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div
@@ -310,7 +312,8 @@ const worldCards = ref([
   {
     id: 4,
     title: "Mountain",
-    image: "https://khmerplaces.com/storage/posts/May2020/36WfY2yWwYZV6ll9icXs.jpg"
+    image:
+      "https://khmerplaces.com/storage/posts/May2020/36WfY2yWwYZV6ll9icXs.jpg"
   },
   {
     id: 5,
@@ -356,51 +359,57 @@ function previousSlide() {
     currentSlide.value === 0 ? slides.value.length - 1 : currentSlide.value - 1;
 }
 
-
 // FAQs
 const faqs = ref([
   {
     id: 1,
     question: "How do I book a trip on your website?",
-    answer: "Just choose your destination, select your travel dates, click “Book Now,” fill in your details, and make the payment. You’ll get a confirmation email right after!",
-    isOpen: false,
+    answer:
+      "Just choose your destination, select your travel dates, click “Book Now,” fill in your details, and make the payment. You’ll get a confirmation email right after!",
+    isOpen: false
   },
   {
     id: 2,
     question: "What payment methods do you accept?",
-    answer: "We accept all major credit cards, including Visa, MasterCard, American Express, and Discover. We also support payments via PayPal and bank transfers for certain bookings.",
-    isOpen: false,
+    answer:
+      "We accept all major credit cards, including Visa, MasterCard, American Express, and Discover. We also support payments via PayPal and bank transfers for certain bookings.",
+    isOpen: false
   },
   {
     id: 3,
     question: "Is my payment secure?",
-    answer: "Yes, your payment security is our top priority. We use industry-standard encryption and secure payment gateways to protect your personal and financial information.",
-    isOpen: false,
+    answer:
+      "Yes, your payment security is our top priority. We use industry-standard encryption and secure payment gateways to protect your personal and financial information.",
+    isOpen: false
   },
   {
     id: 4,
     question: "When will my credit card be charged?",
-    answer: "Your credit card will typically be charged at the time of booking confirmation. For some specific packages or services, a deposit might be charged initially, with the remaining balance due closer to your travel date.",
-    isOpen: false,
+    answer:
+      "Your credit card will typically be charged at the time of booking confirmation. For some specific packages or services, a deposit might be charged initially, with the remaining balance due closer to your travel date.",
+    isOpen: false
   },
   {
     id: 5,
     question: "Can I cancel or modify my booking?",
-    answer: "Cancellation and modification policies vary depending on the specific trip or service booked. Please refer to the terms and conditions provided during the booking process or contact our support team for assistance.",
-    isOpen: false,
+    answer:
+      "Cancellation and modification policies vary depending on the specific trip or service booked. Please refer to the terms and conditions provided during the booking process or contact our support team for assistance.",
+    isOpen: false
   },
   {
     id: 6,
     question: "What are your cancellation and refund policies?",
-    answer: "Our cancellation and refund policies are detailed in the terms and conditions of each booking. Generally, refunds are subject to cancellation fees and timing relative to your departure date. We recommend reviewing these policies carefully before confirming your booking.",
-    isOpen: false,
+    answer:
+      "Our cancellation and refund policies are detailed in the terms and conditions of each booking. Generally, refunds are subject to cancellation fees and timing relative to your departure date. We recommend reviewing these policies carefully before confirming your booking.",
+    isOpen: false
   },
   {
     id: 7,
     question: "Do I need a visa to travel to my destination?",
-    answer: "Visa requirements depend on your nationality and the destination country. We advise checking the latest visa regulations with the embassy or consulate of your destination country well in advance of your travel date.",
-    isOpen: false,
-  },
+    answer:
+      "Visa requirements depend on your nationality and the destination country. We advise checking the latest visa regulations with the embassy or consulate of your destination country well in advance of your travel date.",
+    isOpen: false
+  }
 ]);
 
 // Toggle FAQ function
@@ -419,31 +428,35 @@ const insights = ref([
   {
     id: 1,
     title: "Sampov Mountain",
-    description: "Crafting compelling visual narratives",
+    description:
+      "A scenic mountain with caves, temples, and deep historical stories.",
     image:
       "https://www.gocambodia.tours/wp-content/uploads/2016/12/On-the-top-of-Phnom-Sampeou-Mountain.jpg"
   },
   {
     id: 2,
     title: "Ta Muen Thom Temple",
-    description: "Building lasting brand connections",
+    description:
+      "An ancient Khmer temple hidden in the forest near the Thai border.",
     image:
-      "https://helloangkor.com/wp-content/uploads/2021/05/HA5D5981-HDR.jpg"
+      "https://mel365.com/wp-content/uploads/2015/03/Prasat-Hin-Muang-Tum_20121227_037_Historical-Park_-Khmer_-Prasat-Ta-Moan-Thom_-Temple_-Thailand.jpg"
   },
   {
     id: 3,
     title: "Koh Rong",
-    description: "Creating memorable brand experiences that resonate",
+    description:
+      "A tropical island with white sand beaches and crystal-clear waters.",
     image:
       "https://images.mrandmrssmith.com/images/698x522/4390977-song-saa-private-island-koh-rong-islands-cambodia.jpg"
   },
   {
     id: 4,
     title: "Kirirom",
-    description: "Crafting compelling visual narratives",
+    description:
+      "A peaceful national park with pine forests, cool air, and waterfalls.",
     image:
       "https://www.asiakingtravel.com/cuploads/files/Kampong-Speu/Kirirom%20National%20Park/Kirirom-National-Park-1.jpg"
-  },
+  }
 ]);
 
 // Destinations
@@ -475,7 +488,7 @@ const destinations = ref([
     description: "Many temple in Battambang",
     image:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJqvmkc5uAXt4MA0aPAawOVhKYY28coyMFiA&s"
-  },
+  }
 ]);
 
 // Contact button
