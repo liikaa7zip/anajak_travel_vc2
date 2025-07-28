@@ -133,7 +133,7 @@
     <section class="bg-white py-16 relative overflow-hidden">
       <!-- Background Pattern -->
       <!-- Removed background pattern div -->
-      <div class="max-w-6xl mx-auto px-4 relative">
+      <div class="max-w-7xl mx-auto px-4 relative">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <!-- Left Content -->
           <div class="relative z-10">
@@ -172,7 +172,7 @@
       </div>
     </section>
     <!-- Destinations Section -->
-    <section class="max-w-6xl mx-auto px-4 py-16">
+    <section class="max-w-7xl mx-auto px-4 py-16">
       <div class="text-center mb-12">
         <h2 class="text-4xl font-bold text-gray-900 mb-4">Discover Your Dream Destinations</h2>
       </div>
@@ -232,14 +232,14 @@
       </div>
     </section>
     <!-- Insights Section -->
-    <section class="max-w-6xl mx-auto px-4 py-16">
+    <section class="max-w-7xl mx-auto px-4 py-16">
       <div class="flex justify-between items-center mb-12">
         <h2 class="text-4xl font-bold text-gray-900">Insights on Branding</h2>
         <button
           class="bg-purple-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-purple-700 transition-colors"
         >View All</button>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
         <div
           v-for="insight in insights"
           :key="insight.id"
@@ -418,25 +418,32 @@ function toggleFaq(selectedFaq) {
 const insights = ref([
   {
     id: 1,
-    title: "Brand Identity",
-    description: "Creating memorable brand experiences that resonate",
+    title: "Sampov Mountain",
+    description: "Crafting compelling visual narratives",
     image:
-      "https://blog.takemetour.com/wp-content/uploads/2019/07/Ta-Prohm-Temple-1024x681.jpg"
+      "https://www.gocambodia.tours/wp-content/uploads/2016/12/On-the-top-of-Phnom-Sampeou-Mountain.jpg"
   },
   {
     id: 2,
-    title: "Visual Design",
-    description: "Crafting compelling visual narratives",
+    title: "Ta Muen Thom Temple",
+    description: "Building lasting brand connections",
     image:
-      "https://blog.takemetour.com/wp-content/uploads/2019/07/Ta-Prohm-Temple-1024x681.jpg"
+      "https://helloangkor.com/wp-content/uploads/2021/05/HA5D5981-HDR.jpg"
   },
   {
     id: 3,
-    title: "Brand Strategy",
-    description: "Building lasting brand connections",
+    title: "Koh Rong",
+    description: "Creating memorable brand experiences that resonate",
     image:
-      "https://blog.takemetour.com/wp-content/uploads/2019/07/Ta-Prohm-Temple-1024x681.jpg"
-  }
+      "https://images.mrandmrssmith.com/images/698x522/4390977-song-saa-private-island-koh-rong-islands-cambodia.jpg"
+  },
+  {
+    id: 4,
+    title: "Kirirom",
+    description: "Crafting compelling visual narratives",
+    image:
+      "https://www.asiakingtravel.com/cuploads/files/Kampong-Speu/Kirirom%20National%20Park/Kirirom-National-Park-1.jpg"
+  },
 ]);
 
 // Destinations
