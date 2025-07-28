@@ -101,91 +101,59 @@
     </div>
   </div>
 
-  <div
-    v-if="confirmation"
-    class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50 transition-opacity duration-300 ease-out"
-    :class="{ 'opacity-100': confirmation, 'opacity-0': !confirmation }"
-    @click.self="confirmation = ''"
-  >
+    <!-- Success Confirmation Modal -->
     <div
-      class="bg-white rounded-3xl shadow-xl max-w-md w-full p-8 relative transform scale-95 transition-transform duration-300 ease-out"
-      :class="{ 'scale-100': confirmation }"
-      role="alertdialog"
-      aria-modal="true"
+      v-if="confirmation"
+      class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50 transition-opacity duration-300 ease-out"
+      @click.self="confirmation = ''"
     >
-      <button
-        @click="confirmation = ''"
-        aria-label="Close"
-        class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 focus:outline-none text-2xl"
-      >
-        &times;
-      </button>
-
       <div
-        class="mx-auto mb-6 flex items-center justify-center w-20 h-20 rounded-full text-white shadow-lg relative overflow-hidden"
-        :class="
-          confirmation.includes('cancelled') || confirmation.includes('failed')
-            ? 'bg-gradient-to-br from-red-500 to-red-700'
-            : 'bg-gradient-to-br from-blue-500 to-blue-700'
-        "
+        class="bg-white rounded-3xl shadow-xl max-w-md w-full p-8 relative transform scale-95 transition-transform duration-300 ease-out scale-100"
+        role="alertdialog"
+        aria-modal="true"
       >
-        <svg
-          v-if="confirmation.includes('cancelled') || confirmation.includes('failed')"
-          xmlns="http://www.w3.org/2000/svg"
-          class="w-10 h-10 animate-pulse-once"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-        <svg
-          v-else
-          xmlns="http://www.w3.org/2000/svg"
-          class="w-10 h-10 animate-pulse-once"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-        </svg>
-        <div class="absolute inset-0 rounded-full bg-white opacity-10 blur-xl scale-125"></div>
-      </div>
-
-      <h2
-        class="text-center text-2xl font-extrabold mb-3"
-        :class="confirmation.includes('cancelled') || confirmation.includes('failed') ? 'text-red-800' : 'text-blue-800'"
-      >
-        {{ confirmation.includes('cancelled') || confirmation.includes('failed') ? 'Action Alert!' : 'Booking Confirmed!' }}
-      </h2>
-
-      <p class="text-center text-gray-700 mb-8 text-base leading-relaxed">
-        {{ confirmation }}
-      </p>
-
-      <div class="flex flex-col sm:flex-row justify-center gap-4">
         <button
           @click="confirmation = ''"
-          class="px-8 py-3 rounded-full border border-gray-300 text-gray-700 hover:bg-gray-100 transition-all duration-200 font-medium"
+          aria-label="Close"
+          class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 focus:outline-none text-2xl"
         >
-          Close
+          &times;
         </button>
-        <button
-          @click="confirmation = ''"
-          :class="
-            confirmation.includes('cancelled') || confirmation.includes('failed')
-              ? 'bg-red-600 hover:bg-red-700'
-              : 'bg-blue-600 hover:bg-blue-700'
-          "
-          class="px-8 py-3 rounded-full text-white font-bold transition-all duration-200 shadow-md hover:shadow-lg"
+
+        <div
+          class="mx-auto mb-6 flex items-center justify-center w-20 h-20 rounded-full bg-green-600 text-white shadow-lg relative overflow-hidden"
         >
-          OK
-        </button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-10 h-10 animate-pulse-once"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+          <div class="absolute inset-0 rounded-full bg-white opacity-10 blur-xl scale-125"></div>
+        </div>
+
+        <h2 class="text-center text-2xl font-extrabold mb-3 text-green-800">
+          Booking Successful!
+        </h2>
+
+        <p class="text-center text-gray-700 mb-8 text-base leading-relaxed">
+          {{ confirmation }}
+        </p>
+
+        <div class="flex justify-center gap-4">
+          <button
+            @click="confirmation = ''"
+            class="px-8 py-3 rounded-full bg-green-600 text-white font-bold transition-all duration-200 shadow-md hover:bg-green-700 hover:shadow-lg"
+          >
+            OK
+          </button>
+        </div>
       </div>
     </div>
-  </div>
 
     <!-- Booking History -->
     <div class="mt-8 text-center">
@@ -235,7 +203,7 @@ const proceedBooking = async () => {
   try {
     await axios.post('http://localhost:5000/api/bookings', form.value)
 
-    confirmation.value = `✅ Your booking from ${form.value.depart} to ${form.value.arrive} on ${form.value.date} has been confirmed! We've sent details to ${form.value.email}.`;
+    confirmation.value = `✅ Booking successfully completed from ${form.value.depart} to ${form.value.arrive} on ${form.value.date}. Details have been sent to ${form.value.email}.`
 
     router.push({
       name: 'BookingConfirmation',
@@ -243,21 +211,22 @@ const proceedBooking = async () => {
         ...form.value,
         price: 12.5
       }
-    });
-
+    })
   } catch (error) {
-    confirmation.value = '❌ Booking failed. Please check your details and try again.';
-    console.error('Booking error:', error.response ? error.response.data : error.message);
+    confirmation.value = '❌ Booking failed. Please check your details and try again.'
+    console.error('Booking error:', error.response ? error.response.data : error.message)
+  } finally {
+    loading.value = false
   }
 }
 
 const submitBooking = () => {
-  showPreConfirmationModal.value = true;
+  showPreConfirmationModal.value = true
 }
 
 const cancelBookingPreConfirmation = () => {
-  showPreConfirmationModal.value = false; 
-  confirmation.value = '🚫 Booking was cancelled by user.';
+  showPreConfirmationModal.value = false
+  confirmation.value = '🚫 Booking was cancelled by user.'
 }
 
 </script>
