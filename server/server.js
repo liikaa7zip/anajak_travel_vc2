@@ -186,6 +186,7 @@ app.use(express.json());
 // API Routes
 app.use('/api', messageRoutes); 
 app.use('/api/users', userRoutes);
+app.use('/api', userRoutes); 
 // app.use('/api/admin-users', adminUserRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/api/bookings', bookingRoutes);

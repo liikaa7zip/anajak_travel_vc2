@@ -56,6 +56,9 @@ const routes = [
       { path: 'about', component: AboutPage },
       { path: 'blog', component: BlogPage },
       { path: 'guide', component: TravelingGuide },
+      { path: 'login', component: Login },
+      { path: 'register', component: Register },
+
 
       { path: 'guide/battambang', name: 'BattamBang', component: BattamBang },
       { path: 'guide/banteay-meanchey', name: 'BanteayMeanchey', component: BanteayMeanchey },
