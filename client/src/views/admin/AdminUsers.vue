@@ -11,7 +11,7 @@
       </div>
       <button
   @click="$router.push({ name: 'CreateUser' })"
-  class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold flex items-center gap-2 shadow transition mt-4 md:mt-0"
+  class="bg-purple-600 hover:bg-purple-700 text-white px-5 py-2 rounded-lg font-semibold flex items-center gap-2 shadow transition mt-4 md:mt-0"
 >
   <span class="text-lg">+</span> Add New User
 </button>
@@ -64,13 +64,13 @@
 </div>
 
       <div class="flex gap-2">
-        <select v-model="selectedStatus" class="bg-white text-gray-500 px-3 py-2 rounded-lg border border-blue-300">
+        <select v-model="selectedStatus" class="bg-white text-gray-500 px-3 py-2 rounded-lg border border-purple-300">
           <option value="">Status: All</option>
           <option>Active</option>
           <option>Inactive</option>
           <option>Banned</option>
         </select>
-        <select v-model="selectedRole" class="bg-white text-gray-500 px-3 py-2 rounded-lg border border-blue-300">
+        <select v-model="selectedRole" class="bg-white text-gray-500 px-3 py-2 rounded-lg border border-purple-300">
           <option value="">Role: All</option>
           <option>User</option>
           <option>Business</option>
@@ -85,7 +85,7 @@
     >
      <div class="relative">
     <table class="min-w-full text-sm text-gray-700 border-collapse" style="table-layout: fixed; overflow: visible;">
-      <thead class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white uppercase text-xs tracking-wider">
+      <thead class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white uppercase text-xs tracking-wider">
         <tr>
           <th class="py-2 px-2 w-12"></th>
           <th @click="sortBy('name')" class="py-2 px-2 w-32 cursor-pointer text-left">
@@ -210,8 +210,8 @@
             :key="page"
             @click="gotoPage(page)"
             :class="{
-              'bg-blue-600 text-white': currentPage === page,
-              'bg-[#181c2f] text-gray-300': currentPage !== page,
+              'bg-gray-500 text-white': currentPage === page,
+              'bg-gray-100 text-gray-500': currentPage !== page,
             }"
             class="px-3 py-1 rounded hover:bg-blue-700"
           >
