@@ -13,11 +13,19 @@
         Anajak Travel
       </router-link>
 
+      <!-- Links -->
+      <!-- <div class="hidden md:flex space-x-6 text-sm"> -->
+        <!-- <router-link to="/" class="text-blue-600 hover:text-blue-800 font-medium">Home</router-link>
+        <router-link to="/about" class="text-gray-700 hover:text-gray-900 font-medium">About Us</router-link>
+        <router-link to="/guide" class="text-gray-700 hover:text-gray-900 font-medium">Traveling Guide</router-link>
+        <router-link to="/blog" class="text-gray-700 hover:text-gray-900 font-medium">Blog Page</router-link>
+        <router-link to="/chat" class="text-gray-700 hover:text-gray-900 font-medium">Chat</router-link> -->
       <!-- Desktop Navigation -->
       <div class="hidden md:flex space-x-6 text-sm items-center relative">
         <router-link to="/" class="nav-link">Home</router-link>
         <router-link to="/about" class="nav-link">About Us</router-link>
         <router-link to="/guide" class="nav-link">Traveling Guide</router-link>
+        <!-- <router-link to="/chat" class="nav-link">Chat</router-link> -->
 
         <!-- Travel Bookings Dropdown -->
         <div @mouseenter="showDropdown = true" @mouseleave="showDropdown = false" class="relative">

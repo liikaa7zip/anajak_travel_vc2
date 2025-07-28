@@ -20,6 +20,16 @@
       <div :class="['flex-1 h-screen overflow-auto w-full', showAdminNavbar ? 'ml-64' : '']">
         <router-view />
       </div>
+
+      <!-- 💬 Chat button for logged-in non-admin users -->
+      <router-link
+  v-if="showChatButton"
+  to="/chat"
+  class="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-5 py-3 rounded-full shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 ease-in-out"
+>
+  💬 Chat
+</router-link>
+
     </div>
     
     <!-- Debug component -->
@@ -38,7 +48,12 @@ const route = useRoute()
 const router = useRouter()
 const { isAdmin, userProfile, initAuth, isInitialized, isLoggedIn } = useAuth()
 
-// Initialize auth immediately when component mounts
+// Computed to show Chat button only when logged in
+const showChatButton = computed(() => {
+  return isInitialized.value && isLoggedIn.value
+})
+
+// Initialize auth on mount
 onMounted(async () => {
   console.log('[APP] Component mounted')
   console.log('[APP] Current route:', route.path)
@@ -48,9 +63,9 @@ onMounted(async () => {
     isAdmin: isAdmin.value,
     userProfile: userProfile.value
   })
-  
+
   await initAuth()
-  
+
   console.log('[APP] Post-init auth state:', {
     initialized: isInitialized.value,
     loggedIn: isLoggedIn.value,
@@ -76,10 +91,10 @@ const showAdminNavbar = computed(() => {
 watch([isInitialized, isLoggedIn, isAdmin], ([initialized, loggedIn, admin]) => {
   if (!initialized) return
 
-  console.log("[APP] Auth state changed:", { 
-    initialized, 
-    loggedIn, 
-    admin, 
+  console.log("[APP] Auth state changed:", {
+    initialized,
+    loggedIn,
+    admin,
     currentPath: route.path,
     userProfile: userProfile.value
   })
@@ -90,7 +105,7 @@ watch([isInitialized, isLoggedIn, isAdmin], ([initialized, loggedIn, admin]) => 
       router.replace('/admin/dashboard')
     })
   }
-  
+
   if (loggedIn && !admin && route.path.startsWith('/admin')) {
     console.log('[APP] Non-admin user trying to access admin route, redirecting to home')
     nextTick(() => {
@@ -115,6 +130,8 @@ watch(() => route.path, (newPath) => {
   }
 })
 </script>
+
+
 
 <style scoped>
 .app-container {
