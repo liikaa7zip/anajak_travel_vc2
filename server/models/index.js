@@ -34,17 +34,33 @@
 // db.Sequelize = Sequelize;
 
 // module.exports = db;
-
+const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
-const UserModel = require('./user');
 
+// Initialize Sequelize and DB object
+const db = {
+  Sequelize,
+  sequelize,
+};
 
-const db = {};
+// Import models
+db.User = require('./user')(sequelize, DataTypes);
+db.Location = require('./location')(sequelize, DataTypes);
+db.Hotel = require('./hotel')(sequelize, DataTypes);
+db.HotelBooking = require('./hotelBooking')(sequelize, DataTypes);
 
-db.sequelize = sequelize;
-db.User = UserModel(sequelize);
+// Define relationships
 
+// User ↔ HotelBooking
+db.User.hasMany(db.HotelBooking, { foreignKey: 'userId' });
+db.HotelBooking.belongsTo(db.User, { foreignKey: 'userId' });
+
+// Hotel ↔ HotelBooking
+db.Hotel.hasMany(db.HotelBooking, { foreignKey: 'hotelId' });
+db.HotelBooking.belongsTo(db.Hotel, { foreignKey: 'hotelId' });
+
+// Location ↔ Hotel
+db.Location.hasMany(db.Hotel, { foreignKey: 'locationId' });
+db.Hotel.belongsTo(db.Location, { foreignKey: 'locationId' });
 
 module.exports = db;
-
-

@@ -34,13 +34,23 @@
 //   })
 //   .catch(err => console.error('DB sync failed:', err));
 
-
+// server.js (or app.js)
 const express = require('express');
 const cors = require('cors');
-const { sequelize } = require('./models'); // Keep this import
+const { sequelize } = require('./models');
+
 const bookingRoutes = require('./routes/bookingRoute');
 const transportRoutes = require('./routes/transportRoutes');
 const userRoutes = require('./routes/userRoutes');
+const hotelRoutes = require('./routes/hotelRoutes');
+const hotelBookingRoutes = require('./routes/hotelBookingRoutes');
+const locationRoutes = require('./routes/locationRoutes');
+
+
+
+const createDefaultAdmin = require('./seeders/createDefaultAdmin');
+const createDefaultLocations = require('./seeders/createDefaultLocations');
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -60,10 +70,16 @@ app.get('/', (req, res) => {
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/transports', transportRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/hotels', hotelRoutes);
+app.use('/api/hotel-booking', hotelBookingRoutes);  // Note singular 'hotel-booking'
+app.use('/api', locationRoutes);
 
 sequelize.sync({ alter: true })
-  .then(() => {
+  .then(async () => {
     console.log('Database synced');
+    await createDefaultAdmin();
+    await createDefaultLocations();
+
     app.listen(PORT, () => {
       console.log(`Server running on http://localhost:${PORT}`);
     });
