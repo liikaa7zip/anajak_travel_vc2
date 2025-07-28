@@ -1,7 +1,6 @@
 const db = require('../models');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
 const User = db.User;
 const saltRounds = 10;
 const secretKey = process.env.JWT_SECRET || 'your-secret-key';
@@ -136,25 +135,57 @@ exports.deleteUser = async (req, res) => {
 };
 
 
+// exports.updateUser = async (req, res) => {
+//   const id = req.params.id
+//   const { username, email, password, role } = req.body
+
+//   try {
+//     const user = await User.findByPk(id)
+//     if (!user) {
+//       return res.status(404).json({ message: 'User not found' })
+//     }
+
+//     user.username = username
+//     user.email = email
+//     user.password = password // Hash if needed
+//     user.role = role
+
+//     await user.save()
+
+//     res.json(user)
+//   } catch (error) {
+//     console.error('Update failed:', error)
+//     res.status(500).json({ message: 'Server error' })
+//   }
+// }
+
+
 exports.updateUser = async (req, res) => {
+  const id = req.params.id
+  const { username, email, password, role } = req.body
+
   try {
-    const userId = req.params.id;
-    const { username, email, role } = req.body;
+    const user = await User.findByPk(id)
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' })
+    }
 
-    const user = await User.findByPk(userId);
-    if (!user) return res.status(404).json({ message: 'User not found' });
+    // Update fields
+    user.username = username
+    user.email = email
+    user.role = role
 
-    user.username = username || user.username;
-    user.email = email || user.email;
-    user.role = role || user.role;
+    // Only hash if password was updated (not empty)
+    if (password && password.trim() !== '') {
+      const hashedPassword = await bcrypt.hash(password, 10)
+      user.password = hashedPassword
+    }
 
-    await user.save();
-    res.json({ message: 'User updated successfully', user });
+    await user.save()
+
+    res.json(user)
   } catch (error) {
-    console.error('Error updating user:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    console.error('Update failed:', error)
+    res.status(500).json({ message: 'Server error' })
   }
-};
-
-
-
+}
