@@ -1,39 +1,44 @@
-const Province = require('../models/province');
+// const Province = require('../models/province');
 
-// Get all Provinces
-const getAllProvinces = async (req, res) => {
-  try {
-    const provinces = await Province.findAll();
-    res.json(provinces);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
+// // Get all Provinces
+// const getAllProvinces = async (req, res) => {
+//   try {
+//     const provinces = await Province.findAll();
+//     res.json(provinces);
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// };
 
-// Get a single Province
-const getProvinceById = async (req, res) => {
-  try {
-    const province = await Province.findByPk(req.params.id);
-    if (!province) return res.status(404).json({ error: 'Not found' });
-    res.json(province);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
+// // Get a single Province by ID
+// const getProvinceById = async (req, res) => {
+//   try {
+//     const province = await Province.findByPk(req.params.id);
+//     if (!province) return res.status(404).json({ error: 'Province not found' });
+//     res.json(province);
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// };
 
-// Create a new Province
-const createProvince = async (req, res) => {
-  try {
-    const { name, imageUrl, description, location } = req.body;
-    const newProvince = await Province.create({ name, imageUrl, description, location });
-    res.status(201).json(newProvince);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-};
+// // Create a new Province
+// const createProvince = async (req, res) => {
+//   try {
+//     const { name, imageUrl, description, location } = req.body;
 
-module.exports = {
-  getAllProvinces,
-  getProvinceById,
-  createProvince
-};
+//     if (!name || !imageUrl || !location) {
+//       return res.status(400).json({ error: 'name, imageUrl, and location are required.' });
+//     }
+
+//     const newProvince = await Province.create({ name, imageUrl, description, location });
+//     res.status(201).json(newProvince);
+//   } catch (err) {
+//     res.status(400).json({ error: err.message });
+//   }
+// };
+
+// module.exports = {
+//   getAllProvinces,
+//   getProvinceById,
+//   createProvince
+// };

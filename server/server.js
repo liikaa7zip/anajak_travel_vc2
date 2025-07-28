@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const { sequelize } = require('./models');
 const userRoutes = require('./routes/userRoutes');
+// const provinceRoutes = require('./routes/provinceRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -15,6 +16,7 @@ app.use(cors({
 app.use(express.json());
 
 app.use('/api/users', userRoutes);
+// app.use('/api/provinces', provinceRoutes);
 
 sequelize.sync({ alter: true })
   .then(() => {
