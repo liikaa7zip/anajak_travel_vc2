@@ -109,13 +109,52 @@ exports.loginUser = async (req, res) => {
 exports.getAllUsers = async (req, res) => {
   try {
     const users = await User.findAll({
-      attributes: { exclude: ['password'] },
+
     });
-    res.json(users);
-  } catch (err) {
-    console.error('Get all users error:', err);
-    res.status(500).json({ message: 'Server error' });
+    res.json(users); // ✅ Send full user objects
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+// DELETE user by ID
+exports.deleteUser = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const deleted = await User.destroy({ where: { id } });
+
+    if (deleted) {
+      res.json({ message: 'User deleted successfully' });
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
+exports.updateUser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const { username, email, role } = req.body;
+
+    const user = await User.findByPk(userId);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    user.username = username || user.username;
+    user.email = email || user.email;
+    user.role = role || user.role;
+
+    await user.save();
+    res.json({ message: 'User updated successfully', user });
+  } catch (error) {
+    console.error('Error updating user:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
 
 
