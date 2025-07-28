@@ -176,7 +176,7 @@
       <div class="text-center mb-12">
         <h2 class="text-4xl font-bold text-gray-900 mb-4">Discover Your Dream Destinations</h2>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <div
           v-for="destination in destinations"
           :key="destination.id"
@@ -356,10 +356,6 @@ function previousSlide() {
     currentSlide.value === 0 ? slides.value.length - 1 : currentSlide.value - 1;
 }
 
-// Fallback image
-function handleImageError(event) {
-  event.target.src = "https://via.placeholder.com/400x300?text=No+Image";
-}
 
 // FAQs
 const faqs = ref([
@@ -465,7 +461,14 @@ const destinations = ref([
     description: "Capital city with rich culture",
     image:
       "https://blog.bangkokair.com/wp-content/uploads/2025/01/01_phnom-penh-travel-guide.jpg"
-  }
+  },
+  {
+    id: 4,
+    title: "Banan Temple",
+    description: "Many temple in Battambang",
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJqvmkc5uAXt4MA0aPAawOVhKYY28coyMFiA&s"
+  },
 ]);
 
 // Contact button
