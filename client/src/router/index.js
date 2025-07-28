@@ -120,6 +120,11 @@ const routes = [
       { path: 'guide', component: TravelingGuide },
       { path: 'login', component: Login },
       { path: 'register', component: Register },
+      { path: 'Bustickets', component: BusTickets },
+      { path: 'Boatickets', component: BoatTickets },
+      { path: 'CarRental', component: CarRental },
+      { path: 'hotel', component: HotelBooking },
+      { path: 'chat', component: UserChat },
 
 
       // { path: 'guide/battambang', name: 'BattamBang', component: BattamBang },
