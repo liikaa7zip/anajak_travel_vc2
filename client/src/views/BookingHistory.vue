@@ -1,23 +1,25 @@
 <template>
   <div class="max-w-7xl mx-auto px-6 py-10">
-    <!-- Page Title -->
     <h1 class="text-4xl font-extrabold mb-8 text-center text-purple-700 drop-shadow-md">
-      🧾 Your Booking History
+      Your Booking History
     </h1>
 
-    <!-- Button to Book -->
-    <div class="flex justify-end mb-6">
+    <div class="flex justify-end mb-6 gap-4">
       <router-link
         to="/Bustickets"
         class="px-6 py-2 bg-purple-600 text-white font-semibold rounded-lg shadow hover:bg-purple-700 transition duration-200"
       >
-        ➕ Book a New Ticket
+        Book a New Bus Ticket
+      </router-link>
+      <router-link
+        to="/carRental"
+        class="px-6 py-2 bg-indigo-600 text-white font-semibold rounded-lg shadow hover:bg-indigo-700 transition duration-200"
+      >
+        Go to Car Rental
       </router-link>
     </div>
 
-    <!-- Filter Section -->
     <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-5 p-5 bg-gradient-to-r from-purple-100 to-white border border-blue-100 rounded-lg shadow-sm">
-      <!-- Search -->
       <div class="w-full lg:w-1/2">
         <input
           type="text"
@@ -26,8 +28,6 @@
           class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
         />
       </div>
-
-      <!-- Per Page Dropdown -->
       <div class="flex items-center gap-2">
         <label class="font-medium text-gray-700">Show:</label>
         <select
@@ -42,22 +42,18 @@
       </div>
     </div>
 
-    <!-- Loading -->
     <div v-if="loading" class="text-center text-gray-600 animate-pulse">
       Loading your bookings...
     </div>
 
-    <!-- Error -->
     <div v-if="error" class="text-center text-red-600 font-medium mb-4">
       {{ error }}
     </div>
 
-    <!-- No Bookings -->
     <div v-if="filteredBookings.length === 0 && !loading" class="text-center text-gray-500 italic">
       No bookings found.
     </div>
 
-    <!-- Table -->
     <div v-if="filteredBookings.length > 0" class="overflow-x-auto rounded-lg shadow">
       <table class="min-w-full bg-white border border-gray-200 rounded-lg text-sm">
         <thead class="bg-purple-100 text-purple-900 text-left">
@@ -69,6 +65,8 @@
             <th class="py-3 px-5 border-b">Type</th>
             <th class="py-3 px-5 border-b">Travel Date</th>
             <th class="py-3 px-5 border-b">Email</th>
+            <th class="py-3 px-5 border-b">Status</th>
+            <th class="py-3 px-5 border-b">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -77,42 +75,53 @@
             :key="booking.id"
             class="hover:bg-purple-50"
           >
-            <td class="py-3 px-5 border-b font-medium text-purple-800">#{{ booking.id || 'N/A' }}</td>
+            <td class="py-3 px-5 border-b font-medium text-purple-800">#{{ booking.id }}</td>
             <td class="py-3 px-5 border-b">{{ formatDate(booking.createdAt) }}</td>
-            <td class="py-3 px-5 border-b">{{ booking.depart || 'N/A' }}</td>
-            <td class="py-3 px-5 border-b">{{ booking.arrive || 'N/A' }}</td>
+            <td class="py-3 px-5 border-b">{{ booking.depart }}</td>
+            <td class="py-3 px-5 border-b">{{ booking.arrive }}</td>
+            <td class="py-3 px-5 border-b">{{ booking.type }}</td>
+            <td class="py-3 px-5 border-b">{{ booking.date }}</td>
+            <td class="py-3 px-5 border-b">{{ booking.email }}</td>
             <td class="py-3 px-5 border-b">
-              <span v-if="booking.type === 'bus'">🚌 Bus</span>
-              <span v-else-if="booking.type === 'private_car'">🚗 Private Car</span>
-              <span v-else>❓</span>
+              <span
+                :class="statusBadgeClass(booking.status)"
+                class="px-2 py-1 rounded text-xs font-semibold uppercase"
+              >
+                {{ booking.status }}
+              </span>
             </td>
-            <td class="py-3 px-5 border-b">{{ booking.date || 'N/A' }}</td>
-            <td class="py-3 px-5 border-b">{{ booking.email || 'N/A' }}</td>
+            <td class="py-3 px-5 border-b">
+              <button
+                v-if="booking.status !== 'cancelled'"
+                @click="confirmCancel(booking.id)"
+                :disabled="isTravelDatePast(booking.date)"
+                :class="[
+                  'px-4 py-1 text-sm rounded text-white',
+                  isTravelDatePast(booking.date) ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-600'
+                ]"
+                :title="isTravelDatePast(booking.date) ? 'Cannot cancel past travel date' : 'Cancel booking'"
+              >
+                Cancel
+              </button>
+              <span v-else class="italic text-gray-500">Cancelled</span>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <!-- Pagination -->
     <div v-if="totalPages > 1" class="mt-6 flex flex-col items-center gap-2">
-      <!-- Page Numbers -->
       <div class="flex gap-2 flex-wrap justify-center">
         <button
           v-for="page in getPaginationRange"
           :key="page"
           @click="typeof page === 'number' && goToPage(page)"
-          :class="[
-            'w-9 h-9 flex items-center justify-center rounded-full text-sm font-medium transition',
-            page === currentPage ? 'bg-purple-600 text-white' : 'text-gray-800 hover:bg-gray-200',
-            page === '...' ? 'cursor-default text-gray-400' : 'cursor-pointer'
-          ]"
+          :class="[ 'w-9 h-9 flex items-center justify-center rounded-full text-sm font-medium transition', page === currentPage ? 'bg-purple-600 text-white' : 'text-gray-800 hover:bg-gray-200', page === '...' ? 'cursor-default text-gray-400' : 'cursor-pointer' ]"
           :disabled="page === '...'"
         >
           {{ page }}
         </button>
       </div>
-
-      <!-- Showing Info -->
       <div class="text-sm text-gray-600">
         Showing results
         {{ (currentPage - 1) * itemsPerPage + 1 }}–{{ Math.min(currentPage * itemsPerPage, totalResults) }}
@@ -126,7 +135,6 @@
 import { ref, onMounted, computed } from 'vue'
 import axios from 'axios'
 
-// State
 const bookings = ref([])
 const loading = ref(false)
 const error = ref(null)
@@ -149,7 +157,19 @@ const fetchBookingHistory = async () => {
   }
 }
 
-// Format Date
+// Cancel Booking
+const confirmCancel = async (id) => {
+  const confirmed = window.confirm('Are you sure you want to cancel this booking?')
+  if (!confirmed) return
+  try {
+    await axios.put(`http://localhost:5000/api/bookings/${id}/cancel`)
+    await fetchBookingHistory()
+    alert('Booking cancelled successfully.')
+  } catch (err) {
+    alert('Failed to cancel booking.')
+  }
+}
+
 const formatDate = (dateStr) => {
   const date = new Date(dateStr)
   return isNaN(date)
@@ -157,7 +177,32 @@ const formatDate = (dateStr) => {
     : date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
 }
 
-// Filtering
+// Status badge classes
+const statusBadgeClass = (status) => {
+  if (!status) return 'bg-gray-100 text-gray-600' // fallback style if status missing
+  switch (status.toLowerCase()) {
+    case 'confirmed':
+      return 'bg-green-100 text-green-800'
+    case 'cancelled':
+      return 'bg-red-100 text-red-800'
+    case 'pending':
+      return 'bg-yellow-100 text-yellow-800'
+    case 'completed':
+      return 'bg-gray-100 text-gray-600'
+    default:
+      return 'bg-gray-100 text-gray-600'
+  }
+}
+// Disable cancel button if travel date is past
+const isTravelDatePast = (travelDateStr) => {
+  if (!travelDateStr) return false
+  const today = new Date()
+  today.setHours(0, 0, 0, 0) // normalize to start of today
+  const travelDate = new Date(travelDateStr)
+  travelDate.setHours(0, 0, 0, 0)
+  return travelDate < today
+}
+
 const filteredBookings = computed(() => {
   const q = searchQuery.value.toLowerCase()
   return bookings.value.filter(b =>
@@ -167,18 +212,14 @@ const filteredBookings = computed(() => {
   )
 })
 
-// Pagination
 const totalResults = computed(() => filteredBookings.value.length)
 const totalPages = computed(() => Math.ceil(totalResults.value / itemsPerPage.value))
 const paginatedFilteredBookings = computed(() => {
   const start = (currentPage.value - 1) * itemsPerPage.value
-  const end = start + itemsPerPage.value
-  return filteredBookings.value.slice(start, end)
+  return filteredBookings.value.slice(start, start + itemsPerPage.value)
 })
 const goToPage = (page) => {
-  if (page >= 1 && page <= totalPages.value) {
-    currentPage.value = page
-  }
+  if (page >= 1 && page <= totalPages.value) currentPage.value = page
 }
 const getPaginationRange = computed(() => {
   const total = totalPages.value
@@ -198,6 +239,5 @@ const getPaginationRange = computed(() => {
   return range
 })
 
-// Init
 onMounted(fetchBookingHistory)
 </script>
