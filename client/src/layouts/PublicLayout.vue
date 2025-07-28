@@ -1,7 +1,7 @@
 <template>
   <div>
     <WebsiteNavbar />
-    <main class="mt-16 p-4">
+    <main>
       <router-view />
     </main>
   </div>
@@ -18,5 +18,8 @@ export default {
 </script>
 
 <style scoped>
-/* Add any styles if needed */
+/* Remove any padding that might restrict full-width */
+main {
+  width: 100%;
+}
 </style>
