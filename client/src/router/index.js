@@ -9,7 +9,7 @@ import AboutPage from '../views/AboutPage.vue'
 import BlogPage from '../views/BlogPage.vue'
 import TravelingGuide from '../views/TravelingGuide.vue'
 
-import BattamBang from '../views/provinces/BattamBang.vue'
+import BattamBang from '../views/provinces/Battambang.vue'
 import BanteayMeanchey from '../views/provinces/BanteayMeanchey.vue'
 import StungTreng from '../views/provinces/StungTreng.vue'
 import PreahVihear from '../views/provinces/PreahVihear.vue'
