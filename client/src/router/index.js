@@ -1,16 +1,40 @@
 import { createRouter, createWebHistory } from 'vue-router'
-
 import PublicLayout from '../layouts/PublicLayout.vue'
 import AdminLayout from '../layouts/AdminLayout.vue'
 
+// Auth
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
+
+// Pages
 import HomePage from '../views/HomePage.vue'
 import AboutPage from '../views/AboutPage.vue'
 import BlogPage from '../views/BlogPage.vue'
 import TravelingGuide from '../views/TravelingGuide.vue'
+import UserChat from '../views/UserChat.vue'
 
-// Province views
+// Travel Booking
+import BusTickets from '../views/Travelingbooking/BusTickets.vue'
+import BoatTickets from '../views/Travelingbooking/BoatTickets.vue'
+import CarRental from '../views/Travelingbooking/CarRental.vue'
+import FlightReservation from '../views/Travelingbooking/FlightReservation.vue'
+
+// Hotels
+import HotelList from '../views/Travelingbooking/HoteLlist.vue'
+import HotelDetail from '../views/HotelDetail.vue'
+import HotelBookingForm from '../views/BookingForm.vue'
+import BookingConfirmation from '../components/BookingConfirmation.vue'
+
+// Profile
+import UserProfile from '../views/UserProfile.vue'
+import UserSettings from '../views/UserSettings.vue'
+
+// Admin
+import AdminDashboard from '../views/admin/AdminDashboard.vue'
+import AdminUsers from '../views/admin/AdminUsers.vue'
+import CreateUser from '../components/CreateUser.vue'
+
+// Provinces
 import BattamBang from '../views/provinces/Battambang.vue'
 import BanteayMeanchey from '../views/provinces/BanteayMeanchey.vue'
 import StungTreng from '../views/provinces/StungTreng.vue'
@@ -37,29 +61,7 @@ import TbongKhmum from '../views/provinces/TbongKhmum.vue'
 import KampongSpeu from '../views/provinces/KampongSpeu.vue'
 import PreyVeng from '../views/provinces/PreyVeng.vue'
 
-// Admin views
-import AdminDashboard from '../views/admin/AdminDashboard.vue'
-import AdminUsers from '../views/admin/AdminUsers.vue'
-import CreateUser from '../components/CreateUser.vue'
-
-// Travel Booking
-// import Resturant from '../views/Travelingbooking/Resturant.vue'
-import BoatTickets from '../views/Travelingbooking/BoatTickets.vue'
-import BusTickets from '../views/Travelingbooking/BusTickets.vue'
-import CarRental from '../views/Travelingbooking/CarRental.vue'
-import FlightReservation from '../views/Travelingbooking/FlightReservation.vue'
-
-// Hotel views
-import HotelList from '../views/Travelingbooking/HoteLlist.vue'
-import HotelDetail from '../views/HotelDetail.vue'
-import HotelBookingForm from '../views/BookingForm.vue'
-import BookingConfirmation from '../components/BookingConfirmation.vue'
-
-// Profile
-import UserProfile from '../views/UserProfile.vue'
-import UserSettings from '../views/UserSettings.vue'
-
-// Auth Guard
+// Auth guard
 const requireAuth = (to, from, next) => {
   let user = null
   try {
@@ -68,10 +70,19 @@ const requireAuth = (to, from, next) => {
     user = null
   }
 
-  if (!user) {
-    next('/login')
-    return
+  if (!user) return next('/login')
+  next()
+}
+
+const requireAdmin = (to, from, next) => {
+  let user = null
+  try {
+    user = JSON.parse(localStorage.getItem('user'))
+  } catch (e) {
+    user = null
   }
+
+  if (!user || user.role !== 'admin') return next('/home')
   next()
 }
 
@@ -81,26 +92,30 @@ const routes = [
     path: '/',
     component: PublicLayout,
     children: [
+      // Auth
       { path: 'register', component: Register },
       { path: 'login', component: Login },
+
+      // Main Pages
       { path: 'home', component: HomePage },
       { path: 'about', component: AboutPage },
       { path: 'blog', component: BlogPage },
       { path: 'guide', component: TravelingGuide },
+      { path: 'chat', component: UserChat },
 
-      // Hotel
+      // Hotels
       { path: 'hotel', component: HotelList },
       { path: 'hotels/:id', component: HotelDetail },
       { path: 'book/:id', component: HotelBookingForm },
       { path: 'confirmation', component: BookingConfirmation },
 
-      // Travel Services
+      // Travel Booking
       { path: 'Boatickets', component: BoatTickets },
       { path: 'Bustickets', component: BusTickets },
       { path: 'CarRental', component: CarRental },
       { path: 'FlightReservation', component: FlightReservation },
 
-      // Profile
+      // User Profile
       { path: 'profile', component: UserProfile, beforeEnter: requireAuth },
       { path: 'settings', component: UserSettings, beforeEnter: requireAuth },
 
@@ -129,29 +144,17 @@ const routes = [
       { path: 'guide/kratie', name: 'Kratie', component: Kratie },
       { path: 'guide/tbong-khmum', name: 'TbongKhmum', component: TbongKhmum },
       { path: 'guide/kampong-speu', name: 'KampongSpeu', component: KampongSpeu },
-      { path: 'guide/prey-veng', name: 'PreyVeng', component: PreyVeng }
+      { path: 'guide/prey-veng', name: 'PreyVeng', component: PreyVeng },
     ]
   },
   {
     path: '/admin',
     component: AdminLayout,
-    beforeEnter: (to, from, next) => {
-      let user = null
-      try {
-        user = JSON.parse(localStorage.getItem('user'))
-      } catch (e) {
-        user = null
-      }
-
-      if (!user || user.role !== 'admin') {
-        return next('/home')
-      }
-      next()
-    },
+    beforeEnter: requireAdmin,
     children: [
       { path: '', redirect: 'dashboard' },
       { path: 'dashboard', component: AdminDashboard },
-      { path: 'users', component: AdminUsers }
+      { path: 'users', component: AdminUsers },
     ]
   },
   { path: '/dashboard', redirect: '/admin/dashboard' },
