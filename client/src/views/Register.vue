@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center px-4 py-12 mt-[-120px]">
+  <div class="min-h-screen flex items-center justify-center px-4 py-12 ">
     <div class="flex w-full max-w-4xl bg-white rounded-xl shadow-2xl overflow-hidden transform transition-all duration-500 hover:scale-105 h-[80vh]">
       <!-- Left Side: Background Image with Text -->
       <div class="w-1/2 bg-gray-100 p-8 flex items-center justify-center relative overflow-hidden">
