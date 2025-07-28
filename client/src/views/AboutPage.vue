@@ -32,7 +32,6 @@
         ></button>
       </div>
     </section>
-
     <!-- Our word section -->
     <section class="py-16 bg-gray-50 relative">
       <div class="max-w-7xl mx-auto px-4">
@@ -130,14 +129,10 @@
         </div>
       </div>
     </section>
-
     <!-- About Us Section -->
-    <section class="bg-gradient-to-br from-purple-100 to-purple-200 py-16 relative overflow-hidden">
+    <section class="bg-white py-16 relative overflow-hidden">
       <!-- Background Pattern -->
-      <div class="absolute inset-0 opacity-20">
-        <div class="absolute inset-0" style="background-image: radial-gradient(circle, #8b5cf6 1px, transparent 1px); background-size: 20px 20px;"></div>
-      </div>
-      
+      <!-- Removed background pattern div -->
       <div class="max-w-6xl mx-auto px-4 relative">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <!-- Left Content -->
@@ -145,41 +140,30 @@
             <p class="text-purple-600 font-medium mb-2 text-sm uppercase tracking-wide">Our Story</p>
             <h2 class="text-4xl font-bold text-gray-900 mb-6">About Us</h2>
             <p class="text-gray-600 text-lg leading-relaxed mb-8">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-              Suspendisse varius enim in eros elementum tristique. Duis 
-              cursus, mi quis viverra ornare, eros dolor interdum nulla, ut 
-              commodo diam libero vitae erat.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum
+              tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae
+              erat.
             </p>
             <button class="bg-purple-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-purple-700 transition-colors shadow-lg">
               Contact Us
             </button>
           </div>
-          
           <!-- Right Images -->
-          <div class="relative flex justify-center items-center">
-            <!-- Airplane decoration -->
-            <div class="absolute -top-8 -right-4 z-20">
-              <svg class="w-8 h-8 text-gray-700 transform rotate-45" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
-              </svg>
-              <!-- Dotted line -->
-              <div class="absolute top-4 left-4 w-16 h-0.5 border-t-2 border-dotted border-gray-400"></div>
-            </div>
-            
+          <div class="flex justify-center items-center gap-6">
+            <!-- Removed Airplane decoration -->
             <!-- First Image Container -->
-            <div class="relative w-64 h-80 rounded-3xl overflow-hidden shadow-2xl transform -rotate-6 z-10">
+            <div class="w-64 h-80 rounded-2xl overflow-hidden shadow-lg">
               <img
-                src="https://tourismcambodia.org/storage/uploads/category_banner/ministry-of-tourism-cambodia-2021-06-13-03-16-47pm.jpg"
+                src="https://cambodiataxidriver.com/wp-content/uploads/2023/09/Cambodia-Taxi-Driver-2706.webp"
                 alt="preah vihear"
                 class="w-full h-full object-cover"
               />
             </div>
-            
             <!-- Second Image Container -->
-            <div class="relative w-48 h-64 rounded-3xl overflow-hidden shadow-2xl transform rotate-12 -ml-16 mt-8 z-20">
+            <div class="w-64 h-80 rounded-2xl overflow-hidden shadow-lg ">
               <img
                 src="https://i.pinimg.com/564x/72/e7/3e/72e73e179a29e7d8f4a6eafce3760423.jpg"
-                alt="Ancient temple corridor"
+                alt="Cambodian Waterfall"
                 class="w-full h-full object-cover"
               />
             </div>
@@ -187,7 +171,6 @@
         </div>
       </div>
     </section>
-
     <!-- Destinations Section -->
     <section class="max-w-6xl mx-auto px-4 py-16">
       <div class="text-center mb-12">
@@ -212,20 +195,42 @@
         >View All</button>
       </div>
     </section>
-
     <!-- FAQ Section -->
     <section class="bg-gray-100 py-16">
       <div class="max-w-4xl mx-auto px-4">
-        <h2 class="text-4xl font-bold text-gray-900 text-center mb-12">FAQs</h2>
-        <div class="space-y-6">
-          <div v-for="faq in faqs" :key="faq.id" class="bg-white rounded-lg p-6 shadow-sm">
-            <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ faq.question }}</h3>
-            <p class="text-gray-600">{{ faq.answer }}</p>
+        <h2 class="text-4xl font-bold text-gray-900 text-center mb-4">FAQs</h2>
+        <p class="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
+          Find quick answers to common questions about booking, payments, cancellations, security, and travel requirements. This section helps you get the information you need—fast and hassle-free.
+        </p>
+        <div class="space-y-0">
+          <div v-for="faq in faqs" :key="faq.id" class="bg-white rounded-lg border-b border-blue-100 last:border-b-0">
+            <button
+              @click="toggleFaq(faq)"
+              class="flex justify-between items-center w-full py-4 px-6 text-lg font-semibold text-gray-900 focus:outline-none"
+            >
+              <span>{{ faq.question }}</span>
+              <svg
+                class="w-5 h-5 text-blue-500 transition-transform duration-300"
+                :class="{'rotate-180': faq.isOpen}"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
+            <div v-if="faq.isOpen" class="px-6 pb-4 text-gray-600">
+              <p>{{ faq.answer }}</p>
+            </div>
           </div>
         </div>
       </div>
     </section>
-
     <!-- Insights Section -->
     <section class="max-w-6xl mx-auto px-4 py-16">
       <div class="flex justify-between items-center mb-12">
@@ -254,12 +259,10 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
-
 const router = useRouter();
 
 // Current slide state for hero section
 const currentSlide = ref(0);
-
 // Hero slides
 const slides = ref([
   {
@@ -284,7 +287,6 @@ const slides = ref([
 
 // Our Worlds card navigation state
 const currentCardIndex = ref(0);
-
 // All card items
 const worldCards = ref([
   {
@@ -363,21 +365,58 @@ function handleImageError(event) {
 const faqs = ref([
   {
     id: 1,
-    question: "What is Anajak Travel?",
-    answer:
-      "Anajak Travel is a travel agency that offers various travel services."
+    question: "How do I book a trip on your website?",
+    answer: "Just choose your destination, select your travel dates, click “Book Now,” fill in your details, and make the payment. You’ll get a confirmation email right after!",
+    isOpen: false,
   },
   {
     id: 2,
-    question: "How can I book a trip?",
-    answer: "You can book a trip through our website or contact our support."
+    question: "What payment methods do you accept?",
+    answer: "We accept all major credit cards, including Visa, MasterCard, American Express, and Discover. We also support payments via PayPal and bank transfers for certain bookings.",
+    isOpen: false,
   },
   {
     id: 3,
-    question: "What destinations do you cover?",
-    answer: "We cover a wide range of destinations across Cambodia and beyond."
-  }
+    question: "Is my payment secure?",
+    answer: "Yes, your payment security is our top priority. We use industry-standard encryption and secure payment gateways to protect your personal and financial information.",
+    isOpen: false,
+  },
+  {
+    id: 4,
+    question: "When will my credit card be charged?",
+    answer: "Your credit card will typically be charged at the time of booking confirmation. For some specific packages or services, a deposit might be charged initially, with the remaining balance due closer to your travel date.",
+    isOpen: false,
+  },
+  {
+    id: 5,
+    question: "Can I cancel or modify my booking?",
+    answer: "Cancellation and modification policies vary depending on the specific trip or service booked. Please refer to the terms and conditions provided during the booking process or contact our support team for assistance.",
+    isOpen: false,
+  },
+  {
+    id: 6,
+    question: "What are your cancellation and refund policies?",
+    answer: "Our cancellation and refund policies are detailed in the terms and conditions of each booking. Generally, refunds are subject to cancellation fees and timing relative to your departure date. We recommend reviewing these policies carefully before confirming your booking.",
+    isOpen: false,
+  },
+  {
+    id: 7,
+    question: "Do I need a visa to travel to my destination?",
+    answer: "Visa requirements depend on your nationality and the destination country. We advise checking the latest visa regulations with the embassy or consulate of your destination country well in advance of your travel date.",
+    isOpen: false,
+  },
 ]);
+
+// Toggle FAQ function
+function toggleFaq(selectedFaq) {
+  faqs.value.forEach(faq => {
+    if (faq.id === selectedFaq.id) {
+      faq.isOpen = !faq.isOpen;
+    } else {
+      faq.isOpen = false; // Close other FAQs
+    }
+  });
+}
 
 // Insights
 const insights = ref([
@@ -411,21 +450,21 @@ const destinations = ref([
     title: "Angkor Wat",
     description: "The world's largest religious monument",
     image:
-      "https://upload.wikimedia.org/wikipedia/commons/a/a0/Angkor_Wat_temple.jpg"
+      "https://cms.siemreaper.click/uploads/angkor_wat_sunrise_discovery2712_997b977984.jpg"
   },
   {
     id: 2,
     title: "Kampot River",
     description: "Scenic riverside and countryside life",
     image:
-      "https://upload.wikimedia.org/wikipedia/commons/3/33/Kampot_river.jpg"
+      "https://pippalihotel.com/wp-content/uploads/2023/03/Get-To-Know-Kampot-River-3.jpg"
   },
   {
     id: 3,
     title: "Phnom Penh",
     description: "Capital city with rich culture",
     image:
-      "https://upload.wikimedia.org/wikipedia/commons/6/66/Phnom_Penh_at_night.jpg"
+      "https://blog.bangkokair.com/wp-content/uploads/2025/01/01_phnom-penh-travel-guide.jpg"
   }
 ]);
 
