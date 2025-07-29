@@ -68,6 +68,8 @@ import BookingflightHistory from '@/views/BookingflightHistory.vue'
 
 import AdminChat from '@/views/admin/AdminChat.vue'
 
+import Recommendations from '@/views/RecommendationView.vue'
+
 
 // Auth guard
 const requireAuth = (to, from, next) => {
@@ -170,7 +172,15 @@ const routes = [
     ]
   },
   { path: '/dashboard', redirect: '/admin/dashboard' },
-  { path: '/users/create', name: 'CreateUser', component: CreateUser }
+  { path: '/users/create', name: 'CreateUser', component: CreateUser },
+
+
+  {
+    path: '/recommendations',
+    name: 'Recommendations',
+    component: Recommendations
+  },
+
 ]
 
 const router = createRouter({

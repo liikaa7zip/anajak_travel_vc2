@@ -72,6 +72,16 @@
               Reports
             </a>
           </li>
+
+
+
+
+          <li>
+            <router-link to="/recommendations" class="nav-link" active-class="router-link-exact-active">
+              <i class="icon ri-message-3-line"></i>
+              Recommendations
+            </router-link>
+          </li>
         </ul>
       </div>
     </nav>
