@@ -1,53 +1,145 @@
 <template>
-  <div class="app-container flex flex-col min-h-screen">
-    <!-- Show AdminNavbar only on admin routes and if user is admin -->
-    <AdminNavbar v-if="showAdminNavbar" class="w-64 h-screen fixed top-0 left-0" />
-
-    <!-- Main content -->
-    <div class="flex-1">
-      <router-view />
+  <div class="app-container">
+    <!-- Loading screen while auth is being initialized -->
+    <div v-if="!isInitialized" class="min-h-screen flex items-center justify-center bg-gray-50 w-full">
+      <div class="text-center">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+        <p class="text-gray-600">Loading...</p>
+        <p class="text-xs text-gray-400 mt-2">Checking authentication status</p>
+      </div>
     </div>
+    
+    <!-- Main app layout -->
+    <div v-else class="flex min-h-screen bg-white">
+      <!-- Admin Sidebar - only show on admin routes -->
+      <div v-if="showAdminNavbar" class="w-64 h-screen fixed top-0 left-0 z-10 bg-white shadow flex-shrink-0">
+        <AdminNavbar />
+      </div>
+      
+      <!-- Main content area -->
+      <div :class="['flex-1 h-screen overflow-auto w-full', showAdminNavbar ? 'ml-64' : '']">
+        <router-view />
+      </div>
+
+      <!-- 💬 Chat button for logged-in non-admin users -->
+      <router-link
+  v-if="showChatButton"
+  to="/chat"
+  class="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-5 py-3 rounded-full shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 ease-in-out"
+>
+  💬 Chat
+</router-link>
+
+    </div>
+    
+    <!-- Debug component -->
+    <!-- <AuthDebug /> -->
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
+import { computed, onMounted, watch, nextTick } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import AdminNavbar from './components/AdminNavbar.vue'
+// import AuthDebug from './components/AuthDebug.vue'
+import { useAuth } from './stores/useAuth'
 
-const isAdmin = ref(false)
-const router = useRouter()
 const route = useRoute()
+const router = useRouter()
+const { isAdmin, userProfile, initAuth, isInitialized, isLoggedIn } = useAuth()
 
-onMounted(() => {
-  const user = JSON.parse(localStorage.getItem('user'))
-  if (user && user.role === 'admin') {
-    isAdmin.value = true
-    // Redirect to admin dashboard if not already on an admin route
-    if (!route.path.startsWith('/admin')) {
-      router.replace('/admin') // or '/admin/dashboard' if that's your main admin page
-    }
-  } else {
-    isAdmin.value = false
-  }
+// Computed to show Chat button only when logged in
+const showChatButton = computed(() => {
+  return isInitialized.value && isLoggedIn.value
 })
 
-// Show AdminNavbar only if user is admin and route starts with /admin
+// Initialize auth on mount
+onMounted(async () => {
+  console.log('[APP] Component mounted')
+  console.log('[APP] Current route:', route.path)
+  console.log('[APP] Pre-init auth state:', {
+    initialized: isInitialized.value,
+    loggedIn: isLoggedIn.value,
+    isAdmin: isAdmin.value,
+    userProfile: userProfile.value
+  })
+
+  await initAuth()
+
+  console.log('[APP] Post-init auth state:', {
+    initialized: isInitialized.value,
+    loggedIn: isLoggedIn.value,
+    isAdmin: isAdmin.value,
+    userProfile: userProfile.value
+  })
+})
+
+// Show sidebar only if initialized AND user is admin AND route is /admin/*
 const showAdminNavbar = computed(() => {
-  return isAdmin.value && route.path.startsWith('/admin')
+  const shouldShow = isInitialized.value && isLoggedIn.value && isAdmin.value && route.path.startsWith('/admin')
+  console.log('[APP] showAdminNavbar:', shouldShow, {
+    initialized: isInitialized.value,
+    loggedIn: isLoggedIn.value,
+    isAdmin: isAdmin.value,
+    routeStartsWithAdmin: route.path.startsWith('/admin'),
+    currentRoute: route.path
+  })
+  return shouldShow
+})
+
+// Watch for auth state changes and handle redirects
+watch([isInitialized, isLoggedIn, isAdmin], ([initialized, loggedIn, admin]) => {
+  if (!initialized) return
+
+  console.log("[APP] Auth state changed:", {
+    initialized,
+    loggedIn,
+    admin,
+    currentPath: route.path,
+    userProfile: userProfile.value
+  })
+
+  if (loggedIn && admin && !route.path.startsWith('/admin') && route.path !== '/login' && route.path !== '/register') {
+    console.log('[APP] Admin user detected, redirecting to admin dashboard')
+    nextTick(() => {
+      router.replace('/admin/dashboard')
+    })
+  }
+
+  if (loggedIn && !admin && route.path.startsWith('/admin')) {
+    console.log('[APP] Non-admin user trying to access admin route, redirecting to home')
+    nextTick(() => {
+      router.replace('/home')
+    })
+  }
+}, { immediate: true })
+
+// Watch route changes to handle admin access
+watch(() => route.path, (newPath) => {
+  if (!isInitialized.value) return
+
+  console.log("[APP] Route changed to:", newPath, "Auth state:", {
+    initialized: isInitialized.value,
+    loggedIn: isLoggedIn.value,
+    isAdmin: isAdmin.value
+  })
+
+  if (newPath.startsWith('/admin') && (!isLoggedIn.value || !isAdmin.value)) {
+    console.log('[APP] Unauthorized admin access attempt, redirecting to login')
+    router.replace('/login')
+  }
 })
 </script>
 
-<style scoped>
-html, body, #app {
-  height: 100%;
-  margin: 0;
-}
 
+
+<style scoped>
 .app-container {
-  display: flex;
-  flex-direction: column;
   min-height: 100vh;
 }
 
+html, body {
+  height: 100%;
+  margin: 0;
+}
 </style>

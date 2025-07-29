@@ -1,45 +1,36 @@
-// // server/models/index.js
-// 'use strict';
+const { Sequelize, DataTypes } = require('sequelize');
+const sequelize = require('../config/db');
 
-// const fs = require('fs');
-// const path = require('path');
-// const Sequelize = require('sequelize');
-// const basename = path.basename(__filename);
-// const db = {};
+const db = {};
 
-// const sequelize = require('../config/db');
+db.Sequelize = Sequelize;
+db.sequelize = sequelize;
 
-// fs
-//   .readdirSync(__dirname)
-//   .filter(file => {
-//     return (
-//       file.indexOf('.') !== 0 &&
-//       file !== basename &&
-//       file.slice(-3) === '.js' &&
-//       file.indexOf('.test.js') === -1
-//     );
-//   })
-//   .forEach(file => {
-//     const model = require(path.join(__dirname, file)); 
-//     db[model.name] = model;
-//   });
+// Import models (pass sequelize and DataTypes)
+db.User = require('./user')(sequelize, DataTypes);
+db.Booking = require('./booking')(sequelize, DataTypes);
+db.Location = require('./location')(sequelize, DataTypes);
+db.Hotel = require('./hotel')(sequelize, DataTypes);
+db.HotelBooking = require('./hotelBooking')(sequelize, DataTypes);
+db.Message = require('./message')(sequelize, DataTypes);
 
-// Object.keys(db).forEach(modelName => {
-//   if (db[modelName].associate) {
-//     db[modelName].associate(db);
-//   }
-// });
+// === Define Relationships === //
 
-// db.sequelize = sequelize;
-// db.Sequelize = Sequelize;
+// User ↔ HotelBooking
+db.User.hasMany(db.HotelBooking, { foreignKey: 'userId' });
+db.HotelBooking.belongsTo(db.User, { foreignKey: 'userId' });
 
-// module.exports = db;
+// Hotel ↔ HotelBooking
+db.Hotel.hasMany(db.HotelBooking, { foreignKey: 'hotelId' });
+db.HotelBooking.belongsTo(db.Hotel, { foreignKey: 'hotelId' });
 
-const sequelize = require('../config/db')
-const User = require('./user')
+// Location ↔ Hotel
+db.Location.hasMany(db.Hotel, { foreignKey: 'locationId' });
+db.Hotel.belongsTo(db.Location, { foreignKey: 'locationId' });
 
-const db = {}
-db.sequelize = sequelize
-db.User = User
+db.Booking = require('./booking')(sequelize, Sequelize.DataTypes);
+// Optional: Add User ↔ Message association if needed
+// db.User.hasMany(db.Message, { foreignKey: 'sender' });
+// db.User.hasMany(db.Message, { foreignKey: 'receiver' });
 
-module.exports = db
+module.exports = db;
