@@ -205,6 +205,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import axios from 'axios'
 
 const form = ref({
   origin: '',
@@ -220,42 +221,41 @@ const email = ref('')
 const confirmation = ref('')
 const bookingConfirmed = ref(false)
 const showPreConfirmationModal = ref(false)
-
 const lastBooking = ref({})
+const loading = ref(false)
+const error = ref('')
 
-// Step 1: User clicks "Book Now"
 function bookFlight() {
   showPreConfirmationModal.value = true
 }
 
-// Step 2: User clicks "Cancel" on modal
 function cancelBookingPreConfirmation() {
   showPreConfirmationModal.value = false
 }
 
-// Step 3: User confirms booking
-function proceedBooking() {
+async function proceedBooking() {
   showPreConfirmationModal.value = false
+  loading.value = true
+  error.value = ''
 
-
-  // Save booking info for display
-  lastBooking.value = {
+  const bookingData = {
     origin: form.value.origin,
     destination: form.value.destination,
     date: form.value.date,
     airline: form.value.airline,
     classType: form.value.classType,
     passengers: form.value.passengers,
-    name: passengerName.value,
+    passengerName: passengerName.value,
     email: email.value
   }
 
-  // Show confirmation message
-  confirmation.value = `Your flight from ${form.value.origin} to ${form.value.destination} on ${form.value.date} has been booked successfully!`
-  bookingConfirmed.value = true
+  try {
+    const res = await axios.post('http://localhost:5000/api/flightbookings', bookingData)
 
-  // Reset form after short delay
-  setTimeout(() => {
+    confirmation.value = `Your flight from ${res.data.origin} to ${res.data.destination} on ${res.data.date} has been booked successfully!`
+    lastBooking.value = res.data
+    bookingConfirmed.value = true
+
     form.value = {
       origin: '',
       destination: '',
@@ -266,9 +266,13 @@ function proceedBooking() {
     }
     passengerName.value = ''
     email.value = ''
-  }, 300)
+  } catch (err) {
+    error.value = '❌ Booking failed. Please check your inputs or try again later.'
+    console.error(err)
+  } finally {
+    loading.value = false
+  }
 }
-
 </script>
 
 <style scoped>
@@ -281,3 +285,4 @@ function proceedBooking() {
   opacity: 0;
 }
 </style>
+
