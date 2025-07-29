@@ -302,7 +302,7 @@ const worldCards = ref([
   {
     id: 1,
     title: 'Zoo',
-    image: 'https://english.cambodiadaily.com/wp-content/uploads/2016/04/cam-photo-tiger.jpg',
+    image: 'https://www.tribuneindia.com/sortd-service/imaginary/v22-01/jpg/large/high?url=dGhldHJpYnVuZS1zb3J0ZC1wcm8tcHJvZC1zb3J0ZC9tZWRpYTdlMmI1MDIwLTRlNTEtMTFlZi04MTJjLTliYTA0YmVhNDc2Zi5qcGc=',
     description: 'This is a zoo with exotic animals.'
   },
   {
