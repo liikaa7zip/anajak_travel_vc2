@@ -78,14 +78,26 @@
             <div class="flex items-center gap-3">
               <button class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm"><i class="fa-solid fa-house-chimney"></i></button>
               <router-link
-                :to="`/guide/${province.routeName.toLowerCase()}/food`"
+                :to="`/guide/${province.routeName.toLowerCase()}/restaurant`"
                 class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm"
               >
-              <i class="fa-solid fa-bowl-food"></i>
+              <i class="fa-duotone fa-solid fa-bowl-food"></i>
+             </router-link>
+             <router-link
+                :to="`/guide/${province.routeName.toLowerCase()}/transport`"
+                class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm"
+              >
+              <i class="fa-solid fa-bus"></i>
+             </router-link>
+             <router-link
+                :to="`/guide/${province.routeName.toLowerCase()}/weather`"
+                class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm"
+              >
+              <i class="fa-solid fa-cloud-sun"></i>
              </router-link>
               <!-- <button class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm"><i class="fa-solid fa-bowl-food"></i></button> -->
-              <button class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm"><i class="fa-solid fa-bus"></i></button>
-              <button class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm"><i class="fa-solid fa-cloud-sun"></i></button>
+              <!-- <button class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm"><i class="fa-solid fa-bus"></i></button> -->
+              <!-- <button class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm"><i class="fa-solid fa-cloud-sun"></i></button> -->
             </div>
           </div>
         </router-link>
