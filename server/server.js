@@ -24,6 +24,12 @@ const adminUserRoutes = require('./routes/adminUserRoutes');
 const messageRoutes = require('./routes/messageRoutes');
 
 
+
+const featuredStoriesRoutes = require('./routes/featuredStoriesRoutes');
+const travelGuidesRoutes = require('./routes/travelGuidesRoutes');
+const galleryPhotosRoutes = require('./routes/galleryPhotosRoutes');
+
+
 const app = express();
 const server = http.createServer(app);
 
@@ -43,6 +49,9 @@ app.use('/api/transports', transportRoutes);
 app.use('/api/hotels', hotelRoutes);
 app.use('/api/hotel-booking', hotelBookingRoutes);  // Note singular 'hotel-booking'
 app.use('/api', locationRoutes);
+app.use('/api/featured-stories', featuredStoriesRoutes);
+app.use('/api/travel-guides', travelGuidesRoutes);
+app.use('/api/gallery-photos', galleryPhotosRoutes);
 // Uncomment if you want admin user routes
 // app.use('/api/admin-users', adminUserRoutes);
 

@@ -57,13 +57,13 @@
         </li>
 
         <li>
-          <a href="#" class="nav-link">
+          <router-link to="/admin/blog" class="nav-link" active-class="router-link-exact-active">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20h9" />
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m-8-8h16" />
             </svg>
             Blog
-          </a>
+          </router-link>
         </li>
 
         <li>
