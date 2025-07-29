@@ -33,6 +33,7 @@ import UserSettings from '../views/UserSettings.vue'
 import AdminDashboard from '../views/admin/AdminDashboard.vue'
 import AdminUsers from '../views/admin/AdminUsers.vue'
 import CreateUser from '../components/CreateUser.vue'
+import AdminBlog from '../views/admin/AdminBlog.vue'
 
 // Provinces
 import BattamBang from '../views/provinces/Battambang.vue'
@@ -62,6 +63,7 @@ import KampongSpeu from '../views/provinces/KampongSpeu.vue'
 import PreyVeng from '../views/provinces/PreyVeng.vue'
 
 import BookingHistory from '@/views/BookingHistory.vue'
+import AdminChat from '@/views/admin/AdminChat.vue'
 
 // Auth guard
 const requireAuth = (to, from, next) => {
@@ -158,6 +160,8 @@ const routes = [
       { path: '', redirect: 'dashboard' },
       { path: 'dashboard', component: AdminDashboard },
       { path: 'users', component: AdminUsers },
+      { path: 'chat', component: AdminChat },
+      { path: 'blog', component: AdminBlog },
     ]
   },
   { path: '/dashboard', redirect: '/admin/dashboard' },
