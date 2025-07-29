@@ -189,7 +189,7 @@ onBeforeUnmount(() => {
 .chat-container {
   max-width: 720px;
   height: 90vh;
-  margin: -40px auto;
+  margin: 40px auto;
   display: flex;
   flex-direction: column;
   background: linear-gradient(to bottom, #f9fafb, #ffffff);
