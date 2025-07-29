@@ -136,7 +136,7 @@
     </section>
 
     <!-- Trending Destinations -->
-    <section class="py-16 lg:py-24 bg-gray-50 w-full px-4 sm:px-8 lg:px-16">
+    <section class="py-16 lg:py-24 bg-white w-full px-4 sm:px-8 lg:px-16">
       <div class="w-full">
         <div
           class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-12 max-w-7xl mx-auto"
@@ -393,7 +393,7 @@
     </section>
 
     <!-- Key Features -->
-    <section class="py-16 lg:py-24 bg-white w-full px-4 sm:px-8 lg:px-16">
+    <section class="py-16 lg:py-24 bg-purple-100 w-full px-4 sm:px-8 lg:px-16">
       <div class="w-full max-w-7xl mx-auto">
         <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div class="space-y-8">

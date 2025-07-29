@@ -33,7 +33,7 @@
       </div>
     </section>
     <!-- Our word section -->
-    <section class="py-16 bg-gray-50 relative">
+    <section class="py-16 relative">
       <div class="max-w-7xl mx-auto px-4">
         <div class="mb-12">
           <h2 class="text-4xl font-bold text-gray-900 mb-4">Our Worlds</h2>
@@ -130,7 +130,7 @@
       </div>
     </section>
     <!-- About Us Section -->
-    <section class="py-16 lg:py-24 bg-white w-full px-4 sm:px-8 lg:px-16">
+    <section class="py-16 lg:py-24 bg-purple-100 w-full px-4 sm:px-8 lg:px-16">
       <div class="w-full max-w-7xl mx-auto">
         <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div class="relative z-10">
@@ -167,22 +167,28 @@
     </section>
     <!-- Destinations Section -->
     <section class="max-w-7xl mx-auto px-4 py-16">
+      <!-- Section Title -->
       <div class="text-center mb-12">
         <h2 class="text-4xl font-bold text-gray-900 mb-4">Discover Your Dream Destinations</h2>
       </div>
+
+      <!-- Destination Cards -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div
+        <router-link
           v-for="destination in destinations"
           :key="destination.id"
-          class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
+          :to="`/guide/${destination.id}`"
+          class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow block"
         >
           <img :src="destination.image" :alt="destination.title" class="w-full h-48 object-cover" />
           <div class="p-6">
             <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ destination.title }}</h3>
             <p class="text-gray-600">{{ destination.description }}</p>
           </div>
-        </div>
+        </router-link>
       </div>
+
+      <!-- View All Button -->
       <div class="text-center mt-12">
         <router-link to="/guide">
           <button
@@ -191,8 +197,9 @@
         </router-link>
       </div>
     </section>
+
     <!-- FAQ Section -->
-    <section class="bg-gray-100 py-16">
+    <section class="bg-purple-100 py-16">
       <div class="max-w-4xl mx-auto px-4">
         <h2 class="text-4xl font-bold text-gray-900 text-center mb-4">FAQs</h2>
         <p
@@ -241,18 +248,20 @@
           >View All</button>
         </router-link>
       </div>
+
       <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div
+        <router-link
           v-for="insight in insights"
           :key="insight.id"
-          class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
+          :to="`/blog/${insight.id}`"
+          class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow block"
         >
           <img :src="insight.image" :alt="insight.title" class="w-full h-48 object-cover" />
           <div class="p-6">
             <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ insight.title }}</h3>
             <p class="text-gray-600 text-sm">{{ insight.description }}</p>
           </div>
-        </div>
+        </router-link>
       </div>
     </section>
   </div>
@@ -287,41 +296,40 @@ const slides = ref([
   }
 ]);
 
-// Our Worlds card navigation state
-const currentCardIndex = ref(0);
+const currentCardIndex = ref(0)
 // All card items
 const worldCards = ref([
   {
     id: 1,
-    title: "Zoo",
-    image:
-      "https://english.cambodiadaily.com/wp-content/uploads/2016/04/cam-photo-tiger.jpg"
+    title: 'Zoo',
+    image: 'https://english.cambodiadaily.com/wp-content/uploads/2016/04/cam-photo-tiger.jpg',
+    description: 'This is a zoo with exotic animals.'
   },
   {
     id: 2,
-    title: "Beach",
-    image:
-      "https://hanoivoyage.com/uploads//Blogs/Cambodia/Visit-Cambodia/thumnail/sihanoukville-thumbnail-01.jpg"
+    title: 'Beach',
+    image: 'https://hanoivoyage.com/uploads//Blogs/Cambodia/Visit-Cambodia/thumnail/sihanoukville-thumbnail-01.jpg',
+    description: 'A beautiful sandy beach with clear waters.'
   },
   {
     id: 3,
-    title: "Waterfall",
-    image:
-      "https://www.guidingcambodia.com/wp-content/uploads/2023/12/Phnom-Kulen-Waterfall-02-853x640-1.jpg"
+    title: 'Waterfall',
+    image: 'https://www.guidingcambodia.com/wp-content/uploads/2023/12/Phnom-Kulen-Waterfall-02-853x640-1.jpg',
+    description: 'A relaxing and scenic waterfall in the forest.'
   },
   {
     id: 4,
-    title: "Mountain",
-    image:
-      "https://khmerplaces.com/storage/posts/May2020/36WfY2yWwYZV6ll9icXs.jpg"
+    title: 'Mountain',
+    image: 'https://khmerplaces.com/storage/posts/May2020/36WfY2yWwYZV6ll9icXs.jpg',
+    description: 'A majestic mountain perfect for hiking.'
   },
   {
     id: 5,
-    title: "Forest",
-    image:
-      "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/0f/99/03/fd.jpg"
+    title: 'Forest',
+    image: 'https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/0f/99/03/fd.jpg',
+    description: 'A dense forest with wildlife and adventure.'
   }
-]);
+])
 
 // Show only 3 cards at a time
 const visibleCards = computed(() => {

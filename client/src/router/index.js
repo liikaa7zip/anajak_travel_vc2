@@ -11,7 +11,9 @@ import TravelingGuide from '../views/TravelingGuide.vue'
 
 import AdminDashboard from '../views/admin/AdminDashboard.vue'
 import AdminUsers from '../views/admin/AdminUsers.vue'
-import CreateUser from '../components/CreateUser.vue' 
+import CreateUser from '../components/CreateUser.vue'
+
+import WorldDetail from '../views/WorldDetail.vue'
 
 const routes = [
   {
@@ -69,6 +71,13 @@ const routes = [
     name: 'CreateUser',
     component: CreateUser,
   },
+
+  { 
+    path: '/worlddetail/:id', 
+    name: 'WorldDetail', component: 
+    WorldDetail, props: true 
+  }
+
 ]
 
 const router = createRouter({
