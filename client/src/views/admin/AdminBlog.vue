@@ -87,9 +87,10 @@
                 v-for="tag in guide.tags"
                 :key="tag"
                 class="inline-block bg-indigo-300 text-indigo-900 rounded-full px-3 py-0.5 text-xs font-semibold"
-              >
+                >
                 {{ tag }}
               </span>
+
             </div>
           </div>
           <div class="space-x-3 flex-shrink-0 pt-1">
@@ -233,7 +234,7 @@ async function fetchGuides() {
     const res = await axios.get(`${API_BASE}/travel-guides`)
     guides.value = res.data.map(g => ({
       ...g,
-      tags: g.tags ? g.tags.split(',').map(tag => tag.trim()) : []
+      tags: Array.isArray(g.tags) ? g.tags : (g.tags || '').split(',')
     }))
   } catch (err) {
     console.error('Error fetching travel guides:', err)

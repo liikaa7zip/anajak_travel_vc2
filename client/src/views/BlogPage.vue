@@ -4,7 +4,7 @@
     <!-- Hero with Dynamic Stats -->
  <section
   class="relative min-h-[600px] p-14 text-center overflow-hidden text-white rounded-lg shadow-lg bg-cover bg-center"
-  style="background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80');"
+  style="background-image: url('https://images.unsplash.com/photo-1490735891913-40897cdaafd1?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c3Vuc2V0JTIwYmFja2dyb3VuZHxlbnwwfHwwfHx8MA%3D%3D');"
 >
   <!-- Optional: dark overlay for readability -->
   <div class="absolute inset-0 bg-black bg-opacity-50 -z-10"></div>
@@ -35,7 +35,7 @@
 
   <!-- Button -->
   <button
-    class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-8 py-4 rounded-full font-semibold shadow-lg hover:bg-yellow-300 transition transform hover:-translate-y-1 z-10 relative"
+    class="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-8 py-4 rounded-full font-semibold shadow-lg hover:bg-yellow-300 transition transform hover:-translate-y-1 z-10 relative"
   >
     Start Your Journey
   </button>
