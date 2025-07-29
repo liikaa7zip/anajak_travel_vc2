@@ -62,6 +62,7 @@ import KampongSpeu from '../views/provinces/KampongSpeu.vue'
 import PreyVeng from '../views/provinces/PreyVeng.vue'
 
 import BookingHistory from '@/views/BookingHistory.vue'
+import BookingflightHistory from '@/views/BookingflightHistory.vue'
 
 // Auth guard
 const requireAuth = (to, from, next) => {
@@ -105,6 +106,7 @@ const routes = [
       { path: 'guide', component: TravelingGuide },
       { path: 'chat', component: UserChat },
       {path: 'booking-history', component: BookingHistory },
+      {path: 'bookingflight-history', component: BookingflightHistory},
 
       // Hotels
       { path: 'hotel', component: HotelList },
