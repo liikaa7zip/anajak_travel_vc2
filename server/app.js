@@ -1,31 +1,47 @@
-// app.js
 const express = require('express');
 const cors = require('cors');
-const dotenv = require('dotenv');
-const db = require('./models');
+const { sequelize } = require('./models');
 
-dotenv.config();
+// Import routes
+const bookingRoutes = require('./routes/bookingRoute');
+const transportRoutes = require('./routes/transportRoutes');
+const userRoutes = require('./routes/userRoutes');
+const hotelRoutes = require('./routes/hotelRoutes');
+const hotelBookingRoutes = require('./routes/hotelBookingRoutes');
+
 const app = express();
+const PORT = process.env.PORT || 5000;
 
-// Middlewares
-app.use(cors());
+// Enable CORS for frontend
+app.use(cors({
+  origin: ['http://localhost:3000', 'http://localhost:3001'], // Allow multiple origins
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
+
+// Middleware
 app.use(express.json());
 
-// Routes
+// Basic health check
 app.get('/', (req, res) => {
-  res.send('Welcome to the Library Management System API');
+  res.send('Server is running');
 });
 
-// Book routes
-app.use('/api/books', require('./routes/bookRoutes'));
-// Booking routes
-app.use('/api/bookings', require('./routes/bookingRoute'));
-// User routes
-app.use('/api/users', require('./routes/userRoutes'));
+// Register API routes
+app.use('/api/bookings', bookingRoutes);
+app.use('/api/transports', transportRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/hotels', hotelRoutes);
+app.use('/api/hotel-bookings', hotelBookingRoutes);
 
-// Database sync (without starting server)
-db.sequelize.sync()
-  .then(() => console.log("Database synced"))
-  .catch(err => console.error("Failed to sync db:", err));
-
-module.exports = app;
+// Sync DB and start server
+sequelize.sync({ alter: true })
+  .then(() => {
+    console.log('✅ Database synced');
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running on http://localhost:${PORT}`);
+    });
+  })
+  .catch(err => {
+    console.error('❌ DB sync failed:', err);
+  });
