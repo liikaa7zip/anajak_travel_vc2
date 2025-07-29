@@ -34,9 +34,6 @@ import AdminDashboard from '../views/admin/AdminDashboard.vue'
 import AdminUsers from '../views/admin/AdminUsers.vue'
 import CreateUser from '../components/CreateUser.vue'
 
-<<<<<<< HEAD
-import WorldDetail from '../views/WorldDetail.vue'
-=======
 // Provinces
 import BattamBang from '../views/provinces/Battambang.vue'
 import BanteayMeanchey from '../views/provinces/BanteayMeanchey.vue'
@@ -90,7 +87,6 @@ const requireAdmin = (to, from, next) => {
   if (!user || user.role !== 'admin') return next('/home')
   next()
 }
->>>>>>> origin
 
 const routes = [
   { path: '/', redirect: '/home' },
@@ -164,28 +160,8 @@ const routes = [
       { path: 'users', component: AdminUsers },
     ]
   },
-<<<<<<< HEAD
-  // Redirect /dashboard to /admin/dashboard
-  {
-    path: '/dashboard',
-    redirect: '/admin/dashboard'
-  },
-  {
-    path: '/users/create',
-    name: 'CreateUser',
-    component: CreateUser,
-  },
-
-  { 
-    path: '/worlddetail/:id', 
-    name: 'WorldDetail', component: 
-    WorldDetail, props: true 
-  }
-
-=======
   { path: '/dashboard', redirect: '/admin/dashboard' },
   { path: '/users/create', name: 'CreateUser', component: CreateUser }
->>>>>>> origin
 ]
 
 const router = createRouter({
