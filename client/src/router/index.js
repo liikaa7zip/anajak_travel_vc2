@@ -33,6 +33,7 @@ import UserSettings from '../views/UserSettings.vue'
 import AdminDashboard from '../views/admin/AdminDashboard.vue'
 import AdminUsers from '../views/admin/AdminUsers.vue'
 import CreateUser from '../components/CreateUser.vue'
+import AdminBlog from '../views/admin/AdminBlog.vue'
 
 // Provinces
 import BattamBang from '../views/provinces/Battambang.vue'
@@ -69,7 +70,9 @@ import FoodListView from '../views/User/FoodList.vue'
 import ProvinceList from '../views/User/ProvinceList.vue'
 import FoodByProvince from '../components/FoodByProvince.vue'
 import FoodDetail from '../views/User/FoodDetail.vue'
+import BookingflightHistory from '@/views/BookingflightHistory.vue'
 
+import AdminChat from '@/views/admin/AdminChat.vue'
 // Auth guard helper functions
 const getUserFromStorage = () => {
   try {
@@ -97,6 +100,8 @@ const routes = [
       { path: 'guide', component: TravelingGuide, name: 'TravelingGuide' },
       { path: 'chat', component: UserChat, name: 'UserChat' },
       { path: 'booking-history', component: BookingHistory, name: 'BookingHistory' },
+      {path: 'bookingflight-history', component: BookingflightHistory},
+
 
       // Hotels
       { path: 'hotel', component: HotelList, name: 'HotelList' },
@@ -167,7 +172,9 @@ const routes = [
     children: [
       { path: '', redirect: 'dashboard' },
       { path: 'dashboard', component: AdminDashboard, name: 'AdminDashboard' },
-      { path: 'users', component: AdminUsers, name: 'AdminUsers' }
+      { path: 'users', component: AdminUsers, name: 'AdminUsers' },
+      { path: 'chat', component: AdminChat },
+      { path: 'blog', component: AdminBlog },
     ]
   },
 

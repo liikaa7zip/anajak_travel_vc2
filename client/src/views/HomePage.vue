@@ -1,9 +1,8 @@
 <template>
-  <div class="min-h-screen bg-gray-50 w-full">
+  <div class="min-h-screen bg-white w-full">
     <!-- Hero Section -->
-    <section class="min-h-screen flex items-center bg-gray-50 px-4 sm:px-8 lg:px-16 mx-auto">
-      <div class="w-full">
-        <div class="grid lg:grid-cols-2 gap-12 items-center max-w-none">
+    <section class="min-h-screen flex items-center sm:px-8 lg:px-16 mx-4">
+        <div class="grid lg:grid-cols-2 gap-12 items-center max-w-none ">
           <div class="space-y-8">
             <div
               class="bg-white-600 text-pink-500 shadow-lg px-6 py-3 rounded-full text-lg font-medium"
@@ -58,7 +57,6 @@
             </div>
           </div>
         </div>
-      </div>
     </section>
 
     <!-- Popular Things to Do Section -->
@@ -187,7 +185,7 @@
     </section>
 
     <!-- Trending Destinations -->
-    <section class="py-16 lg:py-24 bg-gray-50 w-full px-4 sm:px-8 lg:px-16">
+    <section class="py-16 lg:py-24 bg-white w-full px-4 sm:px-8 lg:px-16">
       <div class="w-full">
         <div
           class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-12 max-w-7xl mx-auto"
@@ -444,7 +442,7 @@
     </section>
 
     <!-- Key Features -->
-    <section class="py-16 lg:py-24 bg-white w-full px-4 sm:px-8 lg:px-16">
+    <section class="py-16 lg:py-24 bg-purple-100 w-full px-4 sm:px-8 lg:px-16">
       <div class="w-full max-w-7xl mx-auto">
         <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div class="space-y-8">
@@ -546,7 +544,6 @@
               </div>
             </div>
           </div>
-
           <div class="relative w-full">
             <div class="grid grid-cols-2 gap-6">
               <div class="space-y-6">

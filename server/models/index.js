@@ -9,6 +9,7 @@ db.sequelize = sequelize;
 // Import models (pass sequelize and DataTypes)
 db.User = require('./user')(sequelize, DataTypes);
 db.Booking = require('./booking')(sequelize, DataTypes);
+db.FlightBooking = require('./FlightBooking')(sequelize, Sequelize.DataTypes);
 db.Location = require('./location')(sequelize, DataTypes);
 db.Hotel = require('./hotel')(sequelize, DataTypes);
 db.HotelBooking = require('./hotelBooking')(sequelize, DataTypes);

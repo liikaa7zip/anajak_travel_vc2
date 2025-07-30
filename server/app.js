@@ -8,6 +8,7 @@ const transportRoutes = require('./routes/transportRoutes');
 const userRoutes = require('./routes/userRoutes');
 const hotelRoutes = require('./routes/hotelRoutes');
 const hotelBookingRoutes = require('./routes/hotelBookingRoutes');
+const flightRoutes = require('./routes/flightRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -29,6 +30,7 @@ app.get('/', (req, res) => {
 
 // Register API routes
 app.use('/api/bookings', bookingRoutes);
+app.use('/api/flightbookings', flightRoutes);
 app.use('/api/transports', transportRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/hotels', hotelRoutes);
