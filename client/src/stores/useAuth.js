@@ -9,7 +9,7 @@ const isLoggedIn = ref(false)
 const userProfile = ref({})
 const loading = ref(false)
 const isInitialized = ref(false)
-
+const user = ref(null)
 const API_BASE = "http://localhost:5000/api/users"
 
 // Immediately restore auth state when module loads (BEFORE any Vue components)

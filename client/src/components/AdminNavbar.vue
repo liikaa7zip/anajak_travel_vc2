@@ -1,175 +1,158 @@
 <template>
-  <aside class="w-64 h-screen bg-white text-gray-800 flex flex-col py-6 px-4 shadow-lg">
+  <aside class="w-64 h-screen bg-gradient-to-b from-white via-purple-50 to-purple-100 text-gray-500 flex flex-col py-6 px-4 shadow-2xl rounded-r-xl">
     <!-- Logo/Header -->
-    <div class="mb-8">
-      <h2 class="text-2xl font-bold">
-        <span class="text-purple-600">Admin</span>
-        <span class="text-blue-600"> Panel</span>
+    <div class="mb-8 text-center">
+      <h2 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">
+        Admin Panel
       </h2>
     </div>
 
     <!-- Navigation -->
-    <nav class="flex-1">
-      <ul class="space-y-1 text-sm">
-        <li>
-          <router-link to="/home" class="nav-link" active-class="router-link-exact-active">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-            </svg>
-            Go to Website
-          </router-link>
-        </li>
+    <nav class="flex-1 overflow-y-auto space-y-6">
+      <div>
+        <p class="text-xs uppercase text-gray-400 px-2 mb-1">Main</p>
+        <ul class="space-y-1 text-sm">
+          <li>
+            <router-link to="/home" class="nav-link" active-class="router-link-exact-active">
+              <i class="icon ri-global-line"></i>
+              Go to Website
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/admin/dashboard" class="nav-link" active-class="router-link-exact-active">
+              <i class="icon ri-dashboard-3-line"></i>
+              Dashboard
+            </router-link>
+          </li>
+        </ul>
+      </div>
 
-        <li>
-          <router-link to="/admin/dashboard" class="nav-link" active-class="router-link-exact-active">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M13 5v6h6" />
-            </svg>
-            Dashboard
-          </router-link>
-        </li>
-
-        <li>
-          <router-link to="/admin/users" class="nav-link" active-class="router-link-exact-active">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2h5M16 7a4 4 0 11-8 0 4 4 0 018 0z" />
-            </svg>
-            Users
-          </router-link>
-        </li>
-
-        <li>
-          <a href="#" class="nav-link">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 10h10M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z" />
-            </svg>
-            Booking
-          </a>
-        </li>
-
-        <li>
-          <a href="#" class="nav-link">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
-            </svg>
-            Food
-          </a>
-        </li>
-
-        <li>
-          <a href="#" class="nav-link">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20h9" />
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m-8-8h16" />
-            </svg>
-            Blog
-          </a>
-        </li>
-
-        <li>
-          <a href="#" class="nav-link">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10" />
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 12h20" />
-            </svg>
-            Travel Guide
-          </a>
-        </li>
-
-        <li>
-  <router-link to="/admin/chat" class="nav-link flex items-center gap-2">
-    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-    </svg>
-    Contact Messages
-  </router-link>
-</li>
-
-
-        <li>
-          <a href="#" class="nav-link">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 11V5h2v6h5l-6 6-6-6h5z" />
-            </svg>
-            Reports
-          </a>
-        </li>
-
-        <div class="relative inline-block">
-    <!-- Trigger (click to toggle dropdown) -->
-    <div @click="isOpen = !isOpen" class="cursor-pointer px-4 py-2 text-gray-700 hover:text-purple-600">
-      Account ▼
-    </div>
-
-    <!-- Dropdown -->
-    <ul
-      v-if="isOpen"
-      class="absolute right-0 mt-2 w-38 bg-white border border-gray-200 rounded-md shadow-lg text-sm text-gray-800 z-50 space-y-1"
-    >
-      <li>
-        <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100 text-purple-600">
-          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M5.121 17.804A4 4 0 008 20h8a4 4 0 002.879-1.196l1.768-1.768a2 2 0 000-2.828l-9-9a2 2 0 00-2.828 0l-1.768 1.768a4 4 0 00-1.196 2.879v8z" />
-          </svg>
-          Profile
-        </a>
-      </li>
-      <li>
-        <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100 text-blue-600">
-          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M15 12H3m6-6l-6 6 6 6" />
-          </svg>
-          Login
-        </a>
-      </li>
-      <li>
-        <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100 text-pink-600">
-          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M9 16l-4-4m0 0l4-4m-4 4h16" />
-          </svg>
-          Logout
-        </a>
-      </li>
-    </ul>
-  </div>
-        <li>
-          
-        </li>
-      </ul>
+      <div>
+        <p class="text-xs uppercase text-gray-400 px-2 mb-1">Manage</p>
+        <ul class="space-y-1 text-sm">
+          <li>
+            <router-link to="/admin/users" class="nav-link" active-class="router-link-exact-active">
+              <i class="icon ri-user-line"></i>
+              Users
+            </router-link>
+          </li>
+          <li>
+            <a href="#" class="nav-link">
+              <i class="icon ri-calendar-check-line"></i>
+              Booking
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link">
+              <i class="icon ri-restaurant-line"></i>
+              Food
+            </a>
+          </li>
+          <li>
+            <router-link to="/admin/blog" class="nav-link" active-class="router-link-exact-active">
+              <i class="icon ri-article-line"></i>
+              Blog
+            </router-link>
+          </li>
+          <li>
+            <a href="#" class="nav-link">
+              <i class="icon ri-map-pin-line"></i>
+              Travel Guide
+            </a>
+          </li>
+          <li>
+            <router-link to="/admin/chat" class="nav-link" active-class="router-link-exact-active">
+              <i class="icon ri-message-3-line"></i>
+              Contact Messages
+            </router-link>
+          </li>
+          <li>
+            <a href="#" class="nav-link">
+              <i class="icon ri-bar-chart-2-line"></i>
+              Reports
+            </a>
+          </li>
+        </ul>
+      </div>
     </nav>
+
+    <!-- Account Dropdown -->
+    <div class="relative mt-auto">
+      <div @click="isOpen = !isOpen" class="cursor-pointer px-4 py-2 text-sm font-medium rounded-lg hover:bg-purple-100 flex items-center justify-between">
+        <span class="text-purple-700">Account</span>
+        <i class="ri-arrow-down-s-line text-purple-700"></i>
+      </div>
+
+      <transition name="fade">
+        <ul
+          v-if="isOpen"
+          class="absolute bottom-12 left-0 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-50 text-sm"
+        >
+          <li>
+            <a href="#" class="dropdown-item text-purple-600">
+              <i class="ri-user-settings-line mr-2"></i> Profile
+            </a>
+          </li>
+          <li>
+            <a href="#" class="dropdown-item text-blue-600">
+              <i class="ri-login-box-line mr-2"></i> Login
+            </a>
+          </li>
+          <li>
+            <a href="#" class="dropdown-item text-pink-600">
+              <i class="ri-logout-box-line mr-2"></i> Logout
+            </a>
+          </li>
+        </ul>
+      </transition>
+    </div>
   </aside>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-
 const isOpen = ref(false)
-
 </script>
 
 <style scoped>
+@import 'https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css';
+
 .nav-link {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
+  gap: 10px;
+  padding: 10px 14px;
   font-weight: 600;
-  border-radius: 8px;
-  transition: background 0.2s;
+  border-radius: 10px;
+  transition: 0.2s;
 }
 .nav-link:hover {
-  background-color: #f3f4f6;
+  background-color: #ede9fe;
+  color: #7c3aed;
 }
 .icon {
-  width: 20px;
-  height: 20px;
-  stroke: black;
+  font-size: 18px;
+  color: #4b5563;
 }
 .router-link-exact-active {
-  background-color: #e9d5ff;
+  background-color: #d8b4fe;
   color: #6b21a8;
+}
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 14px;
+  transition: 0.2s;
+}
+.dropdown-item:hover {
+  background-color: #f3f4f6;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
