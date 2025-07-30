@@ -53,6 +53,11 @@
               <router-link to="/hotel" class="dropdown-item">🏨 Hotel Booking</router-link>
               <router-link to="/restaurant" class="dropdown-item">🍽️ Restaurant Reservations</router-link>
             </div>
+            <div>
+              <h3 class="text-blue-600 font-semibold text-sm mb-3">New Feature</h3>
+              <router-link to="/user-plan" class="dropdown-item">🗺️ User Plan</router-link>
+              <router-link to="/TravelItinerary" class="dropdown-item">📅 Travel Itinerary</router-link>
+            </div>
           </div>
         </div>
 

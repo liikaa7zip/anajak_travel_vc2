@@ -67,7 +67,7 @@ import BookingHistory from '@/views/BookingHistory.vue'
 import BookingflightHistory from '@/views/BookingflightHistory.vue'
 
 import AdminChat from '@/views/admin/AdminChat.vue'
-
+import UserPlan from '@/views/UserPlan.vue'
 
 // Auth guard
 const requireAuth = (to, from, next) => {
@@ -112,6 +112,7 @@ const routes = [
       { path: 'chat', component: UserChat },
       {path: 'booking-history', component: BookingHistory },
       {path: 'bookingflight-history', component: BookingflightHistory},
+      {path: 'user-plan', component: UserPlan},
 
       // Hotels
       { path: 'hotel', component: HotelList },
