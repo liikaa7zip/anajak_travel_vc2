@@ -110,10 +110,10 @@ const routes = [
       { path: 'confirmation', component: BookingConfirmation, name: 'BookingConfirmation' },
 
       // Travel Booking (paths normalized to lowercase with hyphens)
-      { path: 'boat-tickets', component: BoatTickets, name: 'BoatTickets' },
-      { path: 'bus-tickets', component: BusTickets, name: 'BusTickets' },
-      { path: 'car-rental', component: CarRental, name: 'CarRental' },
-      { path: 'flight-reservation', component: FlightReservation, name: 'FlightReservation' },
+      { path: 'Boatickets', component: BoatTickets, name: 'BoatTickets' },
+      { path: 'Bustickets', component: BusTickets, name: 'BusTickets' },
+      { path: 'CarRental', component: CarRental, name: 'CarRental' },
+      { path: 'FlightReservation', component: FlightReservation, name: 'FlightReservation' },
 
       // User Profile (requires auth)
       { path: 'profile', component: UserProfile, name: 'UserProfile', meta: { requiresAuth: true } },
