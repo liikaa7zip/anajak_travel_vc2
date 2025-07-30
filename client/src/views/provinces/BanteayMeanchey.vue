@@ -94,15 +94,15 @@
 
 <script setup>
 const topAttractions = [
-  { name: 'Banteay Chhmar Temple', img: 'https://www.devata.org/dat-devata/uploads/2010/12/001-Banteay-Chhmar-architectural-reconstruction.jpg' },
+  { name: 'Banteay Chhmar Temple', img: 'https://mblogthumb-phinf.pstatic.net/MjAxODA5MTJfMTAg/MDAxNTM2NzU5NDQzNTU3.r5Wi9Kj3nljQ7bEQQhr8TyH2_xD8k8VoBqfp2Zri9TAg.pS0u5GWfE2YdSMcE1NUatCgxwM88lQe5bc0a0yB2eKgg.JPEG.ilovecambodia/IMG_3197.jpg?type=w800' },
   { name: 'Phnom Bak', img: 'https://www.greeneratravel.com/userfiles/850phnombakphnomchenhchang.jpg' },
   { name: 'Wat Banteay Neang', img: 'https://visitlocaltravel.com/blog/wp-content/uploads/2024/03/Banteay-Neang-Temple.png' },
   { name: 'Ang Trapeang Thmor', img: 'https://scckampongthom.wordpress.com/wp-content/uploads/2015/10/ang-trapeang-thmor.jpg' }
 ]
 
 const galleryPhotos = [
-  'https://upload.wikimedia.org/wikipedia/commons/e/e5/Banteay_Chhmar_Temple.jpg',
-  'https://upload.wikimedia.org/wikipedia/commons/1/19/Banteay_Chhmar_BasRelief.jpg',
+  'https://www.devata.org/dat-devata/uploads/2010/12/001-Banteay-Chhmar-architectural-reconstruction.jpg',
+  'https://i0.wp.com/www.cambodialifestyle.com/wp-content/uploads/2024/04/Banteay-Meanchey4.jpg?fit=1280%2C1280&ssl=1',
   'https://upload.wikimedia.org/wikipedia/commons/0/00/Ang_Trapeang_Thmor_Bird.jpg',
   'https://upload.wikimedia.org/wikipedia/commons/b/b9/Sisophon_market.jpg'
 ]
