@@ -13,6 +13,10 @@ const locationRoutes = require('./routes/locationRoutes');
 
 const createDefaultAdmin = require('./seeders/createDefaultAdmin');
 const createDefaultLocations = require('./seeders/createDefaultLocations');
+// orderfood
+const foodRoutes = require('./routes/foodRoutes');
+const orderFoodRoutes = require('./routes/orderFoodRoutes');
+// ..............
 const path = require('path');
 const { Server } = require('socket.io');
 
@@ -31,6 +35,7 @@ app.use(cors({
 }));
 
 app.use(express.json());
+app.use(cors());
 
 // API Routes
 app.use('/api/users', userRoutes);
@@ -39,7 +44,9 @@ app.use('/api/bookings', bookingRoutes);
 app.use('/api/transports', transportRoutes);
 app.use('/api/hotels', hotelRoutes);
 app.use('/api/hotel-booking', hotelBookingRoutes);  // Note singular 'hotel-booking'
-app.use('/api', locationRoutes);
+app.use('/api/locations', locationRoutes);
+app.use('/api/foods', foodRoutes);
+app.use('/api/orders', orderFoodRoutes);
 // Uncomment if you want admin user routes
 // app.use('/api/admin-users', adminUserRoutes);
 
@@ -83,7 +90,7 @@ io.on('connection', (socket) => {
 
 const PORT = process.env.PORT || 5000;
 
-sequelize.sync({ alter: true })
+sequelize.sync({ force: true })
   .then(async () => {
     console.log('Database synced');
     await createDefaultAdmin();
