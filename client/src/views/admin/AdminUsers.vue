@@ -268,7 +268,7 @@ const newUser = ref({
 const fetchUsers = async () => {
   try {
     // Example: Adjust URL accordingly
-    const response = await axios.get('http://localhost:5000/api/admin/users')
+    const response = await axios.get('http://localhost:5000/api/users')
     users.value = response.data.map(user => ({
       id: user.id,
       username: user.username || user.name,
