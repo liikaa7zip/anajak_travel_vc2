@@ -7,6 +7,7 @@ const { sequelize } = require('./models');
 const bookingRoutes = require('./routes/bookingRoute');
 const transportRoutes = require('./routes/transportRoutes');
 const flightRoutes = require('./routes/flightRoutes');
+const boatBookingRoutes = require('./routes/boatBookingRoutes');
 const userRoutes = require('./routes/userRoutes');
 const hotelRoutes = require('./routes/hotelRoutes');
 const hotelBookingRoutes = require('./routes/hotelBookingRoutes');
@@ -45,6 +46,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/flightbookings', flightRoutes);
+app.use('/api/boatbookings', boatBookingRoutes);
 app.use('/api/transports', transportRoutes);
 app.use('/api/hotels', hotelRoutes);
 app.use('/api/hotel-booking', hotelBookingRoutes);  // Note singular 'hotel-booking'

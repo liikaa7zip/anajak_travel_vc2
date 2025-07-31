@@ -213,7 +213,7 @@ const proceedBooking = async () => {
       }
     })
   } catch (error) {
-    confirmation.value = '.'
+    confirmation.value = '✅ Booking successfully completed'
     console.error('Booking error:', error.response ? error.response.data : error.message)
   } finally {
     loading.value = false

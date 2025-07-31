@@ -9,6 +9,7 @@ const userRoutes = require('./routes/userRoutes');
 const hotelRoutes = require('./routes/hotelRoutes');
 const hotelBookingRoutes = require('./routes/hotelBookingRoutes');
 const flightRoutes = require('./routes/flightRoutes');
+const boatBookingRoutes = require('./routes/boatBookingRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -32,6 +33,7 @@ app.get('/', (req, res) => {
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/flightbookings', flightRoutes);
 app.use('/api/transports', transportRoutes);
+app.use('/api/boatbookings', boatBookingRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/hotels', hotelRoutes);
 app.use('/api/hotel-bookings', hotelBookingRoutes);

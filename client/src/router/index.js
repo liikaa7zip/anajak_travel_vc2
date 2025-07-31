@@ -33,7 +33,6 @@ import UserSettings from '../views/UserSettings.vue'
 import AdminDashboard from '../views/admin/AdminDashboard.vue'
 import AdminUsers from '../views/admin/AdminUsers.vue'
 import CreateUser from '../components/CreateUser.vue'
-import AdminBlog from '../views/admin/AdminBlog.vue'
 
 // Provinces
 import BattamBang from '../views/provinces/Battambang.vue'
@@ -63,11 +62,9 @@ import KampongSpeu from '../views/provinces/KampongSpeu.vue'
 import PreyVeng from '../views/provinces/PreyVeng.vue'
 
 import BookingHistory from '@/views/BookingHistory.vue'
-
+import BookBoatPage from '@/views/BookBoatPage.vue'
+import BookingboatHistory from '@/views/BookingboatHistory.vue'
 import BookingflightHistory from '@/views/BookingflightHistory.vue'
-
-import AdminChat from '@/views/admin/AdminChat.vue'
-
 
 // Auth guard
 const requireAuth = (to, from, next) => {
@@ -111,7 +108,6 @@ const routes = [
       { path: 'guide', component: TravelingGuide },
       { path: 'chat', component: UserChat },
       {path: 'booking-history', component: BookingHistory },
-      {path: 'bookingflight-history', component: BookingflightHistory},
 
       // Hotels
       { path: 'hotel', component: HotelList },
@@ -124,6 +120,10 @@ const routes = [
       { path: 'Bustickets', component: BusTickets },
       { path: 'CarRental', component: CarRental },
       { path: 'FlightReservation', component: FlightReservation },
+      { path: 'FlightBookHistory', component: BookingflightHistory },
+      { path: 'BookBoatPage', component: BookBoatPage },
+      { path: 'BookBoatHistory', component: BookingboatHistory},
+      
 
       // User Profile
       { path: 'profile', component: UserProfile, beforeEnter: requireAuth },
@@ -165,8 +165,6 @@ const routes = [
       { path: '', redirect: 'dashboard' },
       { path: 'dashboard', component: AdminDashboard },
       { path: 'users', component: AdminUsers },
-      { path: 'chat', component: AdminChat },
-      { path: 'blog', component: AdminBlog },
     ]
   },
   { path: '/dashboard', redirect: '/admin/dashboard' },
