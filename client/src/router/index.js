@@ -65,7 +65,7 @@ import BookingHistory from '@/views/BookingHistory.vue'
 
 import BookBoatPage from '@/views/BookBoatPage.vue'
 import BookingboatHistory from '@/views/BookingboatHistory.vue'
-import BookingflightHistory from '@/views/BookingflightHistory.vue'
+// import BookingflightHistory from '@/views/BookingflightHistory.vue' // Duplicate import removed
 
 // Auth guard
 const requireAuth = (to, from, next) => {
@@ -82,6 +82,14 @@ const requireAuth = (to, from, next) => {
 
 const requireAdmin = (to, from, next) => {
   let user = null
+  try {
+    user = JSON.parse(localStorage.getItem('user'))
+  } catch (e) {
+    user = null
+  }
+  if (!user || user.role !== 'admin') return next('/home')
+  next()
+}
 
 
 // Food
@@ -93,6 +101,7 @@ import FoodDetail from '../views/User/FoodDetail.vue'
 import BookingflightHistory from '@/views/BookingflightHistory.vue'
 
 import AdminChat from '@/views/admin/AdminChat.vue'
+import AdminBlog from '@/views/admin/AdminBlog.vue'
 // Auth guard helper functions
 const getUserFromStorage = () => {
 
@@ -128,7 +137,8 @@ const routes = [
       { path: 'blog', component: BlogPage, name: 'Blog' },
       { path: 'guide', component: TravelingGuide, name: 'TravelingGuide' },
       { path: 'chat', component: UserChat, name: 'UserChat' },
-      { path: 'booking-history', component: BookingHistory, name: 'BookingHistory' },
+      {path: 'bookingflight-history', component: BookingflightHistory},
+      // Duplicate route removed below
       {path: 'bookingflight-history', component: BookingflightHistory},
 
 
@@ -143,7 +153,7 @@ const routes = [
       // Travel Booking
       { path: 'Boatickets', component: BoatTickets },
       { path: 'Bustickets', component: BusTickets },
-      { path: 'CarRental', component: CarRental },
+      // { path: 'FlightBookHistory', component: BookingflightHistory }, // Duplicate route removed
       { path: 'FlightReservation', component: FlightReservation },
       { path: 'FlightBookHistory', component: BookingflightHistory },
       { path: 'BookBoatPage', component: BookBoatPage },
