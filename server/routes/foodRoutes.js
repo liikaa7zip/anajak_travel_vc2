@@ -7,7 +7,7 @@ router.get('/', foodController.getAllFood);
 router.get('/:id', foodController.getFoodById)
 
 // ✅ Correct way to upload image
-router.post('/', upload.single('image'), foodController.createFood);
+// router.post('/', upload.single('image'), foodController.createFood);
 // routes/foodRoutes.js
 router.get('/by-location/:locationId', foodController.getFoodsByLocation);
 

@@ -80,6 +80,9 @@ export function useAuth() {
   const isAdmin = computed(() => {
     return userProfile.value && userProfile.value.role === "admin"
   })
+ const isHotelowner = computed(() => userProfile.value?.role === 'hotel_owner')
+const isReturantowner = computed(() => userProfile.value?.role === 'restaurant_owner')
+
 
   // Clear all auth data
   const clearAuthData = () => {
@@ -253,9 +256,24 @@ export function useAuth() {
   }
 
   // Get redirect path based on user role
-  const getRedirectPath = (user) => {
-    return user?.role === "admin" ? "/admin/dashboard" : "/home"
+ const getRedirectPath = (user) => {
+  if (!user) return '/home'
+
+  if (user.role === 'admin') {
+    return '/admin/dashboard'
   }
+
+  if (user.role === 'restaurant_owner') {
+  return '/restaurant_owner/fooddashboard'
+}
+if (user.role === 'hotel_owner') {
+  return '/hotel_owner/hoteldashboard'
+}
+  
+
+  return '/home'
+}
+
 
   // Force refresh auth state (for debugging)
   const refreshAuth = async () => {
@@ -273,7 +291,8 @@ export function useAuth() {
     isAdmin,
     userInitials,
     displayName,
-
+    isHotelowner,
+    isReturantowner,
     // Methods
     login,
     register,

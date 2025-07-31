@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import PublicLayout from '../layouts/PublicLayout.vue'
 import AdminLayout from '../layouts/AdminLayout.vue'
-
+import ReturantLayout from '../layouts/Food_OwnerLayout.vue'
+import HotelLayout from '../layouts/Hotel_OwnerLayout .vue'
 // Auth
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
@@ -71,7 +72,11 @@ import ProvinceList from '../views/User/ProvinceList.vue'
 import FoodByProvince from '../components/FoodByProvince.vue'
 import FoodDetail from '../views/User/FoodDetail.vue'
 import BookingflightHistory from '@/views/BookingflightHistory.vue'
+// ResturantDashboard
+import ResturantDashboard from '../views/resturantOwner/Resturantdashboard.vue'
 
+// Hoteldashboard
+import HotelDashboard from '../views/HotelOwner/HotelOwnerdashboard.vue'
 import AdminChat from '@/views/admin/AdminChat.vue'
 // Auth guard helper functions
 const getUserFromStorage = () => {
@@ -177,6 +182,24 @@ const routes = [
       { path: 'blog', component: AdminBlog },
     ]
   },
+{
+  path: '/restaurant_owner',
+  component: ReturantLayout,
+  meta: { requiresAuth: true, role: 'restaurant_owner' },
+  children: [
+    { path: '', redirect: 'fooddashboard' },
+    { path: 'fooddashboard', component: ResturantDashboard , name: 'foodOwnerdashboard' },
+  ]
+},
+{
+  path: '/hotel_owner',
+  component: HotelLayout,
+  meta: { requiresAuth: true, role: 'hotel_owner' },
+  children: [
+    { path: '', redirect: 'hoteldashboard' },
+    { path: 'hoteldashboard', component:HotelDashboard  , name: 'HotelOwnerdashboard' },
+  ]
+},
 
   // Separate route for creating user under /users/create (not nested in admin for now)
   { path: '/users/create', name: 'CreateUser', component: CreateUser },
@@ -196,19 +219,18 @@ const router = createRouter({
 
 // Global navigation guard for auth and admin
 router.beforeEach((to, from, next) => {
-  const user = getUserFromStorage()
+  const user = JSON.parse(localStorage.getItem('user'))
 
   if (to.meta.requiresAuth && !user) {
-    return next({ path: '/login', query: { redirect: to.fullPath } })
+    return next('/login')
   }
 
-  if (to.meta.requiresAdmin) {
-    if (!user || user.role !== 'admin') {
-      return next('/home')
-    }
+  if (to.meta.role && user?.role !== to.meta.role) {
+    return next('/home') // <== This line could be the issue
   }
 
   next()
 })
+
 
 export default router
