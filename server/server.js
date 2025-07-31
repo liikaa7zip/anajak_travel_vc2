@@ -33,7 +33,7 @@ const messageRoutes = require('./routes/messageRoutes');
 const featuredStoriesRoutes = require('./routes/featuredStoriesRoutes');
 const travelGuidesRoutes = require('./routes/travelGuidesRoutes');
 const galleryPhotosRoutes = require('./routes/galleryPhotosRoutes');
-
+const itineraryRoutes = require('./routes/itineraryRoutes');
 
 const app = express();
 const server = http.createServer(app);
@@ -62,6 +62,7 @@ app.use('/api/orders', orderFoodRoutes);
 app.use('/api/featured-stories', featuredStoriesRoutes);
 app.use('/api/travel-guides', travelGuidesRoutes);
 app.use('/api/gallery-photos', galleryPhotosRoutes);
+app.use('/api/itineraries', itineraryRoutes);
 // Uncomment if you want admin user routes
 // app.use('/api/admin-users', adminUserRoutes);
 

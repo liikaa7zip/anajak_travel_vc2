@@ -74,19 +74,15 @@
     <!-- Province Map -->
     <section class="pt-6 pb-6 pr-16 pl-16">
       <h2 class="text-2xl font-semibold mb-4 text-purple-600">Province Map</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3920.0977439857093!2d102.98398641411062!3d13.584379590479125!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311b08bb40e25f69%3A0xd7e2fbbadcae933a!2sSisophon!5e0!3m2!1sen!2skh!4v1710000000000"
-          width="100%" height="200" class="rounded shadow" allowfullscreen loading="lazy"
+          width="100%" height="200" class="rounded shadow h-60" allowfullscreen loading="lazy"
         ></iframe>
-        <img src="https://img.icons8.com/color/96/marker--v1.png" class="w-16 h-16 self-center justify-self-center" alt="Map Pin" />
-        <div class="bg-white p-4 rounded shadow">
-          <h3 class="font-bold">Anajak Travel</h3>
-          <p class="text-sm text-gray-600">Explore Banteay Meanchey’s temples and countryside.</p>
-          <div class="mt-2">
-            <button class="text-sm bg-black text-white px-3 py-1 rounded">Download App</button>
-          </div>
-        </div>
+        <img 
+          src="https://genk.mediacdn.vn/139269124445442048/2024/8/13/google-maps-thuong-khong-chi-ngan-nhat-ma-chon-duong-vong-ly-do-vi-sao-00145298-1723531172398-17235311731771829575075-1723533715727-17235337161941703107124.png" 
+          class="w-full h-60 " alt="Map Pin" 
+        />
       </div>
     </section>
   </div>
@@ -103,8 +99,8 @@ const topAttractions = [
 const galleryPhotos = [
   'https://www.devata.org/dat-devata/uploads/2010/12/001-Banteay-Chhmar-architectural-reconstruction.jpg',
   'https://i0.wp.com/www.cambodialifestyle.com/wp-content/uploads/2024/04/Banteay-Meanchey4.jpg?fit=1280%2C1280&ssl=1',
-  'https://upload.wikimedia.org/wikipedia/commons/0/00/Ang_Trapeang_Thmor_Bird.jpg',
-  'https://upload.wikimedia.org/wikipedia/commons/b/b9/Sisophon_market.jpg'
+  'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/07/2d/e3/76/banteay-chhmar.jpg?w=1200&h=700&s=1',
+  'https://www.orientalarchitecture.com/gallery/cambodia/banteay-meanchey/banteay-torp/photos/banteay-torp01.jpg'
 ]
 </script>
 

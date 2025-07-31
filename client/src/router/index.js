@@ -33,6 +33,7 @@ import UserSettings from '../views/UserSettings.vue'
 import AdminDashboard from '../views/admin/AdminDashboard.vue'
 import AdminUsers from '../views/admin/AdminUsers.vue'
 import CreateUser from '../components/CreateUser.vue'
+import AdminBlog from '../views/admin/AdminBlog.vue'
 
 // Provinces
 import Battambang from '../views/provinces/Battambang.vue'
@@ -63,6 +64,7 @@ import PreyVeng from '../views/provinces/PreyVeng.vue'
 
 import BookingHistory from '@/views/BookingHistory.vue'
 
+
 import BookBoatPage from '@/views/BookBoatPage.vue'
 import BookingboatHistory from '@/views/BookingboatHistory.vue'
 import BookingflightHistory from '@/views/BookingflightHistory.vue'
@@ -92,6 +94,8 @@ const requireAdmin = (to, from, next) => {
 }
 
 
+
+
 // Food
 import FoodListView from '../views/User/FoodList.vue'
 
@@ -100,8 +104,14 @@ import FoodByProvince from '../components/FoodByProvince.vue'
 import FoodDetail from '../views/User/FoodDetail.vue'
 
 import AdminChat from '@/views/admin/AdminChat.vue'
+
 import AdminBlog from '@/views/admin/AdminBlog.vue'
 // Auth guard helper functions
+
+import UserPlan from '@/views/UserPlan.vue'
+
+// Auth guard
+
 const getUserFromStorage = () => {
 
   try {
@@ -123,19 +133,17 @@ const routes = [
       { path: 'login', component: Login, name: 'Login' },
 
       // Main Pages
-
-      { path: 'home', component: HomePage },
-      { path: 'about', component: AboutPage },
-      { path: 'blog', component: BlogPage },
-      { path: 'guide', component: TravelingGuide },
-      { path: 'chat', component: UserChat },
-      {path: 'booking-history', component: BookingHistory },
-
       { path: 'home', component: HomePage, name: 'Home' },
       { path: 'about', component: AboutPage, name: 'About' },
       { path: 'blog', component: BlogPage, name: 'Blog' },
       { path: 'guide', component: TravelingGuide, name: 'TravelingGuide' },
       { path: 'chat', component: UserChat, name: 'UserChat' },
+
+
+
+      { path: 'booking-history', component: BookingHistory, name: 'BookingHistory' },
+      {path: 'bookingflight-history', component: BookingflightHistory},
+      {path: 'user-plan', component: UserPlan},
 
 
 
@@ -155,12 +163,12 @@ const routes = [
       { path: 'BookBoatHistory', component: BookingboatHistory},
       
 
+
       // Travel Booking (paths normalized to lowercase with hyphens)
       { path: 'Boatickets', component: BoatTickets, name: 'BoatTickets' },
       { path: 'Bustickets', component: BusTickets, name: 'BusTickets' },
       { path: 'CarRental', component: CarRental, name: 'CarRental' },
       { path: 'FlightReservation', component: FlightReservation, name: 'FlightReservation' },
-
 
       // User Profile (requires auth)
       { path: 'profile', component: UserProfile, name: 'UserProfile', meta: { requiresAuth: true } },
@@ -218,15 +226,10 @@ const routes = [
     meta: { requiresAdmin: true },
     children: [
       { path: '', redirect: 'dashboard' },
-
-      { path: 'dashboard', component: AdminDashboard },
-      { path: 'users', component: AdminUsers },
-
       { path: 'dashboard', component: AdminDashboard, name: 'AdminDashboard' },
       { path: 'users', component: AdminUsers, name: 'AdminUsers' },
       { path: 'chat', component: AdminChat },
       { path: 'blog', component: AdminBlog },
-
     ]
   },
 
