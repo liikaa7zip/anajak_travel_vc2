@@ -33,6 +33,7 @@ import UserSettings from '../views/UserSettings.vue'
 import AdminDashboard from '../views/admin/AdminDashboard.vue'
 import AdminUsers from '../views/admin/AdminUsers.vue'
 import CreateUser from '../components/CreateUser.vue'
+import AdminBlog from '../views/admin/AdminBlog.vue'
 
 // Provinces
 import Battambang from '../views/provinces/Battambang.vue'
@@ -124,14 +125,6 @@ const routes = [
       { path: 'login', component: Login, name: 'Login' },
 
       // Main Pages
-
-      { path: 'home', component: HomePage },
-      { path: 'about', component: AboutPage },
-      { path: 'blog', component: BlogPage },
-      { path: 'guide', component: TravelingGuide },
-      { path: 'chat', component: UserChat },
-      {path: 'booking-history', component: BookingHistory },
-
       { path: 'home', component: HomePage, name: 'Home' },
       { path: 'about', component: AboutPage, name: 'About' },
       { path: 'blog', component: BlogPage, name: 'Blog' },
@@ -140,7 +133,7 @@ const routes = [
       {path: 'bookingflight-history', component: BookingflightHistory},
       // Duplicate route removed below
       {path: 'bookingflight-history', component: BookingflightHistory},
-
+      {path: 'user-plan', component: UserPlan},
 
 
       // Hotels
@@ -165,7 +158,6 @@ const routes = [
       { path: 'Bustickets', component: BusTickets, name: 'BusTickets' },
       { path: 'CarRental', component: CarRental, name: 'CarRental' },
       { path: 'FlightReservation', component: FlightReservation, name: 'FlightReservation' },
-
 
       // User Profile (requires auth)
       { path: 'profile', component: UserProfile, name: 'UserProfile', meta: { requiresAuth: true } },
@@ -223,15 +215,10 @@ const routes = [
     meta: { requiresAdmin: true },
     children: [
       { path: '', redirect: 'dashboard' },
-
-      { path: 'dashboard', component: AdminDashboard },
-      { path: 'users', component: AdminUsers },
-
       { path: 'dashboard', component: AdminDashboard, name: 'AdminDashboard' },
       { path: 'users', component: AdminUsers, name: 'AdminUsers' },
       { path: 'chat', component: AdminChat },
       { path: 'blog', component: AdminBlog },
-
     ]
   },
 
