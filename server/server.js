@@ -15,6 +15,10 @@ const locationRoutes = require('./routes/locationRoutes');
 
 const createDefaultAdmin = require('./seeders/createDefaultAdmin');
 const createDefaultLocations = require('./seeders/createDefaultLocations');
+// orderfood
+const foodRoutes = require('./routes/foodRoutes');
+const orderFoodRoutes = require('./routes/orderFoodRoutes');
+// ..............
 const path = require('path');
 const { Server } = require('socket.io');
 
@@ -40,6 +44,7 @@ app.use(cors({
 }));
 
 app.use(express.json());
+app.use(cors());
 
 // API Routes
 app.use('/api/users', userRoutes);
@@ -50,7 +55,10 @@ app.use('/api/boatbookings', boatBookingRoutes);
 app.use('/api/transports', transportRoutes);
 app.use('/api/hotels', hotelRoutes);
 app.use('/api/hotel-booking', hotelBookingRoutes);  // Note singular 'hotel-booking'
-app.use('/api', locationRoutes);
+app.use('/api/locations', locationRoutes);
+app.use('/api/foods', foodRoutes);
+app.use('/api/orders', orderFoodRoutes);
+// app.use('/api', locationRoutes);
 app.use('/api/featured-stories', featuredStoriesRoutes);
 app.use('/api/travel-guides', travelGuidesRoutes);
 app.use('/api/gallery-photos', galleryPhotosRoutes);
