@@ -73,8 +73,11 @@ import FoodDetail from '../views/User/FoodDetail.vue'
 import BookingflightHistory from '@/views/BookingflightHistory.vue'
 
 import AdminChat from '@/views/admin/AdminChat.vue'
-// Auth guard helper functions
+import UserPlan from '@/views/UserPlan.vue'
+
+// Auth guard
 const getUserFromStorage = () => {
+
   try {
     return JSON.parse(localStorage.getItem('user'))
   } catch {
@@ -101,6 +104,7 @@ const routes = [
       { path: 'chat', component: UserChat, name: 'UserChat' },
       { path: 'booking-history', component: BookingHistory, name: 'BookingHistory' },
       {path: 'bookingflight-history', component: BookingflightHistory},
+      {path: 'user-plan', component: UserPlan},
 
 
       // Hotels

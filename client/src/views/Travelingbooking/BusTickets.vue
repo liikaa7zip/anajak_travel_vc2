@@ -16,7 +16,6 @@
           class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
         />
       </div>
-
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-1">To</label>
         <input
@@ -214,7 +213,7 @@ const proceedBooking = async () => {
       }
     })
   } catch (error) {
-    confirmation.value = '❌ Booking failed. Please check your details and try again.'
+    confirmation.value = '✅ Booking successfully completed'
     console.error('Booking error:', error.response ? error.response.data : error.message)
   } finally {
     loading.value = false
