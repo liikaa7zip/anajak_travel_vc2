@@ -12,4 +12,5 @@ router.get('/:id', foodController.getFoodById)
 router.get('/by-location/:locationId', foodController.getFoodsByLocation);
 
 
+
 module.exports = router;

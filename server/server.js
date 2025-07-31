@@ -7,6 +7,7 @@ const { sequelize } = require('./models');
 const bookingRoutes = require('./routes/bookingRoute');
 const transportRoutes = require('./routes/transportRoutes');
 const flightRoutes = require('./routes/flightRoutes');
+const boatBookingRoutes = require('./routes/boatBookingRoutes');
 const userRoutes = require('./routes/userRoutes');
 const hotelRoutes = require('./routes/hotelRoutes');
 const hotelBookingRoutes = require('./routes/hotelBookingRoutes');
@@ -32,7 +33,7 @@ const messageRoutes = require('./routes/messageRoutes');
 const featuredStoriesRoutes = require('./routes/featuredStoriesRoutes');
 const travelGuidesRoutes = require('./routes/travelGuidesRoutes');
 const galleryPhotosRoutes = require('./routes/galleryPhotosRoutes');
-
+const itineraryRoutes = require('./routes/itineraryRoutes');
 
 const app = express();
 const server = http.createServer(app);
@@ -50,6 +51,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/flightbookings', flightRoutes);
+app.use('/api/boatbookings', boatBookingRoutes);
 app.use('/api/transports', transportRoutes);
 app.use('/api/hotels', hotelRoutes);
 app.use('/api/hotel-booking', hotelBookingRoutes);  // Note singular 'hotel-booking'
@@ -60,6 +62,7 @@ app.use('/api/orders', orderFoodRoutes);
 app.use('/api/featured-stories', featuredStoriesRoutes);
 app.use('/api/travel-guides', travelGuidesRoutes);
 app.use('/api/gallery-photos', galleryPhotosRoutes);
+app.use('/api/itineraries', itineraryRoutes);
 // Uncomment if you want admin user routes
 // app.use('/api/admin-users', adminUserRoutes);
 

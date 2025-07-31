@@ -34,7 +34,7 @@ import UserSettings from '../views/UserSettings.vue'
 import AdminDashboard from '../views/admin/AdminDashboard.vue'
 import AdminUsers from '../views/admin/AdminUsers.vue'
 import CreateUser from '../components/CreateUser.vue'
-import AdminBlog from '../views/admin/AdminBlog.vue'
+// import AdminBlog from '../views/admin/AdminBlog.vue'
 
 // Provinces
 import Battambang from '../views/provinces/Battambang.vue'
@@ -65,21 +65,61 @@ import PreyVeng from '../views/provinces/PreyVeng.vue'
 
 import BookingHistory from '@/views/BookingHistory.vue'
 
+
+import BookBoatPage from '@/views/BookBoatPage.vue'
+import BookingboatHistory from '@/views/BookingboatHistory.vue'
+import BookingflightHistory from '@/views/BookingflightHistory.vue'
+
+// Auth guard
+const requireAuth = (to, from, next) => {
+  let user = null
+  try {
+    user = JSON.parse(localStorage.getItem('user'))
+  } catch (e) {
+    user = null
+  }
+
+  if (!user) return next('/login')
+  next()
+}
+
+const requireAdmin = (to, from, next) => {
+  let user = null
+  try {
+    user = JSON.parse(localStorage.getItem('user'))
+  } catch (e) {
+    user = null
+  }
+  if (!user || user.role !== 'admin') return next('/home')
+  next()
+}
+
+
+
+
 // Food
 import FoodListView from '../views/User/FoodList.vue'
 
 import ProvinceList from '../views/User/ProvinceList.vue'
 import FoodByProvince from '../components/FoodByProvince.vue'
 import FoodDetail from '../views/User/FoodDetail.vue'
-import BookingflightHistory from '@/views/BookingflightHistory.vue'
+
 // ResturantDashboard
 import ResturantDashboard from '../views/resturantOwner/Resturantdashboard.vue'
 
 // Hoteldashboard
 import HotelDashboard from '../views/HotelOwner/HotelOwnerdashboard.vue'
 import AdminChat from '@/views/admin/AdminChat.vue'
+
+import AdminBlog from '@/views/admin/AdminBlog.vue'
 // Auth guard helper functions
+
+import UserPlan from '@/views/UserPlan.vue'
+
+// Auth guard
+
 const getUserFromStorage = () => {
+
   try {
     return JSON.parse(localStorage.getItem('user'))
   } catch {
@@ -104,8 +144,13 @@ const routes = [
       { path: 'blog', component: BlogPage, name: 'Blog' },
       { path: 'guide', component: TravelingGuide, name: 'TravelingGuide' },
       { path: 'chat', component: UserChat, name: 'UserChat' },
+
+
+
       { path: 'booking-history', component: BookingHistory, name: 'BookingHistory' },
       {path: 'bookingflight-history', component: BookingflightHistory},
+      {path: 'user-plan', component: UserPlan},
+
 
 
       // Hotels
@@ -113,6 +158,17 @@ const routes = [
       { path: 'hotels/:id', component: HotelDetail, name: 'HotelDetail', props: true },
       { path: 'book/:id', component: HotelBookingForm, name: 'HotelBookingForm', props: true },
       { path: 'confirmation', component: BookingConfirmation, name: 'BookingConfirmation' },
+
+
+      // Travel Booking
+      { path: 'Boatickets', component: BoatTickets },
+      { path: 'Bustickets', component: BusTickets },
+      { path: 'FlightReservation', component: FlightReservation },
+      { path: 'FlightBookHistory', component: BookingflightHistory },
+      { path: 'BookBoatPage', component: BookBoatPage },
+      { path: 'BookBoatHistory', component: BookingboatHistory},
+      
+
 
       // Travel Booking (paths normalized to lowercase with hyphens)
       { path: 'Boatickets', component: BoatTickets, name: 'BoatTickets' },
