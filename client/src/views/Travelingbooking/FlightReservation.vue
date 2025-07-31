@@ -109,7 +109,7 @@
       <!-- View History -->
         <div class="mt-8 text-center">
         <router-link
-            to="/bookingflight-history"
+            to="FlightBookHistory"
             class="inline-block bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition duration-200"
         >
             View Booking History
