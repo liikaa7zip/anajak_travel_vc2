@@ -33,7 +33,6 @@ import UserSettings from '../views/UserSettings.vue'
 import AdminDashboard from '../views/admin/AdminDashboard.vue'
 import AdminUsers from '../views/admin/AdminUsers.vue'
 import CreateUser from '../components/CreateUser.vue'
-import AdminBlog from '../views/admin/AdminBlog.vue'
 
 // Provinces
 import Battambang from '../views/provinces/Battambang.vue'
@@ -63,6 +62,27 @@ import KampongSpeu from '../views/provinces/KampongSpeu.vue'
 import PreyVeng from '../views/provinces/PreyVeng.vue'
 
 import BookingHistory from '@/views/BookingHistory.vue'
+
+import BookBoatPage from '@/views/BookBoatPage.vue'
+import BookingboatHistory from '@/views/BookingboatHistory.vue'
+import BookingflightHistory from '@/views/BookingflightHistory.vue'
+
+// Auth guard
+const requireAuth = (to, from, next) => {
+  let user = null
+  try {
+    user = JSON.parse(localStorage.getItem('user'))
+  } catch (e) {
+    user = null
+  }
+
+  if (!user) return next('/login')
+  next()
+}
+
+const requireAdmin = (to, from, next) => {
+  let user = null
+
 
 // Food
 import FoodListView from '../views/User/FoodList.vue'
@@ -97,6 +117,14 @@ const routes = [
       { path: 'login', component: Login, name: 'Login' },
 
       // Main Pages
+
+      { path: 'home', component: HomePage },
+      { path: 'about', component: AboutPage },
+      { path: 'blog', component: BlogPage },
+      { path: 'guide', component: TravelingGuide },
+      { path: 'chat', component: UserChat },
+      {path: 'booking-history', component: BookingHistory },
+
       { path: 'home', component: HomePage, name: 'Home' },
       { path: 'about', component: AboutPage, name: 'About' },
       { path: 'blog', component: BlogPage, name: 'Blog' },
@@ -107,17 +135,30 @@ const routes = [
       {path: 'user-plan', component: UserPlan},
 
 
+
       // Hotels
       { path: 'hotel', component: HotelList, name: 'HotelList' },
       { path: 'hotels/:id', component: HotelDetail, name: 'HotelDetail', props: true },
       { path: 'book/:id', component: HotelBookingForm, name: 'HotelBookingForm', props: true },
       { path: 'confirmation', component: BookingConfirmation, name: 'BookingConfirmation' },
 
+
+      // Travel Booking
+      { path: 'Boatickets', component: BoatTickets },
+      { path: 'Bustickets', component: BusTickets },
+      { path: 'CarRental', component: CarRental },
+      { path: 'FlightReservation', component: FlightReservation },
+      { path: 'FlightBookHistory', component: BookingflightHistory },
+      { path: 'BookBoatPage', component: BookBoatPage },
+      { path: 'BookBoatHistory', component: BookingboatHistory},
+      
+
       // Travel Booking (paths normalized to lowercase with hyphens)
       { path: 'Boatickets', component: BoatTickets, name: 'BoatTickets' },
       { path: 'Bustickets', component: BusTickets, name: 'BusTickets' },
       { path: 'CarRental', component: CarRental, name: 'CarRental' },
       { path: 'FlightReservation', component: FlightReservation, name: 'FlightReservation' },
+
 
       // User Profile (requires auth)
       { path: 'profile', component: UserProfile, name: 'UserProfile', meta: { requiresAuth: true } },
@@ -175,10 +216,15 @@ const routes = [
     meta: { requiresAdmin: true },
     children: [
       { path: '', redirect: 'dashboard' },
+
+      { path: 'dashboard', component: AdminDashboard },
+      { path: 'users', component: AdminUsers },
+
       { path: 'dashboard', component: AdminDashboard, name: 'AdminDashboard' },
       { path: 'users', component: AdminUsers, name: 'AdminUsers' },
       { path: 'chat', component: AdminChat },
       { path: 'blog', component: AdminBlog },
+
     ]
   },
 
