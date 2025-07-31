@@ -65,7 +65,7 @@ import BookingHistory from '@/views/BookingHistory.vue'
 
 import BookBoatPage from '@/views/BookBoatPage.vue'
 import BookingboatHistory from '@/views/BookingboatHistory.vue'
-// import BookingflightHistory from '@/views/BookingflightHistory.vue' // Duplicate import removed
+import BookingflightHistory from '@/views/BookingflightHistory.vue'
 
 // Auth guard
 const requireAuth = (to, from, next) => {
@@ -98,7 +98,6 @@ import FoodListView from '../views/User/FoodList.vue'
 import ProvinceList from '../views/User/ProvinceList.vue'
 import FoodByProvince from '../components/FoodByProvince.vue'
 import FoodDetail from '../views/User/FoodDetail.vue'
-import BookingflightHistory from '@/views/BookingflightHistory.vue'
 
 import AdminChat from '@/views/admin/AdminChat.vue'
 import AdminBlog from '@/views/admin/AdminBlog.vue'
@@ -137,9 +136,6 @@ const routes = [
       { path: 'blog', component: BlogPage, name: 'Blog' },
       { path: 'guide', component: TravelingGuide, name: 'TravelingGuide' },
       { path: 'chat', component: UserChat, name: 'UserChat' },
-      {path: 'bookingflight-history', component: BookingflightHistory},
-      // Duplicate route removed below
-      {path: 'bookingflight-history', component: BookingflightHistory},
 
 
 
@@ -153,7 +149,6 @@ const routes = [
       // Travel Booking
       { path: 'Boatickets', component: BoatTickets },
       { path: 'Bustickets', component: BusTickets },
-      // { path: 'FlightBookHistory', component: BookingflightHistory }, // Duplicate route removed
       { path: 'FlightReservation', component: FlightReservation },
       { path: 'FlightBookHistory', component: BookingflightHistory },
       { path: 'BookBoatPage', component: BookBoatPage },
