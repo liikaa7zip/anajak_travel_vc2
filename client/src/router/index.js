@@ -91,27 +91,6 @@ const requireAdmin = (to, from, next) => {
   next()
 }
 
-
-// Food
-import FoodListView from '../views/User/FoodList.vue'
-
-import ProvinceList from '../views/User/ProvinceList.vue'
-import FoodByProvince from '../components/FoodByProvince.vue'
-import FoodDetail from '../views/User/FoodDetail.vue'
-import BookingflightHistory from '@/views/BookingflightHistory.vue'
-
-import AdminChat from '@/views/admin/AdminChat.vue'
-import AdminBlog from '@/views/admin/AdminBlog.vue'
-// Auth guard helper functions
-const getUserFromStorage = () => {
-
-  try {
-    return JSON.parse(localStorage.getItem('user'))
-  } catch {
-    return null
-  }
-}
-
 const routes = [
   { path: '/', redirect: '/home' },
   {
@@ -131,11 +110,10 @@ const routes = [
       {path: 'booking-history', component: BookingHistory },
 
       // Hotels
-      { path: 'hotel', component: HotelList, name: 'HotelList' },
-      { path: 'hotels/:id', component: HotelDetail, name: 'HotelDetail', props: true },
-      { path: 'book/:id', component: HotelBookingForm, name: 'HotelBookingForm', props: true },
-      { path: 'confirmation', component: BookingConfirmation, name: 'BookingConfirmation' },
-
+      { path: 'hotel', component: HotelList },
+      { path: 'hotels/:id', component: HotelDetail },
+      { path: 'book/:id', component: HotelBookingForm },
+      { path: 'confirmation', component: BookingConfirmation },
 
       // Travel Booking
       { path: 'Boatickets', component: BoatTickets },
@@ -147,15 +125,9 @@ const routes = [
       { path: 'BookBoatHistory', component: BookingboatHistory},
       
 
-      // Travel Booking (paths normalized to lowercase with hyphens)
-      { path: 'Boatickets', component: BoatTickets, name: 'BoatTickets' },
-      { path: 'Bustickets', component: BusTickets, name: 'BusTickets' },
-      { path: 'CarRental', component: CarRental, name: 'CarRental' },
-      { path: 'FlightReservation', component: FlightReservation, name: 'FlightReservation' },
-
-      // User Profile (requires auth)
-      { path: 'profile', component: UserProfile, name: 'UserProfile', meta: { requiresAuth: true } },
-      { path: 'settings', component: UserSettings, name: 'UserSettings', meta: { requiresAuth: true } },
+      // User Profile
+      { path: 'profile', component: UserProfile, beforeEnter: requireAuth },
+      { path: 'settings', component: UserSettings, beforeEnter: requireAuth },
 
       // Provinces
       { path: 'guide/battambang', name: 'BattamBang', component: BattamBang },
