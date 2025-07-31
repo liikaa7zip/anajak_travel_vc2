@@ -1,7 +1,7 @@
 <template>
   <div class="font-poppins bg-gray-100 text-gray-900">
     <!-- Hero Section -->
-    <section class="relative w-full h-64 overflow-hidden rounded-b-md">
+    <section class="relative w-full h-80 sm:h-96">
       <img
         src="https://upload.wikimedia.org/wikipedia/commons/5/5a/Rattanakiri_landscape.jpg"
         alt="Rattanakiri Province"
@@ -13,7 +13,7 @@
     </section>
 
     <!-- About Section -->
-    <section class="px-6 py-10 max-w-4xl mx-auto">
+    <section class="pt-12 pb-6 pr-16 pl-16 py-10 max-w-4xl mx-auto">
       <h2 class="text-2xl font-semibold mb-4">About Rattanakiri</h2>
       <p class="text-gray-700 leading-relaxed">
         Rattanakiri is a remote province in northeastern Cambodia, famous for its scenic highlands, waterfalls, and ethnic minority cultures.
@@ -21,7 +21,7 @@
     </section>
 
     <!-- Top Attractions Section -->
-    <section class="bg-white px-6 py-10">
+    <section class="bg-white pt-12 pb-6 pr-16 pl-16 py-10">
       <h2 class="text-2xl font-semibold mb-6 text-center">Top Attractions</h2>
       <ul class="space-y-4 max-w-3xl mx-auto text-gray-700">
         <li v-for="(attraction, index) in topAttractions" :key="index">
@@ -31,7 +31,7 @@
     </section>
 
     <!-- Things to Do Section -->
-    <section class="px-6 py-10 max-w-4xl mx-auto">
+    <section class="pt-12 pb-6 pr-16 pl-16 py-10 max-w-4xl mx-auto">
       <h2 class="text-2xl font-semibold mb-4">Things to Do</h2>
       <ul class="list-disc list-inside text-gray-700 space-y-2">
         <li v-for="(thing, index) in thingsToDo" :key="index">{{ thing }}</li>
@@ -39,7 +39,7 @@
     </section>
 
     <!-- Travel Tips Section -->
-    <section class="bg-white px-6 py-10">
+    <section class="bg-white pt-12 pb-6 pr-16 pl-16 py-10">
       <h2 class="text-2xl font-semibold mb-4 text-center">Travel Tips</h2>
       <ul class="max-w-3xl mx-auto text-gray-700 space-y-2">
         <li v-for="(tip, index) in travelTips" :key="index">{{ tip }}</li>
@@ -47,7 +47,7 @@
     </section>
 
     <!-- Photo Gallery Section -->
-    <section class="px-6 py-10 max-w-6xl mx-auto">
+    <section class="pt-12 pb-6 pr-16 pl-16 py-10 max-w-6xl mx-auto">
       <h2 class="text-2xl font-semibold mb-6 text-center">Photo Gallery</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <img
@@ -61,7 +61,7 @@
     </section>
 
     <!-- Map Section -->
-    <section class="bg-gray-200 px-6 py-10">
+    <section class="bg-gray-200 pt-12 pb-6 pr-16 pl-16 py-10">
       <h2 class="text-2xl font-semibold mb-4 text-center">Province Map</h2>
       <div class="max-w-4xl mx-auto">
         <iframe

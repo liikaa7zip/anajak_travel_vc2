@@ -1,7 +1,7 @@
 <template>
   <div class="font-poppins text-gray-900 bg-white">
     <!-- Hero Section -->
-    <section class="relative h-64 overflow-hidden">
+    <section class="relative w-full h-80 sm:h-96">
       <img
         src="https://images.unsplash.com/photo-1566928102313-7c0d3bc7c59f?auto=format&fit=crop&w=1400&q=80"
         alt="Prey Veng"
@@ -13,7 +13,7 @@
     </section>
 
     <!-- About -->
-    <section class="px-6 py-10 max-w-5xl mx-auto">
+    <section class="pt-12 pb-6 pr-16 pl-16 py-10 max-w-5xl mx-auto">
       <h2 class="text-2xl font-bold mb-4">About Prey Veng</h2>
       <p>
         Prey Veng, meaning "Long Forest" in Khmer, is a largely agricultural province in southeastern Cambodia. Known for its scenic rice paddies and friendly local communities, Prey Veng offers a quiet countryside atmosphere.
@@ -21,7 +21,7 @@
     </section>
 
     <!-- Top Attractions -->
-    <section class="bg-gray-50 px-6 py-10">
+    <section class="bg-gray-50 pt-12 pb-6 pr-16 pl-16 py-10">
       <div class="max-w-5xl mx-auto">
         <h2 class="text-2xl font-bold mb-6">Top Attractions</h2>
         <div class="grid md:grid-cols-2 gap-6">
@@ -40,7 +40,7 @@
     </section>
 
     <!-- Things to Do -->
-    <section class="px-6 py-10 max-w-5xl mx-auto">
+    <section class="pt-12 pb-6 pr-16 pl-16 py-10 max-w-5xl mx-auto">
       <h2 class="text-2xl font-bold mb-4">Things to Do</h2>
       <ul class="list-disc pl-6">
         <li>Explore traditional Khmer villages</li>
@@ -51,7 +51,7 @@
     </section>
 
     <!-- Travel Tips -->
-    <section class="bg-gray-50 px-6 py-10">
+    <section class="bg-gray-50 pt-12 pb-6 pr-16 pl-16 py-10">
       <div class="max-w-5xl mx-auto">
         <h2 class="text-2xl font-bold mb-4">Travel Tips</h2>
         <ul class="list-disc pl-6">
@@ -63,7 +63,7 @@
     </section>
 
     <!-- Photo Gallery -->
-    <section class="px-6 py-10 max-w-5xl mx-auto">
+    <section class="pt-12 pb-6 pr-16 pl-16 py-10 max-w-5xl mx-auto">
       <h2 class="text-2xl font-bold mb-6">Photo Gallery</h2>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         <img src="https://upload.wikimedia.org/wikipedia/commons/5/52/Prey_Veng_paddy.jpg" alt="Gallery 1" class="rounded" />
@@ -74,7 +74,7 @@
     </section>
 
     <!-- Map -->
-    <section class="px-6 py-10">
+    <section class="pt-12 pb-6 pr-16 pl-16 py-10">
       <div class="max-w-5xl mx-auto">
         <h2 class="text-2xl font-bold mb-4">Province Map</h2>
         <iframe

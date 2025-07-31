@@ -1,7 +1,7 @@
 <template>
   <div class="font-sans bg-gray-100 text-gray-900 min-h-screen">
     <!-- Hero Section -->
-    <section class="relative w-full h-60">
+    <section class="relative w-full h-80 sm:h-96">
       <img
         src="https://www.tourismcambodia.org/uploads/thumbs/6e3c0-11.jpg"
         alt="Preah Vihear"
@@ -16,7 +16,7 @@
     </section>
 
     <!-- About Section -->
-    <section class="p-6">
+    <section class="pt-12 pb-6 pr-16 pl-16">
       <div class="bg-white rounded-lg shadow p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div class="max-w-xl">
           <h2 class="text-xl font-semibold mb-2">About Preah Vihear</h2>
@@ -33,7 +33,7 @@
     </section>
 
     <!-- Top Attractions -->
-    <section class="p-6">
+    <section class="pt-12 pb-6 pr-16 pl-16">
       <h2 class="text-xl font-semibold mb-4">Top Attractions</h2>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div v-for="(attraction, index) in topAttractions" :key="index" class="bg-white rounded shadow overflow-hidden">
@@ -44,7 +44,7 @@
     </section>
 
     <!-- Things to Do & Travel Tips -->
-    <section class="p-6 grid sm:grid-cols-2 gap-6">
+    <section class="pt-12 pb-6 pr-16 pl-16 grid sm:grid-cols-2 gap-6">
       <div>
         <h2 class="text-xl font-semibold mb-2">Things to Do</h2>
         <ul class="list-disc pl-5 text-sm text-gray-700">
@@ -64,7 +64,7 @@
     </section>
 
     <!-- Photo Gallery -->
-    <section class="p-6">
+    <section class="pt-12 pb-6 pr-16 pl-16">
       <h2 class="text-xl font-semibold mb-4">Photo Gallery</h2>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <img v-for="(photo, index) in galleryPhotos" :key="index" :src="photo" alt="" class="rounded shadow object-cover h-28 w-full" />
@@ -72,7 +72,7 @@
     </section>
 
     <!-- Province Map -->
-    <section class="p-6">
+    <section class="pt-12 pb-6 pr-16 pl-16">
       <h2 class="text-xl font-semibold mb-4">Province Map</h2>
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <iframe

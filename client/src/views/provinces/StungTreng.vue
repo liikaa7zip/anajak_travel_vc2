@@ -1,7 +1,7 @@
 <template>
   <div class="font-poppins bg-gray-100 text-gray-900 min-h-screen px-4 py-6">
     <!-- Hero Section -->
-    <section class="relative w-full h-60 overflow-hidden rounded-b-md mb-6">
+    <section class="relative w-full h-80 sm:h-96">
       <img
         src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Wat_Stung_Treng_%282%29.jpg/1200px-Wat_Stung_Treng_%282%29.jpg"
         alt="Stung Treng"
@@ -13,7 +13,7 @@
     </section>
 
     <!-- About Section -->
-    <section class="bg-white p-6 rounded-md shadow mb-6 flex flex-col md:flex-row justify-between gap-4">
+    <section class="bg-white pt-12 pb-6 pr-16 pl-16 rounded-md shadow mb-6 flex flex-col md:flex-row justify-between gap-4">
       <div class="flex-1">
         <h2 class="text-2xl font-bold mb-2">About Stung Treng</h2>
         <p>
@@ -30,7 +30,7 @@
     </section>
 
     <!-- Top Attractions -->
-    <section class="bg-white p-6 rounded-md shadow mb-6">
+    <section class="bg-white pt-12 pb-6 pr-16 pl-16 rounded-md shadow mb-6">
       <h2 class="text-2xl font-bold mb-4">Top Attractions</h2>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div v-for="(attraction, index) in attractions" :key="index" class="text-center">
@@ -41,7 +41,7 @@
     </section>
 
     <!-- Things to Do + Travel Tips -->
-    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+    <section class="pt-12 pb-6 pr-16 pl-16 grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
       <div class="bg-white p-6 rounded-md shadow">
         <h2 class="text-2xl font-bold mb-4">Things to Do</h2>
         <ul class="list-disc list-inside space-y-1">
@@ -61,7 +61,7 @@
     </section>
 
     <!-- Photo Gallery -->
-    <section class="bg-white p-6 rounded-md shadow mb-6">
+    <section class="bg-white pt-12 pb-6 pr-16 pl-16 rounded-md shadow mb-6">
       <h2 class="text-2xl font-bold mb-4">Photo Gallery</h2>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         <img
@@ -75,7 +75,7 @@
     </section>
 
     <!-- Province Map -->
-    <section class="bg-white p-6 rounded-md shadow mb-6">
+    <section class="bg-white pt-12 pb-6 pr-16 pl-16 rounded-md shadow mb-6">
       <h2 class="text-2xl font-bold mb-4">Province Map</h2>
       <img
         src="https://www.google.com/maps/d/thumbnail?mid=1-ypk-PSMphExu4Q3yrAFAJKcezk&hl=en"
