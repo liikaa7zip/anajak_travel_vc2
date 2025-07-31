@@ -1,0 +1,91 @@
+const { Food, Location } = require('../models');
+
+exports.getAllFood = async (req, res) => {
+  try {
+    const locationId = req.query.locationId;  // get locationId from query string
+    let whereCondition = {};
+
+    if (locationId) {
+      whereCondition.locationId = locationId;
+    }
+
+    const foods = await Food.findAll({ where: whereCondition });
+    res.json(foods);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch food' });
+  }
+};
+
+exports.getFoodById = async (req, res) => {
+  try {
+    console.log('Fetching food with ID:', req.params.id);
+
+    const food = await Food.findByPk(req.params.id, {
+      include: {
+        model: Location,
+        attributes: ['id', 'name', 'country'],
+      },
+    });
+
+    if (!food) {
+      console.log('Food not found with ID:', req.params.id);
+      return res.status(404).json({ error: 'Food not found' });
+    }
+
+    res.json(food);
+  } catch (error) {
+    console.error('Error fetching food detail:', error);
+    res.status(500).json({ error: 'Failed to fetch food detail' });
+  }
+};
+
+
+
+exports.createFood = async (req, res) => {
+  try {
+    const { name, price } = req.body;
+    const image = req.file ? req.file.filename : null;
+
+    if (!name || !price) return res.status(400).json({ error: 'Name and price required' });
+
+    const food = await Food.create({ name, price, image });
+    res.status(201).json(food);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to create food' });
+  }
+};
+
+exports.createFood = async (req, res) => {
+  try {
+    const { name, price, image, locationId } = req.body;
+
+    const food = await Food.create({ name, price, image, locationId });
+
+    res.status(201).json(food);
+  } catch (error) {
+    console.error('Error creating food:', error);
+    res.status(500).json({ error: 'Failed to create food' });
+  }
+};
+
+
+exports.deleteFood = async (req, res) => {
+  try {
+    const food = await Food.findByPk(req.params.id);
+    if (!food) return res.status(404).json({ error: 'Food not found' });
+
+    await food.destroy();
+    res.json({ message: 'Food deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to delete food' });
+  }
+};
+exports.getFoodsByLocation = async (req, res) => {
+  try {
+    const locationId = req.params.locationId;
+    const foods = await Food.findAll({ where: { locationId } });
+    res.json(foods);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch foods by location' });
+  }
+};

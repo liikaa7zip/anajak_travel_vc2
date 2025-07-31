@@ -51,7 +51,7 @@
             <div>
               <h3 class="text-blue-600 font-semibold text-sm mb-3">HOTELS & DINING</h3>
               <router-link to="/hotel" class="dropdown-item">🏨 Hotel Booking</router-link>
-              <router-link to="/restaurant" class="dropdown-item">🍽️ Restaurant Reservations</router-link>
+              <router-link to="/province" class="dropdown-item">🍽️ Restaurant Reservations</router-link>
             </div>
             <div>
               <h3 class="text-blue-600 font-semibold text-sm mb-3">New Feature</h3>

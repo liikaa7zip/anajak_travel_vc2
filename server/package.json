@@ -25,10 +25,7 @@
   "version": "1.0.0",
   "description": "A Vue.js frontend with Node.js backend application.",
   "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/panhalove123/Anajak_Travel_VC2.git"
-  },
+  "repository": "git+https://github.com/panhalove123/Anajak_Travel_VC2.git",
   "keywords": [],
   "author": "",
   "license": "ISC",
