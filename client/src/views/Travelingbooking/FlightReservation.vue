@@ -42,7 +42,7 @@
         />
       </div>
 
-      <!-- Airline (auto-filtered) -->
+      <!-- Airline -->
       <div>
         <label class="block text-sm font-medium text-purple-700 mb-1"> Airline</label>
         <select
@@ -225,8 +225,11 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import axios from 'axios'
+import { useAuth } from '@/stores/useAuth' // Adjust to your file path
+
+const { userProfile, isLoggedIn } = useAuth()
 
 const form = ref({
   origin: '',
@@ -235,7 +238,7 @@ const form = ref({
   airline: '',
   classType: 'Economy',
   passengers: 1,
-  UserId: 1,
+  UserId: null,
 })
 
 const passengerName = ref('')
@@ -247,7 +250,6 @@ const lastBooking = ref({})
 const loading = ref(false)
 const error = ref('')
 
-// Airline availability by destination
 const airlinesByDestination = {
   'Phnom Penh': ['Cambodia Angkor Air', 'Cambodia Airways', 'AirAsia'],
   'Siem Reap': ['Cambodia Angkor Air', 'AirAsia'],
@@ -258,7 +260,6 @@ const availableAirlines = computed(() => {
   return airlinesByDestination[form.value.destination] || []
 })
 
-// Price calculation logic
 const basePrices = {
   'Cambodia Angkor Air': 100,
   'AirAsia': 80,
@@ -277,7 +278,20 @@ const computedPrice = computed(() => {
   return base * multiplier * passengers
 })
 
+// Sync UserId with logged-in user profile
+watch(
+  () => userProfile.value,
+  (newUser) => {
+    form.value.UserId = newUser?.id || null
+  },
+  { immediate: true }
+)
+
 function bookFlight() {
+  if (!isLoggedIn.value) {
+    alert('Please log in to book a flight.')
+    return
+  }
   showPreConfirmationModal.value = true
 }
 
@@ -286,6 +300,11 @@ function cancelBookingPreConfirmation() {
 }
 
 async function proceedBooking() {
+  if (!isLoggedIn.value || !form.value.UserId) {
+    alert('You must be logged in to proceed with booking.')
+    return
+  }
+
   showPreConfirmationModal.value = false
   loading.value = true
   error.value = ''
@@ -294,7 +313,7 @@ async function proceedBooking() {
     ...form.value,
     price: computedPrice.value,
     passengerName: passengerName.value,
-    email: email.value
+    email: email.value,
   }
 
   try {
@@ -304,7 +323,6 @@ async function proceedBooking() {
     lastBooking.value = res.data
     bookingConfirmed.value = true
 
-    // Reset form
     form.value = {
       origin: '',
       destination: '',
@@ -312,7 +330,7 @@ async function proceedBooking() {
       airline: '',
       classType: 'Economy',
       passengers: 1,
-      UserId: 1,
+      UserId: form.value.UserId,
     }
     passengerName.value = ''
     email.value = ''
