@@ -40,11 +40,11 @@
           required
         >
           <option disabled value="">Select a transport type</option>
-          <option value="bus"> Bus</option>
-          <option value="private_car"> Private Car</option>
+          <option value="bus">Bus</option>
+          <option value="private_car">Private Car</option>
         </select>
         <p class="mt-1 text-sm text-purple-600 bg-purple-50 px-3 py-1 rounded-lg inline-block shadow-sm">
-           Ticket Price: <span class="font-semibold">${{ form.price }}</span>
+          Ticket Price: <span class="font-semibold">${{ form.price }}</span>
         </p>
       </div>
 
@@ -68,6 +68,8 @@
           required
           placeholder="Enter your email"
           class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
+          :readonly="isLoggedIn"
+          title="Email auto-filled from your account"
         />
       </div>
 
@@ -135,19 +137,20 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
+import { useAuth } from '@/stores/useAuth' // Adjust path to your composable
 
 const router = useRouter()
+const { userProfile, isLoggedIn, initAuth } = useAuth()
 
-// Map of transport type to price
+// Transport type prices
 const priceMap = {
   bus: 10,
   private_car: 30,
 }
 
-// Reactive form object
 const form = ref({
   depart: '',
   arrive: '',
@@ -155,7 +158,7 @@ const form = ref({
   date: '',
   email: '',
   price: 0,
-  UserId: 1 // Can be dynamic if needed
+  UserId: null, // Set dynamically from auth
 })
 
 const showPreConfirmationModal = ref(false)
@@ -163,32 +166,35 @@ const loading = ref(false)
 const confirmation = ref('')
 const isError = ref(false)
 
-// When user selects transport type, update price
 const updatePrice = () => {
   form.value.price = priceMap[form.value.type] || 0
 }
 
-// Show modal
 const submitBooking = () => {
   showPreConfirmationModal.value = true
 }
 
-// Confirm and send booking to API
 const proceedBooking = async () => {
   loading.value = true
   showPreConfirmationModal.value = false
   isError.value = false
 
+  // Set UserId from logged-in user
+  form.value.UserId = userProfile.value?.id || null
+
+  if (!form.value.UserId) {
+    isError.value = true
+    confirmation.value = '⚠️ You must be logged in to book tickets.'
+    loading.value = false
+    return
+  }
+
   try {
     await axios.post('http://localhost:5000/api/bookings', form.value)
     confirmation.value = `✅ Booking from ${form.value.depart} to ${form.value.arrive} confirmed on ${form.value.date}.`
 
-    router.push({
-      name: 'BookingConfirmation',
-      query: {
-        ...form.value
-      }
-    })
+    // Redirect to a confirmation page or clear form
+    router.push({ name: 'BookingConfirmation', query: { ...form.value } })
   } catch (error) {
     isError.value = true
     confirmation.value = error.response?.data?.message || 'Something went wrong.'
@@ -198,10 +204,25 @@ const proceedBooking = async () => {
   }
 }
 
-// Cancel confirmation
 const cancelBookingPreConfirmation = () => {
   showPreConfirmationModal.value = false
   confirmation.value = '🚫 Booking was cancelled by user.'
   isError.value = true
 }
+
+onMounted(async () => {
+  await initAuth()
+  if (isLoggedIn.value && userProfile.value.email) {
+    form.value.email = userProfile.value.email
+    form.value.UserId = userProfile.value.id
+  }
+})
+
+// Update form email and UserId if user profile changes dynamically
+watch(userProfile, (newUser) => {
+  if (newUser?.email) {
+    form.value.email = newUser.email
+    form.value.UserId = newUser.id
+  }
+})
 </script>

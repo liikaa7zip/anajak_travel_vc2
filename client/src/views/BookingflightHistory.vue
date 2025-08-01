@@ -150,8 +150,11 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, watch } from 'vue'
 import axios from 'axios'
+import { useAuth } from '@/stores/useAuth' // adjust the path accordingly
+
+const { userProfile, isLoggedIn } = useAuth()
 
 const bookings = ref([])
 const loading = ref(false)
@@ -162,12 +165,24 @@ const searchQuery = ref('')
 const itemsPerPage = ref(10)
 const currentPage = ref(1)
 
+// Fetch only bookings belonging to the current logged-in user
 const fetchBookingHistory = async () => {
+  if (!isLoggedIn.value) {
+    bookings.value = []
+    error.value = 'Please login to see your booking history.'
+    return
+  }
+
   loading.value = true
   error.value = null
+
   try {
+    // Option 1: If your backend supports filtering by UserId (recommended):
+    // const res = await axios.get(`http://localhost:5000/api/flightbookings?userId=${userProfile.value.id}`)
+
+    // Option 2: Fetch all and filter locally (fallback):
     const res = await axios.get('http://localhost:5000/api/flightbookings')
-    bookings.value = res.data
+    bookings.value = res.data.filter(b => b.UserId === userProfile.value.id)
   } catch (err) {
     error.value = err.response?.data?.message || 'Failed to load booking history'
     bookings.value = []
@@ -263,5 +278,11 @@ const showBookingSuccess = () => {
   }, 3000)
 }
 
+// Refetch bookings whenever user changes (e.g. login/logout)
+watch(userProfile, () => {
+  fetchBookingHistory()
+})
+
+// Initial fetch on mount
 onMounted(fetchBookingHistory)
 </script>
