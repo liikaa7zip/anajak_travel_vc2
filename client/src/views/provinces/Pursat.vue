@@ -1,122 +1,112 @@
 <template>
-  <div class="font-poppins bg-gray-100 text-gray-900">
+  <div class="font-sans bg-gray-100 text-gray-900 min-h-screen">
     <!-- Hero Section -->
     <section class="relative w-full h-80 sm:h-96">
       <img
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Pursat_in_Cambodia.svg/1200px-Pursat_in_Cambodia.svg.png"
-        alt="Pursat Province"
-        class="w-full h-full object-cover"
+        src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Pursat_Cambodia_01.jpg"
+        alt="Pursat"
+        class="w-full h-full object-cover rounded-b-md"
       />
-      <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-        <h1 class="text-3xl md:text-5xl text-white font-bold">Pursat Province</h1>
+      <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center px-10">
+        <h1 class="text-white text-3xl sm:text-6xl font-bold">
+          <i class="fa-solid fa-location-dot"></i> Pursat <br />
+          <span class="text-4xl">Province</span>
+        </h1>
       </div>
     </section>
 
     <!-- About Section -->
-    <section class="pt-12 pb-6 pr-16 pl-16 py-10 max-w-4xl mx-auto">
-      <h2 class="text-2xl font-semibold mb-4">About Pursat</h2>
-      <p class="text-gray-700 leading-relaxed">
-        Pursat province is located in western Cambodia and is known for its rich natural resources, including mountains, forests, and the Tonle Sap River. It offers a peaceful retreat with traditional Khmer culture and stunning landscapes.
-      </p>
-    </section>
-
-    <!-- Top Attractions Section -->
-    <section class="bg-white pt-12 pb-6 pr-16 pl-16 py-10">
-      <h2 class="text-2xl font-semibold mb-6 text-center">Top Attractions</h2>
-      <ul class="space-y-4 max-w-3xl mx-auto text-gray-700">
-        <li v-for="(attraction, index) in topAttractions" :key="index">
-          <strong>{{ attraction.name }}:</strong> {{ attraction.description }}
-        </li>
-      </ul>
-    </section>
-
-    <!-- Things to Do Section -->
-    <section class="pt-12 pb-6 pr-16 pl-16 py-10 max-w-4xl mx-auto">
-      <h2 class="text-2xl font-semibold mb-4">Things to Do</h2>
-      <ul class="list-disc list-inside text-gray-700 space-y-2">
-        <li v-for="(thing, index) in thingsToDo" :key="index">{{ thing }}</li>
-      </ul>
-    </section>
-
-    <!-- Travel Tips Section -->
-    <section class="bg-white pt-12 pb-6 pr-16 pl-16 py-10">
-      <h2 class="text-2xl font-semibold mb-4 text-center">Travel Tips</h2>
-      <ul class="max-w-3xl mx-auto text-gray-700 space-y-2">
-        <li v-for="(tip, index) in travelTips" :key="index">{{ tip }}</li>
-      </ul>
-    </section>
-
-    <!-- Photo Gallery Section -->
-    <section class="pt-12 pb-6 pr-16 pl-16 py-10 max-w-6xl mx-auto">
-      <h2 class="text-2xl font-semibold mb-6 text-center">Photo Gallery</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <section class="pt-12 pb-6 px-16">
+      <div class="bg-white rounded-lg shadow p-4 flex flex-col sm:flex-row items-start justify-between gap-4">
+        <div class="max-w-xl">
+          <h2 class="text-2xl font-semibold mb-2 text-purple-600">About Pursat</h2>
+          <p class="text-sm text-gray-700">
+            Pursat province lies in western Cambodia, nestled between the Tonle Sap lake and the Cardamom Mountains. Known for its rich natural landscapes, including rivers and waterfalls, Pursat is also famous for its skilled stone carvers and traditional silk weaving. The province offers a mix of cultural heritage and scenic beauty.
+          </p>
+        </div>
         <img
-          v-for="(photo, index) in galleryPhotos"
-          :key="index"
-          :src="photo.src"
-          :alt="photo.alt"
-          class="rounded-lg shadow"
+          src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Cambodia_Pursat_locator_map.svg"
+          alt="Pursat Map"
+          class="w-80 h-60 shadow rounded"
         />
       </div>
     </section>
 
-    <!-- Map Section -->
-    <section class="bg-gray-200 pt-12 pb-6 pr-16 pl-16 py-10">
-      <h2 class="text-2xl font-semibold mb-4 text-center">Province Map</h2>
-      <div class="max-w-4xl mx-auto">
+    <!-- Top Attractions -->
+    <section class="py-6 px-16">
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Top Attractions</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div v-for="(attraction, index) in topAttractions" :key="index" class="bg-white rounded shadow overflow-hidden">
+          <img :src="attraction.img" alt="" class="w-full h-40 object-cover" />
+          <p class="p-2 text-2sm font-medium text-center">{{ attraction.name }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Things to Do & Travel Tips -->
+    <section class="py-6 px-16 grid sm:grid-cols-2 gap-6">
+      <div>
+        <h2 class="text-2xl font-semibold mb-2 text-purple-600">Things to Do</h2>
+        <ul class="list-disc pl-5 text-sm text-gray-700">
+          <li>Visit Phnom Sampov and its caves</li>
+          <li>Explore Tonle Sap lake fishing villages</li>
+          <li>Discover traditional stone carving workshops</li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="text-2xl font-semibold mb-2 text-purple-600">Travel Tips</h2>
+        <ul class="list-disc pl-5 text-sm text-gray-700">
+          <li>Best season: Nov – Feb for cool weather</li>
+          <li>Use local boats to explore lakeside areas</li>
+          <li>Hire guides for mountain trekking and cave visits</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Photo Gallery -->
+    <section class="py-6 px-16">
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Photo Gallery</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <img v-for="(photo, index) in galleryPhotos" :key="index" :src="photo" alt="" class="rounded shadow object-cover h-28 w-full" />
+      </div>
+    </section>
+
+    <!-- Province Map -->
+    <section class="py-6 px-16">
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Province Map</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31440.943840747026!2d103.0306803486032!3d12.532372376491254!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3104abf2a3e88e47%3A0x1ec53f286344c3b3!2sPursat!5e0!3m2!1sen!2skh!4v1699623939000!5m2!1sen!2skh"
-          width="100%"
-          height="400"
-          style="border:0;"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3917.315974401594!2d103.58106221580523!3d11.585547591672619!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3106297db63b38af%3A0xc5ee4a388a30ceaf!2sPursat%20Province!5e0!3m2!1sen!2skh!4v1710000000025"
+          width="100%" height="200" class="rounded shadow h-60" allowfullscreen loading="lazy"
         ></iframe>
+        <img 
+          src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Pursat_Cambodia_01.jpg" 
+          class="w-full h-60 object-cover rounded shadow" 
+          alt="Pursat Nature" 
+        />
       </div>
     </section>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+const topAttractions = [
+  { name: 'Phnom Sampov', img: 'https://upload.wikimedia.org/wikipedia/commons/6/66/Phnom_Sampov_01.jpg' },
+  { name: 'Tonle Sap Fishing Villages', img: 'https://upload.wikimedia.org/wikipedia/commons/f/f4/Tonle_Sap_lake_fishing_village.jpg' },
+  { name: 'Stone Carving Workshops', img: 'https://upload.wikimedia.org/wikipedia/commons/c/c4/Stone_carving_Cambodia_02.jpg' },
+  { name: 'Pursat River', img: 'https://upload.wikimedia.org/wikipedia/commons/9/9a/Pursat_river_cambodia.jpg' }
+]
 
-const topAttractions = ref([
-  { name: 'Phnom Chisor', description: 'Ancient temple ruins with panoramic views.' },
-  { name: 'Tonle Sap River', description: 'Famous river with vibrant fishing communities.' },
-  { name: 'Kulen Mountain Range', description: 'Natural beauty with hiking trails and waterfalls.' },
-])
-
-const thingsToDo = ref([
-  'Visit Phnom Chisor temple ruins.',
-  'Take a boat ride on Tonle Sap River.',
-  'Hike in the Kulen Mountain Range.',
-  'Explore local floating villages.',
-])
-
-const travelTips = ref([
-  'Best time to visit is November to February.',
-  'Carry insect repellent for forest areas.',
-  'Local guides can enrich your experience.',
-  'Respect local traditions and dress modestly.',
-])
-
-const galleryPhotos = ref([
-  {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/1/1d/Phnom_Chisor_Kampong_Speu.jpg',
-    alt: 'Phnom Chisor Temple',
-  },
-  {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/6/6f/Tonle_Sap_River_in_Cambodia_2013.jpg',
-    alt: 'Tonle Sap River',
-  },
-  {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/d/d0/Kulen_National_Park_Waterfall_2013.jpg',
-    alt: 'Kulen Mountain Waterfall',
-  },
-])
+const galleryPhotos = [
+  'https://upload.wikimedia.org/wikipedia/commons/6/66/Phnom_Sampov_01.jpg',
+  'https://upload.wikimedia.org/wikipedia/commons/f/f4/Tonle_Sap_lake_fishing_village.jpg',
+  'https://upload.wikimedia.org/wikipedia/commons/c/c4/Stone_carving_Cambodia_02.jpg',
+  'https://upload.wikimedia.org/wikipedia/commons/9/9a/Pursat_river_cambodia.jpg'
+]
 </script>
 
 <style scoped>
-/* Add scoped styles here if needed */
+body {
+  font-family: 'Poppins', sans-serif;
+}
 </style>
