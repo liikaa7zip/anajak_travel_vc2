@@ -142,7 +142,7 @@ const routes = [
       { path: 'blog', component: BlogPage },
       { path: 'guide', component: TravelingGuide },
       { path: 'chat', component: UserChat },
-      {path: 'booking-history', component: BookingHistory },
+      { path: 'booking-history', component: BookingHistory },
 
       // Hotels
       { path: 'hotel', component: HotelList },
@@ -157,9 +157,9 @@ const routes = [
       { path: 'FlightReservation', component: FlightReservation },
       { path: 'FlightBookHistory', component: BookingflightHistory },
       { path: 'BookBoatPage', component: BookBoatPage },
-      { path: 'BookBoatHistory', component: BookingboatHistory},
-      { path: 'user-plan', component:UserPlan },
-      
+      { path: 'BookBoatHistory', component: BookingboatHistory },
+      { path: 'user-plan', component: UserPlan },
+
 
       // User Profile
       { path: 'profile', component: UserProfile, beforeEnter: requireAuth },
@@ -191,9 +191,9 @@ const routes = [
       { path: 'guide/tbong-khmum', name: 'TbongKhmum', component: TbongKhmum },
       { path: 'guide/kampong-speu', name: 'KampongSpeu', component: KampongSpeu },
       { path: 'guide/prey-veng', name: 'PreyVeng', component: PreyVeng },
-    // Food routes
+      // Food routes
       { path: 'foods', component: FoodListView, name: 'FoodList' },
-      
+
       { path: 'province', name: 'ProvinceList', component: ProvinceList },
       {
         path: 'province/:locationId',
@@ -222,24 +222,24 @@ const routes = [
       { path: 'blog', component: AdminBlog },
     ]
   },
-{
-  path: '/restaurant_owner',
-  component: ReturantLayout,
-  meta: { requiresAuth: true, role: 'restaurant_owner' },
-  children: [
-    { path: '', redirect: 'fooddashboard' },
-    { path: 'fooddashboard', component: ResturantDashboard , name: 'foodOwnerdashboard' },
-  ]
-},
-{
-  path: '/hotel_owner',
-  component: HotelLayout,
-  meta: { requiresAuth: true, role: 'hotel_owner' },
-  children: [
-    { path: '', redirect: 'hoteldashboard' },
-    { path: 'hoteldashboard', component:HotelDashboard  , name: 'HotelOwnerdashboard' },
-  ]
-},
+  {
+    path: '/restaurant_owner',
+    component: ReturantLayout,
+    meta: { requiresAuth: true, role: 'restaurant_owner' },
+    children: [
+      { path: '', redirect: 'fooddashboard' },
+      { path: 'fooddashboard', component: ResturantDashboard, name: 'foodOwnerdashboard' },
+    ]
+  },
+  {
+    path: '/hotel_owner',
+    component: HotelLayout,
+    meta: { requiresAuth: true, role: 'hotel_owner' },
+    children: [
+      { path: '', redirect: 'hoteldashboard' },
+      { path: 'hoteldashboard', component: HotelDashboard, name: 'HotelOwnerdashboard' },
+    ]
+  },
 
   // Separate route for creating user under /users/create (not nested in admin for now)
   { path: '/users/create', name: 'CreateUser', component: CreateUser },
