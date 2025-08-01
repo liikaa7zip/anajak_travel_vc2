@@ -21,7 +21,7 @@
         <div class="max-w-xl">
           <h2 class="text-2xl font-semibold mb-2 text-purple-600">About Kep</h2>
           <p class="text-sm text-gray-700">
-            Kep is a small seaside province in southern Cambodia known for its tranquil beaches, French colonial villas, and fresh seafood—especially crab. It offers a peaceful escape from the busier tourist hubs and is a gateway to natural beauty, including the scenic Kep National Park and nearby Rabbit Island.
+            Kep is Cambodia’s smallest province, located in the country’s southern coastal region. Once a vibrant beach retreat for French colonials and Cambodian elites in the 1960s, today it offers a quiet, charming escape with a mix of crumbling villas, seafood delights, serene beaches, and natural beauty. Known for its blue crab, pepper farms, and lush hills, Kep is a perfect destination for relaxation and eco-tourism, with nearby access to islands and national parks.
           </p>
         </div>
         <img
@@ -80,9 +80,9 @@
           width="100%" height="200" class="rounded shadow h-60" allowfullscreen loading="lazy"
         ></iframe>
         <img 
-          src="https://cdn.getyourguide.com/img/location/5e86ffb0b60ef.jpeg/88.jpg" 
+          src="https://genk.mediacdn.vn/139269124445442048/2024/8/13/google-maps-thuong-khong-chi-ngan-nhat-ma-chon-duong-vong-ly-do-vi-sao-00145298-1723531172398-17235311731771829575075-1723533715727-17235337161941703107124.png" 
           class="w-full h-60 object-cover rounded shadow" 
-          alt="Kep Seaside" 
+          alt="Map View" 
         />
       </div>
     </section>
@@ -91,17 +91,17 @@
 
 <script setup>
 const topAttractions = [
-  { name: 'Kep Crab Market', img: 'https://images.squarespace-cdn.com/content/v1/5b07f4c12b6a28c7fa5594ef/1583539513320-3K2RP3NHL06X1Y9XIFL7/Kep-Crab-Market-Cambodia.jpg' },
-  { name: 'Rabbit Island', img: 'https://www.movetocambodia.com/wp-content/uploads/2016/08/koh-tonsay-rabbit-island.jpg' },
-  { name: 'Kep National Park', img: 'https://www.travelfish.org/img/thumbnails/620x465x1/53049.jpg' },
-  { name: 'Abandoned Villas', img: 'https://i.pinimg.com/originals/19/9e/fc/199efc7d9a64d3936de24d7fd68134f0.jpg' }
+  { name: 'Kep Crab Market', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQK5g_LONXFCdoIiFLhryzkzg9FQkXrztYVIg&s' },
+  { name: 'Koh Tonsay', img: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/09/42/5d/1a/koh-tonsay.jpg?w=1100&h=1100&s=1' },
+  { name: 'Kep National Park', img: 'https://angkorfocus.com/userfiles/thumbs/new-Kep-National-Park.jpg' },
+  { name: 'Abandoned Villas', img: 'https://www.kathmanduandbeyond.com/wp-content/uploads/2021/04/Kep-Cambodia-140.jpg' }
 ]
 
 const galleryPhotos = [
-  'https://visitkep.com/assets/images/places/Kep.jpg',
-  'https://www.canbypublications.com/images/kep/kep-villa-ruin.jpg',
-  'https://www.cambodiasite.nl/images/kep2.jpg',
-  'https://www.wayfarerfootprints.com/wp-content/uploads/2020/01/Kep-Crab-Market.jpg'
+  'https://www.shutterstock.com/image-photo/golden-sands-tranquility-kep-beach-260nw-2576969449.jpg',
+  'https://evendo-pimcore-unified-modified.s3.eu-west-2.amazonaws.com/public/assets/Images/Product%20Images/0001/86242427-460b-484f-8156-9877edb13692.jpg',
+  'https://www.khmertimeskh.com/wp-content/uploads/2023/12/72954.jpg',
+  'https://camboticket.com/blog/wp-content/uploads/2024/10/kep-edited.jpg'
 ]
 </script>
 
