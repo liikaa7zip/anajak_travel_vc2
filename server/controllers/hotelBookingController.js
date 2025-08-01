@@ -1,19 +1,30 @@
-const { HotelBooking, Hotel } = require('../models');
+const { HotelBooking, Hotel, User } = require('../models');
 
 // GET all bookings
 exports.getAllBookings = async (req, res) => {
   try {
-    const bookings = await HotelBooking.findAll({ include: Hotel });
+    const bookings = await HotelBooking.findAll({
+      include: [
+        { model: Hotel, attributes: ['name'] },
+        { model: User, attributes: ['username'] }
+      ],
+      order: [['createdAt', 'DESC']]
+    });
     res.json(bookings);
   } catch (err) {
     res.status(500).json({ message: 'Failed to fetch bookings', error: err.message });
   }
 };
 
-// GET booking by ID
+// GET single booking by ID
 exports.getBookingById = async (req, res) => {
   try {
-    const booking = await HotelBooking.findByPk(req.params.id, { include: Hotel });
+    const booking = await HotelBooking.findByPk(req.params.id, {
+      include: [
+        { model: Hotel, attributes: ['name'] },
+        { model: User, attributes: ['name'] }
+      ]
+    });
     if (!booking) {
       return res.status(404).json({ message: 'Booking not found' });
     }
