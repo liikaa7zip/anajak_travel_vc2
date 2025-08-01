@@ -2,7 +2,11 @@
   <div class="max-w-xl mx-auto p-6 bg-white rounded-xl shadow-lg border border-gray-200 mt-10">
     <h2 class="text-2xl font-bold text-purple-700 mb-6 text-center"> Book Your Boat</h2>
 
-    <form @submit.prevent="showPreConfirmationModal = true" class="space-y-4">
+    <div v-if="!isLoggedIn">
+      <p class="text-red-600 text-center font-semibold mt-6">⚠️ Please log in to make a booking.</p>
+    </div>
+
+    <form v-else @submit.prevent="showPreConfirmationModal = true" class="space-y-4">
       <input
         v-model="form.origin"
         type="text"
@@ -60,7 +64,7 @@
       </button>
     </form>
 
-    <!-- Back and History Buttons -->
+    <!-- Navigation Buttons -->
     <div class="mt-6 flex flex-col sm:flex-row justify-between gap-4 text-center">
       <router-link
         to="/Boatickets"
@@ -72,7 +76,7 @@
         to="/BookBoatHistory"
         class="w-full sm:w-auto inline-block bg-purple-100 text-purple-800 px-4 py-2 rounded-lg hover:bg-purple-200 transition"
       >
-         View Boat Booking History
+        View Boat Booking History
       </router-link>
     </div>
 
@@ -144,8 +148,10 @@
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
+import { useAuth } from '@/stores/useAuth'
 
 const route = useRoute()
+const { isLoggedIn, userProfile } = useAuth()
 
 const form = ref({
   origin: '',
@@ -170,16 +176,20 @@ function cancelBookingPreConfirmation() {
 
 async function proceedBooking() {
   try {
-    // Add a fixed userId here or get it from authentication system
+    if (!isLoggedIn.value || !userProfile.value?.id) {
+      confirmation.value = '❌ You must be logged in to book a boat.'
+      return
+    }
+
     const bookingData = {
       ...form.value,
-      userId: 1,
+      userId: userProfile.value.id, // ✅ Use real user ID from auth
     }
 
     const res = await axios.post('http://localhost:5000/api/boatbookings', bookingData)
-    confirmation.value = `Your boat from ${res.data.booking.origin} to ${res.data.booking.destination} on ${res.data.booking.date} has been booked successfully! Price: $${res.data.booking.price}`
 
-    // Reset the form
+    confirmation.value = `✅ Your boat from ${res.data.booking.origin} to ${res.data.booking.destination} on ${res.data.booking.date} has been booked! Price: $${res.data.booking.price}`
+
     form.value = {
       origin: '',
       destination: '',
