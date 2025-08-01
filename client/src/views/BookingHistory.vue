@@ -65,6 +65,7 @@
             <th class="py-3 px-5 border-b">Type</th>
             <th class="py-3 px-5 border-b">Travel Date</th>
             <th class="py-3 px-5 border-b">Email</th>
+            <th class="py-3 px-5 border-b">Price</th>
             <th class="py-3 px-5 border-b">Status</th>
             <th class="py-3 px-5 border-b">Action</th>
           </tr>
@@ -79,9 +80,10 @@
             <td class="py-3 px-5 border-b">{{ formatDate(booking.createdAt) }}</td>
             <td class="py-3 px-5 border-b">{{ booking.depart }}</td>
             <td class="py-3 px-5 border-b">{{ booking.arrive }}</td>
-            <td class="py-3 px-5 border-b">{{ booking.type }}</td>
+            <td class="py-3 px-5 border-b capitalize">{{ booking.type }}</td>
             <td class="py-3 px-5 border-b">{{ booking.date }}</td>
             <td class="py-3 px-5 border-b">{{ booking.email }}</td>
+            <td class="py-3 px-5 border-b font-semibold text-green-700">${{ booking.price?.toFixed(2) || '0.00' }}</td>
             <td class="py-3 px-5 border-b">
               <span
                 :class="statusBadgeClass(booking.status)"
@@ -116,7 +118,11 @@
           v-for="page in getPaginationRange"
           :key="page"
           @click="typeof page === 'number' && goToPage(page)"
-          :class="[ 'w-9 h-9 flex items-center justify-center rounded-full text-sm font-medium transition', page === currentPage ? 'bg-purple-600 text-white' : 'text-gray-800 hover:bg-gray-200', page === '...' ? 'cursor-default text-gray-400' : 'cursor-pointer' ]"
+          :class="[
+            'w-9 h-9 flex items-center justify-center rounded-full text-sm font-medium transition',
+            page === currentPage ? 'bg-purple-600 text-white' : 'text-gray-800 hover:bg-gray-200',
+            page === '...' ? 'cursor-default text-gray-400' : 'cursor-pointer'
+          ]"
           :disabled="page === '...'"
         >
           {{ page }}
@@ -142,7 +148,6 @@ const searchQuery = ref('')
 const itemsPerPage = ref(10)
 const currentPage = ref(1)
 
-// Fetch bookings
 const fetchBookingHistory = async () => {
   loading.value = true
   error.value = null
@@ -157,7 +162,6 @@ const fetchBookingHistory = async () => {
   }
 }
 
-// Cancel Booking
 const confirmCancel = async (id) => {
   const confirmed = window.confirm('Are you sure you want to cancel this booking?')
   if (!confirmed) return
@@ -177,27 +181,21 @@ const formatDate = (dateStr) => {
     : date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
 }
 
-// Status badge classes
 const statusBadgeClass = (status) => {
-  if (!status) return 'bg-gray-100 text-gray-600' // fallback style if status missing
+  if (!status) return 'bg-gray-100 text-gray-600'
   switch (status.toLowerCase()) {
-    case 'confirmed':
-      return 'bg-green-100 text-green-800'
-    case 'cancelled':
-      return 'bg-red-100 text-red-800'
-    case 'pending':
-      return 'bg-yellow-100 text-yellow-800'
-    case 'completed':
-      return 'bg-gray-100 text-gray-600'
-    default:
-      return 'bg-gray-100 text-gray-600'
+    case 'confirmed': return 'bg-green-100 text-green-800'
+    case 'cancelled': return 'bg-red-100 text-red-800'
+    case 'pending': return 'bg-yellow-100 text-yellow-800'
+    case 'completed': return 'bg-gray-100 text-gray-600'
+    default: return 'bg-gray-100 text-gray-600'
   }
 }
-// Disable cancel button if travel date is past
+
 const isTravelDatePast = (travelDateStr) => {
   if (!travelDateStr) return false
   const today = new Date()
-  today.setHours(0, 0, 0, 0) // normalize to start of today
+  today.setHours(0, 0, 0, 0)
   const travelDate = new Date(travelDateStr)
   travelDate.setHours(0, 0, 0, 0)
   return travelDate < today

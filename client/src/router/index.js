@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import PublicLayout from '../layouts/PublicLayout.vue'
 import AdminLayout from '../layouts/AdminLayout.vue'
-
+import ReturantLayout from '../layouts/Food_OwnerLayout.vue'
+import HotelLayout from '../layouts/Hotel_OwnerLayout .vue'
 // Auth
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
@@ -33,7 +34,7 @@ import UserSettings from '../views/UserSettings.vue'
 import AdminDashboard from '../views/admin/AdminDashboard.vue'
 import AdminUsers from '../views/admin/AdminUsers.vue'
 import CreateUser from '../components/CreateUser.vue'
-import AdminBlog from '../views/admin/AdminBlog.vue'
+// import AdminBlog from '../views/admin/AdminBlog.vue'
 
 // Provinces
 import Battambang from '../views/provinces/Battambang.vue'
@@ -63,6 +64,37 @@ import KampongSpeu from '../views/provinces/KampongSpeu.vue'
 import PreyVeng from '../views/provinces/PreyVeng.vue'
 
 import BookingHistory from '@/views/BookingHistory.vue'
+import BookBoatPage from '@/views/BookBoatPage.vue'
+import BookingboatHistory from '@/views/BookingboatHistory.vue'
+import BookingflightHistory from '@/views/BookingflightHistory.vue'
+
+// Auth guard
+const requireAuth = (to, from, next) => {
+  let user = null
+  try {
+    user = JSON.parse(localStorage.getItem('user'))
+  } catch (e) {
+    user = null
+  }
+
+  if (!user) return next('/login')
+  next()
+}
+
+const requireAdmin = (to, from, next) => {
+  let user = null
+  try {
+    user = JSON.parse(localStorage.getItem('user'))
+  } catch (e) {
+    user = null
+  }
+
+  if (!user || user.role !== 'admin') return next('/home')
+  next()
+}
+
+
+
 
 // Food
 import FoodListView from '../views/User/FoodList.vue'
@@ -70,13 +102,22 @@ import FoodListView from '../views/User/FoodList.vue'
 import ProvinceList from '../views/User/ProvinceList.vue'
 import FoodByProvince from '../components/FoodByProvince.vue'
 import FoodDetail from '../views/User/FoodDetail.vue'
-import BookingflightHistory from '@/views/BookingflightHistory.vue'
 
+// ResturantDashboard
+import ResturantDashboard from '../views/resturantOwner/Resturantdashboard.vue'
+
+// Hoteldashboard
+import HotelDashboard from '../views/HotelOwner/HotelOwnerdashboard.vue'
 import AdminChat from '@/views/admin/AdminChat.vue'
+
+import AdminBlog from '@/views/admin/AdminBlog.vue'
+// Auth guard helper functions
+
 import UserPlan from '@/views/UserPlan.vue'
 import AdminHotelBooking from '@/views/admin/AdminHotelBooking.vue'
 
 // Auth guard
+
 const getUserFromStorage = () => {
 
   try {
@@ -88,41 +129,42 @@ const getUserFromStorage = () => {
 
 const routes = [
   { path: '/', redirect: '/home' },
-
   {
     path: '/',
     component: PublicLayout,
     children: [
       // Auth
-      { path: 'register', component: Register, name: 'Register' },
-      { path: 'login', component: Login, name: 'Login' },
+      { path: 'register', component: Register },
+      { path: 'login', component: Login },
 
       // Main Pages
-      { path: 'home', component: HomePage, name: 'Home' },
-      { path: 'about', component: AboutPage, name: 'About' },
-      { path: 'blog', component: BlogPage, name: 'Blog' },
-      { path: 'guide', component: TravelingGuide, name: 'TravelingGuide' },
-      { path: 'chat', component: UserChat, name: 'UserChat' },
-      { path: 'booking-history', component: BookingHistory, name: 'BookingHistory' },
-      {path: 'bookingflight-history', component: BookingflightHistory},
-      {path: 'user-plan', component: UserPlan},
-
+      { path: 'home', component: HomePage },
+      { path: 'about', component: AboutPage },
+      { path: 'blog', component: BlogPage },
+      { path: 'guide', component: TravelingGuide },
+      { path: 'chat', component: UserChat },
+      { path: 'booking-history', component: BookingHistory },
 
       // Hotels
-      { path: 'hotel', component: HotelList, name: 'HotelList' },
-      { path: 'hotels/:id', component: HotelDetail, name: 'HotelDetail', props: true },
-      { path: 'book/:id', component: HotelBookingForm, name: 'HotelBookingForm', props: true },
-      { path: 'confirmation', component: BookingConfirmation, name: 'BookingConfirmation' },
+      { path: 'hotel', component: HotelList },
+      { path: 'hotels/:id', component: HotelDetail },
+      { path: 'book/:id', component: HotelBookingForm },
+      { path: 'confirmation', component: BookingConfirmation },
 
-      // Travel Booking (paths normalized to lowercase with hyphens)
-      { path: 'Boatickets', component: BoatTickets, name: 'BoatTickets' },
-      { path: 'Bustickets', component: BusTickets, name: 'BusTickets' },
-      { path: 'CarRental', component: CarRental, name: 'CarRental' },
-      { path: 'FlightReservation', component: FlightReservation, name: 'FlightReservation' },
+      // Travel Booking
+      { path: 'Boatickets', component: BoatTickets },
+      { path: 'Bustickets', component: BusTickets },
+      { path: 'CarRental', component: CarRental },
+      { path: 'FlightReservation', component: FlightReservation },
+      { path: 'FlightBookHistory', component: BookingflightHistory },
+      { path: 'BookBoatPage', component: BookBoatPage },
+      { path: 'BookBoatHistory', component: BookingboatHistory },
+      { path: 'user-plan', component: UserPlan },
 
-      // User Profile (requires auth)
-      { path: 'profile', component: UserProfile, name: 'UserProfile', meta: { requiresAuth: true } },
-      { path: 'settings', component: UserSettings, name: 'UserSettings', meta: { requiresAuth: true } },
+
+      // User Profile
+      { path: 'profile', component: UserProfile, beforeEnter: requireAuth },
+      { path: 'settings', component: UserSettings, beforeEnter: requireAuth },
 
       // Provinces
       { path: 'guide/battambang', name: 'Battambang', component: Battambang },
@@ -150,10 +192,9 @@ const routes = [
       { path: 'guide/tbong-khmum', name: 'TbongKhmum', component: TbongKhmum },
       { path: 'guide/kampong-speu', name: 'KampongSpeu', component: KampongSpeu },
       { path: 'guide/prey-veng', name: 'PreyVeng', component: PreyVeng },
-
       // Food routes
       { path: 'foods', component: FoodListView, name: 'FoodList' },
-      
+
       { path: 'province', name: 'ProvinceList', component: ProvinceList },
       {
         path: 'province/:locationId',
@@ -183,6 +224,24 @@ const routes = [
       { path: 'hotel', component: AdminHotelBooking },
     ]
   },
+  {
+    path: '/restaurant_owner',
+    component: ReturantLayout,
+    meta: { requiresAuth: true, role: 'restaurant_owner' },
+    children: [
+      { path: '', redirect: 'fooddashboard' },
+      { path: 'fooddashboard', component: ResturantDashboard, name: 'foodOwnerdashboard' },
+    ]
+  },
+  {
+    path: '/hotel_owner',
+    component: HotelLayout,
+    meta: { requiresAuth: true, role: 'hotel_owner' },
+    children: [
+      { path: '', redirect: 'hoteldashboard' },
+      { path: 'hoteldashboard', component: HotelDashboard, name: 'HotelOwnerdashboard' },
+    ]
+  },
 
   // Separate route for creating user under /users/create (not nested in admin for now)
   { path: '/users/create', name: 'CreateUser', component: CreateUser },
@@ -202,19 +261,18 @@ const router = createRouter({
 
 // Global navigation guard for auth and admin
 router.beforeEach((to, from, next) => {
-  const user = getUserFromStorage()
+  const user = JSON.parse(localStorage.getItem('user'))
 
   if (to.meta.requiresAuth && !user) {
-    return next({ path: '/login', query: { redirect: to.fullPath } })
+    return next('/login')
   }
 
-  if (to.meta.requiresAdmin) {
-    if (!user || user.role !== 'admin') {
-      return next('/home')
-    }
+  if (to.meta.role && user?.role !== to.meta.role) {
+    return next('/home') // <== This line could be the issue
   }
 
   next()
 })
+
 
 export default router

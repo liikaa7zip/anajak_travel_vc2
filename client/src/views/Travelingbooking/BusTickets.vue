@@ -6,6 +6,7 @@
 
     <!-- Booking Form -->
     <form @submit.prevent="submitBooking" class="grid gap-5">
+      <!-- From -->
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-1">From</label>
         <input
@@ -16,6 +17,8 @@
           class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
         />
       </div>
+
+      <!-- To -->
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-1">To</label>
         <input
@@ -27,17 +30,25 @@
         />
       </div>
 
-      <div>
+      <!-- Transport Type -->
+      <div class="relative">
         <label class="block text-sm font-medium text-gray-700 mb-1">Transport Type</label>
         <select
           v-model="form.type"
+          @change="updatePrice"
           class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
+          required
         >
-          <option value="bus">Bus</option>
-          <option value="private_car">Private Car</option>
+          <option disabled value="">Select a transport type</option>
+          <option value="bus"> Bus</option>
+          <option value="private_car"> Private Car</option>
         </select>
+        <p class="mt-1 text-sm text-purple-600 bg-purple-50 px-3 py-1 rounded-lg inline-block shadow-sm">
+           Ticket Price: <span class="font-semibold">${{ form.price }}</span>
+        </p>
       </div>
 
+      <!-- Date -->
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-1">Date</label>
         <input
@@ -48,6 +59,7 @@
         />
       </div>
 
+      <!-- Email -->
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
         <input
@@ -59,6 +71,7 @@
         />
       </div>
 
+      <!-- Submit -->
       <button
         type="submit"
         class="bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition duration-200 font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
@@ -68,16 +81,14 @@
       </button>
     </form>
 
-    <!-- Confirmation Message Modal -->
+    <!-- Confirmation Modal -->
     <div
       v-if="showPreConfirmationModal"
-      class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50 transition-opacity duration-300 ease-out"
-      :class="{ 'opacity-100': showPreConfirmationModal, 'opacity-0': !showPreConfirmationModal }"
+      class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50 transition-opacity duration-300"
       @click.self="cancelBookingPreConfirmation"
     >
       <div
-        class="bg-white rounded-2xl shadow-xl max-w-sm w-full p-6 relative transform scale-95 transition-transform duration-300 ease-out"
-        :class="{ 'scale-100': showPreConfirmationModal }"
+        class="bg-white rounded-2xl shadow-xl max-w-sm w-full p-6 relative transform transition-transform duration-300 scale-100"
         role="alertdialog"
         aria-modal="true"
       >
@@ -101,60 +112,6 @@
       </div>
     </div>
 
-    <!-- Success Confirmation Modal -->
-    <div
-      v-if="confirmation"
-      class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50 transition-opacity duration-300 ease-out"
-      @click.self="confirmation = ''"
-    >
-      <div
-        class="bg-white rounded-3xl shadow-xl max-w-md w-full p-8 relative transform scale-95 transition-transform duration-300 ease-out scale-100"
-        role="alertdialog"
-        aria-modal="true"
-      >
-        <button
-          @click="confirmation = ''"
-          aria-label="Close"
-          class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 focus:outline-none text-2xl"
-        >
-          &times;
-        </button>
-
-        <div
-          class="mx-auto mb-6 flex items-center justify-center w-20 h-20 rounded-full bg-green-600 text-white shadow-lg relative overflow-hidden"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="w-10 h-10 animate-pulse-once"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-          </svg>
-          <div class="absolute inset-0 rounded-full bg-white opacity-10 blur-xl scale-125"></div>
-        </div>
-
-        <h2 class="text-center text-2xl font-extrabold mb-3 text-green-800">
-          Booking Successful!
-        </h2>
-
-        <p class="text-center text-gray-700 mb-8 text-base leading-relaxed">
-          {{ confirmation }}
-        </p>
-
-        <div class="flex justify-center gap-4">
-          <button
-            @click="confirmation = ''"
-            class="px-8 py-3 rounded-full bg-green-600 text-white font-bold transition-all duration-200 shadow-md hover:bg-green-700 hover:shadow-lg"
-          >
-            OK
-          </button>
-        </div>
-      </div>
-    </div>
-
     <!-- View Booking History -->
     <div class="mt-8 text-center">
       <router-link
@@ -165,7 +122,7 @@
       </router-link>
     </div>
 
-    <!-- Go to Bustickets Page -->
+    <!-- Explore More -->
     <div class="mt-4 text-center">
       <router-link
         to="/Bustickets"
@@ -184,48 +141,67 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
+// Map of transport type to price
+const priceMap = {
+  bus: 10,
+  private_car: 30,
+}
+
+// Reactive form object
 const form = ref({
   depart: '',
   arrive: '',
-  type: 'bus',
+  type: '',
   date: '',
-  email: ''
+  email: '',
+  price: 0,
+  UserId: 1 // Can be dynamic if needed
 })
 
-const confirmation = ref('')
 const showPreConfirmationModal = ref(false)
 const loading = ref(false)
+const confirmation = ref('')
+const isError = ref(false)
 
+// When user selects transport type, update price
+const updatePrice = () => {
+  form.value.price = priceMap[form.value.type] || 0
+}
+
+// Show modal
+const submitBooking = () => {
+  showPreConfirmationModal.value = true
+}
+
+// Confirm and send booking to API
 const proceedBooking = async () => {
   loading.value = true
   showPreConfirmationModal.value = false
+  isError.value = false
 
   try {
     await axios.post('http://localhost:5000/api/bookings', form.value)
-
-    confirmation.value = `✅ Booking successfully completed from ${form.value.depart} to ${form.value.arrive} on ${form.value.date}. Details have been sent to ${form.value.email}.`
+    confirmation.value = `✅ Booking from ${form.value.depart} to ${form.value.arrive} confirmed on ${form.value.date}.`
 
     router.push({
       name: 'BookingConfirmation',
       query: {
-        ...form.value,
-        price: 12.5
+        ...form.value
       }
     })
   } catch (error) {
-    confirmation.value = '✅ Booking successfully completed'
-    console.error('Booking error:', error.response ? error.response.data : error.message)
+    isError.value = true
+    confirmation.value = error.response?.data?.message || 'Something went wrong.'
+    console.error('Booking error:', error)
   } finally {
     loading.value = false
   }
 }
 
-const submitBooking = () => {
-  showPreConfirmationModal.value = true
-}
-
+// Cancel confirmation
 const cancelBookingPreConfirmation = () => {
   showPreConfirmationModal.value = false
   confirmation.value = '🚫 Booking was cancelled by user.'
+  isError.value = true
 }
 </script>

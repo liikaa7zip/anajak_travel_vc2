@@ -1,129 +1,111 @@
 <template>
-  <div class="font-poppins bg-gray-100 text-gray-900">
+  <div class="font-sans bg-gray-100 text-gray-900 min-h-screen">
     <!-- Hero Section -->
-    <section class="relative w-full h-64 overflow-hidden rounded-b-md">
+    <section class="relative w-full h-80 sm:h-96">
       <img
-        src="https://images.unsplash.com/photo-1581317849586-b8dc240134f5?auto=format&fit=crop&w=1200&q=80"
+        src="https://www.ppmlgroup.com/wp-content/uploads/2022/02/5b2b2134f3661.jpg"
         alt="Kampong Speu"
-        class="w-full h-full object-cover"
+        class="w-full h-full object-cover rounded-b-md"
       />
-      <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-        <h1 class="text-3xl md:text-5xl text-white font-bold">Kampong Speu Province</h1>
+      <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center px-6">
+        <h1 class="text-white text-3xl sm:text-6xl font-bold">
+          <i class="fa-solid fa-location-dot"></i> Kampong Speu <br />
+          <span class="text-4xl">Province</span>
+        </h1>
       </div>
     </section>
 
     <!-- About Section -->
-    <section class="px-6 py-10 max-w-4xl mx-auto">
-      <h2 class="text-2xl font-semibold mb-4">About Kampong Speu</h2>
-      <p class="text-gray-700 leading-relaxed">
-        Kampong Speu, located just west of Phnom Penh, is known for its scenic countryside,
-        mountain ranges, and palm sugar production. It is a province rich in natural beauty and
-        traditional Khmer lifestyle. Kampong Speu offers eco-tourism experiences, hiking trails,
-        and cultural sites, making it a perfect getaway from the city.
-      </p>
-    </section>
-
-    <!-- Top Attractions Section -->
-    <section class="bg-white px-6 py-10">
-      <h2 class="text-2xl font-semibold mb-6 text-center">Top Attractions</h2>
-      <ul class="space-y-4 max-w-3xl mx-auto text-gray-700">
-        <li v-for="(attraction, index) in topAttractions" :key="index">
-          <strong>{{ attraction.name }}:</strong> {{ attraction.description }}
-        </li>
-      </ul>
-    </section>
-
-    <!-- Things to Do Section -->
-    <section class="px-6 py-10 max-w-4xl mx-auto">
-      <h2 class="text-2xl font-semibold mb-4">Things to Do</h2>
-      <ul class="list-disc list-inside text-gray-700 space-y-2">
-        <li v-for="(thing, index) in thingsToDo" :key="index">{{ thing }}</li>
-      </ul>
-    </section>
-
-    <!-- Travel Tips Section -->
-    <section class="bg-white px-6 py-10">
-      <h2 class="text-2xl font-semibold mb-4 text-center">Travel Tips</h2>
-      <ul class="max-w-3xl mx-auto text-gray-700 space-y-2">
-        <li v-for="(tip, index) in travelTips" :key="index">{{ tip }}</li>
-      </ul>
-    </section>
-
-    <!-- Photo Gallery Section -->
-    <section class="px-6 py-10 max-w-6xl mx-auto">
-      <h2 class="text-2xl font-semibold mb-6 text-center">Photo Gallery</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <section class="pt-12 pb-6 pr-16 pl-16">
+      <div class="bg-white rounded-lg shadow p-4 flex flex-col sm:flex-row items-start justify-between gap-4">
+        <div class="max-w-xl">
+          <h2 class="text-2xl font-semibold mb-2 text-purple-600">About Kampong Speu</h2>
+          <p class="text-sm text-gray-700">
+            Kampong Speu, meaning "Port of Starfruit," is a province in central Cambodia known for its scenic natural beauty, including waterfalls and mountains. The province is home to Kirirom National Park and Phnom Aoral, the highest peak in Cambodia. It offers eco-tourism, hiking, and adventure experiences.
+          </p>
+        </div>
         <img
-          v-for="(photo, index) in galleryPhotos"
-          :key="index"
-          :src="photo.src"
-          :alt="photo.alt"
-          class="rounded-lg shadow"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Cambodia_Kampong_Speu_locator_map.svg/200px-Cambodia_Kampong_Speu_locator_map.svg.png"
+          alt="Kampong Speu Map"
+          class="w-80 h-60 shadow rounded"
         />
       </div>
     </section>
 
-    <!-- Map Section -->
-    <section class="bg-gray-200 px-6 py-10">
-      <h2 class="text-2xl font-semibold mb-4 text-center">Province Map</h2>
-      <div class="max-w-4xl mx-auto">
+    <!-- Top Attractions -->
+    <section class="pt-12 pb-6 pr-16 pl-16">
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Top Attractions</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div v-for="(attraction, index) in topAttractions" :key="index" class="bg-white rounded shadow overflow-hidden">
+          <img :src="attraction.img" alt="" class="w-full h-40 object-cover" />
+          <p class="p-2 text-sm font-medium text-center">{{ attraction.name }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Things to Do & Travel Tips -->
+    <section class="pt-12 pb-6 pr-16 pl-16 grid sm:grid-cols-2 gap-6">
+      <div>
+        <h2 class="text-2xl font-semibold mb-2 text-purple-600">Things to Do</h2>
+        <ul class="list-disc pl-5 text-sm text-gray-700">
+          <li>Hike Phnom Aoral</li>
+          <li>Visit Kirirom National Park</li>
+          <li>Explore Chambok Community</li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="text-2xl font-semibold mb-2 text-purple-600">Travel Tips</h2>
+        <ul class="list-disc pl-5 text-sm text-gray-700">
+          <li>Best time: Nov – Feb</li>
+          <li>Transport: Private car, minivan</li>
+          <li>Pack trekking shoes</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Photo Gallery -->
+    <section class="pt-12 pb-6 pr-16 pl-16">
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Photo Gallery</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <img v-for="(photo, index) in galleryPhotos" :key="index" :src="photo" alt="" class="rounded shadow object-cover h-28 w-full" />
+      </div>
+    </section>
+
+    <!-- Province Map -->
+    <section class="pt-12 pb-6 pr-16 pl-16">
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Province Map</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d391689.4628322239!2d104.57845173726902!3d11.473598974501187!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310fa8f01961c1ab%3A0xd2b61b7c3d2df4e7!2sKampong%20Speu%20Province!5e0!3m2!1sen!2skh!4v1721861276722"
-          width="100%"
-          height="400"
-          style="border:0;"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.1234567890123!2d104.5167!3d11.4500!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a5f5f5f5f5f5f%3A0x9b1c2d3e4f5a6b7c!2sKampong%20Speu!5e0!3m2!1sen!2skh!4v1627180800000"
+          width="100%" height="200" class="rounded shadow h-60" allowfullscreen loading="lazy"
         ></iframe>
+        <img
+          src="https://genk.mediacdn.vn/139269124445442048/2024/8/13/google-maps-thuong-khong-chi-ngan-nhat-ma-chon-duong-vong-ly-do-vi-sao-00145298-1723531172398-17235311731771829575075-1723533715727-17235337161941703107124.png"
+          class="w-full h-60" alt="Map Pin"
+        />
       </div>
     </section>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+const topAttractions = [
+  { name: 'Phnom Aoral', img: 'https://cambodiatourism.co/wp-content/uploads/2021/01/Phnom-Aoral-696x464.jpg' },
+  { name: 'Kirirom National Park', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Kirirom_National_Park_Cambodia.jpg/640px-Kirirom_National_Park_Cambodia.jpg' },
+  { name: 'Chambok Ecotourism', img: 'https://www.visitcambodia.org/uploads/chambok.jpg' },
+  { name: 'Te Teuk Pus Hot Spring', img: 'https://angkorfocus.com/wp-content/uploads/2020/03/te-teuk-pus-hot-spring.jpg' }
+];
 
-const topAttractions = ref([
-  { name: 'Phnom Aural', description: 'Cambodia’s highest peak, great for trekking and adventure.' },
-  { name: 'Kirirom National Park', description: 'Known for pine forests, cool climate, and waterfalls.' },
-  { name: 'Chambok Ecotourism Site', description: 'Community-based eco experiences and nature trails.' },
-  { name: 'Te Teuk Pus Hot Springs', description: 'Natural hot spring with therapeutic benefits.' },
-  { name: 'Historical Temples', description: 'Ancient Khmer architecture scattered across the province.' },
-])
-
-const thingsToDo = ref([
-  'Hike to the top of Phnom Aural for breathtaking views.',
-  'Camp overnight at Kirirom National Park.',
-  'Visit sugar palm farms and taste fresh palm sugar.',
-  'Explore waterfalls and hidden trails around Chambok.',
-  'Take a relaxing dip in natural hot springs.',
-])
-
-const travelTips = ref([
-  '🌤 Best time to visit is during the dry season (November–March).',
-  '🚗 Bring a motorbike or rent a car for rural exploration.',
-  '🥾 Wear sturdy shoes if planning to hike Phnom Aural or Kirirom.',
-  '💧 Bring your own water and snacks for remote areas.',
-  '📱 Limited mobile signal in mountainous areas — plan ahead.',
-])
-
-const galleryPhotos = ref([
-  {
-    src: 'https://images.unsplash.com/photo-1565372510940-2360ed0c305c?auto=format&fit=crop&w=800&q=80',
-    alt: 'Phnom Aural',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1613605324724-e0425ab5adfd?auto=format&fit=crop&w=800&q=80',
-    alt: 'Kirirom National Park',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1608354706496-fb804dd6d41c?auto=format&fit=crop&w=800&q=80',
-    alt: 'Palm Sugar Production',
-  },
-])
+const galleryPhotos = [
+  'https://www.visitcambodia.org/uploads/kampong-speu-forest.jpg',
+  'https://angkorfocus.com/wp-content/uploads/2020/03/phnom-oral.jpg',
+  'https://cambodiatourism.co/wp-content/uploads/2021/01/Kirirom-Hiking-1.jpg',
+  'https://www.visitcambodia.org/uploads/kampong-speu-trekking.jpg'
+];
 </script>
 
 <style scoped>
-/* Add any specific styles if needed */
+body {
+  font-family: 'Poppins', sans-serif;
+}
 </style>
