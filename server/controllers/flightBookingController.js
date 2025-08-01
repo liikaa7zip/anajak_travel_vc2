@@ -4,6 +4,7 @@ const FlightBooking = db.FlightBooking;
 exports.createFlightBooking = async (req, res) => {
   try {
     const {
+      UserId,
       origin,
       destination,
       date,
@@ -11,14 +12,27 @@ exports.createFlightBooking = async (req, res) => {
       classType,
       passengers,
       passengerName,
-      email
+      email,
+      price,  // added price here
     } = req.body;
 
-    if (!origin || !destination || !date || !airline || !classType || !passengers || !passengerName || !email) {
-      return res.status(400).json({ message: 'All fields are required.' });
+    if (
+      !UserId ||
+      !origin ||
+      !destination ||
+      !date ||
+      !airline ||
+      !classType ||
+      !passengers ||
+      !passengerName ||
+      !email ||
+      price === undefined  // check price is provided (0 allowed)
+    ) {
+      return res.status(400).json({ message: 'All fields are required including price.' });
     }
 
     const newBooking = await FlightBooking.create({
+      UserId,
       origin,
       destination,
       date,
@@ -26,7 +40,8 @@ exports.createFlightBooking = async (req, res) => {
       classType,
       passengers,
       passengerName,
-      email
+      email,
+      price, // set price here
     });
 
     res.status(201).json(newBooking);
@@ -73,6 +88,7 @@ exports.deleteFlightBooking = async (req, res) => {
     res.status(500).json({ message: 'Server error while deleting booking' });
   }
 };
+
 exports.cancelFlightBooking = async (req, res) => {
   try {
     const booking = await FlightBooking.findByPk(req.params.id);
@@ -89,5 +105,3 @@ exports.cancelFlightBooking = async (req, res) => {
     res.status(500).json({ message: 'Server error while cancelling booking' });
   }
 };
-
-
