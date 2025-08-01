@@ -74,6 +74,7 @@ import BookingflightHistory from '@/views/BookingflightHistory.vue'
 
 import AdminChat from '@/views/admin/AdminChat.vue'
 import UserPlan from '@/views/UserPlan.vue'
+import AdminHotelBooking from '@/views/admin/AdminHotelBooking.vue'
 
 // Auth guard
 const getUserFromStorage = () => {
@@ -179,6 +180,7 @@ const routes = [
       { path: 'users', component: AdminUsers, name: 'AdminUsers' },
       { path: 'chat', component: AdminChat },
       { path: 'blog', component: AdminBlog },
+      { path: 'hotel', component: AdminHotelBooking },
     ]
   },
 
