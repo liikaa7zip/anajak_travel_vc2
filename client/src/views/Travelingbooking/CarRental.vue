@@ -28,31 +28,26 @@
 
       <div class="relative">
         <label class="block text-sm font-semibold text-purple-700 mb-2 tracking-wide">Vehicle Type</label>
-
         <div class="relative">
           <select
             v-model="form.type"
             required
             class="appearance-none w-full bg-gradient-to-r from-purple-50 to-purple-100 border border-purple-300 text-purple-800 font-medium rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-400 shadow-sm hover:shadow-md transition duration-200"
           >
-            <option value="private_car"> Private Car</option>
-            <option value="van"> Van</option>
-            <option value="luxury"> Luxury Car</option>
+            <option value="private_car">Private Car</option>
+            <option value="van">Van</option>
+            <option value="luxury">Luxury Car</option>
           </select>
-
-          <!-- Custom dropdown arrow -->
           <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none text-purple-500">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
             </svg>
           </div>
         </div>
-
         <p class="text-xs text-purple-600 mt-2 bg-purple-50 px-3 py-1 rounded-lg inline-block shadow-sm">
-           Current Price: <span class="font-semibold text-purple-800">${{ form.price }}</span>
+          Current Price: <span class="font-semibold text-purple-800">${{ form.price }}</span>
         </p>
       </div>
-
 
       <div>
         <label class="block text-sm font-medium text-purple-700 mb-1">Travel Date</label>
@@ -90,11 +85,7 @@
       class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50"
       @click.self="cancelBookingPreConfirmation"
     >
-      <div
-        class="bg-white rounded-2xl shadow-xl max-w-sm w-full p-6"
-        role="alertdialog"
-        aria-modal="true"
-      >
+      <div class="bg-white rounded-2xl shadow-xl max-w-sm w-full p-6">
         <h2 class="text-center text-xl font-bold text-gray-800 mb-4">Confirm Your Booking</h2>
         <p class="text-center text-gray-600 mb-6">
           Proceed with booking from {{ form.depart }} to {{ form.arrive }} for ${{ form.price }}?
@@ -123,38 +114,20 @@
       class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50"
       @click.self="confirmation = ''"
     >
-      <div
-        class="bg-white rounded-3xl shadow-xl max-w-md w-full p-8 relative transform scale-100 transition-transform duration-300"
-        role="alertdialog"
-        aria-modal="true"
-      >
+      <div class="bg-white rounded-3xl shadow-xl max-w-md w-full p-8 relative">
         <button
           @click="confirmation = ''"
-          aria-label="Close"
           class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl"
         >
           &times;
         </button>
-
         <div class="mx-auto mb-6 flex items-center justify-center w-20 h-20 rounded-full bg-green-600 text-white">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="w-10 h-10"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
           </svg>
         </div>
-
         <h2 class="text-center text-2xl font-extrabold mb-3 text-green-800">Booking Successful!</h2>
-
-        <p class="text-center text-gray-700 mb-8 text-base leading-relaxed">
-          {{ confirmation }}
-        </p>
-
+        <p class="text-center text-gray-700 mb-8">{{ confirmation }}</p>
         <div class="flex justify-center">
           <button
             @click="confirmation = ''"
@@ -166,20 +139,14 @@
       </div>
     </div>
 
-    <!-- Navigation Buttons -->
+    <!-- Navigation -->
     <div class="mt-8 text-center">
-      <router-link
-        to="/booking-history"
-        class="inline-block bg-green-700 text-white px-4 py-2 rounded hover:bg-purple-800"
-      >
+      <router-link to="/booking-history" class="inline-block bg-green-700 text-white px-4 py-2 rounded hover:bg-purple-800">
         View Booking History
       </router-link>
     </div>
     <div class="mt-4 text-center">
-      <router-link
-        to="/CarTickets"
-        class="text-purple-600 hover:underline hover:text-purple-800"
-      >
+      <router-link to="/CarTickets" class="text-purple-600 hover:underline hover:text-purple-800">
         Explore Car Tickets
       </router-link>
     </div>
@@ -187,11 +154,13 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
+import { useAuth } from '@/stores/useAuth'
 
 const router = useRouter()
+const { userProfile } = useAuth()
 
 const form = ref({
   depart: '',
@@ -200,46 +169,40 @@ const form = ref({
   date: '',
   email: '',
   price: 0,
-  UserId: 1
+  UserId: null
 })
 
 const confirmation = ref('')
 const showPreConfirmationModal = ref(false)
 const loading = ref(false)
 
-// Watch for changes in vehicle type and update price
+onMounted(() => {
+  if (userProfile.value?.id) {
+    form.value.UserId = userProfile.value.id
+    form.value.email = userProfile.value.email
+  }
+})
+
+// Price based on type
 watch(
   () => form.value.type,
   (newType) => {
-    switch (newType) {
-      case 'private_car':
-        form.value.price = 25
-        break
-      case 'van':
-        form.value.price = 18
-        break
-      case 'luxury':
-        form.value.price = 40
-        break
-      default:
-        form.value.price = 0
-    }
+    form.value.price = newType === 'private_car' ? 25 :
+                       newType === 'van' ? 18 :
+                       newType === 'luxury' ? 40 : 0
   },
   { immediate: true }
 )
 
-// Form submit triggers confirmation modal
 const submitBooking = () => {
   showPreConfirmationModal.value = true
 }
 
-// Cancel booking before confirmation
 const cancelBookingPreConfirmation = () => {
   showPreConfirmationModal.value = false
   confirmation.value = '🚫 Booking was cancelled by user.'
 }
 
-// Confirm and send booking to backend
 const proceedBooking = async () => {
   showPreConfirmationModal.value = false
   loading.value = true
