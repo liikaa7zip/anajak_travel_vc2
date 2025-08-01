@@ -90,7 +90,7 @@
 
 <script setup>
 const topAttractions = [
-  { name: 'Phnom Pros and Phnom Srei', img: 'https://lh4.googleusercontent.com/proxy/Wv4PInif0nC8qXu222CDfxEvMPR5yjmJbIglNdQrp6wGlcrwC1GcnoHs8Carqzgg4l4ZOM-HOGJWTBK9QIS0v2rkehOp6ujGzrvPp4A54tinQn8n' },
+  { name: 'Phnom Pros and Phnom Srey', img: 'https://lh4.googleusercontent.com/proxy/Wv4PInif0nC8qXu222CDfxEvMPR5yjmJbIglNdQrp6wGlcrwC1GcnoHs8Carqzgg4l4ZOM-HOGJWTBK9QIS0v2rkehOp6ujGzrvPp4A54tinQn8n' },
   { name: 'Bamboo Bridge', img: 'https://lh7-rt.googleusercontent.com/docsz/AD_4nXcBTomFvnywf0FedwIMQhtj2W45MrDBiSXMlHMFzVXPnDGgz82C6cfM74IPAVodcTmj8wkWq8WSyzXvHhN7HjGHBEILEzcFYqRwjqslteCut4afhHvqM7hUndOHA_B05IWiYXP_vg?key=Wm2Mv5a8bAPtHYKYBPf4bPuY' },
   { name: 'Mekong River', img: 'https://c.foc.info/images/2019/01/mekong-river-1-1547201726.jpg' },
   { name: 'Wat Nokor', img: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/14/cb/a2/92/a-colourful-structure.jpg?w=300&h=300&s=1' }
