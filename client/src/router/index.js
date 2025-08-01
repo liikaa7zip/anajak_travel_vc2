@@ -158,6 +158,7 @@ const routes = [
       { path: 'FlightBookHistory', component: BookingflightHistory },
       { path: 'BookBoatPage', component: BookBoatPage },
       { path: 'BookBoatHistory', component: BookingboatHistory},
+      { path: 'user-plan', component:UserPlan },
       
 
       // User Profile
@@ -190,16 +191,35 @@ const routes = [
       { path: 'guide/tbong-khmum', name: 'TbongKhmum', component: TbongKhmum },
       { path: 'guide/kampong-speu', name: 'KampongSpeu', component: KampongSpeu },
       { path: 'guide/prey-veng', name: 'PreyVeng', component: PreyVeng },
+    // Food routes
+      { path: 'foods', component: FoodListView, name: 'FoodList' },
+      
+      { path: 'province', name: 'ProvinceList', component: ProvinceList },
+      {
+        path: 'province/:locationId',
+        name: 'FoodsByProvince',
+        component: FoodByProvince,
+        props: route => ({
+          locationId: Number(route.params.locationId),
+          locationName: route.query.name || ''
+        })
+      },
+      { path: '/foods/:id', name: 'FoodDetail', component: FoodDetail },
+
     ]
   },
+
+  // Admin routes
   {
     path: '/admin',
     component: AdminLayout,
-    beforeEnter: requireAdmin,
+    meta: { requiresAdmin: true },
     children: [
       { path: '', redirect: 'dashboard' },
-      { path: 'dashboard', component: AdminDashboard },
-      { path: 'users', component: AdminUsers },
+      { path: 'dashboard', component: AdminDashboard, name: 'AdminDashboard' },
+      { path: 'users', component: AdminUsers, name: 'AdminUsers' },
+      { path: 'chat', component: AdminChat },
+      { path: 'blog', component: AdminBlog },
     ]
   },
 {
@@ -226,9 +246,12 @@ const routes = [
 
   // Redirect old /dashboard to admin dashboard
   { path: '/dashboard', redirect: '/admin/dashboard' },
-  { path: '/users/create', name: 'CreateUser', component: CreateUser }
+
+  // Catch-all 404 redirect
+  { path: '/:pathMatch(.*)*', redirect: '/home' }
 ]
 
+// Create router
 const router = createRouter({
   history: createWebHistory(),
   routes
