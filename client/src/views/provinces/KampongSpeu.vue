@@ -3,7 +3,7 @@
     <!-- Hero Section -->
     <section class="relative w-full h-80 sm:h-96">
       <img
-        src="https://cambotours.com/images/kampong-speu.jpg"
+        src="https://www.ppmlgroup.com/wp-content/uploads/2022/02/5b2b2134f3661.jpg"
         alt="Kampong Speu"
         class="w-full h-full object-cover rounded-b-md"
       />
