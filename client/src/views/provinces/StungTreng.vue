@@ -1,123 +1,112 @@
 <template>
-  <div class="font-poppins bg-gray-100 text-gray-900 min-h-screen px-4 py-6">
+  <div class="font-sans bg-gray-100 text-gray-900 min-h-screen">
     <!-- Hero Section -->
     <section class="relative w-full h-80 sm:h-96">
       <img
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Wat_Stung_Treng_%282%29.jpg/1200px-Wat_Stung_Treng_%282%29.jpg"
+        src="https://upload.wikimedia.org/wikipedia/commons/4/48/Stung_Treng_Cambodia_01.jpg"
         alt="Stung Treng"
-        class="w-full h-full object-cover"
+        class="w-full h-full object-cover rounded-b-md"
       />
-      <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-        <h1 class="text-white text-4xl font-bold text-center">📍 Stung Treng Province</h1>
+      <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center px-10">
+        <h1 class="text-white text-3xl sm:text-6xl font-bold">
+          <i class="fa-solid fa-location-dot"></i> Stung Treng <br />
+          <span class="text-4xl">Province</span>
+        </h1>
       </div>
     </section>
 
     <!-- About Section -->
-    <section class="bg-white pt-12 pb-6 pr-16 pl-16 rounded-md shadow mb-6 flex flex-col md:flex-row justify-between gap-4">
-      <div class="flex-1">
-        <h2 class="text-2xl font-bold mb-2">About Stung Treng</h2>
-        <p>
-          Stung Treng is a northern province of Cambodia. It is located at the confluence of the Mekong and Sekong rivers.
-        </p>
-      </div>
-      <div class="w-32">
+    <section class="pt-12 pb-6 px-16">
+      <div class="bg-white rounded-lg shadow p-4 flex flex-col sm:flex-row items-start justify-between gap-4">
+        <div class="max-w-xl">
+          <h2 class="text-2xl font-semibold mb-2 text-purple-600">About Stung Treng</h2>
+          <p class="text-sm text-gray-700">
+            Stung Treng is a northern Cambodian province situated along the Mekong River and near the Laos border. It is known for its dense forests, rich biodiversity, and beautiful river landscapes. The province offers excellent opportunities for ecotourism, including fishing, boat tours, and visits to protected wildlife areas.
+          </p>
+        </div>
         <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Cambodia_Stung_Treng_locator_map.svg/250px-Cambodia_Stung_Treng_locator_map.svg.png"
-          alt="Map of Stung Treng"
-          class="w-full h-auto"
+          src="https://upload.wikimedia.org/wikipedia/commons/8/88/Cambodia_Stung_Treng_locator_map.svg"
+          alt="Stung Treng Map"
+          class="w-80 h-60 shadow rounded"
         />
       </div>
     </section>
 
     <!-- Top Attractions -->
-    <section class="bg-white pt-12 pb-6 pr-16 pl-16 rounded-md shadow mb-6">
-      <h2 class="text-2xl font-bold mb-4">Top Attractions</h2>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div v-for="(attraction, index) in attractions" :key="index" class="text-center">
-          <img :src="attraction.image" :alt="attraction.name" class="rounded-md h-28 w-full object-cover mb-2" />
-          <p class="font-medium">{{ attraction.name }}</p>
+    <section class="py-6 px-16">
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Top Attractions</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div v-for="(attraction, index) in topAttractions" :key="index" class="bg-white rounded shadow overflow-hidden">
+          <img :src="attraction.img" alt="" class="w-full h-40 object-cover" />
+          <p class="p-2 text-2sm font-medium text-center">{{ attraction.name }}</p>
         </div>
       </div>
     </section>
 
-    <!-- Things to Do + Travel Tips -->
-    <section class="pt-12 pb-6 pr-16 pl-16 grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-      <div class="bg-white p-6 rounded-md shadow">
-        <h2 class="text-2xl font-bold mb-4">Things to Do</h2>
-        <ul class="list-disc list-inside space-y-1">
-          <li>Visit Sopheakmit Waterfall</li>
-          <li>Take a boat ride on Mekong River</li>
-          <li>Explore local markets</li>
+    <!-- Things to Do & Travel Tips -->
+    <section class="py-6 px-16 grid sm:grid-cols-2 gap-6">
+      <div>
+        <h2 class="text-2xl font-semibold mb-2 text-purple-600">Things to Do</h2>
+        <ul class="list-disc pl-5 text-sm text-gray-700">
+          <li>Boat tours on the Mekong River</li>
+          <li>Visit the Sekong and Sre Pok river confluence</li>
+          <li>Explore the Upper Mekong protected forests</li>
         </ul>
       </div>
-      <div class="bg-white p-6 rounded-md shadow">
-        <h2 class="text-2xl font-bold mb-4">Travel Tips</h2>
-        <ul class="space-y-1">
-          <li><strong>Best time:</strong> December - May</li>
-          <li><strong>Transport:</strong> Bus, Taxi, Boat, Plane</li>
-          <li><strong>Dress:</strong> For hot weather and rain</li>
+      <div>
+        <h2 class="text-2xl font-semibold mb-2 text-purple-600">Travel Tips</h2>
+        <ul class="list-disc pl-5 text-sm text-gray-700">
+          <li>Best time to visit: Nov – Mar</li>
+          <li>Bring insect repellent for forested areas</li>
+          <li>Hire local guides for nature excursions</li>
         </ul>
       </div>
     </section>
 
     <!-- Photo Gallery -->
-    <section class="bg-white pt-12 pb-6 pr-16 pl-16 rounded-md shadow mb-6">
-      <h2 class="text-2xl font-bold mb-4">Photo Gallery</h2>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <img
-          v-for="(photo, i) in gallery"
-          :key="i"
-          :src="photo"
-          alt="Gallery"
-          class="rounded-md h-28 w-full object-cover"
-        />
+    <section class="py-6 px-16">
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Photo Gallery</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <img v-for="(photo, index) in galleryPhotos" :key="index" :src="photo" alt="" class="rounded shadow object-cover h-28 w-full" />
       </div>
     </section>
 
     <!-- Province Map -->
-    <section class="bg-white pt-12 pb-6 pr-16 pl-16 rounded-md shadow mb-6">
-      <h2 class="text-2xl font-bold mb-4">Province Map</h2>
-      <img
-        src="https://www.google.com/maps/d/thumbnail?mid=1-ypk-PSMphExu4Q3yrAFAJKcezk&hl=en"
-        alt="Stung Treng Map"
-        class="rounded-md w-full h-60 object-cover"
-      />
+    <section class="py-6 px-16">
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Province Map</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3937.615853732586!2d105.56318741579908!3d13.524648691417864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311e7ff3f4b71eab%3A0x1a4e7bbf3e2b3d9f!2sStung%20Treng%20Province!5e0!3m2!1sen!2skh!4v1710000000027"
+          width="100%" height="200" class="rounded shadow h-60" allowfullscreen loading="lazy"
+        ></iframe>
+        <img 
+          src="https://upload.wikimedia.org/wikipedia/commons/4/48/Stung_Treng_Cambodia_01.jpg" 
+          class="w-full h-60 object-cover rounded shadow" 
+          alt="Stung Treng Nature" 
+        />
+      </div>
     </section>
   </div>
-
-   <router-link to="/guide" class="mt-6 inline-block text-blue-500 hover:underline">
-      ← Back to Traveling Guide
-    </router-link>
 </template>
 
 <script setup>
-const attractions = [
-  {
-    name: 'Mekong River Dolphins',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/3/35/Irrawaddy_Dolphin_in_Cambodia.jpg',
-  },
-  {
-    name: 'Sopheakmit Waterfall',
-    image: 'https://www.travellercrossing.com/images/sopheakmit-waterfall.jpg',
-  },
-  {
-    name: 'Thala Barivat Temple',
-    image: 'https://www.travellercrossing.com/images/thala-barivat.jpg',
-  },
-  {
-    name: 'Sekong River',
-    image: 'https://www.travellercrossing.com/images/sekong-river.jpg',
-  },
-];
+const topAttractions = [
+  { name: 'Mekong River Tours', img: 'https://upload.wikimedia.org/wikipedia/commons/8/85/Mekong_river_in_Cambodia.jpg' },
+  { name: 'Sekong & Sre Pok Rivers', img: 'https://upload.wikimedia.org/wikipedia/commons/7/73/Sekong_River_Cambodia.jpg' },
+  { name: 'Upper Mekong Forests', img: 'https://upload.wikimedia.org/wikipedia/commons/e/e7/Upper_Mekong_forest.jpg' },
+  { name: 'Local Villages', img: 'https://upload.wikimedia.org/wikipedia/commons/f/f4/Cambodian_village.jpg' }
+]
 
-const gallery = [
-  'https://www.travellercrossing.com/images/thala-barivat.jpg',
-  'https://www.travellercrossing.com/images/sopheakmit-waterfall.jpg',
-  'https://www.travellercrossing.com/images/sekong-river.jpg',
-  'https://upload.wikimedia.org/wikipedia/commons/1/10/Mekong_river_near_Stung_Treng_Cambodia.jpg',
-];
+const galleryPhotos = [
+  'https://upload.wikimedia.org/wikipedia/commons/8/85/Mekong_river_in_Cambodia.jpg',
+  'https://upload.wikimedia.org/wikipedia/commons/7/73/Sekong_River_Cambodia.jpg',
+  'https://upload.wikimedia.org/wikipedia/commons/e/e7/Upper_Mekong_forest.jpg',
+  'https://upload.wikimedia.org/wikipedia/commons/f/f4/Cambodian_village.jpg'
+]
 </script>
 
 <style scoped>
-/* You can include additional custom styles here */
+body {
+  font-family: 'Poppins', sans-serif;
+}
 </style>
