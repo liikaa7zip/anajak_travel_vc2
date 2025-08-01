@@ -6,9 +6,9 @@
         <img
           src="@/assets/img/path-to-anajak-logo.png"
           alt="Anajak Travel"
-          class="h-10 w-10 rounded-full border border-purple-200 shadow"
+          class="h-13 w-12 rounded-full border border-purple-200 shadow"
         />
-        <h1 class="text-xl font-semibold text-purple-600">Food Management</h1>
+        <h1 class="text-xl font-semibold text-purple-600">Food Panel</h1>
       </div>
 
       <nav class="flex flex-col space-y-4 flex-1">
