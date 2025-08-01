@@ -19,12 +19,16 @@
       <!-- Destination -->
       <div>
         <label class="block text-sm font-medium text-purple-700 mb-1"> Destination</label>
-        <input
+        <select
           v-model="form.destination"
-          placeholder="Enter destination province"
           required
           class="w-full border border-purple-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none"
-        />
+        >
+          <option value="" disabled>Select a destination</option>
+          <option>Phnom Penh</option>
+          <option>Siem Reap</option>
+          <option>Sihanoukville</option>
+        </select>
       </div>
 
       <!-- Date -->
@@ -38,17 +42,23 @@
         />
       </div>
 
-      <!-- Airline -->
+      <!-- Airline (auto-filtered) -->
       <div>
         <label class="block text-sm font-medium text-purple-700 mb-1"> Airline</label>
         <select
           v-model="form.airline"
           class="w-full border border-purple-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none"
+          :disabled="!form.destination"
+          required
         >
           <option value="" disabled>Select Airline</option>
-          <option>Cambodia Angkor Air</option>
-          <option>AirAsia</option>
-          <option>Cambodia Airways</option>
+          <option
+            v-for="airline in availableAirlines"
+            :key="airline"
+            :value="airline"
+          >
+            {{ airline }}
+          </option>
         </select>
       </div>
 
@@ -58,6 +68,7 @@
         <select
           v-model="form.classType"
           class="w-full border border-purple-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none"
+          required
         >
           <option>Economy</option>
           <option>Business</option>
@@ -70,12 +81,24 @@
         <select
           v-model="form.passengers"
           class="w-full border border-purple-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none"
+          required
         >
           <option v-for="n in 5" :key="n" :value="n">{{ n }} Passenger(s)</option>
         </select>
       </div>
 
-      <!-- Passenger Name -->
+      <!-- Auto-Calculated Price -->
+      <div>
+        <label class="block text-sm font-medium text-purple-700 mb-1"> Price ($)</label>
+        <input
+          :value="computedPrice.toFixed(2)"
+          readonly
+          class="w-full bg-gray-100 border border-purple-300 px-4 py-2 rounded-lg focus:outline-none"
+        />
+        <p class="text-sm text-gray-500 mt-1">Auto-calculated based on airline, class, and passengers.</p>
+      </div>
+
+      <!-- Your Name -->
       <div>
         <label class="block text-sm font-medium text-purple-700 mb-1"> Your Name</label>
         <input
@@ -102,33 +125,29 @@
       <button
         type="submit"
         class="w-full bg-purple-600 text-white py-2 rounded-lg font-semibold hover:bg-purple-700 transition duration-200"
+        :disabled="loading"
       >
         Book Now
       </button>
 
       <!-- View History -->
-        <div class="mt-8 text-center">
+      <div class="mt-8 text-center">
         <router-link
-            to="FlightBookHistory"
-            class="inline-block bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition duration-200"
+          to="FlightBookHistory"
+          class="inline-block bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition duration-200"
         >
-            View Booking History
+          View Booking History
         </router-link>
-        </div>
+      </div>
     </form>
 
-
-    <!-- Pre-confirmation Modal -->
+    <!-- Confirmation Modal -->
     <div
       v-if="showPreConfirmationModal"
       class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50"
       @click.self="cancelBookingPreConfirmation"
     >
-      <div
-        class="bg-white rounded-2xl shadow-xl max-w-sm w-full p-6"
-        role="alertdialog"
-        aria-modal="true"
-      >
+      <div class="bg-white rounded-2xl shadow-xl max-w-sm w-full p-6">
         <h2 class="text-center text-xl font-bold text-gray-800 mb-4">Confirm Your Booking</h2>
         <p class="text-center text-gray-600 mb-6">Do you want to continue with this booking?</p>
         <div class="flex justify-center gap-4">
@@ -141,6 +160,7 @@
           <button
             @click="proceedBooking"
             class="px-6 py-2 rounded-full bg-purple-600 text-white font-semibold hover:bg-purple-700 transition"
+            :disabled="loading"
           >
             Yes, Book Now
           </button>
@@ -184,7 +204,7 @@
       </div>
     </div>
 
-    <!-- Booking Confirmed Message -->
+    <!-- Booking Summary -->
     <transition name="fade">
       <div
         v-if="bookingConfirmed"
@@ -193,18 +213,19 @@
         <p class="font-semibold text-lg mb-2">✅ Booking Confirmed!</p>
         <p><strong>Flight:</strong> {{ lastBooking.origin }} ➡️ {{ lastBooking.destination }}</p>
         <p><strong>Date:</strong> {{ lastBooking.date }}</p>
-        <p><strong>Name:</strong> {{ lastBooking.name }}</p>
+        <p><strong>Name:</strong> {{ lastBooking.passengerName }}</p>
         <p><strong>Email:</strong> {{ lastBooking.email }}</p>
         <p><strong>Airline:</strong> {{ lastBooking.airline }}</p>
         <p><strong>Class:</strong> {{ lastBooking.classType }}</p>
         <p><strong>Passengers:</strong> {{ lastBooking.passengers }}</p>
+        <p><strong>Price:</strong> ${{ lastBooking.price.toFixed(2) }}</p>
       </div>
     </transition>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import axios from 'axios'
 
 const form = ref({
@@ -213,7 +234,8 @@ const form = ref({
   date: '',
   airline: '',
   classType: 'Economy',
-  passengers: 1
+  passengers: 1,
+  UserId: 1,
 })
 
 const passengerName = ref('')
@@ -224,6 +246,36 @@ const showPreConfirmationModal = ref(false)
 const lastBooking = ref({})
 const loading = ref(false)
 const error = ref('')
+
+// Airline availability by destination
+const airlinesByDestination = {
+  'Phnom Penh': ['Cambodia Angkor Air', 'Cambodia Airways', 'AirAsia'],
+  'Siem Reap': ['Cambodia Angkor Air', 'AirAsia'],
+  'Sihanoukville': ['Cambodia Airways', 'AirAsia'],
+}
+
+const availableAirlines = computed(() => {
+  return airlinesByDestination[form.value.destination] || []
+})
+
+// Price calculation logic
+const basePrices = {
+  'Cambodia Angkor Air': 100,
+  'AirAsia': 80,
+  'Cambodia Airways': 90,
+}
+
+const classMultiplier = {
+  'Economy': 1,
+  'Business': 1.5,
+}
+
+const computedPrice = computed(() => {
+  const base = basePrices[form.value.airline] || 0
+  const multiplier = classMultiplier[form.value.classType] || 1
+  const passengers = form.value.passengers || 1
+  return base * multiplier * passengers
+})
 
 function bookFlight() {
   showPreConfirmationModal.value = true
@@ -239,12 +291,8 @@ async function proceedBooking() {
   error.value = ''
 
   const bookingData = {
-    origin: form.value.origin,
-    destination: form.value.destination,
-    date: form.value.date,
-    airline: form.value.airline,
-    classType: form.value.classType,
-    passengers: form.value.passengers,
+    ...form.value,
+    price: computedPrice.value,
     passengerName: passengerName.value,
     email: email.value
   }
@@ -256,13 +304,15 @@ async function proceedBooking() {
     lastBooking.value = res.data
     bookingConfirmed.value = true
 
+    // Reset form
     form.value = {
       origin: '',
       destination: '',
       date: '',
       airline: '',
       classType: 'Economy',
-      passengers: 1
+      passengers: 1,
+      UserId: 1,
     }
     passengerName.value = ''
     email.value = ''
@@ -285,4 +335,3 @@ async function proceedBooking() {
   opacity: 0;
 }
 </style>
-

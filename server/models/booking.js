@@ -1,6 +1,10 @@
 // models/booking.js
 module.exports = (sequelize, DataTypes) => {
   const Booking = sequelize.define('Booking', {
+    UserId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    },
     depart: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -15,6 +19,13 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         isIn: [['bus', 'private_car', 'van', 'luxury']],
       },
+    },
+      price: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+      validate: {
+        min: 0
+      }
     },
     date: {
       type: DataTypes.DATEONLY,

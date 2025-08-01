@@ -1,43 +1,54 @@
 // models/FlightBooking.js
 module.exports = (sequelize, DataTypes) => {
   const FlightBooking = sequelize.define('FlightBooking', {
+    UserId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     origin: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     destination: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     date: {
       type: DataTypes.DATEONLY,
-      allowNull: false
+      allowNull: false,
     },
     airline: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     classType: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     passengers: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
     },
     passengerName: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+    },
+    price: {
+      type: DataTypes.DECIMAL(10, 2), // price with 2 decimals
+      allowNull: false,
     },
     status: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 'confirmed' // default status when booking is created
-    }
+      defaultValue: 'confirmed', // default status when booking is created
+    },
+  }, {
+    tableName: 'FlightBookings',
+    timestamps: true,
   });
 
   return FlightBooking;
