@@ -97,16 +97,19 @@ exports.updateOrder = async (req, res) => {
   }
 };
 
-exports.deleteOrder = async (req, res) => {
+exports.cancelOrder = async (req, res) => {
   try {
     const order = await Order.findByPk(req.params.id);
-    if (!order) return res.status(404).json({ error: 'Order not found' });
+    if (!order) {
+      return res.status(404).json({ error: 'Order not found' });
+    }
 
-    await OrderFoodItem.destroy({ where: { orderId: order.id } });
-    await order.destroy();
+    // Update the order's status to 'cancelled'
+    order.status = 'cancelled';
+    await order.save();
 
-    res.json({ message: 'Order deleted' });
+    res.json({ message: 'Order cancelled successfully' });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to delete order' });
+    res.status(500).json({ error: 'Failed to cancel order' });
   }
 };

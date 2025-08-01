@@ -25,6 +25,7 @@ import HotelList from '../views/Travelingbooking/HoteLlist.vue'
 import HotelDetail from '../views/HotelDetail.vue'
 import HotelBookingForm from '../views/BookingForm.vue'
 import BookingConfirmation from '../components/BookingConfirmation.vue'
+import HotelBookinghistory from '../views/Travelingbooking/HotelBookigHistory.vue'
 
 // Profile
 import UserProfile from '../views/UserProfile.vue'
@@ -149,6 +150,7 @@ const routes = [
       { path: 'hotels/:id', component: HotelDetail },
       { path: 'book/:id', component: HotelBookingForm },
       { path: 'confirmation', component: BookingConfirmation },
+      {path:'Hotel_history',component: HotelBookinghistory},
 
       // Travel Booking
       { path: 'Boatickets', component: BoatTickets },

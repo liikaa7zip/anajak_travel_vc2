@@ -49,8 +49,6 @@ exports.createBooking = async (req, res) => {
   }
 };
 
-
-
 // DELETE booking
 exports.cancelBooking = async (req, res) => {
   try {
@@ -59,8 +57,11 @@ exports.cancelBooking = async (req, res) => {
       return res.status(404).json({ message: 'Booking not found' });
     }
 
-    await booking.destroy();
-    res.json({ message: 'Booking cancelled successfully' });
+    // Update status instead of deleting
+    booking.status = 'cancelled';
+    await booking.save();
+
+    res.json({ message: 'Booking cancelled successfully', booking });
   } catch (err) {
     res.status(500).json({ message: 'Error cancelling booking', error: err.message });
   }
