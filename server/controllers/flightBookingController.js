@@ -1,6 +1,4 @@
-const db = require('../models');
-const FlightBooking = db.FlightBooking;
-
+const { FlightBooking, User } = require('../models');
 exports.createFlightBooking = async (req, res) => {
   try {
     const {
@@ -53,7 +51,11 @@ exports.createFlightBooking = async (req, res) => {
 
 exports.getAllFlightBookings = async (req, res) => {
   try {
-    const bookings = await FlightBooking.findAll();
+    const bookings = await FlightBooking.findAll({
+      include: [
+        { model: User, attributes: ['username'] }
+      ]
+    });
     res.status(200).json(bookings);
   } catch (err) {
     console.error('Error fetching bookings:', err);
@@ -61,9 +63,14 @@ exports.getAllFlightBookings = async (req, res) => {
   }
 };
 
+
 exports.getFlightBookingById = async (req, res) => {
   try {
-    const booking = await FlightBooking.findByPk(req.params.id);
+    const booking = await FlightBooking.findByPk(req.params.id, {
+      include: [
+        { model: User, attributes: ['username'] }
+      ]
+    });
     if (!booking) {
       return res.status(404).json({ message: 'Booking not found' });
     }
@@ -73,6 +80,7 @@ exports.getFlightBookingById = async (req, res) => {
     res.status(500).json({ message: 'Server error while fetching booking' });
   }
 };
+
 
 exports.deleteFlightBooking = async (req, res) => {
   try {

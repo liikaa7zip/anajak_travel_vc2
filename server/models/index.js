@@ -45,4 +45,10 @@ db.Booking = require('./booking')(sequelize, Sequelize.DataTypes);
 // db.User.hasMany(db.Message, { foreignKey: 'sender' });
 // db.User.hasMany(db.Message, { foreignKey: 'receiver' });
 
+// User ↔ FlightBooking
+db.User.hasMany(db.FlightBooking, { foreignKey: 'UserId' });
+db.FlightBooking.belongsTo(db.User, { foreignKey: 'UserId' });
+
+
+
 module.exports = db;
