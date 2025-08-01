@@ -48,6 +48,7 @@
             <th class="py-3 px-5 border-b">From</th>
             <th class="py-3 px-5 border-b">To</th>
             <th class="py-3 px-5 border-b">Type</th>
+            <th class="py-3 px-5 border-b">Price ($)</th> <!-- New Price Column -->
             <th class="py-3 px-5 border-b">Name</th>
             <th class="py-3 px-5 border-b">Email</th>
             <th class="py-3 px-5 border-b">Status</th>
@@ -65,6 +66,7 @@
             <td class="py-3 px-5 border-b">{{ booking.origin }}</td>
             <td class="py-3 px-5 border-b">{{ booking.destination }}</td>
             <td class="py-3 px-5 border-b">{{ booking.boatType }}</td>
+            <td class="py-3 px-5 border-b font-semibold text-purple-700">${{ booking.price.toFixed(2) }}</td> <!-- Display price -->
             <td class="py-3 px-5 border-b">{{ booking.passengerName }}</td>
             <td class="py-3 px-5 border-b">{{ booking.email }}</td>
             <td class="py-3 px-5 border-b">
