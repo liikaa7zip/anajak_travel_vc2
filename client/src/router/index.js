@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import PublicLayout from '../layouts/PublicLayout.vue'
 import AdminLayout from '../layouts/AdminLayout.vue'
-
+import ReturantLayout from '../layouts/Food_OwnerLayout.vue'
+import HotelLayout from '../layouts/Hotel_OwnerLayout .vue'
 // Auth
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
@@ -33,6 +34,7 @@ import UserSettings from '../views/UserSettings.vue'
 import AdminDashboard from '../views/admin/AdminDashboard.vue'
 import AdminUsers from '../views/admin/AdminUsers.vue'
 import CreateUser from '../components/CreateUser.vue'
+// import AdminBlog from '../views/admin/AdminBlog.vue'
 
 // Provinces
 import BattamBang from '../views/provinces/Battambang.vue'
@@ -89,6 +91,39 @@ const requireAdmin = (to, from, next) => {
 
   if (!user || user.role !== 'admin') return next('/home')
   next()
+}
+
+
+
+
+// Food
+import FoodListView from '../views/User/FoodList.vue'
+
+import ProvinceList from '../views/User/ProvinceList.vue'
+import FoodByProvince from '../components/FoodByProvince.vue'
+import FoodDetail from '../views/User/FoodDetail.vue'
+
+// ResturantDashboard
+import ResturantDashboard from '../views/resturantOwner/Resturantdashboard.vue'
+
+// Hoteldashboard
+import HotelDashboard from '../views/HotelOwner/HotelOwnerdashboard.vue'
+import AdminChat from '@/views/admin/AdminChat.vue'
+
+import AdminBlog from '@/views/admin/AdminBlog.vue'
+// Auth guard helper functions
+
+import UserPlan from '@/views/UserPlan.vue'
+
+// Auth guard
+
+const getUserFromStorage = () => {
+
+  try {
+    return JSON.parse(localStorage.getItem('user'))
+  } catch {
+    return null
+  }
 }
 
 const routes = [
@@ -167,6 +202,29 @@ const routes = [
       { path: 'users', component: AdminUsers },
     ]
   },
+{
+  path: '/restaurant_owner',
+  component: ReturantLayout,
+  meta: { requiresAuth: true, role: 'restaurant_owner' },
+  children: [
+    { path: '', redirect: 'fooddashboard' },
+    { path: 'fooddashboard', component: ResturantDashboard , name: 'foodOwnerdashboard' },
+  ]
+},
+{
+  path: '/hotel_owner',
+  component: HotelLayout,
+  meta: { requiresAuth: true, role: 'hotel_owner' },
+  children: [
+    { path: '', redirect: 'hoteldashboard' },
+    { path: 'hoteldashboard', component:HotelDashboard  , name: 'HotelOwnerdashboard' },
+  ]
+},
+
+  // Separate route for creating user under /users/create (not nested in admin for now)
+  { path: '/users/create', name: 'CreateUser', component: CreateUser },
+
+  // Redirect old /dashboard to admin dashboard
   { path: '/dashboard', redirect: '/admin/dashboard' },
   { path: '/users/create', name: 'CreateUser', component: CreateUser }
 ]
@@ -175,5 +233,21 @@ const router = createRouter({
   history: createWebHistory(),
   routes
 })
+
+// Global navigation guard for auth and admin
+router.beforeEach((to, from, next) => {
+  const user = JSON.parse(localStorage.getItem('user'))
+
+  if (to.meta.requiresAuth && !user) {
+    return next('/login')
+  }
+
+  if (to.meta.role && user?.role !== to.meta.role) {
+    return next('/home') // <== This line could be the issue
+  }
+
+  next()
+})
+
 
 export default router

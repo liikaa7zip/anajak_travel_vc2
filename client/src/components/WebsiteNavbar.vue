@@ -122,6 +122,9 @@
                 <p class="text-sm font-medium text-gray-900">{{ displayName }}</p>
                 <p class="text-xs text-gray-500">{{ userProfile.email }}</p>
                 <p v-if="isAdmin" class="text-xs text-purple-600 font-medium">Admin</p>
+                <p v-if="isHotelowner" class="text-xs text-purple-600 font-medium">HotelOwner</p>
+                <p v-if="isReturantowner" class="text-xs text-purple-600 font-medium">ReturantOwner</p>
+                
               </div>
               
               <router-link to="/profile" class="profile-dropdown-item">
@@ -139,12 +142,30 @@
                 Settings
               </router-link>
 
-              <router-link v-if="isAdmin" to="/admin/dashboard" class="profile-dropdown-item">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
-                Admin Dashboard
-              </router-link>
+             <router-link v-if="isAdmin" to="/admin/dashboard" class="profile-dropdown-item">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+              Admin Dashboard
+            </router-link>
+
+            <router-link v-if="isHotelowner" to="/hotel_owner/hoteldashboard" class="profile-dropdown-item">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M8 17v-2a2 2 0 012-2h4a2 2 0 012 2v2M7 10V7a2 2 0 012-2h6a2 2 0 012 2v3M4 21h16" />
+              </svg>
+              Hotel Dashboard
+            </router-link>
+
+            <router-link v-if="isReturantowner" to="/restaurant_owner/fooddashboard" class="profile-dropdown-item">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M4 6h16M4 10h16M10 14h10M10 18h10M6 14h.01M6 18h.01" />
+              </svg>
+              Restaurant Dashboard
+            </router-link>
+
 
               <hr class="my-1 border-gray-200">
 
@@ -175,7 +196,8 @@
 import { ref, onMounted } from "vue";
 import { useAuth } from '../stores/useAuth';
 
-const { isLoggedIn, userProfile, userInitials, displayName, isAdmin, isInitialized, logout, initAuth } = useAuth();
+const { isLoggedIn, userProfile, userInitials, displayName, isAdmin, isInitialized, logout, initAuth,  isHotelowner,
+  isReturantowner  } = useAuth();
 
 const isMenuOpen = ref(false);
 const showDropdown = ref(false);
