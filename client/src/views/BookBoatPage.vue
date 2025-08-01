@@ -135,7 +135,7 @@
             OK
           </button>
         </div>
-        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -153,7 +153,7 @@ const form = ref({
   boatType: '',
   date: '',
   passengerName: '',
-  email: ''
+  email: '',
 })
 
 const confirmation = ref('')
@@ -170,8 +170,14 @@ function cancelBookingPreConfirmation() {
 
 async function proceedBooking() {
   try {
-    const res = await axios.post('http://localhost:5000/api/boatbookings', form.value)
-    confirmation.value = `Your boat from ${res.data.origin} to ${res.data.destination} on ${res.data.date} has been booked successfully!`
+    // Add a fixed userId here or get it from authentication system
+    const bookingData = {
+      ...form.value,
+      userId: 1,
+    }
+
+    const res = await axios.post('http://localhost:5000/api/boatbookings', bookingData)
+    confirmation.value = `Your boat from ${res.data.booking.origin} to ${res.data.booking.destination} on ${res.data.booking.date} has been booked successfully! Price: $${res.data.booking.price}`
 
     // Reset the form
     form.value = {
@@ -180,12 +186,12 @@ async function proceedBooking() {
       boatType: '',
       date: '',
       passengerName: '',
-      email: ''
+      email: '',
     }
 
     showPreConfirmationModal.value = false
   } catch (err) {
-    console.error(err)
+    console.error('Booking error:', err.response?.data || err.message)
     confirmation.value = '❌ Booking failed. Please try again.'
     showPreConfirmationModal.value = false
   }

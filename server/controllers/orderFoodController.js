@@ -2,12 +2,22 @@ const { Order, Food, OrderFoodItem } = require('../models');
 
 exports.getAllOrders = async (req, res) => {
   try {
+    const { customerName } = req.query;
+
+    const whereClause = {};
+    if (customerName) {
+      whereClause.customerName = customerName;
+    }
+
     const orders = await Order.findAll({
+      where: whereClause,
       include: {
         model: Food,
         through: { attributes: ['quantity'] },
       },
+      order: [['createdAt', 'DESC']],
     });
+
     res.json(orders);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch orders' });
@@ -97,16 +107,16 @@ exports.updateOrder = async (req, res) => {
   }
 };
 
-exports.deleteOrder = async (req, res) => {
+exports.cancelOrder = async (req, res) => {
   try {
     const order = await Order.findByPk(req.params.id);
-    if (!order) return res.status(404).json({ error: 'Order not found' });
+    if (!order) return res.status(404).json({ message: 'Order not found' });
 
-    await OrderFoodItem.destroy({ where: { orderId: order.id } });
-    await order.destroy();
+    order.status = 'cancelled';
+    await order.save();
 
-    res.json({ message: 'Order deleted' });
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to delete order' });
+    res.json({ message: 'Order cancelled successfully', order });
+  } catch (err) {
+    res.status(500).json({ message: 'Error cancelling order', error: err.message });
   }
 };
