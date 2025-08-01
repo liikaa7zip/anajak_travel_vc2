@@ -37,6 +37,7 @@ import AdminUsers from '../views/admin/AdminUsers.vue'
 import CreateUser from '../components/CreateUser.vue'
 // import AdminBlog from '../views/admin/AdminBlog.vue'
 
+
 // Provinces
 import Battambang from '../views/provinces/Battambang.vue'
 import BanteayMeanchey from '../views/provinces/BanteayMeanchey.vue'
@@ -106,7 +107,9 @@ import FoodDetail from '../views/User/FoodDetail.vue'
 
 // ResturantDashboard
 import ResturantDashboard from '../views/resturantOwner/Resturantdashboard.vue'
-
+import FoodOrder from '../views/resturantOwner/ResturantOrder.vue'
+import CustomerInResturant from '../views/resturantOwner/CustomerInResturant.vue'
+import ProductsInResturant from '../views/resturantOwner/ProductsInResturant.vue'
 // Hoteldashboard
 import HotelDashboard from '../views/HotelOwner/HotelOwnerdashboard.vue'
 import AdminChat from '@/views/admin/AdminChat.vue'
@@ -227,10 +230,14 @@ const routes = [
   {
     path: '/restaurant_owner',
     component: ReturantLayout,
-    meta: { requiresAuth: true, role: 'restaurant_owner' },
+    meta: { requiresAuth: true },
     children: [
       { path: '', redirect: 'fooddashboard' },
       { path: 'fooddashboard', component: ResturantDashboard, name: 'foodOwnerdashboard' },
+      {path: 'foodOrder',component: FoodOrder, name: 'foodOrder' },
+      {path: 'CustomersInResturant',component: CustomerInResturant, name: 'CustomersInResturant' },
+      {path: 'ProductsInResturant',component: ProductsInResturant, name: 'ProductsInResturant' },
+
     ]
   },
   {
