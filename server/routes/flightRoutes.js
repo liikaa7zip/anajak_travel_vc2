@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const flightBookingController = require('../controllers/flightBookingController');
 
+router.get('/user/:userId', flightBookingController.getFlightBookingsByUserId);
 // Route: POST /api/flightbookings
 router.post('/', flightBookingController.createFlightBooking);
 
