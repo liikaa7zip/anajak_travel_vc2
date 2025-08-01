@@ -3,7 +3,7 @@
     <!-- Hero Section -->
     <section class="relative w-full h-80 sm:h-96">
       <img
-        src="https://dnf06fpg9xipc.cloudfront.net/geocambodia/province-landmark/21.jpg"
+        src="https://www.ppmlgroup.com/wp-content/uploads/2022/02/takeo-icon_orig.jpg"
         alt="Takeo"
         class="w-full h-full object-cover rounded-b-md"
       />
@@ -79,10 +79,9 @@
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.548383897516!2d104.78860427588804!3d10.982785089281598!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31099f1c4e7a2f01%3A0x415c14b79eb4a589!2sTakeo%20Province!5e0!3m2!1sen!2skh!4v1710000000017"
           width="100%" height="200" class="rounded shadow h-60" allowfullscreen loading="lazy"
         ></iframe>
-        <img 
-          src="https://www.advantour.com/img/cambodia/images/takeo.jpg" 
-          class="w-full h-60 object-cover rounded shadow" 
-          alt="Takeo Scenic" 
+        <img
+          src="https://genk.mediacdn.vn/139269124445442048/2024/8/13/google-maps-thuong-khong-chi-ngan-nhat-ma-chon-duong-vong-ly-do-vi-sao-00145298-1723531172398-17235311731771829575075-1723533715727-17235337161941703107124.png"
+          class="w-full h-60" alt="Map Pin"
         />
       </div>
     </section>
@@ -91,17 +90,17 @@
 
 <script setup>
 const topAttractions = [
-  { name: 'Angkor Borei', img: 'https://www.tourismcambodia.com/images/destination/2021/08/11/1840_1615896883_takeo-1.jpg' },
-  { name: 'Phnom Da', img: 'https://www.tourismcambodia.com/images/destination/2018/06/11/1685_1530603444_phnomda.jpg' },
-  { name: 'Tonle Bati', img: 'https://www.movetocambodia.com/wp-content/uploads/2017/06/Ta-Prohm-Tonle-Bati.jpg' },
-  { name: 'Ta Prohm Temple', img: 'https://www.angkordestination.com/wp-content/uploads/2020/06/TA-PROHM-TAKEO-03.jpg' }
+  { name: 'Angkor Borei', img: 'https://guiaportuguesdeangkorwat.com/userfiles/angkor-borei-takeo.jpg' },
+  { name: 'Phnom Da', img: 'https://www.cambotours.com/userfiles/thumbs/phnom-da-takeo.jpg' },
+  { name: 'Tonle Bati', img: 'https://www.greeneratravel.com/userfiles/850tonlebati.jpg' },
+  { name: 'Chiso Mountain', img: 'https://www.angkor-temples-in-cambodia.com/uploads/3/0/0/4/30047791/phnom-chisor-05-600_orig.jpg' }
 ]
 
 const galleryPhotos = [
-  'https://www.tourismcambodia.com/images/destination/2019/10/17/1766_1571291365_tonlebati.jpg',
-  'https://www.movetocambodia.com/wp-content/uploads/2017/06/phnom-da-temple.jpg',
-  'https://www.tourismcambodia.com/images/destination/2021/08/11/1840_1615896883_takeo-1.jpg',
-  'https://www.cambodiasite.nl/images/phnom_da.jpg'
+  'https://www.shutterstock.com/shutterstock/videos/34041901/thumb/1.jpg?ip=x480',
+  'https://saigonlandtravel.com/img_data/images/cam-5.jpg',
+  'https://www.tour-cambodia.com/cdn/kh-public/phnom_da.jpg',
+  'https://www.indochinavoyages.com/wp-content/uploads/2014/12/29-12Takeo-Province-1200x675.jpg'
 ]
 </script>
 
