@@ -2,12 +2,38 @@ const BoatBooking = require('../models/BoatBooking');
 
 exports.createBooking = async (req, res) => {
   try {
-    const booking = await BoatBooking.create(req.body);
+    const { boatType } = req.body;
+    // Auto price logic based on boatType
+    let price = 0;
+    switch (boatType) {
+      case 'Speed Boat':
+        price = 50;
+        break;
+      case 'Ferry':
+        price = 30;
+        break;
+      case 'Longtail Boat':
+        price = 20;
+        break;
+      default:
+        price = 0;
+    }
+
+    // Add userId for example, here set to 1 or get from auth middleware
+    const userId = req.body.userId || 1;
+
+    const booking = await BoatBooking.create({
+      ...req.body,
+      price,
+      userId,
+    });
+
     res.status(201).json({ message: 'Booking created', booking });
   } catch (error) {
     res.status(500).json({ error: 'Failed to create booking', detail: error.message });
   }
 };
+
 
 exports.getAllBookings = async (req, res) => {
   try {
@@ -17,6 +43,7 @@ exports.getAllBookings = async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch bookings' });
   }
 };
+
 // Get a single booking by ID
 exports.getboatBookingById = async (req, res) => {
   try {
@@ -66,5 +93,3 @@ exports.cancelboatBooking = async (req, res) => {
     res.status(500).json({ message: 'Failed to cancel booking' });
   }
 };
-
-
