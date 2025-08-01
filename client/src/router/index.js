@@ -116,6 +116,7 @@ import AdminBlog from '@/views/admin/AdminBlog.vue'
 
 import UserPlan from '@/views/UserPlan.vue'
 import AdminHotelBooking from '@/views/admin/AdminHotelBooking.vue'
+import AdminFlightBooking from '@/views/admin/AdminFlightBooking.vue'
 
 // Auth guard
 
@@ -224,6 +225,7 @@ const routes = [
       { path: 'chat', component: AdminChat },
       { path: 'blog', component: AdminBlog },
       { path: 'hotel', component: AdminHotelBooking },
+      { path: 'flight', component: AdminFlightBooking },
     ]
   },
   {
