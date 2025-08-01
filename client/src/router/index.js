@@ -37,7 +37,7 @@ import CreateUser from '../components/CreateUser.vue'
 // import AdminBlog from '../views/admin/AdminBlog.vue'
 
 // Provinces
-import BattamBang from '../views/provinces/Battambang.vue'
+import Battambang from '../views/provinces/Battambang.vue'
 import BanteayMeanchey from '../views/provinces/BanteayMeanchey.vue'
 import StungTreng from '../views/provinces/StungTreng.vue'
 import PreahVihear from '../views/provinces/PreahVihear.vue'
@@ -166,7 +166,7 @@ const routes = [
       { path: 'settings', component: UserSettings, beforeEnter: requireAuth },
 
       // Provinces
-      { path: 'guide/battambang', name: 'BattamBang', component: BattamBang },
+      { path: 'guide/battambang', name: 'Battambang', component: Battambang },
       { path: 'guide/banteay-meanchey', name: 'BanteayMeanchey', component: BanteayMeanchey },
       { path: 'guide/stung-treng', name: 'StungTreng', component: StungTreng },
       { path: 'guide/preah-vihear', name: 'PreahVihear', component: PreahVihear },
