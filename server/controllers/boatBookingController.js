@@ -1,4 +1,4 @@
-const BoatBooking = require('../models/BoatBooking');
+const { BoatBooking, User } = require('../models');
 
 exports.createBooking = async (req, res) => {
   try {
@@ -34,28 +34,55 @@ exports.createBooking = async (req, res) => {
 
 exports.getAllBookings = async (req, res) => {
   try {
-    const bookings = await BoatBooking.findAll();
+    const bookings = await BoatBooking.findAll({
+      include: [
+        {
+          model: User,
+          attributes: ['username']
+        }
+      ]
+    });
     res.json(bookings);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: 'Failed to fetch bookings' });
   }
 };
 
 exports.getBookingsByUserId = async (req, res) => {
   try {
-    const bookings = await BoatBooking.findAll({ where: { userId: req.params.userId } });
+    const bookings = await BoatBooking.findAll({
+      where: { userId: req.params.userId },
+      include: [
+        {
+          model: User,
+          attributes: ['username']
+        }
+      ]
+    });
     res.json(bookings);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: 'Failed to fetch bookings' });
   }
 };
 
+// NOTE: function name fixed here to lowercase 'b' to match your route
 exports.getboatBookingById = async (req, res) => {
   try {
-    const booking = await BoatBooking.findByPk(req.params.id);
-    if (!booking) return res.status(404).json({ message: 'Booking not found' });
+    const booking = await BoatBooking.findByPk(req.params.id, {
+      include: [
+        { model: User, attributes: ['username'] }
+      ]
+    });
+
+    if (!booking) {
+      return res.status(404).json({ message: 'Booking not found' });
+    }
+
     res.json(booking);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: 'Server error' });
   }
 };

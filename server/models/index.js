@@ -18,6 +18,7 @@ db.Food = require('./food')(sequelize, DataTypes);
 db.Order = require('./orders')(sequelize, DataTypes);
 db.OrderFoodItem = require('./orderFoodItem')(sequelize, DataTypes);
 const upload = require('../middlewares/upload');
+db.BoatBooking = require('./BoatBooking')(sequelize, Sequelize.DataTypes);
 
 // === Define Relationships === //
 
@@ -48,6 +49,9 @@ db.Booking = require('./booking')(sequelize, Sequelize.DataTypes);
 // User ↔ FlightBooking
 db.User.hasMany(db.FlightBooking, { foreignKey: 'UserId' });
 db.FlightBooking.belongsTo(db.User, { foreignKey: 'UserId' });
+
+db.BoatBooking.belongsTo(db.User, { foreignKey: 'userId' }); // BoatBooking has a User
+db.User.hasMany(db.BoatBooking, { foreignKey: 'userId' });   // User has many bookings
 
 
 

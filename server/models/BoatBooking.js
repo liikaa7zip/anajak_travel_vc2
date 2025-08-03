@@ -1,6 +1,7 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/db');
+// const { DataTypes } = require('sequelize');
+// const sequelize = require('../config/db');
 
+module.exports = (sequelize, DataTypes) => {
 const BoatBooking = sequelize.define('BoatBooking', {
   userId: {
     type: DataTypes.INTEGER,
@@ -41,5 +42,6 @@ const BoatBooking = sequelize.define('BoatBooking', {
     defaultValue: 'confirmed',
   },
 });
-
-module.exports = BoatBooking;
+  return BoatBooking;
+};
+// module.exports = BoatBooking;
