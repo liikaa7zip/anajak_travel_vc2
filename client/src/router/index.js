@@ -117,7 +117,7 @@ import AdminBlog from '@/views/admin/AdminBlog.vue'
 import UserPlan from '@/views/UserPlan.vue'
 import AdminHotelBooking from '@/views/admin/AdminHotelBooking.vue'
 import AdminFlightBooking from '@/views/admin/AdminFlightBooking.vue'
-
+import AdminBoatBooking from '@/views/admin/AdminBoatBooking.vue'
 // Auth guard
 
 const getUserFromStorage = () => {
@@ -226,6 +226,7 @@ const routes = [
       { path: 'blog', component: AdminBlog },
       { path: 'hotel', component: AdminHotelBooking },
       { path: 'flight', component: AdminFlightBooking },
+      { path: 'boat', component: AdminBoatBooking },
     ]
   },
   {
