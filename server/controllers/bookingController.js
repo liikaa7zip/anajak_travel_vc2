@@ -1,17 +1,39 @@
 // controllers/bookingController.js
-const { Booking } = require('../models');
+const { Booking, User } = require('../models');
 
 // Get all bookings (optional: filter by userId)
 exports.getAllBookings = async (req, res) => {
   try {
-    const { userId } = req.query; // e.g., /api/bookings?userId=1
-    const where = userId ? { UserId: userId } : undefined;
-
-    const bookings = await Booking.findAll({ where });
+    const bookings = await Booking.findAll({
+      include: [
+        {
+          model: User,
+          attributes: ['username']
+        }
+      ]
+    });
     res.json(bookings);
   } catch (error) {
-    console.error('Error fetching bookings:', error);
-    res.status(500).json({ message: 'Error fetching bookings', error: error.message });
+  console.error('Sequelize Error:', error.message);
+  console.error(error.stack);
+  res.status(500).json({ error: 'Failed to fetch bookings', detail: error.message });
+  }
+};
+
+exports.getBookingById = async (req, res) => {
+  try {
+    const booking = await Booking.findByPk(req.params.id, {
+      include: [
+        { model: User, attributes: ['username'] }
+      ]
+    });
+    if (!booking) {
+      return res.status(404).json({ message: 'Booking not found' });
+    }
+    res.status(200).json(booking);
+  } catch (err) {
+    console.error('Error fetching booking:', err);
+    res.status(500).json({ message: 'Server error while fetching booking' });
   }
 };
 
