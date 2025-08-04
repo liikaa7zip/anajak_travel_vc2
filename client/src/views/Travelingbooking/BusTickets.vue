@@ -109,7 +109,7 @@
       @click.self="confirmation = ''"
     >
       <div
-        class="bg-white rounded-3xl shadow-xl max-w-md w-full p-8 relative transform scale-95 transition-transform duration-300 ease-out scale-100"
+        class="bg-white rounded-3xl shadow-xl max-w-md w-full p-8 relative transform scale-95 transition-transform duration-300 ease-out"
         role="alertdialog"
         aria-modal="true"
       >
