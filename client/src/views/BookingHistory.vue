@@ -140,7 +140,9 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import axios from 'axios'
+import { useAuth } from '@/stores/useAuth'
 
+const { userProfile, initAuth } = useAuth()
 const bookings = ref([])
 const loading = ref(false)
 const error = ref(null)
@@ -201,9 +203,14 @@ const isTravelDatePast = (travelDateStr) => {
   return travelDate < today
 }
 
+const userBookings = computed(() => {
+  if (!userProfile.value?.id) return []
+  return bookings.value.filter(b => b.UserId === userProfile.value.id)
+})
+
 const filteredBookings = computed(() => {
   const q = searchQuery.value.toLowerCase()
-  return bookings.value.filter(b =>
+  return userBookings.value.filter(b =>
     b.email?.toLowerCase().includes(q) ||
     b.depart?.toLowerCase().includes(q) ||
     b.arrive?.toLowerCase().includes(q)
@@ -216,9 +223,11 @@ const paginatedFilteredBookings = computed(() => {
   const start = (currentPage.value - 1) * itemsPerPage.value
   return filteredBookings.value.slice(start, start + itemsPerPage.value)
 })
+
 const goToPage = (page) => {
   if (page >= 1 && page <= totalPages.value) currentPage.value = page
 }
+
 const getPaginationRange = computed(() => {
   const total = totalPages.value
   const current = currentPage.value
@@ -237,5 +246,8 @@ const getPaginationRange = computed(() => {
   return range
 })
 
-onMounted(fetchBookingHistory)
+onMounted(async () => {
+  await initAuth()
+  await fetchBookingHistory()
+})
 </script>

@@ -6,104 +6,145 @@
       class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-10 px-2 select-none"
     >
       <ol class="flex space-x-2 text-xs text-gray-400 tracking-wide">
-        <li class="hover:text-purple-600 cursor-pointer" @click="$router.push('/')">Home</li>
+        <li
+          class="hover:text-purple-600 cursor-pointer"
+          @click="$router.push('/')"
+        >
+          Home
+        </li>
         <li>&gt;</li>
-        <li class="hover:text-purple-600 cursor-pointer" @click="$router.push('/tours')">Tours</li>
+        <li
+          class="hover:text-purple-600 cursor-pointer"
+          @click="$router.push('/tours')"
+        >
+          Tours
+        </li>
         <li>&gt;</li>
-        <li class="text-gray-900 font-semibold cursor-default">{{ currentLocationName || "Select a Location" }}</li>
+        <li class="text-gray-900 font-semibold cursor-default">
+          {{ currentLocationName || "Select a Location" }}
+        </li>
       </ol>
-      <div class="text-xs text-purple-600 font-semibold uppercase tracking-wider mt-2 sm:mt-0 select-none">
+      <div
+        class="text-xs text-purple-600 font-semibold uppercase tracking-wider mt-2 sm:mt-0 select-none"
+      >
         The 10 Best {{ currentLocationName || "All" }} Tours & Excursions
       </div>
     </nav>
 
     <!-- Main Title -->
-    <h1
-      class="text-5xl font-extrabold text-gray-900 mb-14 leading-tight max-w-5xl drop-shadow-md"
-    >
-      Forget Busy Work, <span class="text-purple-600">Start Your Next Vacation</span>
-    </h1>
+  <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-14">
+  <h1
+    class="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight drop-shadow-md"
+  >
+    Forget Busy Work, <span class="text-purple-600"> <br>Start Your Next Vacation</span>
+  </h1>
+
+  <button
+    class="flex items-center gap-2 bg-purple-700 text-white text-sm font-semibold px-5 py-3 rounded-full shadow hover:bg-purple-800 transition duration-300"
+    @click="$router.push('/Hotel_history')"
+  >
+    <i class="fas fa-calendar-check text-white"></i>
+    My Bookings
+  </button>
+</div>
+
 
     <div class="flex flex-col lg:flex-row gap-16">
       <!-- Sidebar: Original Most Picked Hotels -->
       <aside class="lg:w-1/3 space-y-12 sticky top-24">
-  <!-- Location Selector -->
-  <div>
-    <label for="locationSelect" class="block mb-4 text-lg font-semibold text-gray-700 select-none">
-      Choose Your Destination
-    </label>
-    <select
-      id="locationSelect"
-      v-model="selectedLocationId"
-      @change="onSearch"
-      class="w-full bg-white border border-gray-300 text-gray-700 text-base rounded-full shadow-lg focus:ring-4 focus:ring-purple-400 focus:border-purple-600 px-6 py-4 transition duration-300 ease-in-out hover:border-purple-500 cursor-pointer"
-      aria-label="Select Destination"
-    >
-      <option value="" disabled>🔍 Select Location</option>
-      <option
-        v-for="location in locations"
-        :key="location.id"
-        :value="location.id"
-      >
-        {{ location.name }}
-      </option>
-    </select>
-  </div>
+        <!-- Location Selector -->
+        <div>
+          <label
+            for="locationSelect"
+            class="block mb-4 text-lg font-semibold text-gray-700 select-none"
+          >
+            Choose Your Destination
+          </label>
+          <select
+            id="locationSelect"
+            v-model="selectedLocationId"
+            @change="onSearch"
+            class="w-full bg-white border border-gray-300 text-gray-700 text-base rounded-full shadow-lg focus:ring-4 focus:ring-purple-400 focus:border-purple-600 px-6 py-4 transition duration-300 ease-in-out hover:border-purple-500 cursor-pointer"
+            aria-label="Select Destination"
+          >
+            <option value="" disabled>🔍 Select Location</option>
+            <option
+              v-for="location in locations"
+              :key="location.id"
+              :value="location.id"
+            >
+              {{ location.name }}
+            </option>
+          </select>
+        </div>
 
-  <!-- Most Picked Hotels -->
-  <section aria-label="Most Picked Hotels" class="bg-purple-50 border border-purple-300 rounded-3xl p-12 shadow-lg">
-    <h2
-      class="text-3xl font-extrabold text-purple-700 mb-8 border-b-4 border-purple-600 inline-block pb-2 select-none tracking-wide"
-    >
-      Most Picked
-    </h2>
-    <p class="text-purple-800 mb-10 leading-relaxed text-sm font-medium select-none">
-      Discover the top favorites chosen by our travelers.
-    </p>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
-      <div
-        v-for="picked in mostPicked"
-        :key="picked.id"
-        class="relative rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transform hover:-translate-y-2 cursor-pointer group bg-white transition duration-400"
-        @click="$router.push(`/hotels/${picked.id}`)"
-        role="button"
-        tabindex="0"
-        @keyup.enter="$router.push(`/hotels/${picked.id}`)"
-      >
-        <div class="relative w-full h-48 overflow-hidden rounded-t-3xl will-change-transform">
-          <img
-            v-lazy="picked.imageUrl || 'https://via.placeholder.com/400x300?text=No+Image'"
-            :alt="picked.name"
-            class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
-            loading="lazy"
-            @error="onImageError"
-          />
-          <div
-            class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent opacity-0 group-hover:opacity-80 transition-opacity duration-700"
-          ></div>
-        </div>
-        <div
-          class="absolute top-5 right-5 bg-purple-700 text-white text-xs px-4 py-1 rounded-full font-semibold shadow-lg select-none"
+        <!-- Most Picked Hotels -->
+        <section
+          aria-label="Most Picked Hotels"
+          class="bg-purple-50 border border-purple-300 rounded-3xl p-12 shadow-lg"
         >
-          ${{ picked.pricePerNight }} / night
-        </div>
-        <div
-          class="absolute bottom-0 left-0 text-white w-full px-6 py-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent"
-        >
-          <h3 class="text-base font-semibold truncate">{{ picked.name }}</h3>
-          <p class="text-xs opacity-90 truncate">{{ picked.locationName }}</p>
-        </div>
-      </div>
-    </div>
-  </section>
-</aside>
-
+          <h2
+            class="text-3xl font-extrabold text-purple-700 mb-8 border-b-4 border-purple-600 inline-block pb-2 select-none tracking-wide"
+          >
+            Most Picked
+          </h2>
+          <p
+            class="text-purple-800 mb-10 leading-relaxed text-sm font-medium select-none"
+          >
+            Discover the top favorites chosen by our travelers.
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <div
+              v-for="picked in mostPicked"
+              :key="picked.id"
+              class="relative rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transform hover:-translate-y-2 cursor-pointer group bg-white transition duration-400"
+              @click="$router.push(`/hotels/${picked.id}`)"
+              role="button"
+              tabindex="0"
+              @keyup.enter="$router.push(`/hotels/${picked.id}`)"
+            >
+              <div
+                class="relative w-full h-48 overflow-hidden rounded-t-3xl will-change-transform"
+              >
+                <img
+                  v-lazy="
+                    picked.imageUrl ||
+                    'https://via.placeholder.com/400x300?text=No+Image'
+                  "
+                  :alt="picked.name"
+                  class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
+                  loading="lazy"
+                  @error="onImageError"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent opacity-0 group-hover:opacity-80 transition-opacity duration-700"
+                ></div>
+              </div>
+              <div
+                class="absolute top-5 right-5 bg-purple-700 text-white text-xs px-4 py-1 rounded-full font-semibold shadow-lg select-none"
+              >
+                ${{ picked.pricePerNight }} / night
+              </div>
+              <div
+                class="absolute bottom-0 left-0 text-white w-full px-6 py-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent"
+              >
+                <h3 class="text-base font-semibold truncate">
+                  {{ picked.name }}
+                </h3>
+                <p class="text-xs opacity-90 truncate">
+                  {{ picked.locationName }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </aside>
 
       <!-- Right: 4 hotel cards in 2 columns matching Most Picked card style/size -->
       <main class="lg:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div
           v-for="hotel in paginatedHotels.slice(0, 4)"
-          :key="'top-'+hotel.id"
+          :key="'top-' + hotel.id"
           class="bg-white shadow-xl rounded-3xl overflow-hidden transform transition duration-500 hover:shadow-3xl hover:-translate-y-3 cursor-pointer flex flex-col"
           @click="$router.push(`/hotels/${hotel.id}`)"
           role="button"
@@ -112,7 +153,10 @@
         >
           <div class="relative w-full h-48 overflow-hidden rounded-t-3xl">
             <img
-              v-lazy="hotel.imageUrl || 'https://via.placeholder.com/400x300?text=No+Image'"
+              v-lazy="
+                hotel.imageUrl ||
+                'https://via.placeholder.com/400x300?text=No+Image'
+              "
               :alt="hotel.name || 'Hotel Image'"
               class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-105"
               loading="lazy"
@@ -133,7 +177,12 @@
             <p
               class="text-green-700 font-extrabold text-lg select-none tracking-wide mb-6"
             >
-              ${{ isValidPrice(hotel.pricePerNight) ? hotel.pricePerNight.toFixed(2) : "Price unavailable" }} / night
+              ${{
+                isValidPrice(hotel.pricePerNight)
+                  ? hotel.pricePerNight.toFixed(2)
+                  : "Price unavailable"
+              }}
+              / night
             </p>
             <router-link
               :to="`/hotels/${hotel.id}`"
@@ -151,7 +200,7 @@
     <div class="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-10">
       <div
         v-for="hotel in paginatedHotels.slice(4)"
-        :key="'rest-'+hotel.id"
+        :key="'rest-' + hotel.id"
         class="bg-white shadow-xl rounded-3xl overflow-hidden transform transition duration-500 hover:shadow-3xl hover:-translate-y-3 cursor-pointer flex flex-col"
         @click="$router.push(`/hotels/${hotel.id}`)"
         role="button"
@@ -160,7 +209,10 @@
       >
         <div class="relative w-full h-64 overflow-hidden rounded-t-3xl">
           <img
-            v-lazy="hotel.imageUrl || 'https://via.placeholder.com/400x300?text=No+Image'"
+            v-lazy="
+              hotel.imageUrl ||
+              'https://via.placeholder.com/400x300?text=No+Image'
+            "
             :alt="hotel.name || 'Hotel Image'"
             class="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-105"
             loading="lazy"
@@ -187,7 +239,12 @@
           <p
             class="text-green-700 font-extrabold text-2xl mb-8 select-none tracking-wide"
           >
-            ${{ isValidPrice(hotel.pricePerNight) ? hotel.pricePerNight.toFixed(2) : "Price unavailable" }} / night
+            ${{
+              isValidPrice(hotel.pricePerNight)
+                ? hotel.pricePerNight.toFixed(2)
+                : "Price unavailable"
+            }}
+            / night
           </p>
           <router-link
             :to="`/hotels/${hotel.id}`"
@@ -261,7 +318,8 @@ export default {
       this.error = null;
       try {
         const params = {};
-        if (this.selectedLocationId) params.locationId = this.selectedLocationId;
+        if (this.selectedLocationId)
+          params.locationId = this.selectedLocationId;
         const res = await axios.get("http://localhost:5000/api/hotels", {
           params,
         });

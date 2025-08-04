@@ -8,73 +8,101 @@
     </div>
 
     <!-- Navigation -->
-    <nav class="flex-1 overflow-y-auto space-y-6">
-      <div>
-        <p class="text-xs uppercase text-gray-400 px-2 mb-1">Main</p>
-        <ul class="space-y-1 text-sm">
-          <li>
-            <router-link to="/home" class="nav-link" active-class="router-link-exact-active">
-              <i class="icon ri-global-line"></i>
-              Go to Website
-            </router-link>
-          </li>
-          <li>
-            <router-link to="/admin/dashboard" class="nav-link" active-class="router-link-exact-active">
-              <i class="icon ri-dashboard-3-line"></i>
-              Dashboard
-            </router-link>
-          </li>
-        </ul>
-      </div>
+ <nav class="flex-1 overflow-y-auto space-y-6 p-4 bg-white h-screen">
+    <!-- Main Section -->
+    <div>
+      <p class="text-xs uppercase text-gray-400 px-2 mb-1">Main</p>
+      <ul class="space-y-1 text-sm">
+        <li>
+          <router-link to="/home" class="nav-link" active-class="router-link-exact-active">
+            <i class="icon ri-global-line"></i>
+            Go to Website
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/admin/dashboard" class="nav-link" active-class="router-link-exact-active">
+            <i class="icon ri-dashboard-3-line"></i>
+            Dashboard
+          </router-link>
+        </li>
+      </ul>
+    </div>
 
-      <div>
-        <p class="text-xs uppercase text-gray-400 px-2 mb-1">Manage</p>
-        <ul class="space-y-1 text-sm">
-          <li>
-            <router-link to="/admin/users" class="nav-link" active-class="router-link-exact-active">
-              <i class="icon ri-user-line"></i>
-              Users
-            </router-link>
-          </li>
-          <li>
-            <a href="#" class="nav-link">
+    <!-- Manage Section -->
+    <div>
+      <p class="text-xs uppercase text-gray-400 px-2 mb-1">Manage</p>
+      <ul class="space-y-1 text-sm">
+        <!-- Users -->
+        <li>
+          <router-link to="/admin/users" class="nav-link" active-class="router-link-exact-active">
+            <i class="icon ri-user-line"></i>
+            Users
+          </router-link>
+        </li>
+
+        <!-- Booking Dropdown -->
+        <li>
+          <button @click="showBookingMenu = !showBookingMenu" class="nav-link flex items-center justify-between w-full">
+            <span class="flex items-center space-x-2">
               <i class="icon ri-calendar-check-line"></i>
-              Booking
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link">
-              <i class="icon ri-restaurant-line"></i>
-              Food
-            </a>
-          </li>
-          <li>
-            <router-link to="/admin/blog" class="nav-link" active-class="router-link-exact-active">
-              <i class="icon ri-article-line"></i>
-              Blog
-            </router-link>
-          </li>
-          <li>
-            <a href="#" class="nav-link">
-              <i class="icon ri-map-pin-line"></i>
-              Travel Guide
-            </a>
-          </li>
-          <li>
-            <router-link to="/admin/chat" class="nav-link" active-class="router-link-exact-active">
-              <i class="icon ri-message-3-line"></i>
-              Contact Messages
-            </router-link>
-          </li>
-          <li>
-            <a href="#" class="nav-link">
-              <i class="icon ri-bar-chart-2-line"></i>
-              Reports
-            </a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+              <span>Booking</span>
+            </span>
+            <svg :class="{ 'rotate-180': showBookingMenu }" class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+
+          <!-- Booking Submenu -->
+          <ul v-show="showBookingMenu" class="ml-8 mt-1 space-y-1 transition-all">
+            <li>
+              <router-link to="/admin/flight" class="block py-1 hover:text-blue-500">Flight</router-link>
+            </li>
+            <li>
+              <router-link to="/admin/boat" class="block py-1 hover:text-blue-500">Boat</router-link>
+            </li>
+            <li>
+              <router-link to="/admin/bus" class="block py-1 hover:text-blue-500">Bus</router-link>
+            </li>
+            <li>
+              <router-link to="/admin/hotel" class="block py-1 hover:text-blue-500">Hotel</router-link>
+            </li>
+          </ul>
+        </li>
+
+        <!-- Other Items -->
+        <li>
+          <a href="#" class="nav-link">
+            <i class="icon ri-restaurant-line"></i>
+            Food
+          </a>
+        </li>
+        <li>
+          <router-link to="/admin/blog" class="nav-link" active-class="router-link-exact-active">
+            <i class="icon ri-article-line"></i>
+            Blog
+          </router-link>
+        </li>
+        <li>
+          <a href="#" class="nav-link">
+            <i class="icon ri-map-pin-line"></i>
+            Travel Guide
+          </a>
+        </li>
+        <li>
+          <router-link to="/admin/chat" class="nav-link" active-class="router-link-exact-active">
+            <i class="icon ri-message-3-line"></i>
+            Contact Messages
+          </router-link>
+        </li>
+        <li>
+          <a href="#" class="nav-link">
+            <i class="icon ri-bar-chart-2-line"></i>
+            Reports
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
     <!-- Account Dropdown -->
     <div class="relative mt-auto">
@@ -89,19 +117,15 @@
           class="absolute bottom-12 left-0 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-50 text-sm"
         >
           <li>
-            <a href="#" class="dropdown-item text-purple-600">
-              <i class="ri-user-settings-line mr-2"></i> Profile
-            </a>
-          </li>
-          <li>
-            <a href="#" class="dropdown-item text-blue-600">
-              <i class="ri-login-box-line mr-2"></i> Login
-            </a>
-          </li>
-          <li>
-            <a href="#" class="dropdown-item text-pink-600">
-              <i class="ri-logout-box-line mr-2"></i> Logout
-            </a>
+              <div class="border-t border-gray-100">
+                  <button
+                    @click="logout"
+                    class="w-full text-left dropdown-item text-red-600 hover:bg-red-50 hover:text-red-700"
+                  >
+                    <i class="ri-logout-box-r-line mr-2 text-red-400"></i>
+                    Logout
+                  </button>
+                </div>
           </li>
         </ul>
       </transition>
@@ -111,7 +135,10 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useAuth } from "../stores/useAuth";
 const isOpen = ref(false)
+const showBookingMenu = ref(false)
+const { logout } = useAuth();
 </script>
 
 <style scoped>

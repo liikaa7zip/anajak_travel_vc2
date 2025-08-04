@@ -25,6 +25,7 @@ import HotelList from '../views/Travelingbooking/HoteLlist.vue'
 import HotelDetail from '../views/HotelDetail.vue'
 import HotelBookingForm from '../views/BookingForm.vue'
 import BookingConfirmation from '../components/BookingConfirmation.vue'
+import HotelBookinghistory from '../views/Travelingbooking/HotelBookigHistory.vue'
 
 // Profile
 import UserProfile from '../views/UserProfile.vue'
@@ -35,6 +36,7 @@ import AdminDashboard from '../views/admin/AdminDashboard.vue'
 import AdminUsers from '../views/admin/AdminUsers.vue'
 import CreateUser from '../components/CreateUser.vue'
 // import AdminBlog from '../views/admin/AdminBlog.vue'
+
 
 // Provinces
 import Battambang from '../views/provinces/Battambang.vue'
@@ -105,16 +107,25 @@ import FoodDetail from '../views/User/FoodDetail.vue'
 
 // ResturantDashboard
 import ResturantDashboard from '../views/resturantOwner/Resturantdashboard.vue'
-
+import FoodOrder from '../views/resturantOwner/ResturantOrder.vue'
+import CustomerInResturant from '../views/resturantOwner/CustomerInResturant.vue'
+import ProductsInResturant from '../views/resturantOwner/ProductsInResturant.vue'
 // Hoteldashboard
 import HotelDashboard from '../views/HotelOwner/HotelOwnerdashboard.vue'
 import AdminChat from '@/views/admin/AdminChat.vue'
+import BookingOverview from '@/views/HotelOwner/BookingOverview.vue'
+import HouseKeeping from '@/views/HotelOwner/HouseKeeping.vue'
+import Reversations  from '@/views/HotelOwner/Reversations.vue'
+import Rooms from '@/views/HotelOwner/Rooms.vue'
 
 import AdminBlog from '@/views/admin/AdminBlog.vue'
 // Auth guard helper functions
 
 import UserPlan from '@/views/UserPlan.vue'
-
+import AdminHotelBooking from '@/views/admin/AdminHotelBooking.vue'
+import AdminFlightBooking from '@/views/admin/AdminFlightBooking.vue'
+import AdminBoatBooking from '@/views/admin/AdminBoatBooking.vue'
+import AdminBusBooking from '@/views/admin/AdminBusBooking.vue'
 // Auth guard
 
 const getUserFromStorage = () => {
@@ -149,6 +160,7 @@ const routes = [
       { path: 'hotels/:id', component: HotelDetail },
       { path: 'book/:id', component: HotelBookingForm },
       { path: 'confirmation', component: BookingConfirmation },
+      {path:'Hotel_history',component: HotelBookinghistory},
 
       // Travel Booking
       { path: 'Boatickets', component: BoatTickets },
@@ -220,15 +232,23 @@ const routes = [
       { path: 'users', component: AdminUsers, name: 'AdminUsers' },
       { path: 'chat', component: AdminChat },
       { path: 'blog', component: AdminBlog },
+      { path: 'hotel', component: AdminHotelBooking },
+      { path: 'flight', component: AdminFlightBooking },
+      { path: 'boat', component: AdminBoatBooking },
+      { path: 'bus', component: AdminBusBooking},
     ]
   },
   {
     path: '/restaurant_owner',
     component: ReturantLayout,
-    meta: { requiresAuth: true, role: 'restaurant_owner' },
+    meta: { requiresAuth: true },
     children: [
       { path: '', redirect: 'fooddashboard' },
       { path: 'fooddashboard', component: ResturantDashboard, name: 'foodOwnerdashboard' },
+      {path: 'foodOrder',component: FoodOrder, name: 'foodOrder' },
+      {path: 'CustomersInResturant',component: CustomerInResturant, name: 'CustomersInResturant' },
+      {path: 'ProductsInResturant',component: ProductsInResturant, name: 'ProductsInResturant' },
+
     ]
   },
   {
@@ -238,6 +258,11 @@ const routes = [
     children: [
       { path: '', redirect: 'hoteldashboard' },
       { path: 'hoteldashboard', component: HotelDashboard, name: 'HotelOwnerdashboard' },
+      {path: 'bookingoverview',component:BookingOverview},
+      {path: 'housekeeping',component:HouseKeeping},
+      {path: 'reversations',component:Reversations},
+      {path: 'rooms',component:Rooms}
+
     ]
   },
 

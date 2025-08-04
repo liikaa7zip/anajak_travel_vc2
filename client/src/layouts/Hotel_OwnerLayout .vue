@@ -6,10 +6,7 @@
     <aside class="w-64 h-screen fixed top-0 left-0 z-10 bg-white shadow">
       <HotelOwnerNavbar/>
     </aside>
-    <nav>
-        
-    </nav>
-
+    
     <!-- Main content: shifted right by sidebar width -->
     <main >
       <router-view />

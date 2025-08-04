@@ -1,7 +1,12 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/db');
+// const { DataTypes } = require('sequelize');
+// const sequelize = require('../config/db');
 
+module.exports = (sequelize, DataTypes) => {
 const BoatBooking = sequelize.define('BoatBooking', {
+  userId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
   origin: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -26,11 +31,17 @@ const BoatBooking = sequelize.define('BoatBooking', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-    status: {
+  price: {
+    type: DataTypes.FLOAT,
+    allowNull: false,
+    defaultValue: 0,
+  },
+  status: {
     type: DataTypes.STRING,
     allowNull: false,
-    defaultValue: 'confirmed' // default status when booking is created
-}
+    defaultValue: 'confirmed',
+  },
 });
-
-module.exports = BoatBooking;
+  return BoatBooking;
+};
+// module.exports = BoatBooking;
