@@ -113,6 +113,10 @@ import ProductsInResturant from '../views/resturantOwner/ProductsInResturant.vue
 // Hoteldashboard
 import HotelDashboard from '../views/HotelOwner/HotelOwnerdashboard.vue'
 import AdminChat from '@/views/admin/AdminChat.vue'
+import BookingOverview from '@/views/HotelOwner/BookingOverview.vue'
+import HouseKeeping from '@/views/HotelOwner/HouseKeeping.vue'
+import Reversations  from '@/views/HotelOwner/Reversations.vue'
+import Rooms from '@/views/HotelOwner/Rooms.vue'
 
 import AdminBlog from '@/views/admin/AdminBlog.vue'
 // Auth guard helper functions
@@ -247,6 +251,11 @@ const routes = [
     children: [
       { path: '', redirect: 'hoteldashboard' },
       { path: 'hoteldashboard', component: HotelDashboard, name: 'HotelOwnerdashboard' },
+      {path: 'bookingoverview',component:BookingOverview},
+      {path: 'housekeeping',component:HouseKeeping},
+      {path: 'reversations',component:Reversations},
+      {path: 'rooms',component:Rooms}
+
     ]
   },
 

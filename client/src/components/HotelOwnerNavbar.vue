@@ -17,42 +17,31 @@
         <div class="border-b border-purple-700 mb-4"></div>
         <!-- Navigation -->
         <nav class="flex flex-col gap-2">
-          <router-link to="/" class="nav-link" active-class="active">
-            <i class="fas fa-tachometer-alt w-5"></i>
-            <span>Dashboard</span>
-          </router-link>
+          <router-link to="/hotel_owner/hoteldashboard" class="nav-link" active-class="active">
+  <i class="fas fa-tachometer-alt w-5"></i>
+  <span>Dashboard</span>
+</router-link>
 
-          <router-link
-            to="/housekeeping"
-            class="nav-link"
-            active-class="active"
-          >
-            <i class="fas fa-broom w-5"></i>
-            <span>Housekeeping</span>
-          </router-link>
+<router-link to="/hotel_owner/housekeeping" class="nav-link" active-class="active">
+  <i class="fas fa-broom w-5"></i>
+  <span>Housekeeping</span>
+</router-link>
 
-          <router-link to="/rooms" class="nav-link" active-class="active">
-            <i class="fas fa-bed w-5"></i>
-            <span>Rooms</span>
-          </router-link>
+<router-link to="/hotel_owner/rooms" class="nav-link" active-class="active">
+  <i class="fas fa-bed w-5"></i>
+  <span>Rooms</span>
+</router-link>
 
-          <router-link
-            to="/reservations"
-            class="nav-link"
-            active-class="active"
-          >
-            <i class="fas fa-book w-5"></i>
-            <span>Reservations</span>
-          </router-link>
+<router-link to="/hotel_owner/reversations" class="nav-link" active-class="active">
+  <i class="fas fa-book w-5"></i>
+  <span>Reservations</span>
+</router-link>
 
-          <router-link
-            to="/booking-overview"
-            class="nav-link"
-            active-class="active"
-          >
-            <i class="fas fa-chart-line w-5"></i>
-            <span>Booking Overview</span>
-          </router-link>
+<router-link to="/hotel_owner/bookingoverview" class="nav-link" active-class="active">
+  <i class="fas fa-chart-line w-5"></i>
+  <span>Booking Overview</span>
+</router-link>
+
         </nav>
       </div>
 
@@ -66,7 +55,7 @@
         </button>
       </div>
     </aside>
-  </div>
+  </div>  
 </template>
 
 <script setup>
