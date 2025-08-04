@@ -3,7 +3,7 @@
     <!-- Hero Section -->
     <section class="relative w-full h-80 sm:h-96">
       <img
-        src="https://www.ppmlgroup.com/wp-content/uploads/2022/02/5b2b2134f3661.jpg"
+        src="https://www.asiakingtravel.com/cuploads/files/Kampong-Speu-1(2).jpg"
         alt="Kampong Speu"
         class="w-full h-full object-cover rounded-b-md"
       />
@@ -25,7 +25,7 @@
           </p>
         </div>
         <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Cambodia_Kampong_Speu_locator_map.svg/200px-Cambodia_Kampong_Speu_locator_map.svg.png"
+          src="https://sdmntpreastus.oaiusercontent.com/files/00000000-7a2c-61f9-861e-5ddf9c0a1ea2/raw?se=2025-08-04T02%3A59%3A29Z&sp=r&sv=2024-08-04&sr=b&scid=1b1e90b6-ca96-571d-b832-aff83d917a68&skoid=5cab1ff4-c20d-41dc-babb-df0c2cc21dd4&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-08-04T01%3A31%3A27Z&ske=2025-08-05T01%3A31%3A27Z&sks=b&skv=2024-08-04&sig=ombVHMgTd2htwSvEqoWwr41nYvYvHD7ZiIZd1nzNQ7E%3D"
           alt="Kampong Speu Map"
           class="w-80 h-60 shadow rounded"
         />
@@ -90,17 +90,17 @@
 
 <script setup>
 const topAttractions = [
-  { name: 'Phnom Aoral', img: 'https://cambodiatourism.co/wp-content/uploads/2021/01/Phnom-Aoral-696x464.jpg' },
-  { name: 'Kirirom National Park', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Kirirom_National_Park_Cambodia.jpg/640px-Kirirom_National_Park_Cambodia.jpg' },
-  { name: 'Chambok Ecotourism', img: 'https://www.visitcambodia.org/uploads/chambok.jpg' },
-  { name: 'Te Teuk Pus Hot Spring', img: 'https://angkorfocus.com/wp-content/uploads/2020/03/te-teuk-pus-hot-spring.jpg' }
+  { name: 'Phnom Aoral', img: 'https://www.cambotours.com/userfiles/thumbs/phnom-aural-wildlife-sanctuary.jpg' },
+  { name: 'Kirirom National Park', img: 'https://www.khmertimeskh.com/wp-content/uploads/2024/04/20230715_141929.jpg' },
+  { name: 'Chambok Ecotourism', img: 'https://www.cambotours.com/userfiles/thumbs/chambok-commnuity-eco-tourism-site.jpg' },
+  { name: 'Te Teuk Pus Hot Spring', img: 'https://www.greeneratravel.com/userfiles/850teteukpushotspring.jpg' }
 ];
 
 const galleryPhotos = [
-  'https://www.visitcambodia.org/uploads/kampong-speu-forest.jpg',
-  'https://angkorfocus.com/wp-content/uploads/2020/03/phnom-oral.jpg',
-  'https://cambodiatourism.co/wp-content/uploads/2021/01/Kirirom-Hiking-1.jpg',
-  'https://www.visitcambodia.org/uploads/kampong-speu-trekking.jpg'
+  'https://www.waca.or.jp/en/wp-content/uploads/2021/02/c65a945c8b03bdda242b574127028dde-1-860x645.jpg',
+  'https://i.ytimg.com/vi/e71jV1r6XCc/sddefault.jpg',
+  'https://www.greeneratravel.com/userfiles/850kiriromnationalpark.jpg',
+  'https://media.tacdn.com/media/attractions-splice-spp-360x240/10/94/cd/38.jpg'
 ];
 </script>
 
