@@ -1,6 +1,4 @@
-const db = require('../models');
-const FlightBooking = db.FlightBooking;
-
+const { FlightBooking, User } = require('../models');
 exports.createFlightBooking = async (req, res) => {
   try {
     const {
@@ -13,7 +11,7 @@ exports.createFlightBooking = async (req, res) => {
       passengers,
       passengerName,
       email,
-      price,  // added price here
+      price,
     } = req.body;
 
     if (
@@ -26,7 +24,7 @@ exports.createFlightBooking = async (req, res) => {
       !passengers ||
       !passengerName ||
       !email ||
-      price === undefined  // check price is provided (0 allowed)
+      price === undefined
     ) {
       return res.status(400).json({ message: 'All fields are required including price.' });
     }
@@ -41,7 +39,7 @@ exports.createFlightBooking = async (req, res) => {
       passengers,
       passengerName,
       email,
-      price, // set price here
+      price,
     });
 
     res.status(201).json(newBooking);
@@ -51,9 +49,14 @@ exports.createFlightBooking = async (req, res) => {
   }
 };
 
+// Get all bookings
 exports.getAllFlightBookings = async (req, res) => {
   try {
-    const bookings = await FlightBooking.findAll();
+    const bookings = await FlightBooking.findAll({
+      include: [
+        { model: User, attributes: ['username'] }
+      ]
+    });
     res.status(200).json(bookings);
   } catch (err) {
     console.error('Error fetching bookings:', err);
@@ -61,9 +64,14 @@ exports.getAllFlightBookings = async (req, res) => {
   }
 };
 
+// Get booking by ID
 exports.getFlightBookingById = async (req, res) => {
   try {
-    const booking = await FlightBooking.findByPk(req.params.id);
+    const booking = await FlightBooking.findByPk(req.params.id, {
+      include: [
+        { model: User, attributes: ['username'] }
+      ]
+    });
     if (!booking) {
       return res.status(404).json({ message: 'Booking not found' });
     }
@@ -74,13 +82,25 @@ exports.getFlightBookingById = async (req, res) => {
   }
 };
 
+// Get bookings by user ID
+exports.getFlightBookingsByUserId = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const bookings = await FlightBooking.findAll({ where: { UserId: userId } });
+    res.status(200).json(bookings);
+  } catch (err) {
+    console.error('Error fetching bookings by user:', err);
+    res.status(500).json({ message: 'Server error while fetching user bookings' });
+  }
+};
+
+// Delete booking by ID
 exports.deleteFlightBooking = async (req, res) => {
   try {
     const booking = await FlightBooking.findByPk(req.params.id);
     if (!booking) {
       return res.status(404).json({ message: 'Booking not found' });
     }
-
     await booking.destroy();
     res.status(200).json({ message: 'Booking deleted successfully' });
   } catch (err) {
@@ -89,16 +109,15 @@ exports.deleteFlightBooking = async (req, res) => {
   }
 };
 
+// Cancel a booking (update status)
 exports.cancelFlightBooking = async (req, res) => {
   try {
     const booking = await FlightBooking.findByPk(req.params.id);
     if (!booking) {
       return res.status(404).json({ message: 'Booking not found' });
     }
-
     booking.status = 'cancelled';
     await booking.save();
-
     res.status(200).json({ message: 'Booking cancelled successfully', booking });
   } catch (err) {
     console.error('Error cancelling booking:', err);
