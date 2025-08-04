@@ -17,6 +17,14 @@
         <div class="border-b border-purple-700 mb-4"></div>
         <!-- Navigation -->
         <nav class="flex flex-col gap-2">
+          <router-link
+          to="/"
+          class="nav-link"
+          active-class="router-link-exact-active"
+        >
+          <i class="icon ri-global-line"></i>
+          Go to Website
+        </router-link>
           <router-link to="/hotel_owner/hoteldashboard" class="nav-link" active-class="active">
   <i class="fas fa-tachometer-alt w-5"></i>
   <span>Dashboard</span>
