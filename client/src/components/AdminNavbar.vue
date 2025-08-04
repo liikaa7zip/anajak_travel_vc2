@@ -117,19 +117,15 @@
           class="absolute bottom-12 left-0 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-50 text-sm"
         >
           <li>
-            <a href="#" class="dropdown-item text-purple-600">
-              <i class="ri-user-settings-line mr-2"></i> Profile
-            </a>
-          </li>
-          <li>
-            <a href="#" class="dropdown-item text-blue-600">
-              <i class="ri-login-box-line mr-2"></i> Login
-            </a>
-          </li>
-          <li>
-            <a href="#" class="dropdown-item text-pink-600">
-              <i class="ri-logout-box-line mr-2"></i> Logout
-            </a>
+              <div class="border-t border-gray-100">
+                  <button
+                    @click="logout"
+                    class="w-full text-left dropdown-item text-red-600 hover:bg-red-50 hover:text-red-700"
+                  >
+                    <i class="ri-logout-box-r-line mr-2 text-red-400"></i>
+                    Logout
+                  </button>
+                </div>
           </li>
         </ul>
       </transition>
@@ -139,8 +135,10 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useAuth } from "../stores/useAuth";
 const isOpen = ref(false)
 const showBookingMenu = ref(false)
+const { logout } = useAuth();
 </script>
 
 <style scoped>
