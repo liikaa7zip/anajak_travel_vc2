@@ -25,7 +25,7 @@
           </p>
         </div>
         <img
-          src="https://upload.wikimedia.org/wikipedia/commons/9/91/Cambodia_Phnom_Penh_locator_map.svg"
+          src="https://sdmntprsouthcentralus.oaiusercontent.com/files/00000000-ad70-61f7-8ed7-e7a149518360/raw?se=2025-08-04T03%3A14%3A35Z&sp=r&sv=2024-08-04&sr=b&scid=a3d77455-7415-55cd-83f9-a58fc3616a25&skoid=71e8fa5c-90a9-4c17-827b-14c3005164d6&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-08-04T02%3A13%3A51Z&ske=2025-08-05T02%3A13%3A51Z&sks=b&skv=2024-08-04&sig=1jneknAsDz9mAlsOfexH7/6LkBaEgsFVSeiTaxbMX7w%3D"
           alt="Phnom Penh Map"
           class="w-80 h-60 shadow rounded"
         />

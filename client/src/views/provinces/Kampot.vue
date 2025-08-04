@@ -25,7 +25,7 @@
           </p>
         </div>
         <img
-          src="https://upload.wikimedia.org/wikipedia/commons/5/59/Cambodia_Kampot_locator_map.svg"
+          src="https://sdmntprsouthcentralus.oaiusercontent.com/files/00000000-d06c-61f7-a71a-d3e9e3017992/raw?se=2025-08-04T03%3A09%3A12Z&sp=r&sv=2024-08-04&sr=b&scid=ea27accb-5337-5867-80e2-25aca7bd68b5&skoid=71e8fa5c-90a9-4c17-827b-14c3005164d6&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-08-04T01%3A39%3A32Z&ske=2025-08-05T01%3A39%3A32Z&sks=b&skv=2024-08-04&sig=oFZViI/SE8yPT8VX7GbzuvHOTgFBg6LPKGvCDhAVbRg%3D"
           alt="Kampot Map"
           class="w-80 h-60 shadow rounded"
         />
