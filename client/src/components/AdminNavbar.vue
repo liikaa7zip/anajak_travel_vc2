@@ -61,7 +61,7 @@
               <router-link to="/admin/boat" class="block py-1 hover:text-blue-500">Boat</router-link>
             </li>
             <li>
-              <router-link to="/admin/booking/bus" class="block py-1 hover:text-blue-500">Bus</router-link>
+              <router-link to="/admin/bus" class="block py-1 hover:text-blue-500">Bus</router-link>
             </li>
             <li>
               <router-link to="/admin/hotel" class="block py-1 hover:text-blue-500">Hotel</router-link>
