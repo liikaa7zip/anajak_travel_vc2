@@ -79,10 +79,9 @@
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3917.315974401594!2d103.58106221580523!3d11.585547591672619!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3106297db63b38af%3A0xc5ee4a388a30ceaf!2sPursat%20Province!5e0!3m2!1sen!2skh!4v1710000000025"
           width="100%" height="200" class="rounded shadow h-60" allowfullscreen loading="lazy"
         ></iframe>
-        <img 
-          src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Pursat_Cambodia_01.jpg" 
-          class="w-full h-60 object-cover rounded shadow" 
-          alt="Pursat Nature" 
+        <img
+          src="https://genk.mediacdn.vn/139269124445442048/2024/8/13/google-maps-thuong-khong-chi-ngan-nhat-ma-chon-duong-vong-ly-do-vi-sao-00145298-1723531172398-17235311731771829575075-1723533715727-17235337161941703107124.png"
+          class="w-full h-60" alt="Map Pin"
         />
       </div>
     </section>

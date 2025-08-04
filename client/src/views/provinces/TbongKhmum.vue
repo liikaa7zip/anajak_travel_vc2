@@ -3,7 +3,7 @@
     <!-- Hero Section -->
     <section class="relative w-full h-80 sm:h-96">
       <img
-        src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Tbong_Khmum_Cambodia_01.jpg"
+        src="https://aicdn.picsart.com/d6b60b9c-5f43-4da7-b5a7-2c8cbb52d06e.jpg"
         alt="Tbong Khmum"
         class="w-full h-full object-cover rounded-b-md"
       />
@@ -79,10 +79,9 @@
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3920.703143731221!2d105.14028941580488!3d11.969702490092672!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3107d73d8752e93d%3A0xc3447b4504eaee3c!2sTbong%20Khmum%20Province!5e0!3m2!1sen!2skh!4v1710000000031"
           width="100%" height="200" class="rounded shadow h-60" allowfullscreen loading="lazy"
         ></iframe>
-        <img 
-          src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Tbong_Khmum_Cambodia_01.jpg" 
-          class="w-full h-60 object-cover rounded shadow" 
-          alt="Tbong Khmum Nature" 
+        <img
+          src="https://genk.mediacdn.vn/139269124445442048/2024/8/13/google-maps-thuong-khong-chi-ngan-nhat-ma-chon-duong-vong-ly-do-vi-sao-00145298-1723531172398-17235311731771829575075-1723533715727-17235337161941703107124.png"
+          class="w-full h-60" alt="Map Pin"
         />
       </div>
     </section>
@@ -91,17 +90,17 @@
 
 <script setup>
 const topAttractions = [
-  { name: 'Wat Ek Phnom', img: 'https://upload.wikimedia.org/wikipedia/commons/4/48/Wat_Ek_Phnom.jpg' },
-  { name: 'Rubber Plantations', img: 'https://upload.wikimedia.org/wikipedia/commons/d/d7/Rubber_plantation_in_Cambodia.jpg' },
-  { name: 'Local Villages', img: 'https://upload.wikimedia.org/wikipedia/commons/2/2a/Cambodian_village_road.jpg' },
-  { name: 'Traditional Festivals', img: 'https://upload.wikimedia.org/wikipedia/commons/2/23/Cambodian_festival.jpg' }
+  { name: 'Wat Ek Phnom', img: 'https://upload.wikimedia.org/wikipedia/commons/3/38/Ek_Phnom3.JPG' },
+  { name: 'Rubber Plantations', img: 'https://image.vietnamnews.vn/uploadvnnews/Article/2023/10/11/310178_rubber.jpg' },
+  { name: 'Local Villages', img: 'https://static.vecteezy.com/system/resources/thumbnails/057/288/752/small_2x/tbong-khmum-province-aerial-views-of-cambodia-s-countryside-video.jpg' },
+  { name: 'Traditional Festivals', img: 'https://thebettercambodia.com/wp-content/uploads/2024/01/fishing-day-1024x601-1.jpg' }
 ]
 
 const galleryPhotos = [
-  'https://upload.wikimedia.org/wikipedia/commons/4/48/Wat_Ek_Phnom.jpg',
-  'https://upload.wikimedia.org/wikipedia/commons/d/d7/Rubber_plantation_in_Cambodia.jpg',
-  'https://upload.wikimedia.org/wikipedia/commons/2/2a/Cambodian_village_road.jpg',
-  'https://upload.wikimedia.org/wikipedia/commons/2/23/Cambodian_festival.jpg'
+  'https://live.staticflickr.com/7904/32616193198_b58909e868_h.jpg',
+  'https://helloangkor.com/wp-content/uploads/2022/06/IMG_20220619_135125.jpg',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQlJKrtWg_gfwvgzVGKRC3gjoxy28c9UUkiBJpTtxY-4NWJcHiMdXYY7n5oPQ1BypsSPs&usqp=CAU',
+  'https://tourismcambodia.net/wp-content/uploads/2024/05/Ho-O-Ktong-Water-Amusement-Park.jpg'
 ]
 </script>
 
