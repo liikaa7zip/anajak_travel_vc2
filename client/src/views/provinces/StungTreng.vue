@@ -3,7 +3,7 @@
     <!-- Hero Section -->
     <section class="relative w-full h-80 sm:h-96">
       <img
-        src="https://upload.wikimedia.org/wikipedia/commons/4/48/Stung_Treng_Cambodia_01.jpg"
+        src="https://i0.wp.com/www.cambodialifestyle.com/wp-content/uploads/2024/04/Stueng-Treng-5.jpg?fit=1001%2C683&ssl=1"
         alt="Stung Treng"
         class="w-full h-full object-cover rounded-b-md"
       />
@@ -90,17 +90,17 @@
 
 <script setup>
 const topAttractions = [
-  { name: 'Mekong River Tours', img: 'https://upload.wikimedia.org/wikipedia/commons/8/85/Mekong_river_in_Cambodia.jpg' },
-  { name: 'Sekong & Sre Pok Rivers', img: 'https://upload.wikimedia.org/wikipedia/commons/7/73/Sekong_River_Cambodia.jpg' },
-  { name: 'Upper Mekong Forests', img: 'https://upload.wikimedia.org/wikipedia/commons/e/e7/Upper_Mekong_forest.jpg' },
-  { name: 'Local Villages', img: 'https://upload.wikimedia.org/wikipedia/commons/f/f4/Cambodian_village.jpg' }
+  { name: 'Mekong River Tours', img: 'https://flexibletourism.com/userfiles/thumbs/StungTreng-Trip.jpg' },
+  { name: 'Sekong & Sre Pok Rivers', img: 'https://iucn.org/sites/default/files/content/images/2020/img_2401.jpg' },
+  { name: 'Upper Mekong Forests', img: 'https://heritage-line.com/wp-content/uploads/2020/06/Heritage-Line-Laos-Upper-Mekong-River-Highlights-Scenery-near-Pakbeng-1.jpg' },
+  { name: 'Local Villages', img: 'https://www.khmertimeskh.com/wp-content/uploads/2025/06/104434-750x440.jpg' }
 ]
 
 const galleryPhotos = [
-  'https://upload.wikimedia.org/wikipedia/commons/8/85/Mekong_river_in_Cambodia.jpg',
-  'https://upload.wikimedia.org/wikipedia/commons/7/73/Sekong_River_Cambodia.jpg',
-  'https://upload.wikimedia.org/wikipedia/commons/e/e7/Upper_Mekong_forest.jpg',
-  'https://upload.wikimedia.org/wikipedia/commons/f/f4/Cambodian_village.jpg'
+  'https://i0.wp.com/www.cambodialifestyle.com/wp-content/uploads/2024/04/Stueng-Treng-3.jpg?fit=1024%2C536&ssl=1',
+  'https://nextjourneyahead.com/wp-content/uploads/2024/10/preah-nimith-falls-wide-shot.jpeg',
+  'https://angkorfocus.com/userfiles/thumbs/new-Koh-Ksach-Resort.jpg',
+  'https://mekongramsartrail.com/wp-content/uploads/2016/04/3-day-mekong-kayaking-adventures.jpg'
 ]
 </script>
 

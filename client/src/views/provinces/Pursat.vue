@@ -3,7 +3,7 @@
     <!-- Hero Section -->
     <section class="relative w-full h-80 sm:h-96">
       <img
-        src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Pursat_Cambodia_01.jpg"
+        src="https://visitlocaltravel.com/blog/wp-content/uploads/2024/03/Pursat-Province.png"
         alt="Pursat"
         class="w-full h-full object-cover rounded-b-md"
       />
@@ -90,17 +90,17 @@
 
 <script setup>
 const topAttractions = [
-  { name: 'Phnom Sampov', img: 'https://upload.wikimedia.org/wikipedia/commons/6/66/Phnom_Sampov_01.jpg' },
-  { name: 'Tonle Sap Fishing Villages', img: 'https://upload.wikimedia.org/wikipedia/commons/f/f4/Tonle_Sap_lake_fishing_village.jpg' },
-  { name: 'Stone Carving Workshops', img: 'https://upload.wikimedia.org/wikipedia/commons/c/c4/Stone_carving_Cambodia_02.jpg' },
-  { name: 'Pursat River', img: 'https://upload.wikimedia.org/wikipedia/commons/9/9a/Pursat_river_cambodia.jpg' }
+  { name: 'Phnom Sampov', img: 'https://visitlocaltravel.com/blog/wp-content/uploads/2023/12/Phnom-Sampeau.jpg' },
+  { name: 'Tonle Sap Fishing Villages', img: 'https://angkorfocus.com/userfiles/Pursat-Floating-Village.jpg' },
+  { name: 'Stone Carving Workshops', img: 'https://www.thefairtradevillage.com/wp-content/gallery/stone-production/FTV-Stone-Product_AHA-7333.jpg' },
+  { name: 'Pursat River', img: 'https://www.guidetrip.info/asset/img/gallery_resort/5cc01e75b634b.jpg' }
 ]
 
 const galleryPhotos = [
-  'https://upload.wikimedia.org/wikipedia/commons/6/66/Phnom_Sampov_01.jpg',
-  'https://upload.wikimedia.org/wikipedia/commons/f/f4/Tonle_Sap_lake_fishing_village.jpg',
-  'https://upload.wikimedia.org/wikipedia/commons/c/c4/Stone_carving_Cambodia_02.jpg',
-  'https://upload.wikimedia.org/wikipedia/commons/9/9a/Pursat_river_cambodia.jpg'
+  'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/08/42/da/8d/l-bak-kamronh.jpg?w=1400&h=1400&s=1',
+  'https://angkorfocus.com/userfiles/Wat-Preah-Sedai-&-Pursat-River.jpg',
+  'https://img.harbor-property.com/bkcontent/2023/08/18/114200001.jpg',
+  'https://www.vivutravel.com/images/destinations/gallery/194/travel-to-cambodia-12.jpg'
 ]
 </script>
 
