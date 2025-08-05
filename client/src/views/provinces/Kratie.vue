@@ -1,123 +1,111 @@
 <template>
-  <div class="font-poppins bg-gray-100 text-gray-900">
+  <div class="font-sans bg-gray-100 text-gray-900 min-h-screen">
     <!-- Hero Section -->
-    <section class="relative w-full h-64 overflow-hidden rounded-b-md">
+    <section class="relative w-full h-80 sm:h-96">
       <img
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Kratie_province_locator_map_Cambodia.svg/1200px-Kratie_province_locator_map_Cambodia.svg.png"
-        alt="Kratie Province"
-        class="w-full h-full object-cover"
+        src="https://aicdn.picsart.com/94db8fd0-3b7e-4f1c-90fe-7c1d9f60fb3e.png"
+        alt="Kratie"
+        class="w-full h-full object-cover rounded-b-md"
       />
-      <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-        <h1 class="text-3xl md:text-5xl text-white font-bold">Kratie Province</h1>
+      <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center px-10">
+        <h1 class="text-white text-3xl sm:text-6xl font-bold">
+          <i class="fa-notdog fa-solid fa-location-dot"></i>Kratie <br />
+          <span class="text-4xl">Province</span>
+        </h1>
       </div>
     </section>
 
     <!-- About Section -->
-    <section class="px-6 py-10 max-w-4xl mx-auto">
-      <h2 class="text-2xl font-semibold mb-4">About Kratie</h2>
-      <p class="text-gray-700 leading-relaxed">
-        Kratie is a province in eastern Cambodia known for its beautiful Mekong River views and rare Irrawaddy dolphins. 
-        It offers a peaceful atmosphere with rich biodiversity and traditional Khmer culture.
-      </p>
-    </section>
-
-    <!-- Top Attractions Section -->
-    <section class="bg-white px-6 py-10">
-      <h2 class="text-2xl font-semibold mb-6 text-center">Top Attractions</h2>
-      <ul class="space-y-4 max-w-3xl mx-auto text-gray-700">
-        <li v-for="(attraction, index) in topAttractions" :key="index">
-          <strong>{{ attraction.name }}:</strong> {{ attraction.description }}
-        </li>
-      </ul>
-    </section>
-
-    <!-- Things to Do Section -->
-    <section class="px-6 py-10 max-w-4xl mx-auto">
-      <h2 class="text-2xl font-semibold mb-4">Things to Do</h2>
-      <ul class="list-disc list-inside text-gray-700 space-y-2">
-        <li v-for="(thing, index) in thingsToDo" :key="index">{{ thing }}</li>
-      </ul>
-    </section>
-
-    <!-- Travel Tips Section -->
-    <section class="bg-white px-6 py-10">
-      <h2 class="text-2xl font-semibold mb-4 text-center">Travel Tips</h2>
-      <ul class="max-w-3xl mx-auto text-gray-700 space-y-2">
-        <li v-for="(tip, index) in travelTips" :key="index">{{ tip }}</li>
-      </ul>
-    </section>
-
-    <!-- Photo Gallery Section -->
-    <section class="px-6 py-10 max-w-6xl mx-auto">
-      <h2 class="text-2xl font-semibold mb-6 text-center">Photo Gallery</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <section class="pt-12 pb-6 pr-16 pl-16">
+      <div class="bg-white rounded-lg shadow p-4 flex flex-col sm:flex-row items-start justify-between gap-4">
+        <div class="max-w-xl">
+          <h2 class="text-2xl font-semibold mb-2 text-purple-600">About Kratie</h2>
+          <p class="text-sm text-gray-700">
+            Kratie is a picturesque province located along the Mekong River in northeastern Cambodia. Known for its endangered Irrawaddy dolphins, peaceful riverside town, and colonial architecture, Kratie is a favorite stop for eco-tourists and travelers seeking authentic, off-the-beaten-path experiences. With lush countryside, floating villages, and river islands, Kratie offers a perfect blend of nature, wildlife, and local culture.
+          </p>
+        </div>
         <img
-          v-for="(photo, index) in galleryPhotos"
-          :key="index"
-          :src="photo.src"
-          :alt="photo.alt"
-          class="rounded-lg shadow"
+          src="https://cdn.imgbin.com/14/23/4/imgbin-phnom-penh-provinces-of-cambodia-world-map-cambodia-1DUAxbindDxxWDi3BGS7VFGm5.jpg"
+          alt="Kratie Map"
+          class="w-80 h-60 shadow rounded"
         />
       </div>
     </section>
 
-    <!-- Map Section -->
-    <section class="bg-gray-200 px-6 py-10">
-      <h2 class="text-2xl font-semibold mb-4 text-center">Province Map</h2>
-      <div class="max-w-4xl mx-auto">
+    <!-- Top Attractions -->
+    <section class="pt-6 pb-6 pr-16 pl-16">
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Top Attractions</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div v-for="(attraction, index) in topAttractions" :key="index" class="bg-white rounded shadow overflow-hidden">
+          <img :src="attraction.img" alt="" class="w-full h-40 object-cover" />
+          <p class="p-2 text-2sm font-medium text-center">{{ attraction.name }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Things to Do & Travel Tips -->
+    <section class="pt-6 pb-6 pr-16 pl-16 grid sm:grid-cols-2 gap-6">
+      <div>
+        <h2 class="text-2xl font-semibold mb-2 text-purple-600">Things to Do</h2>
+        <ul class="list-disc pl-5 text-sm text-gray-700">
+          <li>Watch Irrawaddy dolphins in the Mekong River</li>
+          <li>Cycle around Koh Trong Island</li>
+          <li>Explore Phnom Sombok and the countryside</li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="text-2xl font-semibold mb-2 text-purple-600">Travel Tips</h2>
+        <ul class="list-disc pl-5 text-sm text-gray-700">
+          <li>Best time: Dec – Mar (dry season)</li>
+          <li>Transport: Bus or minivan from Phnom Penh</li>
+          <li>Respect local communities and dolphins’ space</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Photo Gallery -->
+    <section class="pt-6 pb-6 pr-16 pl-16">
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Photo Gallery</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <img v-for="(photo, index) in galleryPhotos" :key="index" :src="photo" alt="" class="rounded shadow object-cover h-28 w-full" />
+      </div>
+    </section>
+
+    <!-- Province Map -->
+    <section class="pt-6 pb-6 pr-16 pl-16">
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Province Map</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3923.984953938115!2d105.4851593153704!3d12.4888130910411!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31082df9a0bc0cd5%3A0x27e72e789a3b4f60!2sKratie!5e0!3m2!1sen!2skh!4v1699622725000!5m2!1sen!2skh"
-          width="100%"
-          height="400"
-          style="border:0;"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15693.486786801852!2d106.01108041776134!3d12.48874370015927!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311d8c33a8b2ed75%3A0xd18b1ff8aeaa4e62!2sKratie!5e0!3m2!1sen!2skh!4v1710000000004"
+          width="100%" height="200" class="rounded shadow h-60" allowfullscreen loading="lazy"
         ></iframe>
+        <img
+          src="https://genk.mediacdn.vn/139269124445442048/2024/8/13/google-maps-thuong-khong-chi-ngan-nhat-ma-chon-duong-vong-ly-do-vi-sao-00145298-1723531172398-17235311731771829575075-1723533715727-17235337161941703107124.png"
+          class="w-full h-60" alt="Map Pin"
+        />
       </div>
     </section>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+const topAttractions = [
+  { name: 'Irrawaddy Dolphins', img: 'https://flcchn.com/wp-content/uploads/2023/01/irrawaddy-dolphin-wwf-cambodia-compressed.jpg' },
+  { name: 'Koh Trong Island', img: 'https://cambodia-travelpartner.com/wp-content/uploads/2025/02/Koh-Trong-island-biirdview-lr.png' },
+  { name: 'Phnom Sombok', img: 'https://angkorfocus.com/userfiles/attraction-Wat%20Phnom%20Sam%20Bok%20Resort.jpg' },
+  { name: 'Mekong River Sunset', img: 'https://media.istockphoto.com/id/1364223919/photo/sunset-on-the-mekong-river-in-cambodia.jpg?s=612x612&w=0&k=20&c=zhM_o8J0NIkVGtidrxdQxqF_14On3sL_Usn5VZ9WT9M=' }
+]
 
-const topAttractions = ref([
-  { name: 'Irrawaddy Dolphins', description: 'Rare freshwater dolphins found in the Mekong River.' },
-  { name: 'Kampi Waterfalls', description: 'Scenic waterfalls and natural pools perfect for swimming.' },
-  { name: 'Kratie Riverside', description: 'Peaceful riverbanks lined with cafes and local markets.' },
-])
-
-const thingsToDo = ref([
-  'Take a boat tour to spot Irrawaddy dolphins.',
-  'Visit the Kampi waterfalls for a refreshing swim.',
-  'Explore local markets and enjoy Khmer cuisine.',
-  'Bike through rural villages and experience local life.',
-])
-
-const travelTips = ref([
-  'Best visited during the dry season from November to April.',
-  'Bring binoculars for dolphin watching.',
-  'Cash is preferred as card facilities are limited.',
-  'Respect local customs and dress modestly when visiting temples.',
-])
-
-const galleryPhotos = ref([
-  {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/3/3d/Kratie_riverfront_Cambodia_2010.jpg',
-    alt: 'Kratie Riverside',
-  },
-  {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/f/fb/Kampi_Waterfalls.jpg',
-    alt: 'Kampi Waterfalls',
-  },
-  {
-    src: 'https://upload.wikimedia.org/wikipedia/commons/8/89/Irrawaddy_dolphins_in_Kratie_2016.jpg',
-    alt: 'Irrawaddy Dolphins',
-  },
-])
+const galleryPhotos = [
+  'https://media-cdn.tripadvisor.com/media/photo-s/01/25/f9/f4/mekong-river.jpg',
+  'https://angkorfocus.com/userfiles/attraction-Kratie%20Introduction%203.jpg',
+  'https://travelsetu.com/apps/uploads/new_destinations_photos/destination/2024/06/28/4d8fd718f8b2913fe2b0aed2319082e6_1000x1000.jpg',
+  'https://static.information.gov.kh/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNnFYQlE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--2d56f9baddb498bfc92344d50467500034fe8092/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCam9MY21WemFYcGxTU0lNT1RBd2VEWXdNQVk2QmtWVSIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--70cbddbba2e46c7ca8ac0c1f8b8316d88752e16d/DJI_0020-1024x683.jpg'
+]
 </script>
 
 <style scoped>
-/* Add any scoped styles here if needed */
+body {
+  font-family: 'Poppins', sans-serif;
+}
 </style>

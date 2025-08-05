@@ -4,6 +4,7 @@
       Your Flight Booking History
     </h1>
 
+    <!-- Top Buttons -->
     <div class="flex justify-end mb-6 gap-4">
       <router-link
         to="FlightReservation"
@@ -13,6 +14,7 @@
       </router-link>
     </div>
 
+    <!-- Filter Section -->
     <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-5 p-5 bg-gradient-to-r from-purple-100 to-white border border-blue-100 rounded-lg shadow-sm">
       <div class="w-full lg:w-1/2">
         <input
@@ -36,23 +38,17 @@
       </div>
     </div>
 
-    <div v-if="loading" class="text-center text-gray-600 animate-pulse">
-      Loading your bookings...
-    </div>
+    <!-- Loading and Error Messages -->
+    <div v-if="loading" class="text-center text-gray-600 animate-pulse">Loading your bookings...</div>
+    <div v-if="error" class="text-center text-red-600 font-medium mb-4">{{ error }}</div>
 
-    <div v-if="error" class="text-center text-red-600 font-medium mb-4">
-      {{ error }}
-    </div>
-
-    <!-- Success Message for cancel -->
+    <!-- Success Messages -->
     <div
       v-if="successMessage"
       class="mb-4 text-green-700 bg-green-100 border border-green-300 rounded-lg p-4 shadow-sm transition-all"
     >
       {{ successMessage }}
     </div>
-
-    <!-- Success Message for booking created -->
     <div
       v-if="bookingSuccessMessage"
       class="mb-4 text-blue-700 bg-blue-100 border border-blue-300 rounded-lg p-4 shadow-sm transition-all"
@@ -60,6 +56,7 @@
       {{ bookingSuccessMessage }}
     </div>
 
+    <!-- Table -->
     <div v-if="filteredBookings.length === 0 && !loading" class="text-center text-gray-500 italic">
       No bookings found.
     </div>
@@ -77,6 +74,7 @@
             <th class="py-3 px-5 border-b">Passengers</th>
             <th class="py-3 px-5 border-b">Name</th>
             <th class="py-3 px-5 border-b">Email</th>
+            <th class="py-3 px-5 border-b">Price ($)</th> <!-- ✅ NEW -->
             <th class="py-3 px-5 border-b">Status</th>
             <th class="py-3 px-5 border-b">Action</th>
           </tr>
@@ -96,6 +94,7 @@
             <td class="py-3 px-5 border-b">{{ booking.passengers }}</td>
             <td class="py-3 px-5 border-b">{{ booking.passengerName }}</td>
             <td class="py-3 px-5 border-b">{{ booking.email }}</td>
+            <td class="py-3 px-5 border-b">${{ Number(booking.price).toFixed(2) }}</td> <!-- ✅ NEW -->
             <td class="py-3 px-5 border-b">
               <span
                 :class="statusBadgeClass(booking.status)"
@@ -124,13 +123,18 @@
       </table>
     </div>
 
-   <div v-if="totalPages > 1" class="mt-6 flex flex-col items-center gap-2">
+    <!-- Pagination -->
+    <div v-if="totalPages > 1" class="mt-6 flex flex-col items-center gap-2">
       <div class="flex gap-2 flex-wrap justify-center">
         <button
           v-for="page in getPaginationRange"
           :key="page"
           @click="typeof page === 'number' && goToPage(page)"
-          :class="[ 'w-9 h-9 flex items-center justify-center rounded-full text-sm font-medium transition', page === currentPage ? 'bg-purple-600 text-white' : 'text-gray-800 hover:bg-gray-200', page === '...' ? 'cursor-default text-gray-400' : 'cursor-pointer' ]"
+          :class="[
+            'w-9 h-9 flex items-center justify-center rounded-full text-sm font-medium transition',
+            page === currentPage ? 'bg-purple-600 text-white' : 'text-gray-800 hover:bg-gray-200',
+            page === '...' ? 'cursor-default text-gray-400' : 'cursor-pointer'
+          ]"
           :disabled="page === '...'"
         >
           {{ page }}
@@ -146,24 +150,39 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, watch } from 'vue'
 import axios from 'axios'
+import { useAuth } from '@/stores/useAuth' // adjust the path accordingly
+
+const { userProfile, isLoggedIn } = useAuth()
 
 const bookings = ref([])
 const loading = ref(false)
 const error = ref(null)
-const successMessage = ref('')        // Cancel success
-const bookingSuccessMessage = ref('') // Booking created success
+const successMessage = ref('')
+const bookingSuccessMessage = ref('')
 const searchQuery = ref('')
 const itemsPerPage = ref(10)
 const currentPage = ref(1)
 
+// Fetch only bookings belonging to the current logged-in user
 const fetchBookingHistory = async () => {
+  if (!isLoggedIn.value) {
+    bookings.value = []
+    error.value = 'Please login to see your booking history.'
+    return
+  }
+
   loading.value = true
   error.value = null
+
   try {
+    // Option 1: If your backend supports filtering by UserId (recommended):
+    // const res = await axios.get(`http://localhost:5000/api/flightbookings?userId=${userProfile.value.id}`)
+
+    // Option 2: Fetch all and filter locally (fallback):
     const res = await axios.get('http://localhost:5000/api/flightbookings')
-    bookings.value = res.data
+    bookings.value = res.data.filter(b => b.UserId === userProfile.value.id)
   } catch (err) {
     error.value = err.response?.data?.message || 'Failed to load booking history'
     bookings.value = []
@@ -238,7 +257,6 @@ const getPaginationRange = computed(() => {
   return range
 })
 
-// Cancel booking and show cancel success message
 const confirmCancel = async (id) => {
   if (!confirm('Are you sure you want to cancel this booking?')) return
   try {
@@ -253,7 +271,6 @@ const confirmCancel = async (id) => {
   }
 }
 
-// Call this function to show booking created success message
 const showBookingSuccess = () => {
   bookingSuccessMessage.value = '🎉 Booking confirmed successfully.'
   setTimeout(() => {
@@ -261,5 +278,11 @@ const showBookingSuccess = () => {
   }, 3000)
 }
 
+// Refetch bookings whenever user changes (e.g. login/logout)
+watch(userProfile, () => {
+  fetchBookingHistory()
+})
+
+// Initial fetch on mount
 onMounted(fetchBookingHistory)
 </script>

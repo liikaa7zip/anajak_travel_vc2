@@ -16,8 +16,8 @@ exports.verifyToken = (req, res, next) => {
 };
 
 exports.verifyAdmin = (req, res, next) => {
-  if (req.user?.role !== 'admin') {
-    return res.status(403).json({ message: 'Access denied, admin only' });
-  }
+ if (req.user.role !== 'admin' && req.user.role !== 'restaurant_owner'&& req.user.role !== 'hotel_owner' ) {
+  return res.sendStatus(403)
+}
   next();
 };

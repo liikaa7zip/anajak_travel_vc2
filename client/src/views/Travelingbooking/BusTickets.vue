@@ -6,6 +6,7 @@
 
     <!-- Booking Form -->
     <form @submit.prevent="submitBooking" class="grid gap-5">
+      <!-- From -->
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-1">From</label>
         <input
@@ -17,6 +18,7 @@
         />
       </div>
 
+      <!-- To -->
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-1">To</label>
         <input
@@ -28,17 +30,25 @@
         />
       </div>
 
-      <div>
+      <!-- Transport Type -->
+      <div class="relative">
         <label class="block text-sm font-medium text-gray-700 mb-1">Transport Type</label>
         <select
           v-model="form.type"
+          @change="updatePrice"
           class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
+          required
         >
+          <option disabled value="">Select a transport type</option>
           <option value="bus">Bus</option>
           <option value="private_car">Private Car</option>
         </select>
+        <p class="mt-1 text-sm text-purple-600 bg-purple-50 px-3 py-1 rounded-lg inline-block shadow-sm">
+          Ticket Price: <span class="font-semibold">${{ form.price }}</span>
+        </p>
       </div>
 
+      <!-- Date -->
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-1">Date</label>
         <input
@@ -49,6 +59,7 @@
         />
       </div>
 
+      <!-- Email -->
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
         <input
@@ -57,9 +68,12 @@
           required
           placeholder="Enter your email"
           class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
+          :readonly="isLoggedIn"
+          title="Email auto-filled from your account"
         />
       </div>
 
+      <!-- Submit -->
       <button
         type="submit"
         class="bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition duration-200 font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
@@ -69,16 +83,14 @@
       </button>
     </form>
 
-    <!-- Confirmation Message Modal -->
+    <!-- Confirmation Modal -->
     <div
       v-if="showPreConfirmationModal"
-      class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50 transition-opacity duration-300 ease-out"
-      :class="{ 'opacity-100': showPreConfirmationModal, 'opacity-0': !showPreConfirmationModal }"
+      class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50 transition-opacity duration-300"
       @click.self="cancelBookingPreConfirmation"
     >
       <div
-        class="bg-white rounded-2xl shadow-xl max-w-sm w-full p-6 relative transform scale-95 transition-transform duration-300 ease-out"
-        :class="{ 'scale-100': showPreConfirmationModal }"
+        class="bg-white rounded-2xl shadow-xl max-w-sm w-full p-6 relative transform transition-transform duration-300 scale-100"
         role="alertdialog"
         aria-modal="true"
       >
@@ -166,7 +178,7 @@
       </router-link>
     </div>
 
-    <!-- Go to Bustickets Page -->
+    <!-- Explore More -->
     <div class="mt-4 text-center">
       <router-link
         to="/Bustickets"
@@ -179,54 +191,92 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
+import { useAuth } from '@/stores/useAuth' // Adjust path to your composable
 
 const router = useRouter()
+const { userProfile, isLoggedIn, initAuth } = useAuth()
+
+// Transport type prices
+const priceMap = {
+  bus: 10,
+  private_car: 30,
+}
 
 const form = ref({
   depart: '',
   arrive: '',
-  type: 'bus',
+  type: '',
   date: '',
-  email: ''
+  email: '',
+  price: 0,
+  UserId: null, // Set dynamically from auth
 })
 
-const confirmation = ref('')
 const showPreConfirmationModal = ref(false)
 const loading = ref(false)
+const confirmation = ref('')
+const isError = ref(false)
 
-const proceedBooking = async () => {
-  loading.value = true
-  showPreConfirmationModal.value = false
-
-  try {
-    await axios.post('http://localhost:5000/api/bookings', form.value)
-
-    confirmation.value = `✅ Booking successfully completed from ${form.value.depart} to ${form.value.arrive} on ${form.value.date}. Details have been sent to ${form.value.email}.`
-
-    router.push({
-      name: 'BookingConfirmation',
-      query: {
-        ...form.value,
-        price: 12.5
-      }
-    })
-  } catch (error) {
-    confirmation.value = '❌ Booking failed. Please check your details and try again.'
-    console.error('Booking error:', error.response ? error.response.data : error.message)
-  } finally {
-    loading.value = false
-  }
+const updatePrice = () => {
+  form.value.price = priceMap[form.value.type] || 0
 }
 
 const submitBooking = () => {
   showPreConfirmationModal.value = true
 }
 
+const proceedBooking = async () => {
+  loading.value = true
+  showPreConfirmationModal.value = false
+  isError.value = false
+
+  // Set UserId from logged-in user
+  form.value.UserId = userProfile.value?.id || null
+
+  if (!form.value.UserId) {
+    isError.value = true
+    confirmation.value = '⚠️ You must be logged in to book tickets.'
+    loading.value = false
+    return
+  }
+
+  try {
+    await axios.post('http://localhost:5000/api/bookings', form.value)
+    confirmation.value = `✅ Booking from ${form.value.depart} to ${form.value.arrive} confirmed on ${form.value.date}.`
+
+    // Redirect to a confirmation page or clear form
+    router.push({ name: 'BookingConfirmation', query: { ...form.value } })
+  } catch (error) {
+    isError.value = true
+    confirmation.value = error.response?.data?.message || 'Something went wrong.'
+    console.error('Booking error:', error)
+  } finally {
+    loading.value = false
+  }
+}
+
 const cancelBookingPreConfirmation = () => {
   showPreConfirmationModal.value = false
   confirmation.value = '🚫 Booking was cancelled by user.'
+  isError.value = true
 }
+
+onMounted(async () => {
+  await initAuth()
+  if (isLoggedIn.value && userProfile.value.email) {
+    form.value.email = userProfile.value.email
+    form.value.UserId = userProfile.value.id
+  }
+})
+
+// Update form email and UserId if user profile changes dynamically
+watch(userProfile, (newUser) => {
+  if (newUser?.email) {
+    form.value.email = newUser.email
+    form.value.UserId = newUser.id
+  }
+})
 </script>

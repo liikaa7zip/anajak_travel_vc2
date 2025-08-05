@@ -32,7 +32,13 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Hotel.associate = (models) => {
-    Hotel.belongsTo(models.Location, { foreignKey: 'locationId' });
+
+    Hotel.belongsTo(models.Location, {
+      foreignKey: 'locationId',
+      as: 'location',
+      onDelete: 'CASCADE'
+    });
+
   };
 
   return Hotel;

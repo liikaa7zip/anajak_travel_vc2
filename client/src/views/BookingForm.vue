@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-xl mx-auto p-6 bg-white shadow rounded-lg">
+  <div class="max-w-xl mx-auto mt-10 p-6 bg-white shadow rounded-lg">
     <h2 class="text-2xl font-bold mb-4">Hotel Booking</h2>
 
     <form @submit.prevent="submitBooking">
@@ -33,7 +33,7 @@
         <input type="number" :value="form.totalPrice.toFixed(2)" readonly class="w-full border bg-gray-100 rounded px-3 py-2" />
       </div>
 
-      <button type="submit" class="bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700">
+      <button type="submit" class="bg-purple-600 text-white px-5 py-2 rounded hover:bg-purple-700">
         Book Now
       </button>
     </form>

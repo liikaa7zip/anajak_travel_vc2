@@ -1,10 +1,10 @@
 <template>
-  <div :class="darkMode ? 'bg-gray-900 text-gray-100' : ' text-indigo-900'" class="min-h-screen transition-colors duration-700 p-6 space-y-20 font-sans">
+  <div :class="darkMode ? 'bg-gray-900 text-gray-100' : ' text-indigo-900'" class="min-h-screen transition-colors  font-sans">
 
     <!-- Hero with Dynamic Stats -->
  <section
-  class="relative min-h-[600px] p-14 text-center overflow-hidden text-white rounded-lg shadow-lg bg-cover bg-center"
-  style="background-image: url('https://images.unsplash.com/photo-1490735891913-40897cdaafd1?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c3Vuc2V0JTIwYmFja2dyb3VuZHxlbnwwfHwwfHx8MA%3D%3D');"
+  class="relative min-h-[600px] p-14 text-center overflow-hidden text-white  shadow-lg bg-cover bg-center"
+  style="background-image: url('https://i.natgeofe.com/n/fdbadebb-1db9-41a9-9ac6-e7ee41f199aa/ta-prohm-siem-reap-cambodia.jpg');"
 >
   <!-- Optional: dark overlay for readability -->
   <div class="absolute inset-0 bg-black bg-opacity-50 -z-10"></div>
@@ -45,7 +45,7 @@
     <!-- Featured Stories with author and reading time -->
     <section class="max-w-7xl mx-auto px-4">
       <h2
-        class="text-4xl font-bold mb-8 text-gray-700 border-b-4 border-pink-300 inline-block pb-3"
+        class="text-4xl font-bold mt-12  mb-8 text-gray-700 border-b-4 border-pink-300 inline-block pb-3"
       >
         Featured Stories
       </h2>
@@ -62,8 +62,8 @@
             class="w-full h-56 object-cover"
           />
           <div class="p-6">
-            <div class="flex items-center space-x-3 mb-3 text-sm text-purple-600 dark:text-white-300 font-semibold">
-              <span class="bg-indigo-200 dark:bg-purple-400 rounded-full px-3 py-1 uppercase tracking-wide">{{ post.category || 'Travel' }}</span>
+            <div class="flex items-center space-x-3 mb-3 text-sm text-pink-600 dark:text-white-300 font-semibold">
+              <span class="bg-indigo-200 dark:bg-pink-400 rounded-full px-3 py-1 uppercase tracking-wide">{{ post.category || 'Travel' }}</span>
               <span>By {{ post.author || 'Admin' }}</span>
               <time>{{ post.date || 'Aug 2025' }}</time>
               <span>• {{ post.readingTime || 5 }} min read</span>
@@ -77,7 +77,7 @@
             </p>
             <button
               @click="bookmarkPost(post.id)"
-              class="mr-3 px-3 py-1 rounded bg-pink-600 text-white hover:bg-pink-700 transition"
+              class="mr-3 px-3 py-1 rounded bg-purple-600 text-white hover:bg-purple-700 transition"
             >
               ⭐ Bookmark
             </button>
@@ -96,7 +96,7 @@
 
     <!-- Travel Guides with expandable summaries -->
     <section class="max-w-5xl mx-auto px-4">
-      <h2 class="text-4xl font-bold mb-8 border-b-4 text-gray-700 border-pink-300 inline-block pb-3">
+      <h2 class="text-4xl font-bold mb-8 mt-10 border-b-4 text-gray-700 border-pink-300 inline-block pb-3">
         Travel Guides & Tips
       </h2>
       <ul class="space-y-10">
@@ -119,7 +119,7 @@
             <span
               v-for="tag in guide.tags"
               :key="tag"
-              class="inline-block bg-gradient-to-tr from-indigo-400 to-indigo-600 text-yellow-200 rounded-full px-4 py-1 text-sm font-semibold"
+              class="inline-block bg-gradient-to-tr from-purple-400 to-purple-600 text-yellow-200 rounded-full px-4 py-1 text-sm font-semibold"
             >
               {{ tag }}
             </span>
@@ -134,7 +134,7 @@
     <!-- Popular Destinations Section -->
     <section class="max-w-7xl mx-auto px-4">
       <h2
-        class="text-4xl text-gray-700 font-bold mb-8 border-b-4 border-pink-300 inline-block pb-3"
+        class="text-4xl text-gray-700 font-bold mb-8 mt-10 border-b-4 border-pink-300 inline-block pb-3"
       >
         Popular Destinations
       </h2>
@@ -146,7 +146,7 @@
             <p class="text-sm mb-3 line-clamp-3">{{ dest.description }}</p>
             <button
               @click="goToDestination(dest.id)"
-              class="bg-indigo-600 dark:bg-pink-400 text-white dark:text-white-900 px-4 py-2 rounded hover:bg-pink-700 dark:hover:bg-white-500 transition"
+              class="bg-indigo-600 dark:bg-purple-600 text-white dark:text-white-900 px-4 py-2 rounded hover:bg-purple-700 dark:hover:bg-white-500 transition"
             >
               Explore →
             </button>
@@ -157,7 +157,7 @@
 
     <!-- Gallery with captions -->
     <section>
-      <h2 class="text-4xl font-bold mb-6 border-b text-gray-700 border-pink-300 pb-2">Travel Photo Gallery</h2>
+      <h2 class="text-4xl font-bold mb-6 ml-10 mt-10 border-b text-gray-700 border-pink-300 pb-2">Travel Photo Gallery</h2>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-6xl mx-auto">
         <div
           v-for="photo in galleryPhotos"
@@ -185,7 +185,7 @@
 
     <!-- Newsletter with interests -->
     <section
-      class="bg-purple-100 rounded-lg p-12 text-center text-gray-600 max-w-xl mx-auto shadow-lg"
+      class="bg-purple-100 rounded-lg mt-10 p-12 text-center text-gray-600 max-w-xl mx-auto shadow-lg"
     >
       <h3 class="text-3xl font-bold mb-6">Subscribe to our newsletter</h3>
       <p class="mb-4 italic">Join {{ subscriberCount }}+ travelers for exclusive tips!</p>
@@ -199,12 +199,12 @@
             type="email"
             placeholder="Your email address"
             required
-            class="rounded-full px-6 py-4 text-indigo-900 w-full focus:outline-none focus:ring-4 focus:ring-pink-400"
+            class="rounded-full px-6 py-4 text-indigo-900 w-full focus:outline-none focus:ring-4 focus:ring-purple-400"
           />
         </div>
         <button
           type="submit"
-          class="bg-pink-400 text-indigo-900 px-8 py-4 rounded-full font-semibold hover:bg-pink-300 shadow-lg transition transform hover:-translate-y-1"
+          class="bg-purple-600 text-white px-8 py-4 rounded-full font-semibold hover:bg-purple-300 shadow-lg transition transform hover:-translate-y-1"
         >
           Subscribe
         </button>
