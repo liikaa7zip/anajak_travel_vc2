@@ -3,7 +3,7 @@
     <!-- Hero Section -->
     <section class="relative w-full h-80 sm:h-96">
       <img
-        src="https://www.viajeacamboya.com/wp-content/uploads/kratie-camboya.jpg"
+        src="https://aicdn.picsart.com/94db8fd0-3b7e-4f1c-90fe-7c1d9f60fb3e.png"
         alt="Kratie"
         class="w-full h-full object-cover rounded-b-md"
       />
@@ -21,7 +21,7 @@
         <div class="max-w-xl">
           <h2 class="text-2xl font-semibold mb-2 text-purple-600">About Kratie</h2>
           <p class="text-sm text-gray-700">
-            Kratie is a charming riverside province in northeastern Cambodia along the Mekong River. It's best known for being one of the few places in the world to spot the rare Irrawaddy dolphins. The town itself has a relaxed vibe, with French colonial architecture and access to nearby natural wonders and villages.
+            Kratie is a picturesque province located along the Mekong River in northeastern Cambodia. Known for its endangered Irrawaddy dolphins, peaceful riverside town, and colonial architecture, Kratie is a favorite stop for eco-tourists and travelers seeking authentic, off-the-beaten-path experiences. With lush countryside, floating villages, and river islands, Kratie offers a perfect blend of nature, wildlife, and local culture.
           </p>
         </div>
         <img
@@ -79,10 +79,9 @@
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15693.486786801852!2d106.01108041776134!3d12.48874370015927!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311d8c33a8b2ed75%3A0xd18b1ff8aeaa4e62!2sKratie!5e0!3m2!1sen!2skh!4v1710000000004"
           width="100%" height="200" class="rounded shadow h-60" allowfullscreen loading="lazy"
         ></iframe>
-        <img 
-          src="https://www.asialifemagazine.com/cambodia/wp-content/uploads/sites/3/2022/03/Kratie-Riverfront.jpg" 
-          class="w-full h-60 object-cover rounded shadow" 
-          alt="Kratie River" 
+        <img
+          src="https://genk.mediacdn.vn/139269124445442048/2024/8/13/google-maps-thuong-khong-chi-ngan-nhat-ma-chon-duong-vong-ly-do-vi-sao-00145298-1723531172398-17235311731771829575075-1723533715727-17235337161941703107124.png"
+          class="w-full h-60" alt="Map Pin"
         />
       </div>
     </section>
@@ -91,17 +90,17 @@
 
 <script setup>
 const topAttractions = [
-  { name: 'Irrawaddy Dolphins', img: 'https://www.movetocambodia.com/wp-content/uploads/2022/11/kratie-dolphins.jpg' },
-  { name: 'Koh Trong Island', img: 'https://images.squarespace-cdn.com/content/v1/5c84be7694d71a74f67eb60f/1577007935542-HX8PR1YW9U5KJ49NLIOF/kratie+cambodia+island' },
-  { name: 'Phnom Sombok', img: 'https://cambodiatravel.com/wp-content/uploads/2019/07/Phnom-Sambok-Kratie.jpg' },
-  { name: 'Mekong River Sunset', img: 'https://www.travelcambodiaonline.com/images/kratie/kratie-cambodia.jpg' }
+  { name: 'Irrawaddy Dolphins', img: 'https://flcchn.com/wp-content/uploads/2023/01/irrawaddy-dolphin-wwf-cambodia-compressed.jpg' },
+  { name: 'Koh Trong Island', img: 'https://cambodia-travelpartner.com/wp-content/uploads/2025/02/Koh-Trong-island-biirdview-lr.png' },
+  { name: 'Phnom Sombok', img: 'https://angkorfocus.com/userfiles/attraction-Wat%20Phnom%20Sam%20Bok%20Resort.jpg' },
+  { name: 'Mekong River Sunset', img: 'https://media.istockphoto.com/id/1364223919/photo/sunset-on-the-mekong-river-in-cambodia.jpg?s=612x612&w=0&k=20&c=zhM_o8J0NIkVGtidrxdQxqF_14On3sL_Usn5VZ9WT9M=' }
 ]
 
 const galleryPhotos = [
-  'https://theculturetrip.com/wp-content/uploads/2022/02/kratie-cambodia.jpg',
-  'https://blog.chasingplaces.com/wp-content/uploads/2016/01/Sunset-over-the-Mekong-in-Kratie-Cambodia.jpg',
-  'https://www.orientalarchitecture.com/gallery/cambodia/kratie/photos/kratie01.jpg',
-  'https://live.staticflickr.com/5070/5667657806_00e5bc315b_b.jpg'
+  'https://media-cdn.tripadvisor.com/media/photo-s/01/25/f9/f4/mekong-river.jpg',
+  'https://angkorfocus.com/userfiles/attraction-Kratie%20Introduction%203.jpg',
+  'https://travelsetu.com/apps/uploads/new_destinations_photos/destination/2024/06/28/4d8fd718f8b2913fe2b0aed2319082e6_1000x1000.jpg',
+  'https://static.information.gov.kh/rails/active_storage/representations/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBNnFYQlE9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--2d56f9baddb498bfc92344d50467500034fe8092/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCam9MY21WemFYcGxTU0lNT1RBd2VEWXdNQVk2QmtWVSIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--70cbddbba2e46c7ca8ac0c1f8b8316d88752e16d/DJI_0020-1024x683.jpg'
 ]
 </script>
 

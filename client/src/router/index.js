@@ -65,6 +65,8 @@ import TbongKhmum from '../views/provinces/TbongKhmum.vue'
 import KampongSpeu from '../views/provinces/KampongSpeu.vue'
 import PreyVeng from '../views/provinces/PreyVeng.vue'
 
+
+
 import BookingHistory from '@/views/BookingHistory.vue'
 import BookBoatPage from '@/views/BookBoatPage.vue'
 import BookingboatHistory from '@/views/BookingboatHistory.vue'
@@ -125,6 +127,7 @@ import UserPlan from '@/views/UserPlan.vue'
 import AdminHotelBooking from '@/views/admin/AdminHotelBooking.vue'
 import AdminFlightBooking from '@/views/admin/AdminFlightBooking.vue'
 import AdminBoatBooking from '@/views/admin/AdminBoatBooking.vue'
+import AdminBusBooking from '@/views/admin/AdminBusBooking.vue'
 // Auth guard
 
 const getUserFromStorage = () => {
@@ -202,6 +205,12 @@ const routes = [
       { path: 'guide/tbong-khmum', name: 'TbongKhmum', component: TbongKhmum },
       { path: 'guide/kampong-speu', name: 'KampongSpeu', component: KampongSpeu },
       { path: 'guide/prey-veng', name: 'PreyVeng', component: PreyVeng },
+
+      //link to bus tickets with province name
+      { path: 'guide/:province/BusTickets', name: 'ProvinceBusTickets', component: BusTickets, props: true },
+      { path: 'guide/:province/CarRental', name: 'ProvinceCarRental', component: CarRental, props: true },
+      { path: 'guide/:province/FlightReservation', name: 'ProvinceFlightReservation', component: FlightReservation, props: true },
+
       // Food routes
       { path: 'foods', component: FoodListView, name: 'FoodList' },
 
@@ -234,6 +243,7 @@ const routes = [
       { path: 'hotel', component: AdminHotelBooking },
       { path: 'flight', component: AdminFlightBooking },
       { path: 'boat', component: AdminBoatBooking },
+      { path: 'bus', component: AdminBusBooking},
     ]
   },
   {

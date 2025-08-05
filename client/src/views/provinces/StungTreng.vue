@@ -79,10 +79,9 @@
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3937.615853732586!2d105.56318741579908!3d13.524648691417864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311e7ff3f4b71eab%3A0x1a4e7bbf3e2b3d9f!2sStung%20Treng%20Province!5e0!3m2!1sen!2skh!4v1710000000027"
           width="100%" height="200" class="rounded shadow h-60" allowfullscreen loading="lazy"
         ></iframe>
-        <img 
-          src="https://upload.wikimedia.org/wikipedia/commons/4/48/Stung_Treng_Cambodia_01.jpg" 
-          class="w-full h-60 object-cover rounded shadow" 
-          alt="Stung Treng Nature" 
+        <img
+          src="https://genk.mediacdn.vn/139269124445442048/2024/8/13/google-maps-thuong-khong-chi-ngan-nhat-ma-chon-duong-vong-ly-do-vi-sao-00145298-1723531172398-17235311731771829575075-1723533715727-17235337161941703107124.png"
+          class="w-full h-60" alt="Map Pin"
         />
       </div>
     </section>

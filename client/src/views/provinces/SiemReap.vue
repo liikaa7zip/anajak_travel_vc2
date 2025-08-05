@@ -25,7 +25,7 @@
           </p>
         </div>
         <img
-          src="https://sdmntprwestus.oaiusercontent.com/files/00000000-9258-6230-9fa0-fb649e3accf3/raw?se=2025-07-31T09%3A19%3A37Z&sp=r&sv=2024-08-04&sr=b&scid=cee10f8a-35d9-5a1e-a9f7-ea06946f25e3&skoid=61180a4f-34a9-42b7-b76d-9ca47d89946d&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-07-30T22%3A56%3A01Z&ske=2025-07-31T22%3A56%3A01Z&sks=b&skv=2024-08-04&sig=cHUAcNZZaY1CASUFrFmUlzIzw3sxVjpfCSZIPtpRuBs%3D"
+          src="https://sdmntprcentralus.oaiusercontent.com/files/00000000-55b8-61f5-8b4f-778e0b541053/raw?se=2025-08-04T03%3A13%3A39Z&sp=r&sv=2024-08-04&sr=b&scid=4183807d-3f45-5525-93f2-5dd3eda6e55c&skoid=71e8fa5c-90a9-4c17-827b-14c3005164d6&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-08-04T01%3A39%3A36Z&ske=2025-08-05T01%3A39%3A36Z&sks=b&skv=2024-08-04&sig=SKQ7FRoV4dRN71sGN4ABu6JYh9cyURHTM9%2BDbJCatVU%3D"
           alt="Siem Reap Map"
           class="w-80 h-60 shadow rounded"
         />

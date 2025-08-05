@@ -3,7 +3,7 @@
     <!-- Hero Section -->
     <section class="relative w-full h-80 sm:h-96">
       <img
-        src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Koh_Kong_Cambodia_03.jpg"
+        src="https://i0.wp.com/www.cambodialifestyle.com/wp-content/uploads/2024/04/Koh-Kong3.jpg?fit=1024%2C722&ssl=1"
         alt="Koh Kong"
         class="w-full h-full object-cover rounded-b-md"
       />
@@ -80,9 +80,9 @@
           width="100%" height="200" class="rounded shadow h-60" allowfullscreen loading="lazy"
         ></iframe>
         <img 
-          src="https://www.tourismcambodia.com/uploads/photos/24/24c785_8a8f63a2f75f4e24ab4e97f369d3e0a7_mv2.webp" 
+          src="https://genk.mediacdn.vn/139269124445442048/2024/8/13/google-maps-thuong-khong-chi-ngan-nhat-ma-chon-duong-vong-ly-do-vi-sao-00145298-1723531172398-17235311731771829575075-1723533715727-17235337161941703107124.png" 
           class="w-full h-60 object-cover rounded shadow" 
-          alt="Koh Kong Nature" 
+          alt="Map View" 
         />
       </div>
     </section>
@@ -91,17 +91,17 @@
 
 <script setup>
 const topAttractions = [
-  { name: 'Cardamom Mountains', img: 'https://upload.wikimedia.org/wikipedia/commons/d/d7/Cardamom_Mountains_Cambodia.jpg' },
-  { name: 'Koh Kong Beaches', img: 'https://www.tourismcambodia.com/uploads/photos/24/24c785_8a8f63a2f75f4e24ab4e97f369d3e0a7_mv2.webp' },
-  { name: 'Tatai Waterfalls', img: 'https://media.tourismcambodia.org/Waterfall_Tatai_03.jpg' },
-  { name: 'Koh Kong Islands', img: 'https://media.tourismcambodia.org/koh_kong_islands.jpg' }
+  { name: 'Cardamom Mountains', img: 'https://api.asiavivatravel.com/wp-content/uploads/2024/12/Visiting-Cardamom-Mountains-768x511.jpg' },
+  { name: 'Koh Kong Beaches', img: 'https://travelsetu.com/apps/uploads/new_destinations_photos/destination/2024/06/28/8c4057c240baa1896cfdf8c85a58899a_1000x1000.jpg' },
+  { name: 'Tatai Waterfalls', img: 'https://www.asiakingtravel.com/cuploads/files/Tatai-waterfall-2.jpg' },
+  { name: 'Koh Kong Islands', img: 'https://img1.wsimg.com/isteam/ip/4f643cb8-c431-452f-87d9-04a44f5ff07e/9be8aa51cfaea6cfb0680ac21a73d0bd-6f9f769.jpg/:/cr=t:0%25,l:12.59%25,w:74.81%25,h:100%25/rs=w:400,h:300.7518796992481,cg:true' }
 ]
 
 const galleryPhotos = [
-  'https://upload.wikimedia.org/wikipedia/commons/d/d7/Cardamom_Mountains_Cambodia.jpg',
-  'https://www.tourismcambodia.com/uploads/photos/24/24c785_8a8f63a2f75f4e24ab4e97f369d3e0a7_mv2.webp',
-  'https://media.tourismcambodia.org/Waterfall_Tatai_03.jpg',
-  'https://media.tourismcambodia.org/koh_kong_islands.jpg'
+  'https://www.shutterstock.com/image-photo/traditional-floating-village-on-koh-260nw-1648267441.jpg',
+  'https://angkorfocus.com/userfiles/attraction-Mangrove%20Forest%20Koh%20Kong%203.jpg',
+  'https://i0.wp.com/www.cambodialifestyle.com/wp-content/uploads/2024/04/Koh-Kong6.jpg?fit=1024%2C539&ssl=1',
+  'https://cache2.travelfish.org/b/assets/2015/gallery/thumbR/gallery_location_thumbR_409_1448195298.jpg'
 ]
 </script>
 

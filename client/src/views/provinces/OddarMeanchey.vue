@@ -9,7 +9,7 @@
       />
       <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center px-6">
         <h1 class="text-white text-3xl sm:text-4xl font-bold">
-          📍 Oddar Meanchey <br />
+          <i class="fa-notdog fa-solid fa-location-dot"></i>Oddar Meanchey <br />
           <span class="text-xl">Province</span>
         </h1>
       </div>
@@ -38,7 +38,7 @@
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div v-for="(attraction, index) in topAttractions" :key="index" class="bg-white rounded shadow overflow-hidden">
           <img :src="attraction.img" alt="" class="w-full h-24 object-cover" />
-          <p class="p-2 text-sm font-medium">{{ attraction.name }}</p>
+          <p class="p-2 text-sm font-medium text-center">{{ attraction.name }}</p>
         </div>
       </div>
     </section>
@@ -74,19 +74,15 @@
     <!-- Province Map -->
     <section class="pt-12 pb-6 pr-16 pl-16">
       <h2 class="text-xl font-semibold mb-4">Province Map</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3819.1234567890123!2d103.5000!3d14.1167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a5f5f5f5f5f5f%3A0x9b1c2d3e4f5a6b7c!2sOddar%20Meanchey!5e0!3m2!1sen!2skh!4v1627180800000"
-          width="100%" height="200" class="rounded shadow" allowfullscreen loading="lazy"
+          width="100%" height="200" class="rounded shadow h-60" allowfullscreen loading="lazy"
         ></iframe>
-        <img src="https://img.icons8.com/color/96/marker--v1.png" class="w-16 h-16 self-center justify-self-center" alt="Map Pin" />
-        <div class="bg-white p-4 rounded shadow">
-          <h3 class="font-bold">Anajak Travel</h3>
-          <p class="text-sm text-gray-600">Discover Oddar Meanchey’s remote beauty.</p>
-          <div class="mt-2">
-            <button class="text-sm bg-black text-white px-3 py-1 rounded">Download App</button>
-          </div>
-        </div>
+        <img 
+          src="https://genk.mediacdn.vn/139269124445442048/2024/8/13/google-maps-thuong-khong-chi-ngan-nhat-ma-chon-duong-vong-ly-do-vi-sao-00145298-1723531172398-17235311731771829575075-1723533715727-17235337161941703107124.png" 
+          class="w-full h-60 " alt="Map Pin" 
+        />
       </div>
     </section>
   </div>

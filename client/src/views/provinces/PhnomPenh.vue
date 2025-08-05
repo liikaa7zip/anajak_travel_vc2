@@ -3,7 +3,7 @@
     <!-- Hero Section -->
     <section class="relative w-full h-80 sm:h-96">
       <img
-        src="https://cdn.tourismcambodia.org/uploads/2023/10/19/Phnom-Penh-City.jpg"
+        src="https://media.tacdn.com/media/attractions-splice-spp-674x446/09/52/73/75.jpg"
         alt="Phnom Penh"
         class="w-full h-full object-cover rounded-b-md"
       />
@@ -25,7 +25,7 @@
           </p>
         </div>
         <img
-          src="https://upload.wikimedia.org/wikipedia/commons/9/91/Cambodia_Phnom_Penh_locator_map.svg"
+          src="https://sdmntprsouthcentralus.oaiusercontent.com/files/00000000-ad70-61f7-8ed7-e7a149518360/raw?se=2025-08-04T03%3A14%3A35Z&sp=r&sv=2024-08-04&sr=b&scid=a3d77455-7415-55cd-83f9-a58fc3616a25&skoid=71e8fa5c-90a9-4c17-827b-14c3005164d6&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-08-04T02%3A13%3A51Z&ske=2025-08-05T02%3A13%3A51Z&sks=b&skv=2024-08-04&sig=1jneknAsDz9mAlsOfexH7/6LkBaEgsFVSeiTaxbMX7w%3D"
           alt="Phnom Penh Map"
           class="w-80 h-60 shadow rounded"
         />
@@ -80,7 +80,7 @@
           width="100%" height="200" class="rounded shadow h-60" allowfullscreen loading="lazy"
         ></iframe>
         <img 
-          src="https://i0.wp.com/www.movetocambodia.com/wp-content/uploads/2020/02/phnom-penh-skyline.jpg?fit=1024%2C576&ssl=1" 
+          src="https://genk.mediacdn.vn/139269124445442048/2024/8/13/google-maps-thuong-khong-chi-ngan-nhat-ma-chon-duong-vong-ly-do-vi-sao-00145298-1723531172398-17235311731771829575075-1723533715727-17235337161941703107124.png" 
           class="w-full h-60 object-cover rounded shadow" 
           alt="Map View" 
         />
@@ -91,17 +91,17 @@
 
 <script setup>
 const topAttractions = [
-  { name: 'Royal Palace', img: 'https://upload.wikimedia.org/wikipedia/commons/3/3d/Phnom_Penh_-_Royal_Palace.jpg' },
-  { name: 'Tuol Sleng Genocide Museum', img: 'https://media-cdn.tripadvisor.com/media/photo-s/17/89/18/88/tuol-sleng-genocide.jpg' },
-  { name: 'Wat Phnom', img: 'https://upload.wikimedia.org/wikipedia/commons/1/18/Wat_Phnom_Pagoda.jpg' },
-  { name: 'Central Market', img: 'https://cdn.getyourguide.com/img/tour/5c02db1e2e4c1.jpeg/145.jpg' }
+  { name: 'Royal Palace', img: 'https://i0.wp.com/www.cambodialifestyle.com/wp-content/uploads/2024/02/Royal-Palace.jpg' },
+  { name: 'Tuol Sleng Genocide Museum', img: 'https://mediaim.expedia.com/destination/1/9fabc9ca4b5a4e145b103739bec55b73.jpg' },
+  { name: 'Wat Phnom', img: 'https://gadttravel.com/uploads/cambodia/phnom-penh/Wat-Phnom.jpg' },
+  { name: 'Central Market', img: 'https://i.ytimg.com/vi/wBAPApAL97s/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCAlT_QYZM-bavd9epvDgZ0BWBovg' }
 ]
 
 const galleryPhotos = [
-  'https://www.vietnamplus.vn/media/uploaded/xsgy/2022/03/21/phnompenh.jpg',
-  'https://c1.wallpaperflare.com/preview/943/131/415/phnom-penh-cambodia-cityscape-mekong-river.jpg',
-  'https://travelhome.vn/uploads/news/2021_11/phnom-penh-travelhome-03.jpg',
-  'https://cdn.britannica.com/65/176565-050-BFA0E1D0/Night-view-riverside-Phnom-Penh-Cambodia.jpg'
+  'https://www.planetware.com/photos-large/CAM/cambodia-phnom-penh-national-museum.jpg',
+  'https://t4.ftcdn.net/jpg/02/96/36/55/360_F_296365523_9NsnHdkUAg5cTOBiuvi30iJbwSsFLJ1L.jpg',
+  'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2c/06/ea/36/caption.jpg?w=1200&h=-1&s=1',
+  'https://www.shutterstock.com/image-photo/tonle-sap-river-bank-modern-600w-2572087545.jpg'
 ]
 </script>
 

@@ -79,10 +79,9 @@
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.116340637763!2d105.22914627588628!3d11.484219989592417!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3107a6df6db5fef9%3A0xc0513431638e2575!2sPrey%20Veng%20Province!5e0!3m2!1sen!2skh!4v1710000000019"
           width="100%" height="200" class="rounded shadow h-60" allowfullscreen loading="lazy"
         ></iframe>
-        <img 
-          src="https://upload.wikimedia.org/wikipedia/commons/3/37/Prey_Veng_Rice_Field_-_Cambodia_-_2013.JPG" 
-          class="w-full h-60 object-cover rounded shadow" 
-          alt="Prey Veng Rice Fields" 
+        <img
+          src="https://genk.mediacdn.vn/139269124445442048/2024/8/13/google-maps-thuong-khong-chi-ngan-nhat-ma-chon-duong-vong-ly-do-vi-sao-00145298-1723531172398-17235311731771829575075-1723533715727-17235337161941703107124.png"
+          class="w-full h-60" alt="Map Pin"
         />
       </div>
     </section>
@@ -91,17 +90,17 @@
 
 <script setup>
 const topAttractions = [
-  { name: 'Wat Preah En Kauv', img: 'https://upload.wikimedia.org/wikipedia/commons/e/e8/Wat_Preah_En_Kauv_in_Prey_Veng.jpg' },
-  { name: 'Prey Veng Floating Village', img: 'https://live.staticflickr.com/65535/49401256236_06c1e47e91_b.jpg' },
-  { name: 'Local Market', img: 'https://www.cambodiadaily.com/wp-content/uploads/2018/02/prey-veng-cambodia-market.jpg' },
-  { name: 'Rice Fields', img: 'https://upload.wikimedia.org/wikipedia/commons/3/37/Prey_Veng_Rice_Field_-_Cambodia_-_2013.JPG' }
+  { name: 'Wat Preah En Kauv', img: 'https://www.angkor-temples-in-cambodia.com/uploads/3/0/0/4/30047791/wat-an-ko-sai-02_orig.jpg' },
+  { name: 'Prey Veng Floating Village', img: 'https://visitlocaltravel.com/blog/wp-content/uploads/2024/01/Kampong-Chhang-Floating-Village-3.png' },
+  { name: 'Local Market', img: 'https://i.ytimg.com/vi/Y8Ju-cAug2Q/maxresdefault.jpg' },
+  { name: 'Rice Fields', img: 'https://www.khmertimeskh.com/wp-content/uploads/2020/06/The-field-rice-at-Prey-Veng-Province-2.jpg' }
 ]
 
 const galleryPhotos = [
-  'https://www.cambodiadaily.com/wp-content/uploads/2018/02/prey-veng-cambodia.jpg',
-  'https://live.staticflickr.com/65535/49401256236_06c1e47e91_b.jpg',
-  'https://upload.wikimedia.org/wikipedia/commons/e/e8/Wat_Preah_En_Kauv_in_Prey_Veng.jpg',
-  'https://www.cambodiadaily.com/wp-content/uploads/2018/02/prey-veng-cambodia-market.jpg'
+  'https://media.istockphoto.com/id/675809600/photo/the-path-towards-to-neak-pean-temple-on-artificial-island-siem-reap-cambodia.jpg?s=612x612&w=0&k=20&c=CiGYdQO0s5biq5Mxma0YKyYYFjjxfYX-B3KsMMD8NpQ=',
+  'https://angkorfocus.com/userfiles/Where-to-stay-in-Prey-Veng.jpg',
+  'https://media.istockphoto.com/id/953984144/photo/neak-pean-is-an-artificial-island-with-a-buddhist-temple-on-a-circular-island-in-preah-khan.jpg?s=612x612&w=0&k=20&c=n0mPtyWEUFlq30YD8exCHPTdVWmUnSrxnI24ifr6zd8=',
+  'https://angkorfocus.com/userfiles/Prey-Veng-Introduction,-Cambodia-3.jpg'
 ]
 </script>
 
