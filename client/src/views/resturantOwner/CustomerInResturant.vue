@@ -100,6 +100,27 @@
         </div>
       </div>
     </div>
+
+    <!-- Edit User Modal -->
+    <div v-if="showEditModal" class="fixed inset-0 z-50 bg-black bg-opacity-40 flex items-center justify-center">
+      <div class="bg-white w-full max-w-md p-6 rounded-lg shadow-lg relative animate-fade-in">
+        <h3 class="text-xl font-semibold mb-4">✏️ Edit User</h3>
+
+        <label class="block mb-3">
+          <span class="text-sm text-gray-700">Username</span>
+          <input v-model="editForm.username" type="text" class="mt-1 w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+        </label>
+        <label class="block mb-3">
+          <span class="text-sm text-gray-700">Email</span>
+          <input v-model="editForm.email" type="email" class="mt-1 w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+        </label>
+
+        <div class="flex justify-end space-x-3">
+          <button @click="cancelEdit" class="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">Cancel</button>
+          <button @click="updateUser" class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">Update</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -112,10 +133,17 @@ export default {
     return {
       users: [],
       showAddModal: false,
+      showEditModal: false,
       newUser: {
         username: "",
         email: "",
         password: "",
+      },
+      editForm: {
+        id: null,
+        username: "",
+        email: "",
+        status: "active",
       },
       creating: false,
       loading: false,
@@ -205,6 +233,40 @@ export default {
       } finally {
         this.creating = false;
       }
+    },
+
+    editUser(user) {
+      this.editForm = { ...user };
+      this.showEditModal = true;
+    },
+
+    async updateUser() {
+      const headers = this.getAuthHeader();
+      if (!headers) return;
+
+      try {
+        await axios.put(
+          `http://localhost:5000/api/users/${this.editForm.id}`,
+          this.editForm,
+          { headers }
+        );
+        alert("User updated successfully.");
+        this.showEditModal = false;
+        await this.fetchUsers();
+      } catch (err) {
+        console.error("Update error:", err);
+        alert("Failed to update user.");
+      }
+    },
+
+    cancelEdit() {
+      this.showEditModal = false;
+      this.editForm = {
+        id: null,
+        username: "",
+        email: "",
+        status: "active",
+      };
     },
 
     cancelAdd() {
