@@ -25,7 +25,7 @@
           </p>
         </div>
         <img
-          src="https://upload.wikimedia.org/wikipedia/commons/1/18/Cambodia_Banteay_Meanchey.png"
+          src="https://cdn.imgbin.com/14/23/4/imgbin-phnom-penh-provinces-of-cambodia-world-map-cambodia-1DUAxbindDxxWDi3BGS7VFGm5.jpg"
           alt="Banteay Meanchey Map"
           class="w-80 h-60 shadow rounded"
         />

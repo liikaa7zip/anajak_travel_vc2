@@ -25,7 +25,7 @@
           </p>
         </div>
         <img
-          src="https://sdmntprcentralus.oaiusercontent.com/files/00000000-55b8-61f5-8b4f-778e0b541053/raw?se=2025-08-04T03%3A13%3A39Z&sp=r&sv=2024-08-04&sr=b&scid=4183807d-3f45-5525-93f2-5dd3eda6e55c&skoid=71e8fa5c-90a9-4c17-827b-14c3005164d6&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-08-04T01%3A39%3A36Z&ske=2025-08-05T01%3A39%3A36Z&sks=b&skv=2024-08-04&sig=SKQ7FRoV4dRN71sGN4ABu6JYh9cyURHTM9%2BDbJCatVU%3D"
+          src="https://cdn.imgbin.com/14/23/4/imgbin-phnom-penh-provinces-of-cambodia-world-map-cambodia-1DUAxbindDxxWDi3BGS7VFGm5.jpg"
           alt="Siem Reap Map"
           class="w-80 h-60 shadow rounded"
         />

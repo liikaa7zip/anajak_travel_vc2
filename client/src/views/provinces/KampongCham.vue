@@ -25,7 +25,7 @@
           </p>
         </div>
         <img
-          src="https://upload.wikimedia.org/wikipedia/commons/0/05/Cambodia_Kampong_Cham.png"
+          src="https://cdn.imgbin.com/14/23/4/imgbin-phnom-penh-provinces-of-cambodia-world-map-cambodia-1DUAxbindDxxWDi3BGS7VFGm5.jpg"
           alt="Kampong Cham Map"
           class="w-80 h-60 shadow rounded"
         />

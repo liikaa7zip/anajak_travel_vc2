@@ -25,7 +25,7 @@
           </p>
         </div>
         <img
-          src="https://sdmntprwestus.oaiusercontent.com/files/00000000-69a4-6230-b84c-8098eb9e73f9/raw?se=2025-07-31T10%3A03%3A04Z&sp=r&sv=2024-08-04&sr=b&scid=00d147e2-9aab-5639-8bec-d2d6d92e55f3&skoid=61180a4f-34a9-42b7-b76d-9ca47d89946d&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-07-31T08%3A51%3A09Z&ske=2025-08-01T08%3A51%3A09Z&sks=b&skv=2024-08-04&sig=VQXoS8ZoHnz5ssvztY8sUoSeP5tO1Pan2Yp0kamHs7o%3D"
+          src="https://cdn.imgbin.com/14/23/4/imgbin-phnom-penh-provinces-of-cambodia-world-map-cambodia-1DUAxbindDxxWDi3BGS7VFGm5.jpg"
           alt="Sihanoukville Map"
           class="w-80 h-60 shadow rounded"
         />

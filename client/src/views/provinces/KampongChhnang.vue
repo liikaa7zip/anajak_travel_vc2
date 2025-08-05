@@ -25,7 +25,7 @@
           </p>
         </div>
         <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Cambodia_Kampong_Chhnang_locator_map.svg/200px-Cambodia_Kampong_Chhnang_locator_map.svg.png"
+          src="https://cdn.imgbin.com/14/23/4/imgbin-phnom-penh-provinces-of-cambodia-world-map-cambodia-1DUAxbindDxxWDi3BGS7VFGm5.jpg"
           alt="Kampong Chhnang Map"
           class="w-80 h-60 shadow rounded"
         />

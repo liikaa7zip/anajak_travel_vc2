@@ -25,7 +25,7 @@
           </p>
         </div>
         <img
-          src="https://sdmntprwestus.oaiusercontent.com/files/00000000-0f10-6230-92a5-a78c4637b91e/raw?se=2025-08-01T07%3A20%3A46Z&sp=r&sv=2024-08-04&sr=b&scid=c96c4948-42bb-5ac6-880e-8f9035f13f44&skoid=1e6af1bf-6b08-4a04-8919-15773e7e7024&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-08-01T06%3A16%3A46Z&ske=2025-08-02T06%3A16%3A46Z&sks=b&skv=2024-08-04&sig=uw6KqJpylozO8DotVqDevXfIlxPz09ugipu6ohgwksg%3D"
+          src="https://cdn.imgbin.com/14/23/4/imgbin-phnom-penh-provinces-of-cambodia-world-map-cambodia-1DUAxbindDxxWDi3BGS7VFGm5.jpg"
           alt="Preah Vihear Map"
           class="w-80 h-60 shadow rounded"
         />

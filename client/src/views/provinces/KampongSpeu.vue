@@ -25,7 +25,7 @@
           </p>
         </div>
         <img
-          src="https://sdmntpreastus.oaiusercontent.com/files/00000000-7a2c-61f9-861e-5ddf9c0a1ea2/raw?se=2025-08-04T02%3A59%3A29Z&sp=r&sv=2024-08-04&sr=b&scid=1b1e90b6-ca96-571d-b832-aff83d917a68&skoid=5cab1ff4-c20d-41dc-babb-df0c2cc21dd4&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-08-04T01%3A31%3A27Z&ske=2025-08-05T01%3A31%3A27Z&sks=b&skv=2024-08-04&sig=ombVHMgTd2htwSvEqoWwr41nYvYvHD7ZiIZd1nzNQ7E%3D"
+          src="https://cdn.imgbin.com/14/23/4/imgbin-phnom-penh-provinces-of-cambodia-world-map-cambodia-1DUAxbindDxxWDi3BGS7VFGm5.jpg"
           alt="Kampong Speu Map"
           class="w-80 h-60 shadow rounded"
         />
