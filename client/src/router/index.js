@@ -65,6 +65,8 @@ import TbongKhmum from '../views/provinces/TbongKhmum.vue'
 import KampongSpeu from '../views/provinces/KampongSpeu.vue'
 import PreyVeng from '../views/provinces/PreyVeng.vue'
 
+
+
 import BookingHistory from '@/views/BookingHistory.vue'
 import BookBoatPage from '@/views/BookBoatPage.vue'
 import BookingboatHistory from '@/views/BookingboatHistory.vue'
@@ -203,6 +205,12 @@ const routes = [
       { path: 'guide/tbong-khmum', name: 'TbongKhmum', component: TbongKhmum },
       { path: 'guide/kampong-speu', name: 'KampongSpeu', component: KampongSpeu },
       { path: 'guide/prey-veng', name: 'PreyVeng', component: PreyVeng },
+
+      //link to bus tickets with province name
+      { path: 'guide/:province/BusTickets', name: 'ProvinceBusTickets', component: BusTickets, props: true },
+      { path: 'guide/:province/CarRental', name: 'ProvinceCarRental', component: CarRental, props: true },
+      { path: 'guide/:province/FlightReservation', name: 'ProvinceFlightReservation', component: FlightReservation, props: true },
+
       // Food routes
       { path: 'foods', component: FoodListView, name: 'FoodList' },
 
