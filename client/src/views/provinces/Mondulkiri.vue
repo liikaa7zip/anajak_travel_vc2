@@ -3,7 +3,7 @@
     <!-- Hero Section -->
     <section class="relative w-full h-80 sm:h-96">
       <img
-        src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Bou_Sraa_Waterfall_in_Mondulkiri_01.jpg"
+        src="https://visitlocaltravel.com/blog/wp-content/uploads/2024/03/Mondulkiri-Province-990x540.png"
         alt="Mondulkiri"
         class="w-full h-full object-cover rounded-b-md"
       />
@@ -79,10 +79,9 @@
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3930.212292054529!2d107.18951857484426!3d12.455203326754926!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317d179e62c8cc61%3A0xf2eb7716f30ce832!2sSen%20Monorom%2C%20Mondulkiri!5e0!3m2!1sen!2skh!4v1710000000001"
           width="100%" height="200" class="rounded shadow h-60" allowfullscreen loading="lazy"
         ></iframe>
-        <img 
-          src="https://i.ytimg.com/vi/zvhHg2f1tbY/maxresdefault.jpg" 
-          class="w-full h-60 object-cover rounded shadow" 
-          alt="Map Pin" 
+        <img
+          src="https://genk.mediacdn.vn/139269124445442048/2024/8/13/google-maps-thuong-khong-chi-ngan-nhat-ma-chon-duong-vong-ly-do-vi-sao-00145298-1723531172398-17235311731771829575075-1723533715727-17235337161941703107124.png"
+          class="w-full h-60" alt="Map Pin"
         />
       </div>
     </section>
@@ -91,17 +90,17 @@
 
 <script setup>
 const topAttractions = [
-  { name: 'Bou Sra Waterfall', img: 'https://www.cambotours.com/uploads/posts/2021/09/23/bousra-waterfall-in-mondulkiri_1632401635.jpg' },
-  { name: 'Elephant Valley Project', img: 'https://images.squarespace-cdn.com/content/v1/5c77a5c73c3a53bcad84a2ea/1568002928754-G98X3PK4U2K6Q7O1J77D/elephant+valley+project+mondulkiri+2.jpg' },
-  { name: 'Sen Monorom Hills', img: 'https://www.tourismcambodia.com/img/mondulkiri/sen-monorom-city-1.jpg' },
-  { name: 'Romnea Waterfall', img: 'https://angkorfocus.com/wp-content/uploads/2020/11/Romnea-Waterfall-Mondulkiri.jpg' }
+  { name: 'Bou Sra Waterfall', img: 'https://www.asiakingtravel.com/cuploads/files/Bou-Sra-Waterfall-3(1).jpg' },
+  { name: 'Elephant Valley Project', img: 'https://www.cambotours.com/userfiles/thumbs/mondulkiri-valley-project.jpg' },
+  { name: 'Sen Monorom Hills', img: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/21/d2/49/65/good-morning-from-mondolkiri.jpg?w=900&h=500&s=1' },
+  { name: 'Romnea Waterfall', img: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0c/09/66/0a/romnea-waterfall.jpg?w=800&h=-1&s=1' }
 ]
 
 const galleryPhotos = [
-  'https://www.indochinapioneer.com/wp-content/uploads/2019/11/Bou-Sraa-Waterfall-Mondulkiri.jpg',
-  'https://www.khmernokor.com/storage/photos/shares/mondulkiri/mondulkiri3.jpg',
-  'https://www.tourismcambodia.com/img/mondulkiri/romnea-waterfall-1.jpg',
-  'https://www.asialifemagazine.com/cambodia/wp-content/uploads/sites/3/2014/10/Eco-tourism-Mondulkiri.jpg'
+  'https://t4.ftcdn.net/jpg/04/02/82/21/360_F_402822117_7J16IIPE5oxokBh6tDFWRXfhcgcsY3jW.jpg',
+  'https://i.ytimg.com/vi/DC0bxC_WxHE/maxresdefault.jpg',
+  'https://naturelodgecambodia.com/assets/images/banner-1200x300.jpg',
+  'https://www.mondulkiriproject.org/wp-content/uploads/2023/02/Sophie_1_Sized-edited_done_JPG.jpg'
 ]
 </script>
 
