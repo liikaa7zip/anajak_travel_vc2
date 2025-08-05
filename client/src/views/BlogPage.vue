@@ -3,7 +3,7 @@
 
     <!-- Hero with Dynamic Stats -->
  <section
-  class="relative min-h-[600px] p-14 text-center overflow-hidden text-white rounded-lg shadow-lg bg-cover bg-center"
+  class="relative min-h-[600px] p-14 text-center overflow-hidden text-white  shadow-lg bg-cover bg-center"
   style="background-image: url('https://i.natgeofe.com/n/fdbadebb-1db9-41a9-9ac6-e7ee41f199aa/ta-prohm-siem-reap-cambodia.jpg');"
 >
   <!-- Optional: dark overlay for readability -->
@@ -45,7 +45,7 @@
     <!-- Featured Stories with author and reading time -->
     <section class="max-w-7xl mx-auto px-4">
       <h2
-        class="text-4xl font-bold mb-8 text-gray-700 border-b-4 border-pink-300 inline-block pb-3"
+        class="text-4xl font-bold mt-12  mb-8 text-gray-700 border-b-4 border-pink-300 inline-block pb-3"
       >
         Featured Stories
       </h2>
@@ -96,7 +96,7 @@
 
     <!-- Travel Guides with expandable summaries -->
     <section class="max-w-5xl mx-auto px-4">
-      <h2 class="text-4xl font-bold mb-8 border-b-4 text-gray-700 border-pink-300 inline-block pb-3">
+      <h2 class="text-4xl font-bold mb-8 mt-10 border-b-4 text-gray-700 border-pink-300 inline-block pb-3">
         Travel Guides & Tips
       </h2>
       <ul class="space-y-10">
@@ -134,7 +134,7 @@
     <!-- Popular Destinations Section -->
     <section class="max-w-7xl mx-auto px-4">
       <h2
-        class="text-4xl text-gray-700 font-bold mb-8 border-b-4 border-pink-300 inline-block pb-3"
+        class="text-4xl text-gray-700 font-bold mb-8 mt-10 border-b-4 border-pink-300 inline-block pb-3"
       >
         Popular Destinations
       </h2>
@@ -157,7 +157,7 @@
 
     <!-- Gallery with captions -->
     <section>
-      <h2 class="text-4xl font-bold mb-6 border-b text-gray-700 border-pink-300 pb-2">Travel Photo Gallery</h2>
+      <h2 class="text-4xl font-bold mb-6 ml-10 mt-10 border-b text-gray-700 border-pink-300 pb-2">Travel Photo Gallery</h2>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-6xl mx-auto">
         <div
           v-for="photo in galleryPhotos"
@@ -185,7 +185,7 @@
 
     <!-- Newsletter with interests -->
     <section
-      class="bg-purple-100 rounded-lg p-12 text-center text-gray-600 max-w-xl mx-auto shadow-lg"
+      class="bg-purple-100 rounded-lg mt-10 p-12 text-center text-gray-600 max-w-xl mx-auto shadow-lg"
     >
       <h3 class="text-3xl font-bold mb-6">Subscribe to our newsletter</h3>
       <p class="mb-4 italic">Join {{ subscriberCount }}+ travelers for exclusive tips!</p>
