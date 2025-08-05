@@ -1,16 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const foodController = require('../controllers/foodController');
-const upload = require('../middlewares/upload');
 
+// Get all foods, optionally filtered by locationId query param
 router.get('/', foodController.getAllFood);
-router.get('/:id', foodController.getFoodById)
 
-// ✅ Correct way to upload image
-// router.post('/', upload.single('image'), foodController.createFood);
-// routes/foodRoutes.js
+// Get foods by locationId (path param)
 router.get('/by-location/:locationId', foodController.getFoodsByLocation);
 
+// Get food by ID
+router.get('/:id', foodController.getFoodById);
 
+// Create food (expects JSON body with name, price, image (string), locationId)
+router.post('/', foodController.createFood);
+
+// Delete food by ID
+router.delete('/:id', foodController.deleteFood);
 
 module.exports = router;
