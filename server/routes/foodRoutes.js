@@ -13,7 +13,7 @@ router.get('/:id', foodController.getFoodById);
 
 // Create food (expects JSON body with name, price, image (string), locationId)
 router.post('/', foodController.createFood);
-
+router.put('/:id', foodController.updateFood)
 // Delete food by ID
 router.delete('/:id', foodController.deleteFood);
 
