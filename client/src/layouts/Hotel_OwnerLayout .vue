@@ -1,14 +1,11 @@
 
 
 <template>
-  <div class="flex min-h-screen bg-white">
-    <!-- Sidebar: fixed width -->
-    <aside class="w-64 h-screen fixed top-0 left-0 z-10 bg-white shadow">
-      <HotelOwnerNavbar/>
+  <div class="flex min-h-screen">
+    <aside class="w-64 bg-white border-r border-gray-200 shadow fixed h-full">
+      <HotelOwnerNavbar />
     </aside>
-    
-    <!-- Main content: shifted right by sidebar width -->
-    <main >
+    <main class="ml-64 flex-1 p-6 overflow-y-auto">
       <router-view />
     </main>
   </div>
