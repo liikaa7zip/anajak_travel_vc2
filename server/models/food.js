@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
     name: { type: DataTypes.STRING, allowNull: false },
     price: { type: DataTypes.FLOAT, allowNull: false },
     image: { type: DataTypes.STRING },
-    locationId: { type: DataTypes.INTEGER } // <- Add this
+    locationId: { type: DataTypes.INTEGER },
+    categoryId: { type: DataTypes.INTEGER } 
   });
 
   Food.associate = (models) => {

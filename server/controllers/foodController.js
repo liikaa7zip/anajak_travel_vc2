@@ -65,25 +65,23 @@ exports.getFoodById = async (req, res) => {
 
 
 
-exports.createFood = async (req, res) => {
-  try {
-    const { name, price } = req.body;
-    const image = req.file ? req.file.filename : null;
 
-    if (!name || !price) return res.status(400).json({ error: 'Name and price required' });
-
-    const food = await Food.create({ name, price, image });
-    res.status(201).json(food);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to create food' });
-  }
-};
 
 exports.createFood = async (req, res) => {
   try {
-    const { name, price, image, locationId } = req.body;
+    const { name, price, image, locationId, categoryId } = req.body;
 
-    const food = await Food.create({ name, price, image, locationId });
+    if (!name || !price || !locationId || !categoryId) {
+      return res.status(400).json({ error: 'Name, price, locationId, and categoryId are required' });
+    }
+
+    const food = await Food.create({
+      name,
+      price,
+      image,
+      locationId,
+      categoryId
+    });
 
     res.status(201).json(food);
   } catch (error) {
@@ -91,6 +89,7 @@ exports.createFood = async (req, res) => {
     res.status(500).json({ error: 'Failed to create food' });
   }
 };
+
 
 
 exports.deleteFood = async (req, res) => {
