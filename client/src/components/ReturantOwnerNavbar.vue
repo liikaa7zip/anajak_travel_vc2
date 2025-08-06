@@ -48,16 +48,20 @@
       </nav>
 
       <button
-        class="flex items-center gap-3 text-red-500 hover:text-red-700 transition duration-200 mt-6"
-      >
-        <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
-      </button>
+                    @click="logout"
+                    class="w-full text-left dropdown-item text-red-600 hover:bg-red-50 hover:text-red-700"
+                  >
+                    <i class="ri-logout-box-r-line mr-2 text-red-400"></i>
+                    Logout
+                  </button>
     </aside>
   </div>
 </template>
 
 <script setup>
-// Optional logout logic can be added here
+import { useAuth } from "../stores/useAuth";
+
+const {logout}= useAuth();
 </script>
 
 <style scoped>
