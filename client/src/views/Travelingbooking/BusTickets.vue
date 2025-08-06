@@ -114,6 +114,54 @@
       </div>
     </div>
 
+
+    <!-- Success Modal -->
+<div
+  v-if="confirmation"
+  class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50"
+  @click.self="confirmation = ''"
+>
+  <div class="bg-white rounded-3xl shadow-xl max-w-md w-full p-8 relative">
+    <button
+      @click="confirmation = ''"
+      class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl"
+    >
+      &times;
+    </button>
+
+    <div class="mx-auto mb-6 flex items-center justify-center w-20 h-20 rounded-full bg-green-600 text-white shadow-lg">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+      </svg>
+    </div>
+
+    <h2 class="text-center text-2xl font-extrabold mb-3 text-green-800">Booking Successful!</h2>
+    <p class="text-center text-gray-700 mb-8 text-base leading-relaxed">
+      {{ confirmation }}
+    </p>
+
+    <div class="flex justify-center">
+      <button
+  @click="() => { confirmation = ''; resetForm() }"
+  class="px-8 py-3 rounded-full bg-green-600 text-white font-bold hover:bg-green-700"
+>
+  OK
+</button>
+
+    </div>
+  </div>
+</div>
+
+
+        <Payment
+      v-if="showPaymentModal"
+      :amount="lastBooking.price"
+      :bookingType="lastBooking.type"
+      :bookingId="lastBooking.id"
+      @cancel="showPaymentModal = false"
+      @paid="handlePaymentComplete"
+    />
+
     <!-- View Booking History -->
     <div class="mt-8 text-center">
       <router-link
@@ -141,6 +189,7 @@ import { ref, onMounted, watch } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
 import { useAuth } from '@/stores/useAuth' // Adjust path to your composable
+import Payment from '@/components/Payment.vue'
 
 const router = useRouter()
 const { userProfile, isLoggedIn, initAuth } = useAuth()
@@ -150,6 +199,17 @@ const priceMap = {
   bus: 10,
   private_car: 30,
 }
+
+const resetForm = () => {
+  form.value.depart = ''
+  form.value.arrive = ''
+  form.value.type = ''
+  form.value.date = ''
+  form.value.price = 0
+  form.value.email = isLoggedIn.value ? userProfile.value.email : ''
+  form.value.UserId = isLoggedIn.value ? userProfile.value.id : null
+}
+
 
 const form = ref({
   depart: '',
@@ -165,6 +225,8 @@ const showPreConfirmationModal = ref(false)
 const loading = ref(false)
 const confirmation = ref('')
 const isError = ref(false)
+const showPaymentModal = ref(false)
+const lastBooking = ref({}) 
 
 const updatePrice = () => {
   form.value.price = priceMap[form.value.type] || 0
@@ -179,7 +241,6 @@ const proceedBooking = async () => {
   showPreConfirmationModal.value = false
   isError.value = false
 
-  // Set UserId from logged-in user
   form.value.UserId = userProfile.value?.id || null
 
   if (!form.value.UserId) {
@@ -190,11 +251,13 @@ const proceedBooking = async () => {
   }
 
   try {
-    await axios.post('http://localhost:5000/api/bookings', form.value)
-    confirmation.value = `✅ Booking from ${form.value.depart} to ${form.value.arrive} confirmed on ${form.value.date}.`
+    const response = await axios.post('http://localhost:5000/api/bookings', form.value)
+    
+    // Store booking info
+    lastBooking.value = response.data.booking || form.value
 
-    // Redirect to a confirmation page or clear form
-    router.push({ name: 'BookingConfirmation', query: { ...form.value } })
+    // Show payment modal first
+    showPaymentModal.value = true
   } catch (error) {
     isError.value = true
     confirmation.value = error.response?.data?.message || 'Something went wrong.'
@@ -203,6 +266,15 @@ const proceedBooking = async () => {
     loading.value = false
   }
 }
+
+const handlePaymentComplete = () => {
+  showPaymentModal.value = false
+  confirmation.value = `✅ Booking from ${lastBooking.value.depart} to ${lastBooking.value.arrive} confirmed on ${lastBooking.value.date}.`
+  isError.value = false
+  // Do NOT redirect here, just show the success modal
+}
+
+
 
 const cancelBookingPreConfirmation = () => {
   showPreConfirmationModal.value = false
