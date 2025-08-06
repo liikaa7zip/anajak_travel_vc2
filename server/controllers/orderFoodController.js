@@ -2,27 +2,27 @@ const { Order, Food, OrderFoodItem } = require('../models');
 
 exports.getAllOrders = async (req, res) => {
   try {
-    const { customerName } = req.query;
-
-    const whereClause = {};
-    if (customerName) {
-      whereClause.customerName = customerName;
-    }
-
     const orders = await Order.findAll({
-      where: whereClause,
-      include: {
-        model: Food,
-        through: { attributes: ['quantity'] },
-      },
-      order: [['createdAt', 'DESC']],
+      include: [
+        {
+          model: Food,
+          attributes: ['id', 'name', 'price', 'image'],
+          through: {
+            model: OrderFoodItem,
+            attributes: ['quantity'],
+          },
+        }
+      ],
+      order: [['createdAt', 'DESC']]  // Sort orders by newest first
     });
 
     res.json(orders);
   } catch (error) {
+    console.error('Error fetching orders:', error);
     res.status(500).json({ error: 'Failed to fetch orders' });
   }
 };
+
 
 exports.createOrder = async (req, res) => {
   try {
