@@ -139,6 +139,15 @@
       </div>
     </div>
 
+     <Payment
+      v-if="showPaymentModal"
+      :amount="lastBooking.price"
+      :bookingType="lastBooking.type"
+      :bookingId="lastBooking.id"
+      @cancel="showPaymentModal = false"
+      @paid="handlePaymentComplete"
+    />
+
     <!-- Navigation -->
     <div class="mt-8 text-center">
       <router-link to="/booking-history" class="inline-block bg-green-700 text-white px-4 py-2 rounded hover:bg-purple-800">
@@ -158,6 +167,7 @@ import { ref, watch, onMounted } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
 import { useAuth } from '@/stores/useAuth'
+import Payment from '@/components/Payment.vue'
 
 const router = useRouter()
 const { userProfile } = useAuth()
@@ -175,6 +185,9 @@ const form = ref({
 const confirmation = ref('')
 const showPreConfirmationModal = ref(false)
 const loading = ref(false)
+const showPaymentModal = ref(false)
+const lastBooking = ref({}) 
+const isError = ref(false)
 
 onMounted(() => {
   if (userProfile.value?.id) {
@@ -204,23 +217,40 @@ const cancelBookingPreConfirmation = () => {
 }
 
 const proceedBooking = async () => {
-  showPreConfirmationModal.value = false
   loading.value = true
+  showPreConfirmationModal.value = false
+  isError.value = false
+
+  form.value.UserId = userProfile.value?.id || null
+
+  if (!form.value.UserId) {
+    isError.value = true
+    confirmation.value = '⚠️ You must be logged in to book tickets.'
+    loading.value = false
+    return
+  }
 
   try {
-    await axios.post('http://localhost:5000/api/bookings', form.value)
+    const response = await axios.post('http://localhost:5000/api/bookings', form.value)
+    
+    // Store booking info
+    lastBooking.value = response.data.booking || form.value
 
-    confirmation.value = `✅ Car booking from ${form.value.depart} to ${form.value.arrive} on ${form.value.date} confirmed. Vehicle: ${form.value.type}, Price: $${form.value.price}. Email sent to ${form.value.email}.`
-
-    router.push({
-      name: 'BookingConfirmation',
-      query: { ...form.value }
-    })
+    // Show payment modal first
+    showPaymentModal.value = true
   } catch (error) {
-    confirmation.value = '❌ Booking failed. Please try again.'
-    console.error('Booking error:', error.response?.data || error.message)
+    isError.value = true
+    confirmation.value = error.response?.data?.message || 'Something went wrong.'
+    console.error('Booking error:', error)
   } finally {
     loading.value = false
   }
+}
+
+const handlePaymentComplete = () => {
+  showPaymentModal.value = false
+  confirmation.value = `✅ Booking from ${lastBooking.value.depart} to ${lastBooking.value.arrive} confirmed on ${lastBooking.value.date}.`
+  isError.value = false
+  // Do NOT redirect here, just show the success modal
 }
 </script>

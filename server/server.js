@@ -36,6 +36,7 @@ const galleryPhotosRoutes = require('./routes/galleryPhotosRoutes');
 const itineraryRoutes = require('./routes/itineraryRoutes');
 const categoryRoutes = require('./routes/category');
 
+const payment = require('./routes/PaymentRoutes');
 
 const app = express();
 const server = http.createServer(app);
@@ -65,6 +66,7 @@ app.use('/api/featured-stories', featuredStoriesRoutes);
 app.use('/api/travel-guides', travelGuidesRoutes);
 app.use('/api/gallery-photos', galleryPhotosRoutes);
 app.use('/api/itineraries', itineraryRoutes);
+app.use('/api/payments', payment);
 // Uncomment if you want admin user routes
 // app.use('/api/admin-users', adminUserRoutes);
 app.use('/api/categories', categoryRoutes);
