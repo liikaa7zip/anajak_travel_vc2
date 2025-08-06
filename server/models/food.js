@@ -17,6 +17,12 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Food.belongsTo(models.Location, { foreignKey: 'locationId' }); // <- Association
+
+    // Add this association for eager loading
+    Food.hasMany(models.OrderFoodItem, {
+      foreignKey: 'foodId',
+      as: 'OrderFoodItem'
+    });
   };
 
   return Food;
