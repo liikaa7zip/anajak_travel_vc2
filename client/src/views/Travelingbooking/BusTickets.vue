@@ -256,13 +256,14 @@
 
 
         <Payment
-      v-if="showPaymentModal"
-      :amount="lastBooking.price"
-      :bookingType="lastBooking.type"
-      :bookingId="lastBooking.id"
-      @cancel="showPaymentModal = false"
-      @paid="handlePaymentComplete"
-    />
+  v-if="showPaymentModal"
+  :amount="form.price"
+  :bookingType="form.type"
+  :bookingId="lastBooking.id"
+  @cancel="showPaymentModal = false"
+  @paid="handlePaymentComplete"
+/>
+
 
     <!-- View Booking History -->
     <div class="mt-8 text-center">
@@ -340,6 +341,9 @@ const isError = ref(false)
 const showPaymentModal = ref(false)
 const lastBooking = ref({}) 
 const seats = ref([])
+const message = ref('')
+const success = ref(false)
+
 
 function updatePrice() {
   console.log('Updating price', {
@@ -366,9 +370,34 @@ function updatePrice() {
 
 
 
-const submitBooking = () => {
-  showPreConfirmationModal.value = true
+const submitBooking = async () => {
+  const bookingPayload = {
+    UserId: form.value.UserId,
+    depart: form.value.depart,
+    arrive: form.value.arrive,
+    type: form.value.type,
+    price: form.value.price,
+    date: form.value.date,
+    email: form.value.email,
+    timeOfDay: form.value.timeOfDay,
+    seatNumbers: form.value.seatNumbers.join(',') // convert array to comma-separated string
+  }
+
+  try {
+    const response = await axios.post('http://127.0.0.1:5000/api/bookings', bookingPayload)
+    lastBooking.value = response.data.booking
+    showPaymentModal.value = true
+    success.value = true
+    message.value = 'Booking successful'
+  } catch (error) {
+    success.value = false
+    message.value = 'Booking failed. Please try again.'
+    console.error(error)
+  }
 }
+
+
+
 
 const proceedBooking = async () => {
   loading.value = true
@@ -390,6 +419,9 @@ const proceedBooking = async () => {
     // Store booking info
     lastBooking.value = response.data.booking || form.value
 
+    console.log('Booking response data:', response.data);
+
+
     // Show payment modal first
     showPaymentModal.value = true
   } catch (error) {
@@ -401,11 +433,26 @@ const proceedBooking = async () => {
   }
 }
 
-const handlePaymentComplete = () => {
-  showPaymentModal.value = false
-  confirmation.value = `✅ Booking from ${lastBooking.value.depart} to ${lastBooking.value.arrive} confirmed on ${lastBooking.value.date}.`
-  isError.value = false
-  // Do NOT redirect here, just show the success modal
+const handlePaymentComplete = async () => {
+  loading.value = true
+  try {
+    const response = await axios.post('http://localhost:5000/api/payments', {
+      bookingId: lastBooking.value.id,       // send booking id here
+      bookingType: lastBooking.value.type,
+      amount: lastBooking.value.price,
+      method: 'Credit Card',
+      cardName: 'Cardholder Name', // you can get this from payment component or user input
+    })
+
+    confirmation.value = `✅ Payment successful! Booking confirmed from ${lastBooking.value.depart} to ${lastBooking.value.arrive} on ${lastBooking.value.date}.`
+    isError.value = false
+  } catch (error) {
+    confirmation.value = error.response?.data?.message || 'Something went wrong during payment confirmation.'
+    isError.value = true
+  } finally {
+    loading.value = false
+    showPaymentModal.value = false
+  }
 }
 
 
