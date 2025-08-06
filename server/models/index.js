@@ -21,6 +21,7 @@ const upload = require('../middlewares/upload');
 db.BoatBooking = require('./BoatBooking')(sequelize, Sequelize.DataTypes);
 db.Booking = require('./booking')(sequelize, Sequelize.DataTypes);
 db.Category = require('./Category')(sequelize, Sequelize.DataTypes);
+db.Payment = require('./Payment')(sequelize, DataTypes);
 // === Define Relationships === //
 
 // User ↔ HotelBooking
