@@ -16,8 +16,23 @@ exports.verifyToken = (req, res, next) => {
 };
 
 exports.verifyAdmin = (req, res, next) => {
- if (req.user.role !== 'admin' && req.user.role !== 'restaurant_owner'&& req.user.role !== 'hotel_owner' ) {
+ if (req.user.role !== 'admin'  ) {
   return res.sendStatus(403)
 }
   next();
 };
+
+exports.verifyRestaurantOwner = (req, res, next) => {
+  if (req.user && req.user.role === 'restaurant_owner') {
+    next();
+  } else {
+    return res.status(403).json({ message: 'Access denied. Restaurant owner only.' });
+  }
+};
+exports.verifyAdminOrRestaurantOwner = (req, res, next) => {
+  if (req.user && (req.user.role === 'admin' || req.user.role === 'restaurant_owner')) {
+    return next();
+  }
+  return res.status(403).json({ message: 'Forbidden: Admin or Restaurant Owner only' });
+};
+

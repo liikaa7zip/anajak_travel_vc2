@@ -204,6 +204,14 @@
       </div>
     </div>
 
+    <Payment
+      v-if="showPaymentModal"
+      :amount="lastBooking.price"
+      :bookingType="'Flight'"
+      :bookingId="lastBooking.id"
+      @cancel="showPaymentModal = false"
+      @paid="handlePaymentComplete"
+    />
     <!-- Booking Summary -->
     <transition name="fade">
       <div
@@ -228,6 +236,7 @@
 import { ref, computed, watch } from 'vue'
 import axios from 'axios'
 import { useAuth } from '@/stores/useAuth' // Adjust to your file path
+import Payment from '@/components/Payment.vue'
 
 const { userProfile, isLoggedIn } = useAuth()
 
@@ -249,6 +258,7 @@ const showPreConfirmationModal = ref(false)
 const lastBooking = ref({})
 const loading = ref(false)
 const error = ref('')
+const showPaymentModal = ref(false)
 
 const airlinesByDestination = {
   'Phnom Penh': ['Cambodia Angkor Air', 'Cambodia Airways', 'AirAsia'],
@@ -305,24 +315,38 @@ async function proceedBooking() {
     return
   }
 
+  // Close confirmation modal
   showPreConfirmationModal.value = false
   loading.value = true
   error.value = ''
 
-  const bookingData = {
+  // Save booking data locally (NOT submitting yet)
+  lastBooking.value = {
     ...form.value,
     price: computedPrice.value,
     passengerName: passengerName.value,
     email: email.value,
   }
 
-  try {
-    const res = await axios.post('http://localhost:5000/api/flightbookings', bookingData)
+  // Show payment modal
+  showPaymentModal.value = true
+  loading.value = false
+}
 
-    confirmation.value = `Your flight from ${res.data.origin} to ${res.data.destination} on ${res.data.date} has been booked successfully!`
+
+async function handlePaymentComplete() {
+  if (!lastBooking.value) return
+
+  loading.value = true
+  error.value = ''
+  try {
+    const res = await axios.post('http://localhost:5000/api/flightbookings', lastBooking.value)
+
+    confirmation.value = `Your flight from ${res.data.origin} to ${res.data.destination} on ${res.data.date} has been booked and paid successfully!`
     lastBooking.value = res.data
     bookingConfirmed.value = true
 
+    // Reset form
     form.value = {
       origin: '',
       destination: '',
@@ -335,12 +359,15 @@ async function proceedBooking() {
     passengerName.value = ''
     email.value = ''
   } catch (err) {
-    error.value = '❌ Booking failed. Please check your inputs or try again later.'
+    error.value = '❌ Booking failed after payment. Please contact support.'
     console.error(err)
   } finally {
+    showPaymentModal.value = false
     loading.value = false
   }
 }
+
+
 </script>
 
 <style scoped>

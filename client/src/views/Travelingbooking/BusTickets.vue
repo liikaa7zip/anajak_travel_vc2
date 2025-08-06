@@ -5,83 +5,143 @@
     </h1>
 
     <!-- Booking Form -->
-    <form @submit.prevent="submitBooking" class="grid gap-5">
-      <!-- From -->
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">From</label>
-        <input
-          v-model="form.depart"
-          required
-          type="text"
-          placeholder="Departure location"
-          class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
-        />
-      </div>
+    <!-- Booking Form -->
+<form @submit.prevent="submitBooking" class="bg-white border border-purple-200 rounded-xl shadow-lg overflow-hidden md:flex">
+  <!-- Left Panel (Form) -->
+  <div class="md:w-3/4 p-6 space-y-4">
+    <h2 class="text-xl font-bold text-purple-700 mb-4">Book Your Trip</h2>
 
-      <!-- To -->
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">To</label>
-        <input
-          v-model="form.arrive"
-          required
-          type="text"
-          placeholder="Arrival location"
-          class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
-        />
-      </div>
+    <!-- From / To -->
+    <div class="flex gap-3">
+      <input
+        v-model="form.depart"
+        required
+        placeholder="From"
+        class="w-1/2 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-400"
+      />
+      <input
+        v-model="form.arrive"
+        required
+        placeholder="To"
+        class="w-1/2 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-400"
+      />
+    </div>
 
-      <!-- Transport Type -->
-      <div class="relative">
-        <label class="block text-sm font-medium text-gray-700 mb-1">Transport Type</label>
-        <select
-          v-model="form.type"
-          @change="updatePrice"
-          class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
-          required
-        >
-          <option disabled value="">Select a transport type</option>
-          <option value="bus">Bus</option>
-          <option value="private_car">Private Car</option>
-        </select>
-        <p class="mt-1 text-sm text-purple-600 bg-purple-50 px-3 py-1 rounded-lg inline-block shadow-sm">
-          Ticket Price: <span class="font-semibold">${{ form.price }}</span>
-        </p>
-      </div>
-
-      <!-- Date -->
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Date</label>
-        <input
-          type="date"
-          v-model="form.date"
-          required
-          class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
-        />
-      </div>
-
-      <!-- Email -->
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-        <input
-          type="email"
-          v-model="form.email"
-          required
-          placeholder="Enter your email"
-          class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
-          :readonly="isLoggedIn"
-          title="Email auto-filled from your account"
-        />
-      </div>
-
-      <!-- Submit -->
-      <button
-        type="submit"
-        class="bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition duration-200 font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
-        :disabled="loading"
+    <!-- Date & Type -->
+    <div class="flex gap-3">
+      <input
+        type="date"
+        v-model="form.date"
+        required
+        class="w-1/2 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-400"
+      />
+      <select
+        v-model="form.type"
+        @change="updatePrice"
+        required
+        class="w-1/2 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-400"
       >
-        Book Now
-      </button>
-    </form>
+        <option disabled value="">Type</option>
+        <option value="bus">Bus</option>
+        <option value="private_car">Private Car</option>
+      </select>
+    </div>
+
+    <!-- Email -->
+    <input
+      type="email"
+      v-model="form.email"
+      required
+      placeholder="Your Email"
+      :readonly="isLoggedIn"
+      class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-400"
+    />
+
+    <!-- Submit -->
+    <button
+      type="submit"
+      class="w-full mt-2 bg-purple-600 text-white py-2 rounded-lg font-semibold hover:bg-purple-700 transition"
+      :disabled="loading"
+    >
+      Book Now
+    </button>
+  </div>
+
+  <!-- Right Panel (Seat selection + price) -->
+  <div class="md:w-1/2 bg-purple-50 p-6 flex flex-col justify-between">
+   <div>
+    <h3 class="text-lg font-bold text-purple-800 mb-2">Choose Seat</h3>
+    <div class="grid grid-cols-[1fr_auto_1fr] gap-2 w-full max-w-md mx-auto">
+      <!-- Left side seats (6 rows x 2 columns) -->
+      <div class="grid grid-cols-2 gap-2">
+        <button
+          v-for="seat in leftSeats"
+          :key="seat.number"
+          :class="[
+            'py-2 rounded text-xs font-bold w-full h-10',
+            seat.booked ? 'bg-gray-300 text-gray-500 cursor-not-allowed' :
+            form.seatNumber === seat.number ? 'bg-purple-600 text-white' :
+            'bg-white border border-purple-400 text-purple-700 hover:bg-purple-100'
+          ]"
+          :disabled="seat.booked"
+          @click="form.seatNumber = seat.number"
+          type="button"
+        >
+          {{ seat.number }}
+        </button>
+      </div>
+
+      <!-- Middle aisle with 1 special seat aligned with L11, L12, R11, R12 -->
+      <div class="grid grid-rows-6">
+        <div v-for="i in 5" :key="i" class="flex-grow"></div>
+        <button
+          v-if="middleSeat"
+          :key="middleSeat.number"
+          :class="[
+            'py-2 rounded text-xs font-bold w-8 h-10 mt-2',
+            middleSeat.booked ? 'bg-gray-300 text-gray-500 cursor-not-allowed' :
+            form.seatNumber === middleSeat.number ? 'bg-purple-600 text-white' :
+            'bg-white border border-purple-400 text-purple-700 hover:bg-purple-100'
+          ]"
+          :disabled="middleSeat.booked"
+          @click="form.seatNumber = middleSeat.number"
+          type="button"
+        >
+          {{ middleSeat.number }}
+        </button>
+      </div>
+
+      <!-- Right side seats (6 rows x 2 columns) -->
+      <div class="grid grid-cols-2 gap-2">
+        <button
+          v-for="seat in rightSeats"
+          :key="seat.number"
+          :class="[
+            'py-2 rounded text-xs font-bold w-full h-10',
+            seat.booked ? 'bg-gray-300 text-gray-500 cursor-not-allowed' :
+            form.seatNumber === seat.number ? 'bg-purple-600 text-white' :
+            'bg-white border border-purple-400 text-purple-700 hover:bg-purple-100'
+          ]"
+          :disabled="seat.booked"
+          @click="form.seatNumber = seat.number"
+          type="button"
+        >
+          {{ seat.number }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+    <!-- Price and seat summary -->
+    <div class="mt-6 bg-white border border-purple-300 rounded-lg p-4 text-center shadow">
+      <p class="text-sm text-gray-500">Selected Seat</p>
+      <p class="text-lg font-bold text-purple-800">{{ form.seatNumber || 'None' }}</p>
+      <p class="mt-2 text-sm text-gray-500">Ticket Price</p>
+      <p class="text-xl font-extrabold text-purple-700">${{ form.price }}</p>
+    </div>
+  </div>
+</form>
+
 
     <!-- Confirmation Modal -->
     <div
@@ -195,6 +255,7 @@ import { ref, onMounted, watch } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
 import { useAuth } from '@/stores/useAuth' // Adjust path to your composable
+import Payment from '@/components/Payment.vue'
 
 const router = useRouter()
 const { userProfile, isLoggedIn, initAuth } = useAuth()
@@ -205,6 +266,17 @@ const priceMap = {
   private_car: 30,
 }
 
+const resetForm = () => {
+  form.value.depart = ''
+  form.value.arrive = ''
+  form.value.type = ''
+  form.value.date = ''
+  form.value.price = 0
+  form.value.email = isLoggedIn.value ? userProfile.value.email : ''
+  form.value.UserId = isLoggedIn.value ? userProfile.value.id : null
+}
+
+
 const form = ref({
   depart: '',
   arrive: '',
@@ -212,6 +284,7 @@ const form = ref({
   date: '',
   email: '',
   price: 0,
+  seatNumber: 'null', 
   UserId: null, // Set dynamically from auth
 })
 
@@ -219,6 +292,9 @@ const showPreConfirmationModal = ref(false)
 const loading = ref(false)
 const confirmation = ref('')
 const isError = ref(false)
+const showPaymentModal = ref(false)
+const lastBooking = ref({}) 
+const seats = ref([])
 
 const updatePrice = () => {
   form.value.price = priceMap[form.value.type] || 0
@@ -233,7 +309,6 @@ const proceedBooking = async () => {
   showPreConfirmationModal.value = false
   isError.value = false
 
-  // Set UserId from logged-in user
   form.value.UserId = userProfile.value?.id || null
 
   if (!form.value.UserId) {
@@ -244,11 +319,13 @@ const proceedBooking = async () => {
   }
 
   try {
-    await axios.post('http://localhost:5000/api/bookings', form.value)
-    confirmation.value = `✅ Booking from ${form.value.depart} to ${form.value.arrive} confirmed on ${form.value.date}.`
+    const response = await axios.post('http://localhost:5000/api/bookings', form.value)
+    
+    // Store booking info
+    lastBooking.value = response.data.booking || form.value
 
-    // Redirect to a confirmation page or clear form
-    router.push({ name: 'BookingConfirmation', query: { ...form.value } })
+    // Show payment modal first
+    showPaymentModal.value = true
   } catch (error) {
     isError.value = true
     confirmation.value = error.response?.data?.message || 'Something went wrong.'
@@ -257,6 +334,15 @@ const proceedBooking = async () => {
     loading.value = false
   }
 }
+
+const handlePaymentComplete = () => {
+  showPaymentModal.value = false
+  confirmation.value = `✅ Booking from ${lastBooking.value.depart} to ${lastBooking.value.arrive} confirmed on ${lastBooking.value.date}.`
+  isError.value = false
+  // Do NOT redirect here, just show the success modal
+}
+
+
 
 const cancelBookingPreConfirmation = () => {
   showPreConfirmationModal.value = false
@@ -270,6 +356,7 @@ onMounted(async () => {
     form.value.email = userProfile.value.email
     form.value.UserId = userProfile.value.id
   }
+  await loadSeats()
 })
 
 // Update form email and UserId if user profile changes dynamically
@@ -279,4 +366,58 @@ watch(userProfile, (newUser) => {
     form.value.UserId = newUser.id
   }
 })
+
+const loadSeats = async () => {
+  const totalSeats = 25
+  const bookedSeats = [3, 7, 12, 18] // ← Replace with real data from backend later
+
+  seats.value = Array.from({ length: totalSeats }, (_, i) => {
+    const number = i + 1
+    return {
+      number,
+      booked: bookedSeats.includes(number)
+    }
+  })
+}
+
+const leftSeats = ref(
+  Array.from({ length: 12 }, (_, i) => ({
+    number: `L${i + 1}`,
+    booked: false
+  }))
+);
+
+const middleSeat = ref({
+  number: 'M1',
+  booked: false
+});
+
+const rightSeats = ref(
+  Array.from({ length: 12 }, (_, i) => ({
+    number: `R${i + 1}`,
+    booked: false
+  }))
+);
 </script>
+
+
+<style scoped>
+.grid.grid-cols-2 {
+  grid-template-rows: repeat(6, minmax(0, 1fr)); /* Ensure consistent row heights */
+}
+
+.flex-col.relative {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Match the height of the side grids */
+}
+
+/* Align middle seat with the third row (L11, L12, R11, R12) */
+.flex-col.relative button {
+  position: relative;
+  top: calc(2 * (100% / 5)); /* Align with the third row (2 rows down in a 6-row grid) */
+  transform: translateY(-50%); /* Center the button vertically within its row */
+}
+</style>
