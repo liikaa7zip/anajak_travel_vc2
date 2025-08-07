@@ -16,8 +16,12 @@ module.exports = (sequelize, DataTypes) => {
     status: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: 'confirmed'
-    }
+      defaultValue: 'confirmed',
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   });
 
   Order.associate = (models) => {
@@ -26,6 +30,13 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'orderId',
       otherKey: 'foodId',
     });
+
+    Order.hasMany(models.OrderFoodItem, {
+      foreignKey: 'orderId',
+      as: 'orderItems',
+    });
+
+    Order.belongsTo(models.User, { foreignKey: 'userId' });
   };
 
   return Order;

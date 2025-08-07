@@ -94,47 +94,36 @@ const isReturantowner = computed(() => userProfile.value?.role === 'restaurant_o
     userProfile.value = {}
   }
 
-  // Verify token with server (background check)
-  const verifyTokenWithServer = async () => {
-    const token = localStorage.getItem("token")
-    if (!token) {
-      console.log("[VERIFY] No token to verify")
-      return false
-    }
+//   // Verify token with server (background check)
+//   const verifyTokenWithServer = async () => {
+//   const token = localStorage.getItem("token")
+//   if (!token) {
+//     console.log("[VERIFY] No token to verify")
+//     return false
+//   }
 
-    try {
-      console.log("[VERIFY] Verifying token with server...")
-      const response = await axios.get(`${API_BASE}/profile`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-
-      // Update user data if it changed
-      const serverUser = response.data
-      userProfile.value = serverUser
-      localStorage.setItem("user", JSON.stringify(serverUser))
-
-      console.log("[VERIFY] Token valid, user data updated:", {
-        username: serverUser.username,
-        email: serverUser.email,
-        role: serverUser.role,
-      })
-
-      return true
-    } catch (error) {
-      console.error("[VERIFY] Token verification failed:", error.response?.status, error.response?.data)
-
-      // Only clear auth if it's actually invalid (not network error)
-      if (error.response?.status === 401 || error.response?.status === 403) {
-        console.log("[VERIFY] Token invalid, clearing auth data")
-        clearAuthData()
-      } else {
-        console.log("[VERIFY] Network error, keeping auth data")
-      }
-
-      return false
-    }
-  }
-
+//   try {
+//     const response = await axios.get(`${API_BASE}/profile`, {
+//       headers: { Authorization: `Bearer ${token}` },
+//     })
+//     userProfile.value = response.data
+//     localStorage.setItem("user", JSON.stringify(response.data))
+//     console.log("[VERIFY] Token valid:", { username: response.data.username })
+//     return true
+//   } catch (error) {
+//     console.error("[VERIFY] Token verification failed:", {
+//       status: error.response?.status,
+//       data: error.response?.data,
+//       message: error.message,
+//     })
+//     if (error.response?.status === 401 || error.response?.status === 403) {
+//       clearAuthData()
+//     } else {
+//       console.log("[VERIFY] Network error or server issue, keeping auth data")
+//     }
+//     return false
+//   }
+// }
   // Initialize auth (called by components)
   const initAuth = async () => {
     if (isInitialized.value) {
@@ -157,9 +146,9 @@ const isReturantowner = computed(() => userProfile.value?.role === 'restaurant_o
       isInitialized.value = true
 
       // Verify token in background (don't wait)
-      verifyTokenWithServer().catch((error) => {
-        console.error("[INIT] Background verification failed:", error)
-      })
+      // verifyTokenWithServer().catch((error) => {
+      //   console.error("[INIT] Background verification failed:", error)
+      // })
     } else {
       console.log("[INIT] No auth data found, user not logged in")
       isLoggedIn.value = false

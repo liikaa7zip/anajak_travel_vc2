@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const orderController = require('../controllers/orderFoodController');
+const { verifyToken } = require('../middlewares/authMiddleware');
 
-router.get('/', orderController.getAllOrders);
-router.get('/:id', orderController.getOrderById);
-router.post('/', orderController.createOrder);
-router.put('/:id', orderController.updateOrder);
-router.delete('/:id', orderController.cancelOrder);
+router.get("/", verifyToken, orderController.getAllOrders); 
+router.get('/:id', verifyToken, orderController.getOrderById);
+router.post('/', verifyToken, orderController.createOrder);
+router.delete('/:id', verifyToken, orderController.cancelOrder);
+router.put('/:id', verifyToken, orderController.updateOrder);
 
 module.exports = router;
