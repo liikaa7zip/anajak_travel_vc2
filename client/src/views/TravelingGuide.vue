@@ -59,76 +59,46 @@
     </section>
 
     <!-- Destinations List -->
-    <section class="px-6 md:px-12 lg:px-18 py-6">
+<section class="px-6 md:px-12 lg:px-18 py-6">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <router-link
-          v-for="province in provinces"
-          :key="province.name"
-          :to="{ name: province.routeName }"
-          class="group block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition duration-300"
-        >
+        <div v-for="province in provinces" :key="province.name"
+          class="group block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition duration-300">
           <div class="relative">
-            <img
-              :src="province.image"
-              :alt="province.name"
-              class="w-full h-48 object-cover group-hover:scale-105 transition duration-300"
-            />
-            <router-link
-              :to="`/guide/${province.routeName.toLowerCase()}/name`"
-              class="absolute top-2 right-2 px-3 py-2 rounded-full transition text-sm"
-            >
-              <button
-                @click.stop="toggleFavorite(province)"
-                class="absolute top-2 right-2 px-3 py-2 rounded-full transition text-sm shadow-lg"
-                aria-label="Favorite"
-              >
-                <svg
-                  v-if="province.favorite"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="30"
-                  height="30"
-                  viewBox="0 0 24 24"
-                >
-                  <!-- Filled heart -->
-                  <path
-                    fill="white"
-                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
-                  />
-                </svg>
-                <svg
-                  v-else
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="30"
-                  height="30"
-                  viewBox="0 0 24 24"
-                >
-                  <!-- Outlined heart -->
-                  <path
-                    fill="#fff"
-                    fill-rule="evenodd"
-                    d="m12.012 5.572l-1.087-1.087a5.5 5.5 0 1 0-7.778 7.778l8.839 8.839l.002-.002l.026.026l8.839-8.839a5.5 5.5 0 1 0-7.778-7.778zm-.024 12.7l4.936-4.937l1.45-1.4h.002l1.063-1.062a3.5 3.5 0 1 0-4.95-4.95L12.013 8.4l-.007-.007h-.001L9.511 5.9a3.5 3.5 0 1 0-4.95 4.95l2.54 2.54l.001-.003z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </button>
+            <router-link :to="`/guide/${toKebab(province.routeName)}`">
+              <img :src="province.image" :alt="province.name"
+                class="w-full h-48 object-cover group-hover:scale-105 transition duration-300" />
+            </router-link>
+            <button @click.stop="toggleFavorite(province)"
+              class="absolute top-2 right-2 px-3 py-2 rounded-full transition text-sm shadow-lg" aria-label="Favorite">
+              <svg v-if="province.favorite" xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                viewBox="0 0 24 24">
+                <!-- Filled heart -->
+                <path fill="white"
+                  d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+              </svg>
+              <svg v-else xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+                <!-- Outlined heart -->
+                <path fill="#fff" fill-rule="evenodd"
+                  d="m12.012 5.572l-1.087-1.087a5.5 5.5 0 1 0-7.778 7.778l8.839 8.839l.002-.002l.026.026l8.839-8.839a5.5 5.5 0 1 0-7.778-7.778zm-.024 12.7l4.936-4.937l1.45-1.4h.002l1.063-1.062a3.5 3.5 0 1 0-4.95-4.95L12.013 8.4l-.007-.007h-.001L9.511 5.9a3.5 3.5 0 1 0-4.95 4.95l2.54 2.54l.001-.003z"
+                  clip-rule="evenodd" />
+              </svg>
+            </button>
+            <router-link :to="`/guide/${toKebab(province.routeName)}`"
+              class="absolute top-2 left-2 text-white px-3 py-2 rounded-full transition text-sm shadow-lg">
+              <!-- Your other icon or content -->
             </router-link>
           </div>
           <div class="p-4">
             <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ province.name }}</h3>
             <p class="text-sm text-gray-600 mb-4">{{ province.description }}</p>
             <div class="flex items-center gap-3">
-              <button
-                class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm"
-              >
+              <button class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm">
                 <i class="fa-solid fa-house-chimney"></i>
               </button>
-              <router-link
-                :to="`/guide/${province.routeName.toLowerCase()}/restaurant`"
-                class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm"
-              >
-                <i class="fa-solid fa-utensils"></i>
+              <router-link :to="`/guide/${toKebab(province.routeName)}/restaurant`"
+                class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm">
+                <i class="fa-duotone fa-solid fa-bowl-food"></i>
               </router-link>
-
               <!-- Booking Toggle Button -->
               <button
                 @click.stop.prevent="toggleBookingOptions(province)"
@@ -162,17 +132,16 @@
                 </router-link>
               </div>
 
-              <router-link
-                :to="`/guide/${province.routeName.toLowerCase()}/weather`"
-                class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm"
-              >
+              <router-link :to="`/guide/${toKebab(province.routeName)}/weather`"
+                class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm">
                 <i class="fa-solid fa-cloud-sun"></i>
               </router-link>
             </div>
           </div>
-        </router-link>
+        </div>
       </div>
     </section>
+
   </div>
 </template>
 <script>
