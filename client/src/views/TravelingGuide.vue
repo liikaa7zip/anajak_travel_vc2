@@ -115,7 +115,7 @@
               <!-- Booking Options Dropdown -->
               <div
                 v-if="province.showBookingOptions"
-                class="absolute top-12 left-0 flex flex-col items-start gap-2 bg-white shadow-md rounded p-2 w-40 z-10"
+                class="absolute top-12  flex flex-col items-center gap-2 bg-white shadow-md rounded p-2 w-40 z-10"
               >
                 <router-link
                   :to="`/guide/${toKebab(province.routeName)}/BusTickets`"
