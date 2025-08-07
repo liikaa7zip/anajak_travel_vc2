@@ -66,7 +66,7 @@
             <th class="py-3 px-5 border-b">Travel Date</th>
             <th class="py-3 px-5 border-b">Email</th>
             <th class="py-3 px-5 border-b">Price</th>
-            <th class="py-3 px-5 border-b">Status</th>
+            <th class="py-3 px-5 border-b">Seat</th>
             <th class="py-3 px-5 border-b">Action</th>
           </tr>
         </thead>
@@ -85,12 +85,7 @@
             <td class="py-3 px-5 border-b">{{ booking.email }}</td>
             <td class="py-3 px-5 border-b font-semibold text-green-700">${{ booking.price?.toFixed(2) || '0.00' }}</td>
             <td class="py-3 px-5 border-b">
-              <span
-                :class="statusBadgeClass(booking.status)"
-                class="px-2 py-1 rounded text-xs font-semibold uppercase"
-              >
-                {{ booking.status }}
-              </span>
+              {{ Array.isArray(booking.seatNumbers) ? booking.seatNumbers.join(', ') : booking.seatNumbers || '—' }}
             </td>
             <td class="py-3 px-5 border-b">
               <button
