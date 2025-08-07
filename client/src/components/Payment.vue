@@ -112,6 +112,9 @@ const expiry = ref('')
 const cvv = ref('')
 const loading = ref(false)
 const errorMessage = ref('')
+const message = ref('')
+const success = ref(false)
+
 
 function formatCardNumber() {
   cardNumber.value = cardNumber.value
@@ -157,27 +160,32 @@ async function submitPayment() {
   errorMessage.value = ''
 
   try {
-    await axios.post('http://localhost:5000/api/payments', {
-      bookingId: props.bookingId,
+    const response = await axios.post('http://localhost:5000/api/payments', {
+      bookingId: props.bookingId, 
       bookingType: props.bookingType,
       amount: props.amount,
       method: 'Credit Card',
       cardName: cardName.value,
+      // Add other required payment fields your backend expects here
     })
-
+    
+    console.log('Payment success response:', response.data)
     emit('paid', {
       method: 'Credit Card',
       cardName: cardName.value,
-      bookingId: props.bookingId,
+      bookingType: props.bookingType,
       amount: props.amount,
     })
   } catch (error) {
-    errorMessage.value = 'Payment failed, please try again.'
-    console.error(error)
+    // Log full error info to understand backend rejection
+    console.error('Payment error:', error.response ? error.response.data : error)
+    errorMessage.value = error.response?.data?.message || 'Payment failed, please try again.'
   } finally {
     loading.value = false
   }
 }
+
+
 </script>
 
 
