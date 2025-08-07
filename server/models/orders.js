@@ -18,21 +18,25 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: 'confirmed',
     },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   });
 
   Order.associate = (models) => {
-    // Order -> Food (many-to-many via OrderFoodItem)
     Order.belongsToMany(models.Food, {
       through: models.OrderFoodItem,
       foreignKey: 'orderId',
       otherKey: 'foodId',
     });
 
-    // Order -> OrderFoodItem (one-to-many)
     Order.hasMany(models.OrderFoodItem, {
       foreignKey: 'orderId',
-      as: 'OrderFoodItem',
+      as: 'orderItems',
     });
+
+    Order.belongsTo(models.User, { foreignKey: 'userId' });
   };
 
   return Order;

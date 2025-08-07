@@ -59,4 +59,8 @@ db.User.hasMany(db.Booking, { foreignKey: 'UserId' });
 db.Booking.belongsTo(db.User, { foreignKey: 'UserId' });
 db.Category.hasMany(db.Food, { foreignKey: 'categoryId', as: 'foods' });
 db.Food.belongsTo(db.Category, { foreignKey: 'categoryId', as: 'category' });
+
+db.User.hasMany(db.Order, { foreignKey: 'userId' });
+db.Order.belongsTo(db.User, { foreignKey: 'userId' });
+
 module.exports = db;
