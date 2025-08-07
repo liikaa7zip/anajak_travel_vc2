@@ -20,6 +20,17 @@ module.exports = (sequelize, DataTypes) => {
         isIn: [['bus', 'private_car', 'van', 'luxury']],
       },
     },
+      timeOfDay: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        isIn: [['day', 'night']],
+      },
+    },
+      seatNumbers: {
+      type: DataTypes.STRING, // use JSON to store arrays in Sequelize
+      allowNull: false,
+    },
       price: {
       type: DataTypes.FLOAT,
       allowNull: false,

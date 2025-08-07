@@ -1,58 +1,48 @@
-// controllers/bookingController.js
 const { Booking, User } = require('../models');
 
-// Get all bookings (optional: filter by userId)
+// Get all bookings
 exports.getAllBookings = async (req, res) => {
   try {
     const bookings = await Booking.findAll({
-      include: [
-        {
-          model: User,
-          attributes: ['username']
-        }
-      ]
+      include: [{ model: User, attributes: ['username'] }],
     });
     res.json(bookings);
   } catch (error) {
-  console.error('Sequelize Error:', error.message);
-  console.error(error.stack);
-  res.status(500).json({ error: 'Failed to fetch bookings', detail: error.message });
+    console.error(error);
+    res.status(500).json({ error: 'Failed to fetch bookings' });
   }
 };
 
+// Get booking by ID
 exports.getBookingById = async (req, res) => {
   try {
     const booking = await Booking.findByPk(req.params.id, {
-      include: [
-        { model: User, attributes: ['username'] }
-      ]
+      include: [{ model: User, attributes: ['username'] }],
     });
-    if (!booking) {
-      return res.status(404).json({ message: 'Booking not found' });
-    }
-    res.status(200).json(booking);
-  } catch (err) {
-    console.error('Error fetching booking:', err);
-    res.status(500).json({ message: 'Server error while fetching booking' });
+    if (!booking) return res.status(404).json({ message: 'Booking not found' });
+    res.json(booking);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
   }
 };
 
-// Create a new booking
+// Create booking
 exports.createBooking = async (req, res) => {
   try {
     const {
-      UserId, // required field
+      UserId,
       depart,
       arrive,
       type,
       price,
       date,
       email,
+      timeOfDay,
+      seatNumbers,
     } = req.body;
 
-    // Simple validation
-    if (!UserId || !depart || !arrive || !type || !date || !email) {
-      return res.status(400).json({ message: 'All fields including UserId are required' });
+    if (!UserId || !depart || !arrive || !type || !price || !date || !email || !timeOfDay) {
+      return res.status(400).json({ message: 'Missing required fields' });
     }
 
     const newBooking = await Booking.create({
@@ -63,29 +53,28 @@ exports.createBooking = async (req, res) => {
       price,
       date,
       email,
+      timeOfDay,
+      seatNumbers,
     });
 
-    res.status(201).json({ message: 'Booking created successfully', booking: newBooking });
+    res.status(201).json({ message: 'Booking created', booking: newBooking });
   } catch (error) {
-    console.error('Booking creation failed:', error);
+    console.error(error);
     res.status(500).json({ message: 'Booking creation failed', error: error.message });
   }
 };
 
-// Cancel a booking by ID
+// Cancel booking by ID
 exports.cancelBooking = async (req, res) => {
   try {
     const booking = await Booking.findByPk(req.params.id);
-    if (!booking) {
-      return res.status(404).json({ message: 'Booking not found' });
-    }
+    if (!booking) return res.status(404).json({ message: 'Booking not found' });
 
     booking.status = 'cancelled';
     await booking.save();
 
-    res.json({ message: 'Booking cancelled successfully', booking });
+    res.json({ message: 'Booking cancelled', booking });
   } catch (error) {
-    console.error('Error cancelling booking:', error);
-    res.status(500).json({ message: 'Error cancelling booking', error: error.message });
+    res.status(500).json({ message: 'Failed to cancel booking', error: error.message });
   }
 };
