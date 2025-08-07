@@ -61,7 +61,10 @@
     <!-- Destinations List -->
 <section class="px-6 md:px-12 lg:px-18 py-6">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div v-for="province in provinces" :key="province.name"
+        <div 
+          v-for="province in provinces" 
+          :key="province.name"
+          :to="{ name: province.routeName }"
           class="group block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition duration-300">
           <div class="relative">
             <router-link :to="`/guide/${toKebab(province.routeName)}`">
@@ -92,9 +95,11 @@
             <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ province.name }}</h3>
             <p class="text-sm text-gray-600 mb-4">{{ province.description }}</p>
             <div class="flex items-center gap-3">
+              <router-link :to="`/guide/${toKebab(province.routeName)}`">
               <button class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm">
                 <i class="fa-solid fa-house-chimney"></i>
               </button>
+              </router-link>
               <router-link :to="`/guide/${toKebab(province.routeName)}/restaurant`"
                 class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm">
                 <i class="fa-duotone fa-solid fa-bowl-food"></i>
@@ -113,19 +118,19 @@
                 class="absolute top-12 left-0 flex flex-col items-start gap-2 bg-white shadow-md rounded p-2 w-40 z-10"
               >
                 <router-link
-                  :to="`/guide/${province.routeName.toLowerCase()}/BusTickets`"
+                  :to="`/guide/${toKebab(province.routeName)}/BusTickets`"
                   class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm w-full text-left"
                 >
                   <i class="fa-solid fa-bus"></i> Bus
                 </router-link>
                 <router-link
-                  :to="`/guide/${province.routeName.toLowerCase()}/CarRental`"
+                  :to="`/guide/${toKebab(province.routeName)}/CarRental`"
                   class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm w-full text-left"
                 >
                   <i class="fa-solid fa-car"></i> Car
                 </router-link>
                 <router-link
-                  :to="`/guide/${province.routeName.toLowerCase()}/FlightReservation`"
+                  :to="`/guide/${toKebab(province.routeName)}/FlightReservation`"
                   class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm w-full text-left"
                 >
                   <i class="fa-solid fa-plane"></i> Flight
