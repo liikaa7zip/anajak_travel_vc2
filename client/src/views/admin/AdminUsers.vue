@@ -124,7 +124,7 @@
                 'bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-semibold': user.role === 'user',
                 'bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs font-semibold': user.role === 'hotel_owner',
                 'bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-semibold': user.role === 'restaurant_owner',
-                'bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs font-semibold': user.role === 'admin',
+                'bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs font-semibold': user.role === 'transport_owner',
               }"
             >
               {{ user.role }}
@@ -244,65 +244,40 @@ const searchQuery = ref('')
 const selectedRole = ref('')
 const selectedStatus = ref('')
 const sortKey = ref('name')
-const sortOrder = ref(1) // 1 asc, -1 desc
-const props = defineProps({
-  users: Array
-})
-const emit = defineEmits(['user-deleted'])
+const sortOrder = ref(1)
+const router = useRouter()
+
 const currentPage = ref(1)
 const itemsPerPage = 6
-const selectedUser = ref(null);
-const showEditForm = ref(false);
+const selectedUser = ref(null)
+const showEditForm = ref(false)
 
-
-// Add User Modal state
-const showAddUserModal = ref(false)
-const newUser = ref({
-  name: '',
-  email: '',
-  role: '',
-  status: '',
-})
-
-// Fetch users from backend (mock URL)
 const fetchUsers = async () => {
   try {
-    // Example: Adjust URL accordingly
     const response = await axios.get('http://localhost:5000/api/users')
     users.value = response.data.map(user => ({
       id: user.id,
       username: user.username || user.name,
       email: user.email,
-      // password: user.password || '********', 
-      role: user.role || 'User',
-      status: 'Active',
+      role: user.role || 'user',
+      status: user.status || 'Active',
       created: new Date(user.createdAt || user.created || Date.now()).toLocaleDateString(),
     }))
   } catch (error) {
     console.error('Error fetching users:', error)
-    // Fallback sample users
-    // users.value = [
-    //   { id: 1, name: 'John Doe', email: 'john@example.com', role: 'Admin', status: 'Active', created: '2025-07-20' },
-    //   { id: 2, name: 'Jane Smith', email: 'jane@example.com', role: 'User', status: 'Inactive', created: '2025-07-15' },
-    //   { id: 3, name: 'Alice Johnson', email: 'alice@example.com', role: 'Business', status: 'Active', created: '2025-07-10' },
-    //   { id: 4, name: 'Bob Lee', email: 'bob@example.com', role: 'User', status: 'Banned', created: '2025-07-08' },
-    //   { id: 5, name: 'Charlie Kim', email: 'charlie@example.com', role: 'User', status: 'Active', created: '2025-07-01' },
-    //   { id: 6, name: 'Diana Green', email: 'diana@example.com', role: 'Business', status: 'Active', created: '2025-07-19' },
-    //   { id: 7, name: 'Eric Wang', email: 'eric@example.com', role: 'Admin', status: 'Active', created: '2025-07-18' },
-    // ]
   }
 }
 
-onMounted(() => {
-  fetchUsers()
-})
+onMounted(fetchUsers)
 
-// Filtering users based on search, role, status
 const filteredUsers = computed(() => {
   let temp = users.value
 
-  // Search by name or email
-  if (searchQuery.value.trim() !== '') {
+  // Exclude admins
+  temp = temp.filter(u => u.role !== 'admin')
+
+  // Search
+  if (searchQuery.value.trim()) {
     const q = searchQuery.value.toLowerCase()
     temp = temp.filter(
       u =>
@@ -311,7 +286,7 @@ const filteredUsers = computed(() => {
     )
   }
 
-  // Filter by role
+  // Filter by role (excluding 'admin' is already done)
   if (selectedRole.value) {
     temp = temp.filter(u => u.role === selectedRole.value)
   }
@@ -321,7 +296,7 @@ const filteredUsers = computed(() => {
     temp = temp.filter(u => u.status === selectedStatus.value)
   }
 
-  // Sort by selected key
+  // Sort
   temp = [...temp].sort((a, b) => {
     const aKey = a[sortKey.value] || ''
     const bKey = b[sortKey.value] || ''
@@ -337,16 +312,10 @@ const filteredUsers = computed(() => {
   return temp
 })
 
-
-// Pagination
 const totalPages = computed(() => Math.ceil(filteredUsers.value.length / itemsPerPage))
 const startUserIndex = computed(() => (currentPage.value - 1) * itemsPerPage)
-const endUserIndex = computed(() =>
-  Math.min(startUserIndex.value + itemsPerPage, filteredUsers.value.length)
-)
-const paginatedUsers = computed(() =>
-  filteredUsers.value.slice(startUserIndex.value, endUserIndex.value)
-)
+const endUserIndex = computed(() => Math.min(startUserIndex.value + itemsPerPage, filteredUsers.value.length))
+const paginatedUsers = computed(() => filteredUsers.value.slice(startUserIndex.value, endUserIndex.value))
 
 function prevPage() {
   if (currentPage.value > 1) currentPage.value--
@@ -357,8 +326,6 @@ function nextPage() {
 function gotoPage(page) {
   currentPage.value = page
 }
-
-// Sorting
 function sortBy(key) {
   if (sortKey.value === key) {
     sortOrder.value = -sortOrder.value
@@ -369,69 +336,28 @@ function sortBy(key) {
   currentPage.value = 1
 }
 
-// Dropdown actions
-// function toggleDropdown(idx) {
-//   dropdownOpen.value = dropdownOpen.value === idx ? null : idx
-// }
 const toggleDropdown = (idx) => {
   dropdownOpen.value = dropdownOpen.value === idx ? null : idx
 }
-// Stats helpers
-function countByStatus(status) {
-  return users.value.filter(u => u.status === status).length
-}
-function countNewSignups() {
-  const sevenDaysAgo = new Date()
-  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7)
-  return users.value.filter(u => new Date(u.created) >= sevenDaysAgo).length
-}
 
-// Add User modal
-function openAddUserModal() {
-  newUser.value = {
-    name: '',
-    email: '',
-    role: '',
-    status: '',
-  }
-  showAddUserModal.value = true
-}
-function closeAddUserModal() {
-  showAddUserModal.value = false
-}
-function submitNewUser() {
-  if (
-    !newUser.value.name ||
-    !newUser.value.email ||
-    !newUser.value.role ||
-    !newUser.value.status
-  ) {
-    alert('Please fill all fields')
-    return
-  }
-  // Add user to list (normally post to backend)
-  const newId = users.value.length
-    ? Math.max(...users.value.map(u => u.id)) + 1
-    : 1
-  users.value.push({
-    id: newId,
-    name: newUser.value.name,
-    email: newUser.value.email,
-    role: newUser.value.role,
-    status: newUser.value.status,
-    created: new Date().toLocaleDateString(),
-  })
-  closeAddUserModal()
-  alert(`User ${newUser.value.name} added!`)
-}
-
-// Close dropdown on outside click
 if (typeof window !== 'undefined') {
   window.addEventListener('click', (e) => {
     if (!e.target.closest('.relative.inline-block')) {
       dropdownOpen.value = null
     }
   })
+}
+
+function countByStatus(status) {
+  return users.value.filter(u => u.status === status && u.role !== 'admin').length
+}
+
+function countNewSignups() {
+  const sevenDaysAgo = new Date()
+  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7)
+  return users.value.filter(
+    u => new Date(u.created) >= sevenDaysAgo && u.role !== 'admin'
+  ).length
 }
 
 const banUser = async (user) => {
@@ -442,14 +368,10 @@ const banUser = async (user) => {
     await axios.delete(`http://localhost:5000/api/admin/users/${user.id}`)
     alert(`User ${user.username} banned (deleted) successfully.`)
 
-    // Remove user from users array
     const index = users.value.findIndex(u => u.id === user.id)
     if (index !== -1) {
       users.value.splice(index, 1)
     }
-
-    // Optionally emit event to parent if needed
-    emit('user-deleted', user.id)
 
   } catch (error) {
     console.error('Error banning user:', error)
@@ -457,21 +379,19 @@ const banUser = async (user) => {
   }
 }
 
-
 const editUser = (user) => {
   selectedUser.value = { ...user }
   dropdownOpen.value = null
   showEditForm.value = true
 }
+
 const handleUserUpdated = (updatedUser) => {
-  const index = paginatedUsers.value.findIndex(u => u.id === updatedUser.id)
+  const index = users.value.findIndex(u => u.id === updatedUser.id)
   if (index !== -1) {
-    // Merge updated data with existing user to preserve all fields
-    paginatedUsers.value.splice(index, 1, { ...paginatedUsers.value[index], ...updatedUser })
+    users.value[index] = { ...users.value[index], ...updatedUser }
   }
   showEditForm.value = false
 }
-
 </script>
 
 <style scoped>

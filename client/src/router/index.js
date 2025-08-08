@@ -132,6 +132,11 @@ import AdminFlightBooking from '@/views/admin/AdminFlightBooking.vue'
 import AdminBoatBooking from '@/views/admin/AdminBoatBooking.vue'
 import AdminBusBooking from '@/views/admin/AdminBusBooking.vue'
 import Payment from '@/components/Payment.vue'
+import TransportDashbord from '@/views/TransportOwner/TransportDashbord.vue'
+import TransportLayout from '@/layouts/TransportLayout.vue'
+import TransportUser from '@/views/TransportOwner/TransportUser.vue'
+import TransportBus from '@/views/TransportOwner/TransportBus.vue'
+import TransportBoat from '@/views/TransportOwner/TransportBoat.vue'
 // Auth guard
 
 const getUserFromStorage = () => {
@@ -283,6 +288,18 @@ const routes = [
 
     ]
   },
+  {
+    path: '/transport_owner',
+    component: TransportLayout,
+    meta: { requiresAuth: true, role: 'transport_owner' },
+    children: [
+      { path: '', redirect: 'transportdashboard' },
+      { path: 'transportdashboard', component: TransportDashbord, name: 'TransportOwnerDashboard' },
+      { path: 'transportuser', component: TransportUser, name: 'TransportUser'},
+      { path: 'transportbus', component: TransportBus, name: 'TransportBus' },
+      { path: 'transportboat', component: TransportBoat, name: 'TransportBoat' },
+    ]
+  },
 
   // Separate route for creating user under /users/create (not nested in admin for now)
   { path: '/users/create', name: 'CreateUser', component: CreateUser },
@@ -291,7 +308,10 @@ const routes = [
   { path: '/dashboard', redirect: '/admin/dashboard' },
 
   // Catch-all 404 redirect
-  { path: '/:pathMatch(.*)*', redirect: '/home' }
+  { path: '/:pathMatch(.*)*', redirect: '/home' },
+
+
+  
 ]
 
 // Create router
