@@ -10,34 +10,32 @@ const TOTAL_SEATS = [
 ];
 
 router.get('/', async (req, res) => {
-  const { date, timeOfDay, carId } = req.query;
+  const { date, timeOfDay, carId, time } = req.query;
 
-  if (!date || !timeOfDay || !carId) {
+  if (!date || !timeOfDay || !carId || !time) {
     return res.status(400).json({ message: 'Missing query parameters' });
   }
 
   try {
-    // Find all confirmed bookings for given date, time, and car
+    // Find all confirmed bookings for the given date, timeOfDay, time, and car
     const bookings = await Booking.findAll({
       where: {
         date,
         timeOfDay,
+        time,
         carId,
         status: 'confirmed'
       }
     });
 
-    // Extract all booked seats from all bookings
     let bookedSeats = [];
     bookings.forEach(booking => {
-      const seats = JSON.parse(booking.seatNumbers); // stored as JSON string
+      const seats = JSON.parse(booking.seatNumbers); // assuming JSON stored
       bookedSeats = bookedSeats.concat(seats);
     });
 
-    // Remove duplicates
     bookedSeats = [...new Set(bookedSeats)];
 
-    // Create seat list with booked flag
     const seatsWithStatus = TOTAL_SEATS.map(seatNumber => ({
       number: seatNumber,
       booked: bookedSeats.includes(seatNumber)
@@ -49,5 +47,6 @@ router.get('/', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
+
 
 module.exports = router;
