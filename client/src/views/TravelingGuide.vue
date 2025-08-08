@@ -102,7 +102,7 @@
               </router-link>
               <router-link :to="`/guide/${toKebab(province.routeName)}/restaurant`"
                 class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm">
-                <i class="fa-duotone fa-solid fa-bowl-food"></i>
+                <i class="fa-solid fa-utensils"></i>
               </router-link>
               <!-- Booking Toggle Button -->
               <button
