@@ -232,31 +232,48 @@
       </div>
     </div>
 
-
-    <!-- Success Modal -->
-<div
-  v-if="confirmation"
-  class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50"
-  @click.self="confirmation = ''"
->
-  <div class="bg-white rounded-3xl shadow-xl max-w-md w-full p-8 relative">
-    <button
-      @click="confirmation = ''"
-      class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl"
+    <!-- Success Confirmation Modal -->
+    <div
+      v-if="confirmation"
+      class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50 transition-opacity duration-300 ease-out"
+      @click.self="confirmation = ''"
     >
-      &times;
-    </button>
+      <div
+        class="bg-white rounded-3xl shadow-xl max-w-md w-full p-8 relative transform scale-95 transition-transform duration-300 ease-out"
+        role="alertdialog"
+        aria-modal="true"
+      >
+        <button
+          @click="confirmation = ''"
+          aria-label="Close"
+          class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 focus:outline-none text-2xl"
+        >
+          &times;
+        </button>
 
-    <div class="mx-auto mb-6 flex items-center justify-center w-20 h-20 rounded-full bg-green-600 text-white shadow-lg">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-      </svg>
-    </div>
+        <div
+          class="mx-auto mb-6 flex items-center justify-center w-20 h-20 rounded-full bg-green-600 text-white shadow-lg relative overflow-hidden"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-10 h-10 animate-pulse-once"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+          <div class="absolute inset-0 rounded-full bg-white opacity-10 blur-xl scale-125"></div>
+        </div>
 
-    <h2 class="text-center text-2xl font-extrabold mb-3 text-green-800">Booking Successful!</h2>
-    <p class="text-center text-gray-700 mb-8 text-base leading-relaxed">
-      {{ confirmation }}
-    </p>
+        <h2 class="text-center text-2xl font-extrabold mb-3 text-green-800">
+          Booking Successful!
+        </h2>
+
+        <p class="text-center text-gray-700 mb-8 text-base leading-relaxed">
+          {{ confirmation }}
+        </p>
 
     <div class="flex justify-center">
       <button

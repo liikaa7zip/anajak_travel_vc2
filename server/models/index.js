@@ -63,4 +63,7 @@ db.Food.belongsTo(db.Category, { foreignKey: 'categoryId', as: 'category' });
 
 db.Car.hasMany(db.Booking, { foreignKey: 'carId' });
 db.Booking.belongsTo(db.Car, { foreignKey: 'carId' });
+db.User.hasMany(db.Order, { foreignKey: 'userId' });
+db.Order.belongsTo(db.User, { foreignKey: 'userId' });
+
 module.exports = db;

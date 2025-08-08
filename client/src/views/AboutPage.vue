@@ -14,7 +14,7 @@
         <div
           class="relative flex flex-col items-center justify-center h-full text-white text-center"
         >
-          <h2 class="text-4xl font-bold text-5xl">{{ slide.title }}</h2>
+          <h2 class="text-4xl font-bold">{{ slide.title }}</h2>
           <p class="mt-4 text-4xl">{{ slide.subtitle }}</p>
           <button
             @click="goToContactPage"

@@ -3,7 +3,7 @@
     <!-- Hero Section -->
     <section class="relative w-full h-80 sm:h-96">
       <img
-        src="https://www.cambodiadaily.com/wp-content/uploads/2018/02/prey-veng-cambodia.jpg"
+        src="https://cambodia.thajsko.com/wp-content/uploads/Prey-Veng-01.jpg"
         alt="Prey Veng"
         class="w-full h-full object-cover rounded-b-md"
       />
