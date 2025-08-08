@@ -66,7 +66,8 @@
 <div class="flex gap-3">
   <div class="w-1/2 mt-4">
     <label for="time" class="block mb-1 font-semibold text-gray-700">Time</label>
-    <select v-model="form.time" required>
+    <select v-model="form.time" required
+    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-400">
       <option disabled value="">Select Time</option>
       <option v-for="time in timeOptions" :key="time.value" :value="time.value">
         {{ time.label }}
@@ -74,7 +75,7 @@
     </select>
   </div>
 
-  <div class="w-1/2 mt-4">
+  <!-- <div class="w-1/2 mt-4">
     <label for="type" class="block mb-1 font-semibold text-gray-700">Transport Type</label>
     <select id="type" v-model="form.type" required
       class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-400">
@@ -82,7 +83,7 @@
       <option value="bus">Bus</option>
       <option value="private_car">Private Car</option>
     </select>
-  </div>
+  </div> -->
 
 
 
@@ -571,16 +572,17 @@ watch(userProfile, (newUser) => {
 
 // Watch for changes in date, timeOfDay, or carId
 watch(
-  () => [form.value.date, form.value.timeOfDay, form.value.carId],
+  () => [form.value.date, form.value.timeOfDay, form.value.carId, form.value.time],
   () => {
-    console.log('Params changed: loading seats', form.value.date, form.value.timeOfDay, form.value.carId)
+    console.log('Params changed: loading seats', form.value.date, form.value.timeOfDay, form.value.carId, form.value.time)
     loadSeats()
   }
 )
 
 
+
 const loadSeats = async () => {
-  if (!form.value.date || !form.value.timeOfDay || !form.value.carId) return;
+  if (!form.value.date || !form.value.timeOfDay || !form.value.carId || !form.value.time) return;
 
   try {
     const response = await axios.get('http://localhost:5000/api/seats', {
@@ -588,12 +590,13 @@ const loadSeats = async () => {
         date: form.value.date,
         timeOfDay: form.value.timeOfDay,
         carId: form.value.carId,
+        time: form.value.time, // ✅ include time
       }
     });
 
     const seatsFromApi = response.data;
 
-    // Clear all booked states first
+    // Update seat booking status
     leftSeats.value.forEach(seat => {
       const match = seatsFromApi.find(s => s.number === seat.number);
       seat.booked = match ? match.booked : false;
@@ -613,11 +616,6 @@ const loadSeats = async () => {
     console.error('Error loading booked seats:', error);
   }
 };
-
-
-
-
-
 
 
 const leftSeats = ref(
