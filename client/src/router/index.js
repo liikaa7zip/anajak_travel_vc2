@@ -212,6 +212,7 @@ const routes = [
       { path: 'guide/:province/BusTickets', name: 'ProvinceBusTickets', component: BusTickets, props: true },
       { path: 'guide/:province/CarRental', name: 'ProvinceCarRental', component: CarRental, props: true },
       { path: 'guide/:province/FlightReservation', name: 'ProvinceFlightReservation', component: FlightReservation, props: true },
+      { path: 'guide/:province/ProvinceList', name: 'ProvinceProvinceList', component: ProvinceList, props: true },
 
       // Food routes
       { path: 'foods', component: FoodListView, name: 'FoodList' },

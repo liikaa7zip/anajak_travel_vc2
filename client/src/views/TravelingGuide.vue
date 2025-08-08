@@ -100,7 +100,7 @@
                 <i class="fa-solid fa-house-chimney"></i>
               </button>
               </router-link>
-              <router-link :to="`/guide/${toKebab(province.routeName)}/restaurant`"
+              <router-link :to="`/guide/${toKebab(province.routeName)}/ProvinceList`"
                 class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm">
                 <i class="fa-solid fa-utensils"></i>
               </router-link>
