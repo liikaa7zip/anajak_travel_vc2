@@ -37,6 +37,9 @@ import AdminUsers from '../views/admin/AdminUsers.vue'
 import CreateUser from '../components/CreateUser.vue'
 // import AdminBlog from '../views/admin/AdminBlog.vue'
 
+//favorite
+import favorite from '../views/favorite.vue'
+
 
 // Provinces
 import Battambang from '../views/provinces/Battambang.vue'
@@ -181,6 +184,9 @@ const routes = [
       { path: 'profile', component: UserProfile, beforeEnter: requireAuth },
       { path: 'settings', component: UserSettings, beforeEnter: requireAuth },
 
+      //favorite
+      { path: 'favorite', component: favorite, beforeEnter: requireAuth },
+
       // Provinces
       { path: 'guide/battambang', name: 'Battambang', component: Battambang },
       { path: 'guide/banteay-meanchey', name: 'BanteayMeanchey', component: BanteayMeanchey },
@@ -213,6 +219,7 @@ const routes = [
       { path: 'guide/:province/CarRental', name: 'ProvinceCarRental', component: CarRental, props: true },
       { path: 'guide/:province/FlightReservation', name: 'ProvinceFlightReservation', component: FlightReservation, props: true },
       { path: 'guide/:province/ProvinceList', name: 'ProvinceProvinceList', component: ProvinceList, props: true },
+      { path: 'guide/:view/favorite', name: 'Provincefavorite', component: favorite, props: true },
 
       // Food routes
       { path: 'foods', component: FoodListView, name: 'FoodList' },

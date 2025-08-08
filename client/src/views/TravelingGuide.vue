@@ -71,7 +71,10 @@
               <img :src="province.image" :alt="province.name"
                 class="w-full h-48 object-cover group-hover:scale-105 transition duration-300" />
             </router-link>
-            <button @click.stop="toggleFavorite(province)"
+
+            <router-link :to="`/guide/${toKebab(province.routeName)}/favorite`"
+              class="absolute top-2 right-2 px-3 py-2 rounded-full" aria-label="Favorite">
+              <button @click.stop="toggleFavorite(province)"
               class="absolute top-2 right-2 px-3 py-2 rounded-full transition text-sm shadow-lg" aria-label="Favorite">
               <svg v-if="province.favorite" xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                 viewBox="0 0 24 24">
@@ -86,9 +89,6 @@
                   clip-rule="evenodd" />
               </svg>
             </button>
-            <router-link :to="`/guide/${toKebab(province.routeName)}`"
-              class="absolute top-2 left-2 text-white px-3 py-2 rounded-full transition text-sm shadow-lg">
-              <!-- Your other icon or content -->
             </router-link>
           </div>
           <div class="p-4">
