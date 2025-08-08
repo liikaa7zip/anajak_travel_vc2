@@ -14,13 +14,13 @@
       <!-- Desktop Navigation -->
       <div class="hidden md:flex space-x-6 text-sm items-center relative">
         <router-link to="/" class="nav-link">{{ $t('home') }}</router-link>
-        <router-link to="/about" class="nav-link">About Us</router-link>
-        <router-link to="/guide" class="nav-link">Traveling Guide</router-link>
+        <router-link to="/about" class="nav-link"> {{ $t('about') }}</router-link>
+        <router-link to="/guide" class="nav-link">{{ $t('guide') }}</router-link>
 
         <!-- Travel Bookings Dropdown -->
         <div class="relative" @mouseenter="showDropdown = true" @mouseleave="showDropdown = false">
           <button class="nav-link flex items-center gap-1">
-            <span>Travel Bookings</span>
+            <span>{{ $t('travelBookings') }}</span>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
@@ -31,37 +31,37 @@
               class="absolute left-0 mt-3 w-max min-w-[600px] bg-white border border-gray-200 rounded-xl shadow-xl z-50 p-6 grid grid-cols-3 gap-6 animate-fade-in">
               <div>
                 <h3 class="text-blue-600 font-semibold text-sm mb-3">
-                  TRANSPORTATIONS
+                  {{ $t('transportations') }}
                 </h3>
-                <router-link to="/FlightReservation" class="dropdown-item">✈️ Flight Reservation</router-link>
-                <router-link to="/CarRental" class="dropdown-item">🚗 Car Rental</router-link>
-                <router-link to="/Bustickets" class="dropdown-item">🚌 Bus Tickets</router-link>
-                <router-link to="/Boatickets" class="dropdown-item">⛴️ Boat Tickets</router-link>
+                <router-link to="/FlightReservation" class="dropdown-item">✈️ {{ $t('flight') }}</router-link>
+                <router-link to="/CarRental" class="dropdown-item">🚗 {{ $t('car') }}</router-link>
+                <router-link to="/Bustickets" class="dropdown-item">🚌 {{ $t('bus') }}</router-link>
+                <router-link to="/Boatickets" class="dropdown-item">⛴️ {{ $t('boat') }}</router-link>
               </div>
               <div>
                 <h3 class="text-blue-600 font-semibold text-sm mb-3">
-                  HOTELS & DINING
+                  {{ $t('hotelsDining') }}
                 </h3>
-                <router-link to="/hotel" class="dropdown-item">🏨 Hotel Booking</router-link>
-                <router-link to="/province" class="dropdown-item">🍽️ Restaurant Reservations</router-link>
+                <router-link to="/hotel" class="dropdown-item">🏨 {{ $t('hotel') }}</router-link>
+                <router-link to="/province" class="dropdown-item">🍽️ {{ $t('restaurant') }}</router-link>
               </div>
               <div>
                 <h3 class="text-blue-600 font-semibold text-sm mb-3">
-                  MORE SERVICES
+                  {{ $t('moreServices') }}
                 </h3>
-                <router-link to="/user-plan" class="dropdown-item">🗺️ User Plan</router-link>
-                <router-link to="/TravelItinerary" class="dropdown-item">📅 Travel Itinerary</router-link>
+                <router-link to="/user-plan" class="dropdown-item">🗺️ {{ $t('plan') }}</router-link>
+                <router-link to="/TravelItinerary" class="dropdown-item">📅 {{ $t('itinerary') }}</router-link>
               </div>
             </div>
           </transition>
         </div>
 
-        <router-link to="/blog" class="nav-link">Blog Page</router-link>
+        <router-link to="/blog" class="nav-link">{{ $t('blog') }}</router-link>
 
         <select v-model="locale" @change="changeLanguage"
           class="border text-sm px-2 py-1 rounded-md focus:outline-none">
-          <option value="en">English</option>
-          <option value="km">Khmer</option>
+          <option value="en">{{ $t('english') }}</option>
+          <option value="km">{{ $t('khmer') }}</option>
         </select>
 
       </div>
@@ -83,11 +83,11 @@
           <!-- Not Logged In -->
           <div v-if="!isLoggedIn" class="flex items-center space-x-4">
             <router-link to="/login" class="text-gray-700 hover:text-blue-600 transition">
-              Login
+              {{ $t('login') }}
             </router-link>
             <router-link to="/register"
               class="bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-700 transition font-medium">
-              Sign Up
+              {{ $t('signup') }}
             </router-link>
           </div>
 
@@ -160,27 +160,25 @@
                 <!-- Links -->
                 <div class="py-1">
                   <router-link to="/profile" class="dropdown-item">
-                    <i class="ri-user-line mr-2 text-gray-500"></i> Profile
+                    <i class="ri-user-line mr-2 text-gray-500"></i> {{ $t('profile') }}
                   </router-link>
 
                   <router-link to="/settings" class="dropdown-item">
                     <i class="ri-settings-3-line mr-2 text-gray-500"></i>
-                    Settings
+                    {{ $t('settings') }}
                   </router-link>
 
                   <router-link v-if="isAdmin" to="/admin/dashboard" class="dropdown-item">
-                    <i class="ri-dashboard-line mr-2 text-gray-500"></i> Admin
-                    Dashboard
+                    <i class="ri-dashboard-line mr-2 text-gray-500"></i> {{ $t('adminDashboard') }}
                   </router-link>
 
                   <router-link v-if="isHotelowner" to="/hotel_owner/hoteldashboard" class="dropdown-item">
-                    <i class="ri-hotel-bed-line mr-2 text-gray-500"></i> Hotel
-                    Dashboard
+                    <i class="ri-hotel-bed-line mr-2 text-gray-500"></i> {{ $t('hotelDashboard') }}
                   </router-link>
 
                   <router-link v-if="isReturantowner" to="/restaurant_owner/fooddashboard" class="dropdown-item">
                     <i class="ri-restaurant-line mr-2 text-gray-500"></i>
-                    Restaurant Dashboard
+                    {{ $t('restaurantDashboard') }}
                   </router-link>
                 </div>
 
@@ -189,7 +187,7 @@
                   <button @click="logout"
                     class="w-full text-left dropdown-item text-red-600 hover:bg-red-50 hover:text-red-700">
                     <i class="ri-logout-box-r-line mr-2 text-red-400"></i>
-                    Logout
+                    {{ $t('logout') }}
                   </button>
                 </div>
               </div>
