@@ -5,7 +5,7 @@ const User = db.User;
 const saltRounds = 10;
 const secretKey = process.env.JWT_SECRET || 'your-secret-key';
 
-const validRoles = ['admin', 'user', 'restaurant_owner', 'hotel_owner'];
+
 
 // Public registration — role forced to 'user'
 exports.registerUser = async (req, res) => {
@@ -38,10 +38,12 @@ exports.registerUser = async (req, res) => {
   }
 };
 
+const validRoles = ['user', 'restaurant_owner', 'hotel_owner', 'transport_owner'];
 // Admin creates user with specified role
 exports.adminCreateUser = async (req, res) => {
   try {
     const { username, email, password, role } = req.body;
+
     if (!username || !email || !password || !role) {
       return res.status(400).json({ message: 'Username, email, password, and role are required' });
     }
