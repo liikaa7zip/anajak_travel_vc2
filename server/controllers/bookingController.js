@@ -1,4 +1,4 @@
-const { Booking, User, car } = require('../models');
+const { Booking, User, Car } = require('../models');
 
 // Get all bookings
 exports.getAllBookings = async (req, res) => {
@@ -6,12 +6,12 @@ exports.getAllBookings = async (req, res) => {
     const bookings = await Booking.findAll({
       include: [
         { model: User, attributes: ['username'] },
-        { model: Car, attributes: ['name', 'plateNumber'] }, // or whatever fields
+        { model: Car, attributes: ['name', 'plateNumber'] },
       ],
     });
     res.json(bookings);
   } catch (error) {
-    console.error(error);
+    console.error('Error fetching bookings:', error.message, error.stack);
     res.status(500).json({ error: 'Failed to fetch bookings' });
   }
 };
