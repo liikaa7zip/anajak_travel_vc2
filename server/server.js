@@ -15,6 +15,7 @@ const locationRoutes = require('./routes/locationRoutes');
 
 const createDefaultAdmin = require('./seeders/createDefaultAdmin');
 const createDefaultLocations = require('./seeders/createDefaultLocations');
+const createDefaultCars = require('./seeders/20250807-insert-cars')
 // orderfood
 const foodRoutes = require('./routes/foodRoutes');
 const orderFoodRoutes = require('./routes/orderFoodRoutes');
@@ -35,6 +36,8 @@ const travelGuidesRoutes = require('./routes/travelGuidesRoutes');
 const galleryPhotosRoutes = require('./routes/galleryPhotosRoutes');
 const itineraryRoutes = require('./routes/itineraryRoutes');
 const categoryRoutes = require('./routes/category');
+const carRoutes = require('./routes/carRoutes');
+const seatsRoutes = require('./routes/seatsRoute')
 
 const payment = require('./routes/PaymentRoutes');
 
@@ -67,6 +70,9 @@ app.use('/api/travel-guides', travelGuidesRoutes);
 app.use('/api/gallery-photos', galleryPhotosRoutes);
 app.use('/api/itineraries', itineraryRoutes);
 app.use('/api/payments', payment);
+app.use('/api/cars', carRoutes);
+app.use('/api/seats', seatsRoutes)
+
 // Uncomment if you want admin user routes
 // app.use('/api/admin-users', adminUserRoutes);
 app.use('/api/categories', categoryRoutes);
@@ -115,6 +121,7 @@ sequelize.sync({ alter: true })
     console.log('Database synced');
     await createDefaultAdmin();
     await createDefaultLocations();
+    await createDefaultCars();
 
     server.listen(PORT, () => {
       console.log(`Server running on http://localhost:${PORT}`);

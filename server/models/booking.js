@@ -13,13 +13,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    type: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        isIn: [['bus', 'private_car', 'van', 'luxury']],
-      },
-    },
+    // type: {
+    //   type: DataTypes.STRING,
+    //   allowNull: false,
+    //   validate: {
+    //     isIn: [['bus', 'private_car', 'van', 'luxury']],
+    //   },
+    // },
       timeOfDay: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -56,6 +56,20 @@ module.exports = (sequelize, DataTypes) => {
         isIn: [['confirmed', 'cancelled', 'pending', 'completed']],
       },
     },
+    carId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'cars',
+        key: 'id',
+      },
+    },
+
+    time: {
+      type: DataTypes.STRING,  // store hour as integer (e.g., 7, 18, 21)
+      allowNull: false,
+    },
+    
   }, {
     tableName: 'bookings',
     timestamps: true,

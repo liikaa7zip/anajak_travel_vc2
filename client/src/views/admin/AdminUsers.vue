@@ -110,11 +110,11 @@
           class="border-b hover:bg-blue-50 even:bg-gray-50 transition duration-150"
         >
           <td class="py-2 px-2">
-            <img
+            <!-- <img
               :src="'https://randomuser.me/api/portraits/men/' + (idx + 30) + '.jpg'"
               class="w-8 h-8 rounded-full border border-blue-500 shadow"
               alt="avatar"
-            />
+            /> -->
           </td>
           <td class="py-2 px-2 text-left">{{ user.username }}</td>
           <td class="py-2 px-2 text-left">{{ user.email }}</td>
