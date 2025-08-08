@@ -7,25 +7,25 @@
             <div
               class="bg-white-600 text-pink-500 shadow-lg px-6 py-3 rounded-full text-lg font-medium"
               style="width: fit-content;"
-            >Explore the world!</div>
+            >{{ $t('heroTagline') }}</div>
             <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-800 leading-tight">
-              From
-              <br />Cambodia
+              {{ $t('heroTitleFrom') }}
+              <br />{{ $t('heroTitleCambodia') }}
               <br />
-              <span class="text-pink-500">to the World.</span>
+              <span class="text-pink-500">{{ $t('heroTitleWorld') }}</span>
             </h1>
             <p
               class="text-gray-600 text-lg lg:text-xl leading-relaxed max-w-2xl"
-            >Stay updated with recommendations and discover amazing destinations across Cambodia and beyond.</p>
+            >{{ $t('heroDescription') }}</p>
             <div class="flex flex-col sm:flex-row gap-4">
               <router-link
                 to="/guide"
                 class="bg-purple-600 text-white px-5 py-3 rounded-full hover:bg-purple-700 active:bg-purple-800 transition-colors text-base font-medium text-center"
-              >Explore</router-link>
+              >{{ $t('explore') }}</router-link>
               <router-link
                 to="/about"
                 class="border-2 border-purple-600 text-purple-600 px-5 py-3 rounded-full hover:bg-purple-700 hover:text-white active:bg-purple-800 transition-colors text-base font-medium text-center"
-              >Learn More</router-link>
+              >{{ $t('learnMore') }}</router-link>
             </div>
           </div>
           <div class="relative w-full">
@@ -65,7 +65,7 @@
         <div
           class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-12 max-w-7xl mx-auto"
         >
-          <h2 class="text-3xl lg:text-4xl font-bold text-gray-800">Popular things to do</h2>
+          <h2 class="text-3xl lg:text-4xl font-bold text-gray-800">{{ $t('popularThingsTitle') }}</h2>
           <!-- <a href="/blog" class="text-purple-600 hover:text-purple-700 font-medium text-lg">See all</a> -->
         </div>
 
@@ -83,8 +83,8 @@
                 />
               </svg>
             </div>
-            <h3 class="font-bold text-lg">City Tours</h3>
-            <p class="text-sm text-gray-600">99+ Tours</p>
+            <h3 class="font-bold text-lg">{{ $t('cityTours') }}</h3>
+            <p class="text-sm text-gray-600">{{ $t('toursCount') }}</p>
           </div>
 
           <div
@@ -108,8 +108,8 @@
                 </g>
               </svg>
             </div>
-            <h3 class="font-bold text-lg">Cultural Tours</h3>
-            <p class="text-sm text-gray-600">99+ Tours</p>
+            <h3 class="font-bold text-lg">{{ $t('culturalTours') }}</h3>
+            <p class="text-sm text-gray-600">{{ $t('toursCount') }}</p>
           </div>
 
           <div
@@ -123,8 +123,8 @@
                 />
               </svg>
             </div>
-            <h3 class="font-bold text-lg">Day Cruises</h3>
-            <p class="text-sm text-gray-600">99+ Tours</p>
+            <h3 class="font-bold text-lg">{{ $t('dayCruises') }}</h3>
+            <p class="text-sm text-gray-600">{{ $t('toursCount') }}</p>
           </div>
 
           <div
@@ -145,8 +145,8 @@
                 </g>
               </svg>
             </div>
-            <h3 class="font-bold text-lg">Bus Tours</h3>
-            <p class="text-sm text-gray-600">99+ Tours</p>
+            <h3 class="font-bold text-lg">{{ $t('busTours') }}</h3>
+            <p class="text-sm text-gray-600">{{ $t('toursCount') }}</p>
           </div>
 
           <div
@@ -162,8 +162,8 @@
                 />
               </svg>
             </div>
-            <h3 class="font-bold text-lg">Beach Tours</h3>
-            <p class="text-sm text-gray-600">99+ Tours</p>
+            <h3 class="font-bold text-lg">{{ $t('beachTours') }}</h3>
+            <p class="text-sm text-gray-600">{{ $t('toursCount') }}</p>
           </div>
 
           <div
@@ -177,8 +177,8 @@
                 />
               </svg>
             </div>
-            <h3 class="font-bold text-lg">Food Tours</h3>
-            <p class="text-sm text-gray-600">99+ Tours</p>
+            <h3 class="font-bold text-lg">{{ $t('foodTours') }}</h3>
+            <p class="text-sm text-gray-600">{{ $t('toursCount') }}</p>
           </div>
         </div>
       </div>
@@ -192,8 +192,8 @@
         >
           <h2
             class="text-3xl lg:text-4xl font-bold text-gray-800 mb-4 sm:mb-0"
-          >Trending Destinations</h2>
-          <a href="/blog" class="text-purple-600 hover:text-purple-700 font-medium text-lg">See all</a>
+          >{{ $t('trendingDestinationsTitle') }}</h2>
+          <a href="/blog" class="text-purple-600 hover:text-purple-700 font-medium text-lg">{{ $t('seeAll') }}</a>
         </div>
 
         <!-- Masonry Grid Layout -->
@@ -447,12 +447,10 @@
         <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div class="space-y-8">
             <div>
-              <h2 class="text-pink-500 text-2xl lg:text-3xl font-bold mb-2">KEY FEATURES</h2>
-              <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-6">We offer best services</h2>
+              <h2 class="text-pink-500 text-2xl lg:text-3xl font-bold mb-2">{{ $t('keyFeaturesSubtitle') }}</h2>
+              <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-6">{{ $t('keyFeaturesTitle') }}</h2>
               <p class="text-gray-600 text-lg leading-relaxed">
-                Hay! Anajak Travel there to help you find your dream holiday.
-                Easy you just find where you want to go and
-                buy the ticket.
+                {{ $t('keyFeaturesDescription') }}
               </p>
             </div>
 
@@ -482,10 +480,10 @@
                   </svg>
                 </div>
                 <div>
-                  <h3 class="font-bold text-gray-800 mb-3 text-lg">Select itinerary</h3>
+                  <h3 class="font-bold text-gray-800 mb-3 text-lg">{{ $t('feature1Title') }}</h3>
                   <p
                     class="text-gray-600 leading-relaxed"
-                  >Choose from our curated travel plans or create your own custom itinerary.</p>
+                  >{{ $t('feature1Description') }}</p>
                 </div>
               </div>
 
@@ -509,10 +507,10 @@
                   </svg>
                 </div>
                 <div>
-                  <h3 class="font-bold text-gray-800 mb-3 text-lg">Schedule your trip</h3>
+                  <h3 class="font-bold text-gray-800 mb-3 text-lg">{{ $t('feature2Title') }}</h3>
                   <p
                     class="text-gray-600 leading-relaxed"
-                  >Plan your perfect timing with our flexible scheduling system.</p>
+                  >{{ $t('feature2Description') }}</p>
                 </div>
               </div>
 
@@ -536,10 +534,10 @@
                   </svg>
                 </div>
                 <div>
-                  <h3 class="font-bold text-gray-800 mb-3 text-lg">Big discount</h3>
+                  <h3 class="font-bold text-gray-800 mb-3 text-lg">{{ $t('feature3Title') }}</h3>
                   <p
                     class="text-gray-600 leading-relaxed"
-                  >Enjoy exclusive deals and discounts on all our travel packages.</p>
+                  >{{ $t('feature3Description') }}</p>
                 </div>
               </div>
             </div>
@@ -582,7 +580,7 @@
       <div class="relative z-10 text-white w-full px-4 sm:px-8 lg:px-16">
         <!-- Header -->
         <div class="text-center mb-16">
-          <h2 class="text-3xl lg:text-4xl font-bold mb-6">Customer Reviews</h2>
+          <h2 class="text-3xl lg:text-4xl font-bold mb-6">{{ $t('customerReviewsTitle') }}</h2>
           <div class="w-16 h-1 bg-white mx-auto"></div>
         </div>
 
@@ -699,134 +697,125 @@ export default {
     return {
       heroImages: [
         { id: 1, src: heroImg1 },
-        {
-          id: 2,
-          src: angkor
-        },
-        {
-          id: 3,
-          src: mountain
-        },
-        {
-          id: 4,
-          src: beach
-        }
+        { id: 2, src: angkor },
+        { id: 3, src: mountain },
+        { id: 4, src: beach }
       ],
-      destinations: [
+      currentSlide: 0
+    };
+  },
+
+  computed: {
+    // Translate destination items dynamically
+    destinations() {
+      return [
         {
           id: 1,
           src: cruises,
-          name: "Cruises",
-          description: "Scenic island cruise adventure",
-          badge: "Popular"
+          name: this.$t('destinations.cruises.name'),
+          description: this.$t('destinations.cruises.description'),
+          badge: this.$t('destinations.cruises.badge')
         },
         {
           id: 2,
           src: kohrong,
-          name: "Beach Tours",
-          description: "Tropical beach getaway"
+          name: this.$t('destinations.beachTours.name'),
+          description: this.$t('destinations.beachTours.description'),
+          badge: this.$t('destinations.beachTours.badge')
         },
         {
           id: 3,
           src: museum,
-          name: "Museum Tour",
-          description: "Explore Khmer history and culture",
-          badge: "Trending"
+          name: this.$t('destinations.museumTour.name'),
+          description: this.$t('destinations.museumTour.description'),
+          badge: this.$t('destinations.museumTour.badge')
         },
         {
           id: 4,
           src: food,
-          name: "Food",
-          description: "Authentic Khmer dishes by the river"
+          name: this.$t('destinations.food.name'),
+          description: this.$t('destinations.food.description'),
+          badge: this.$t('destinations.food.badge')
         },
         {
           id: 5,
           src: hiking,
-          name: "Hiking",
-          description: "Jungle trek and nature walk"
+          name: this.$t('destinations.hiking.name'),
+          description: this.$t('destinations.hiking.description'),
+          badge: this.$t('destinations.hiking.badge')
         },
         {
           id: 6,
           src: city,
-          name: "City Tours",
-          description: "Discover Phnom Penh's urban charm"
+          name: this.$t('destinations.cityTours.name'),
+          description: this.$t('destinations.cityTours.description'),
+          badge: this.$t('destinations.cityTours.badge')
         }
-      ],
+      ];
+    },
 
-      currentSlide: 0,
-      allReviews: [
+    // Translate reviews
+    allReviews() {
+      return [
         {
           id: 1,
-          avatar:
-            "https://i.pinimg.com/736x/cb/64/9e/cb649e7906a9afcd911dc59b5c4b28c0.jpg",
-          name: "Sebastian",
-          role: "Graphic Designer",
-          comment:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.",
+          avatar: "https://i.pinimg.com/736x/cb/64/9e/cb649e7906a9afcd911dc59b5c4b28c0.jpg",
+          name: this.$t('reviews.sebastian.name'),
+          role: this.$t('reviews.sebastian.role'),
+          comment: this.$t('reviews.sebastian.comment'),
           stars: 5
         },
         {
           id: 2,
-          avatar:
-            "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=150&q=80",
-          name: "Evangeline",
-          role: "Model",
-          comment:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.",
+          avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=150&q=80",
+          name: this.$t('reviews.evangeline.name'),
+          role: this.$t('reviews.evangeline.role'),
+          comment: this.$t('reviews.evangeline.comment'),
           stars: 4
         },
         {
           id: 3,
-          avatar:
-            "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80",
-          name: "Alexander",
-          role: "Software Engineer",
-          comment:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.",
+          avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80",
+          name: this.$t('reviews.alexander.name'),
+          role: this.$t('reviews.alexander.role'),
+          comment: this.$t('reviews.alexander.comment'),
           stars: 3
         },
         {
           id: 4,
-          avatar:
-            "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150&q=80",
-          name: "Michael",
-          role: "Travel Blogger",
-          comment:
-            "Amazing experience exploring Cambodia with Anajak Travel. The guides were knowledgeable and the destinations were breathtaking.",
+          avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150&q=80",
+          name: this.$t('reviews.michael.name'),
+          role: this.$t('reviews.michael.role'),
+          comment: this.$t('reviews.michael.comment'),
           stars: 5
         },
         {
           id: 5,
-          avatar:
-            "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&q=80",
-          name: "Sarah",
-          role: "Photographer",
-          comment:
-            "Perfect trip planning and execution. Highly recommend for anyone visiting Cambodia! The cultural sites were incredible.",
+          avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&q=80",
+          name: this.$t('reviews.sarah.name'),
+          role: this.$t('reviews.sarah.role'),
+          comment: this.$t('reviews.sarah.comment'),
           stars: 4
         },
         {
           id: 6,
-          avatar:
-            "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80",
-          name: "David",
-          role: "Adventure Seeker",
-          comment:
-            "Unforgettable memories created with professional service and great attention to detail. Will definitely book again!",
+          avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80",
+          name: this.$t('reviews.david.name'),
+          role: this.$t('reviews.david.role'),
+          comment: this.$t('reviews.david.comment'),
           stars: 5
         }
-      ]
-    };
-  },
-  computed: {
+      ];
+    },
+
+    // Keep existing computed properties
     cardsPerSlide() {
-      // Responsive cards per slide
       if (typeof window !== "undefined") {
-        if (window.innerWidth >= 1024) return 3; // lg screens
-        if (window.innerWidth >= 768) return 2; // md screens
-        return 1; // sm screens
+        if (window.innerWidth >= 1024) return 3;
+        if (window.innerWidth >= 768) return 2;
+        return 1;
       }
-      return 3; // default for SSR
+      return 3;
     },
     cardsPerSlideClass() {
       return {
@@ -847,7 +836,7 @@ export default {
   },
   methods: {
     explore() {
-      alert("Exploring destinations!");
+      alert(this.$t("explore"));
     },
     nextSlide() {
       if (this.currentSlide < this.maxSlides) {
@@ -863,31 +852,27 @@ export default {
       this.currentSlide = index;
     },
     handleResize() {
-      // Reset slide position on resize to prevent layout issues
       this.currentSlide = 0;
     }
   },
   mounted() {
-    // Add resize listener for responsive behavior
     window.addEventListener("resize", this.handleResize);
-
-    // Auto-play carousel (optional)
     this.autoPlayInterval = setInterval(() => {
       if (this.currentSlide >= this.maxSlides) {
         this.currentSlide = 0;
       } else {
         this.nextSlide();
       }
-    }, 5000); // Change slide every 5 seconds
+    }, 5000);
   },
   beforeUnmount() {
-    // Clean up listeners and intervals
     window.removeEventListener("resize", this.handleResize);
     if (this.autoPlayInterval) {
       clearInterval(this.autoPlayInterval);
     }
   }
 };
+
 </script>
 
 <style scoped>
