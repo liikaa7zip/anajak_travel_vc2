@@ -97,17 +97,38 @@ exports.deleteboatBooking = async (req, res) => {
   }
 };
 
-exports.cancelboatBooking = async (req, res) => {
+exports.cancelBooking = async (req, res) => {
   try {
     const booking = await BoatBooking.findByPk(req.params.id);
-    if (!booking) return res.status(404).json({ message: 'Booking not found' });
-    if (booking.status === 'cancelled') return res.status(400).json({ message: 'Booking already cancelled' });
+
+    if (!booking) {
+      return res.status(404).json({ message: 'Booking not found' });
+    }
+
+    // ✅ Prevent cancellation if already completed
+    if (booking.status === 'completed') {
+      return res.status(400).json({ message: 'Cannot cancel a completed booking.' });
+    }
 
     booking.status = 'cancelled';
     await booking.save();
 
-    res.json({ message: 'Booking cancelled successfully', booking });
+    res.json({ message: 'Booking cancelled successfully.', booking });
   } catch (error) {
-    res.status(500).json({ message: 'Failed to cancel booking' });
+    console.error('Error cancelling booking:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+exports.getCompletedBoatBookings = async (req, res) => {
+  try {
+    const completedBookings = await BoatBooking.findAll({
+      where: { isCompleted: true }
+    });
+
+    res.json(completedBookings);
+  } catch (error) {
+    console.error('Error fetching completed bookings:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 };

@@ -41,6 +41,10 @@ const BoatBooking = sequelize.define('BoatBooking', {
     allowNull: false,
     defaultValue: 'confirmed',
   },
+  isCompleted: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
 });
   return BoatBooking;
 };

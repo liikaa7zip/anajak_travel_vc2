@@ -16,6 +16,8 @@ const locationRoutes = require('./routes/locationRoutes');
 const createDefaultAdmin = require('./seeders/createDefaultAdmin');
 const createDefaultLocations = require('./seeders/createDefaultLocations');
 const createDefaultCars = require('./seeders/20250807-insert-cars')
+const createDefaultRoles = require('./seeders/createDefaultRoles');
+
 // orderfood
 const foodRoutes = require('./routes/foodRoutes');
 const orderFoodRoutes = require('./routes/orderFoodRoutes');
@@ -122,6 +124,7 @@ sequelize.sync({ alter: true })
     await createDefaultAdmin();
     await createDefaultLocations();
     await createDefaultCars();
+    
 
     server.listen(PORT, () => {
       console.log(`Server running on http://localhost:${PORT}`);
