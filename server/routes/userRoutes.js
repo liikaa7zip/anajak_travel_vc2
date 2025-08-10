@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { User } = require('../models');
 const userController = require('../controllers/userController');
 const { verifyToken, verifyAdmin,verifyRestaurantOwner,verifyAdminOrRestaurantOwner , } = require('../middlewares/authMiddleware');
 
@@ -17,5 +18,21 @@ router.post('/restaurant-owner/create-user', verifyToken, verifyRestaurantOwner,
 // Authenticated users can delete their own account (optional)
 router.delete('/:id', verifyToken, userController.deleteUser);
 router.put('/:id', verifyToken, userController.updateUser);
+
+// Get all users by a specific role
+router.get('/by-role/:role', async (req, res) => {
+  try {
+    const users = await User.findAll({
+      where: { role: req.params.role },
+      attributes: ['id', 'username', 'email', 'role']
+    });
+    res.json(users);
+  } catch (err) {
+    console.error('Error fetching users by role:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
 
 module.exports = router;
