@@ -95,6 +95,8 @@
                   Boat
                 </router-link>
               </li>
+
+              
               <li>
                 <router-link
                   to="/transport_owner/transportbus"
@@ -105,6 +107,16 @@
               </li> 
             </ul>
           </li>
+          <li>
+                <router-link
+                  to="/transport_owner/transportownerchat"
+                  class="nav-link"
+                  active-class="router-link-exact-active"
+                >
+                  <i class="icon ri-user-line"></i>
+                  Messages
+                </router-link>
+              </li>
           <li>
             <a href="#" class="nav-link">
               <i class="icon ri-bar-chart-2-line"></i>

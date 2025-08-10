@@ -137,6 +137,7 @@ import TransportLayout from '@/layouts/TransportLayout.vue'
 import TransportUser from '@/views/TransportOwner/TransportUser.vue'
 import TransportBus from '@/views/TransportOwner/TransportBus.vue'
 import TransportBoat from '@/views/TransportOwner/TransportBoat.vue'
+import TransportOwnerChat from '@/views/TransportOwner/TransportOwnerChat.vue'
 // Auth guard
 
 const getUserFromStorage = () => {
@@ -298,6 +299,7 @@ const routes = [
       { path: 'transportuser', component: TransportUser, name: 'TransportUser'},
       { path: 'transportbus', component: TransportBus, name: 'TransportBus' },
       { path: 'transportboat', component: TransportBoat, name: 'TransportBoat' },
+      { path: 'transportownerchat', component: TransportOwnerChat, name: 'TransportOwnerChat' }
     ]
   },
 
