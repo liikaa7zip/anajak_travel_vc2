@@ -29,7 +29,7 @@
           </li>
           <li>
             <router-link
-              to="/admin/dashboard"
+              to="/transport_owner/transportdashboard"
               class="nav-link"
               active-class="router-link-exact-active"
             >

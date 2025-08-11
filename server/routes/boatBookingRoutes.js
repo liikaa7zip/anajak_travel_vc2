@@ -11,6 +11,7 @@ router.get('/:id', boatBookingController.getboatBookingById);
 router.delete('/:id', boatBookingController.deleteboatBooking);
 router.put('/bookings/:id/cancel', boatBookingController.cancelBooking);
 router.get('/bookings/completed', boatBookingController.getCompletedBoatBookings);
+router.post('/booking-with-payment', boatBookingController.createBookingWithPayment)
 router.put('/:id/complete', async (req, res) => {
   try {
     const boatBooking = await BoatBooking.findByPk(req.params.id);

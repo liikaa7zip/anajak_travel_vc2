@@ -1,4 +1,4 @@
-const { BoatBooking, User } = require('../models');
+const { BoatBooking, User, Payment } = require('../models');
 
 exports.createBooking = async (req, res) => {
   try {
@@ -132,3 +132,43 @@ exports.getCompletedBoatBookings = async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+
+
+exports.createBookingWithPayment = async (req, res) => {
+  const { booking, payment } = req.body
+  if (!booking || !payment) {
+    return res.status(400).json({ message: 'Booking and payment data are required' })
+  }
+  try {
+    let price = 0
+    switch (booking.boatType) {
+      case 'Speed Boat': price = 50; break
+      case 'Ferry': price = 30; break
+      case 'Longtail Boat': price = 20; break
+      default: price = 0
+    }
+
+    // Create booking
+    const createdBooking = await BoatBooking.create({
+      ...booking,
+      price,
+      status: 'paid',
+    })
+
+    // Create payment linked to booking
+    await Payment.create({
+      bookingId: createdBooking.id,
+      bookingType: booking.boatType,
+      amount: price,
+      method: payment.method,
+      cardName: payment.cardName,
+    })
+
+    res.status(201).json({ message: 'Booking and payment saved successfully', booking: createdBooking })
+  } catch (error) {
+    console.error('Error creating booking with payment:', error)
+    res.status(500).json({ message: 'Server error' })
+  }
+}
+
