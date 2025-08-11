@@ -106,6 +106,21 @@
       </div>
     </div>
 
+    <Payment
+  v-if="showPaymentModal && lastBooking"
+  :amount="lastBooking.price"
+  :bookingType="lastBooking.boatType"
+  :bookingId="lastBooking.id"
+  @cancel="showPaymentModal = false"
+  @paid="handlePaymentComplete"
+/>
+
+
+
+
+
+
+
     <!-- Success Modal -->
     <div
       v-if="confirmation"
@@ -133,11 +148,12 @@
 
         <div class="flex justify-center">
           <button
-            @click="confirmation = ''"
+            @click="closeSuccessModal"
             class="px-8 py-3 rounded-full bg-green-600 text-white font-bold hover:bg-green-700"
           >
             OK
           </button>
+
         </div>
       </div>
     </div>
@@ -149,6 +165,7 @@ import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
 import { useAuth } from '@/stores/useAuth'
+import Payment from '@/components/Payment.vue'
 
 const route = useRoute()
 const { isLoggedIn, userProfile } = useAuth()
@@ -164,6 +181,18 @@ const form = ref({
 
 const confirmation = ref('')
 const showPreConfirmationModal = ref(false)
+const showPaymentModal = ref(false)
+const lastBooking = ref(null)
+const pendingBooking = ref(null)
+
+function calculatePrice(boatType) {
+  switch (boatType) {
+    case 'Speed Boat': return 50
+    case 'Ferry': return 30
+    case 'Longtail Boat': return 20
+    default: return 0
+  }
+}
 
 onMounted(() => {
   form.value.origin = route.query.origin || ''
@@ -175,21 +204,93 @@ function cancelBookingPreConfirmation() {
 }
 
 async function proceedBooking() {
+  if (!isLoggedIn.value || !userProfile.value?.id) {
+    confirmation.value = '❌ You must be logged in to book a boat.'
+    showPreConfirmationModal.value = false
+    return
+  }
+
+  // Validate form fields here if needed
+
   try {
-    if (!isLoggedIn.value || !userProfile.value?.id) {
-      confirmation.value = '❌ You must be logged in to book a boat.'
+    // Prepare booking data with userId and price
+    const bookingData = {
+      ...form.value,
+      userId: userProfile.value.id,
+      price: calculatePrice(form.value.boatType),
+    }
+
+    // Call backend to create booking and wait for response
+    const response = await axios.post('http://localhost:5000/api/boatbookings', bookingData)
+    console.log('Booking response:', response.data)
+
+    // Save the created booking with ID to reactive ref
+    lastBooking.value = response.data.booking
+
+    if (!lastBooking.value || !lastBooking.value.id) {
+      confirmation.value = '❌ Booking failed: no booking ID returned.'
+      showPreConfirmationModal.value = false
       return
     }
 
-    const bookingData = {
-      ...form.value,
-      userId: userProfile.value.id, // ✅ Use real user ID from auth
+    // Hide confirmation modal and show payment modal with real booking data
+    showPreConfirmationModal.value = false
+    showPaymentModal.value = true
+  } catch (error) {
+    confirmation.value = 'Failed to create booking: ' + (error.response?.data?.message || error.message)
+    showPreConfirmationModal.value = false
+  }
+}
+
+
+const handlePaymentComplete = async () => {
+  if (!pendingBooking.value) {
+    confirmation.value = `✅ Payment successful! Booking confirmed from ${lastBooking.value.origin} to ${lastBooking.value.destination} on ${lastBooking.value.date}.`
+    return
+  }
+
+  try {
+    console.log('Creating booking with data:', pendingBooking.value)
+
+    // Step 1: Create the booking and wait for response
+    const bookingResponse = await axios.post('http://localhost:5000/api/boatbookings', pendingBooking.value)
+
+    console.log('Booking creation response:', bookingResponse.data)
+
+    const booking = bookingResponse.data.booking
+
+    if (!booking || !booking.id) {
+      confirmation.value = '❌ Booking creation failed: no booking ID returned.'
+      return
     }
 
-    const res = await axios.post('http://localhost:5000/api/boatbookings', bookingData)
+    console.log('Booking created with ID:', booking.id)
+    console.log('Payment payload:', {
+      bookingId: booking.id,
+      bookingType: booking.boatType,
+      amount: booking.price,
+      method: 'Credit Card',
+      cardName: 'lika',
+    })
 
-    confirmation.value = `✅ Your boat from ${res.data.booking.origin} to ${res.data.booking.destination} on ${res.data.booking.date} has been booked! Price: $${res.data.booking.price}`
+    // Step 2: Call payment API with the booking ID
+    await axios.post('http://localhost:5000/api/payments', {
+      bookingId: booking.id,
+      bookingType: booking.boatType,
+      amount: booking.price,
+      method: 'Credit Card',
+      cardName: 'lika',  // or get this from a form input if you have one
+    })
 
+    console.log('Payment sent successfully for booking ID:', booking.id)
+
+    // Step 3: Update UI state on success
+    lastBooking.value = booking
+    showPaymentModal.value = false
+    confirmation.value = `✅ Payment successful! Booking confirmed from ${booking.origin} to ${booking.destination} on ${booking.date}.`
+
+    // Reset form and pending booking
+    pendingBooking.value = null
     form.value = {
       origin: '',
       destination: '',
@@ -198,12 +299,31 @@ async function proceedBooking() {
       passengerName: '',
       email: '',
     }
-
-    showPreConfirmationModal.value = false
-  } catch (err) {
-    console.error('Booking error:', err.response?.data || err.message)
-    confirmation.value = '❌ Booking failed. Please try again.'
-    showPreConfirmationModal.value = false
+  } catch (error) {
+    confirmation.value = error.response?.data?.message || 'Something went wrong during payment or booking.'
+    console.error('Payment or booking error:', error.response?.data || error.message)
   }
 }
+
+
+function closeSuccessModal() {
+  confirmation.value = ''
+  showPaymentModal.value = false
+
+  // Reset form
+  form.value = {
+    origin: '',
+    destination: '',
+    boatType: '',
+    date: '',
+    passengerName: '',
+    email: '',
+  }
+  lastBooking.value = null
+  pendingBooking.value = null
+}
+
+
+
+
 </script>

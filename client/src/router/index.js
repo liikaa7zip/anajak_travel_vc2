@@ -138,6 +138,7 @@ import TransportUser from '@/views/TransportOwner/TransportUser.vue'
 import TransportBus from '@/views/TransportOwner/TransportBus.vue'
 import TransportBoat from '@/views/TransportOwner/TransportBoat.vue'
 import TransportOwnerChat from '@/views/TransportOwner/TransportOwnerChat.vue'
+
 // Auth guard
 
 const getUserFromStorage = () => {
