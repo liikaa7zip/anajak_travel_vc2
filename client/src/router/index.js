@@ -40,6 +40,9 @@ import CreateUser from '../components/CreateUser.vue'
 //favorite
 import favorite from '../views/favorite.vue'
 
+//Weather
+import WeatherPage from '../views/WeatherPage.vue'
+
 
 // Provinces
 import Battambang from '../views/provinces/Battambang.vue'
@@ -187,6 +190,9 @@ const routes = [
       //favorite
       { path: 'favorite', component: favorite, beforeEnter: requireAuth },
 
+      // // Weather
+      { path: 'WeatherPage', component: WeatherPage, beforeEnter: requireAuth },
+
       // Provinces
       { path: 'guide/battambang', name: 'Battambang', component: Battambang },
       { path: 'guide/banteay-meanchey', name: 'BanteayMeanchey', component: BanteayMeanchey },
@@ -220,6 +226,7 @@ const routes = [
       { path: 'guide/:province/FlightReservation', name: 'ProvinceFlightReservation', component: FlightReservation, props: true },
       { path: 'guide/:province/ProvinceList', name: 'ProvinceProvinceList', component: ProvinceList, props: true },
       { path: 'guide/:view/favorite', name: 'Provincefavorite', component: favorite, props: true },
+      { path: 'guide/:view/WeatherPage', name: 'ProvinceWeatherPage', component: WeatherPage, props: true },
 
       // Food routes
       { path: 'foods', component: FoodListView, name: 'FoodList' },
