@@ -38,9 +38,6 @@ import AdminUsers from '../views/admin/AdminUsers.vue'
 import CreateUser from '../components/CreateUser.vue'
 // import AdminBlog from '../views/admin/AdminBlog.vue'
 
-//favorite
-import favorite from '../views/favorite.vue'
-
 
 // Provinces
 import Battambang from '../views/provinces/Battambang.vue'

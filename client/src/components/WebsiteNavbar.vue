@@ -155,8 +155,6 @@
                       <span
                         class="inline-block text-[10px] mt-1 font-medium rounded-full px-2 py-0.5 bg-yellow-100 text-yellow-700"
                         v-if="isReturantowner">Restaurant Owner</span>
-                        v-if="isReturantowner"
-                        >Restaurant Owner</span
                       >
                       <span
                         class="inline-block text-[10px] mt-1 font-medium rounded-full px-2 py-0.5 bg-yellow-100 text-yellow-700"
