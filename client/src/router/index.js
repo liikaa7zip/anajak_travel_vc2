@@ -13,6 +13,7 @@ import AboutPage from '../views/AboutPage.vue'
 import BlogPage from '../views/BlogPage.vue'
 import TravelingGuide from '../views/TravelingGuide.vue'
 import UserChat from '../views/UserChat.vue'
+import favorite from '@/views/favorite.vue'
 
 // Travel Booking
 import BusTickets from '../views/Travelingbooking/BusTickets.vue'
@@ -164,6 +165,9 @@ const routes = [
       { path: 'book/:id', component: HotelBookingForm },
       { path: 'confirmation', component: BookingConfirmation },
       {path:'Hotel_history',component: HotelBookinghistory},
+
+      // favorite 
+      { path: 'favorites', component: favorite },
 
       // Travel Booking
       { path: 'Boatickets', component: BoatTickets },

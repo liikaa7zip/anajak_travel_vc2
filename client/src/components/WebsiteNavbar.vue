@@ -51,6 +51,7 @@
                 </h3>
                 <router-link to="/user-plan" class="dropdown-item">🗺️ {{ $t('plan') }}</router-link>
                 <router-link to="/TravelItinerary" class="dropdown-item">📅 {{ $t('itinerary') }}</router-link>
+                <router-link to="/favorites" class="dropdown-item">❤️ {{ $t('favorite') }}</router-link>
               </div>
             </div>
           </transition>
