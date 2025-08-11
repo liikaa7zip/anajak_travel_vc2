@@ -6,7 +6,12 @@ const sequelize = require('../config/db');
 
 
 module.exports = (sequelize) => {
-  const User = sequelize.define('User', { 
+  const User = sequelize.define('User', {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     username: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -22,9 +27,9 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     role: {
-      type: DataTypes.ENUM('admin', 'user', 'restaurant_owner', 'hotel_owner'),
+      type: DataTypes.ENUM('admin', 'user', 'restaurant_owner', 'hotel_owner', 'transport_owner'),
       allowNull: false,
-      defaultValue: 'user'
+      defaultValue: 'user',
     }
   }, {
     tableName: 'users',

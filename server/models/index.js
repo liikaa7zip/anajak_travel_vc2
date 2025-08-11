@@ -22,6 +22,7 @@ db.BoatBooking = require('./BoatBooking')(sequelize, Sequelize.DataTypes);
 db.Booking = require('./booking')(sequelize, Sequelize.DataTypes);
 db.Category = require('./Category')(sequelize, Sequelize.DataTypes);
 db.Payment = require('./Payment')(sequelize, DataTypes);
+db.Car = require('./car')(sequelize, Sequelize.DataTypes);
 // === Define Relationships === //
 
 // User ↔ HotelBooking
@@ -59,4 +60,10 @@ db.User.hasMany(db.Booking, { foreignKey: 'UserId' });
 db.Booking.belongsTo(db.User, { foreignKey: 'UserId' });
 db.Category.hasMany(db.Food, { foreignKey: 'categoryId', as: 'foods' });
 db.Food.belongsTo(db.Category, { foreignKey: 'categoryId', as: 'category' });
+
+db.Car.hasMany(db.Booking, { foreignKey: 'carId' });
+db.Booking.belongsTo(db.Car, { foreignKey: 'carId' });
+db.User.hasMany(db.Order, { foreignKey: 'userId' });
+db.Order.belongsTo(db.User, { foreignKey: 'userId' });
+
 module.exports = db;

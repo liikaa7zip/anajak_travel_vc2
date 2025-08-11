@@ -48,35 +48,60 @@
     />
   </div>
   <div class="w-1/2">
-    <label for="timeOfDay" class="block mb-1 font-semibold text-gray-700">Time Of Day</label>
-    <select
-      id="timeOfDay"
-      v-model="form.timeOfDay"
-      @change="updatePrice"
-      required
-      class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-400"
-    >
-      <option disabled value=""> Time Of Day</option>
-      <option value="day">Day</option>
-      <option value="night">Night</option>
-    </select>
-  </div>
-</div>
-
-<div>
-  <label for="type" class="block mb-1 font-semibold text-gray-700">Type</label>
+  <label for="timeOfDay" class="block mb-1 font-semibold text-gray-700">Time Of Day</label>
   <select
-    id="type"
-    v-model="form.type"
-    @change="updatePrice"
+    id="timeOfDay"
+    v-model="form.timeOfDay"
+    @change="updateTimeOptions"
     required
     class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-400"
   >
-    <option disabled value="">Select Type</option>
-    <option value="bus">Bus</option>
-    <option value="private_car">Private Car</option>
+    <option disabled value="">Time Of Day</option>
+    <option value="day">Day</option>
+    <option value="night">Night</option>
   </select>
 </div>
+</div>
+
+<div class="flex gap-3">
+  <div class="w-1/2 mt-4">
+    <label for="time" class="block mb-1 font-semibold text-gray-700">Time</label>
+    <select v-model="form.time" required
+    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-400">
+      <option disabled value="">Select Time</option>
+      <option v-for="time in timeOptions" :key="time.value" :value="time.value">
+        {{ time.label }}
+      </option>
+    </select>
+  </div>
+
+  <div class="w-1/2 mt-4">
+    <label for="time" class="block mb-1 font-semibold text-gray-700">Phone</label>
+    <input
+      id="phone"
+      type="phone"
+      v-model="form.phone"
+      required
+      class="w-full date border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-400"
+    />
+  </div>
+
+  <!-- <div class="w-1/2 mt-4">
+    <label for="type" class="block mb-1 font-semibold text-gray-700">Transport Type</label>
+    <select id="type" v-model="form.type" required
+      class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-400">
+      <option disabled value="">Select type</option>
+      <option value="bus">Bus</option>
+      <option value="private_car">Private Car</option>
+    </select>
+  </div> -->
+
+
+
+
+</div>
+
+
 
 <div>
   <label for="email" class="block mb-1 font-semibold text-gray-700">Email</label>
@@ -111,20 +136,22 @@
       <div class="grid grid-cols-2 gap-2">
   <!-- Left side seats -->
   <button
-    v-for="seat in leftSeats"
-    :key="seat.number"
-    :class="[
-      'py-2 rounded text-xs font-bold w-full h-10',
-      seat.booked ? 'bg-gray-300 text-gray-500 cursor-not-allowed' :
-      form.seatNumbers.includes(seat.number) ? 'bg-purple-600 text-white' :
-      'bg-white border border-purple-400 text-purple-700 hover:bg-purple-100'
-    ]"
-    :disabled="seat.booked"
-    @click="toggleSeat(seat.number)"
-    type="button"
-  >
-    {{ seat.number }}
-  </button>
+  v-for="seat in leftSeats"
+  :key="seat.number"
+  :class="[
+    'py-2 rounded text-xs font-bold w-full h-10',
+    seat.booked ? 'bg-gray-300 text-gray-500 cursor-not-allowed opacity-50' :
+    form.seatNumbers.includes(seat.number) ? 'bg-purple-600 text-white' :
+    'bg-white border border-purple-400 text-purple-700 hover:bg-purple-100'
+  ]"
+  :disabled="seat.booked"
+  @click="toggleSeat(seat.number)"
+  type="button"
+>
+  {{ seat.number }}
+</button>
+
+
 </div>
 
 <!-- Middle aisle with 1 special seat -->
@@ -216,31 +243,48 @@
       </div>
     </div>
 
-
-    <!-- Success Modal -->
-<div
-  v-if="confirmation"
-  class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50"
-  @click.self="confirmation = ''"
->
-  <div class="bg-white rounded-3xl shadow-xl max-w-md w-full p-8 relative">
-    <button
-      @click="confirmation = ''"
-      class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl"
+    <!-- Success Confirmation Modal -->
+    <div
+      v-if="confirmation"
+      class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50 transition-opacity duration-300 ease-out"
+      @click.self="confirmation = ''"
     >
-      &times;
-    </button>
+      <div
+        class="bg-white rounded-3xl shadow-xl max-w-md w-full p-8 relative transform scale-95 transition-transform duration-300 ease-out"
+        role="alertdialog"
+        aria-modal="true"
+      >
+        <button
+          @click="confirmation = ''"
+          aria-label="Close"
+          class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 focus:outline-none text-2xl"
+        >
+          &times;
+        </button>
 
-    <div class="mx-auto mb-6 flex items-center justify-center w-20 h-20 rounded-full bg-green-600 text-white shadow-lg">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-      </svg>
-    </div>
+        <div
+          class="mx-auto mb-6 flex items-center justify-center w-20 h-20 rounded-full bg-green-600 text-white shadow-lg relative overflow-hidden"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-10 h-10 animate-pulse-once"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+          <div class="absolute inset-0 rounded-full bg-white opacity-10 blur-xl scale-125"></div>
+        </div>
 
-    <h2 class="text-center text-2xl font-extrabold mb-3 text-green-800">Booking Successful!</h2>
-    <p class="text-center text-gray-700 mb-8 text-base leading-relaxed">
-      {{ confirmation }}
-    </p>
+        <h2 class="text-center text-2xl font-extrabold mb-3 text-green-800">
+          Booking Successful!
+        </h2>
+
+        <p class="text-center text-gray-700 mb-8 text-base leading-relaxed">
+          {{ confirmation }}
+        </p>
 
     <div class="flex justify-center">
       <button
@@ -256,13 +300,14 @@
 
 
         <Payment
-  v-if="showPaymentModal"
+  v-if="showPaymentModal && lastBooking && lastBooking.id"
   :amount="form.price"
   :bookingType="form.type"
   :bookingId="lastBooking.id"
   @cancel="showPaymentModal = false"
   @paid="handlePaymentComplete"
 />
+
 
 
     <!-- View Booking History -->
@@ -288,7 +333,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, computed } from 'vue'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
 import { useAuth } from '@/stores/useAuth' // Adjust path to your composable
@@ -317,6 +362,8 @@ const resetForm = () => {
   form.value.date = ''
   form.value.price = 0
   form.value.timeOfDay = ''
+  form.value.phone = ''
+  form.value.seatNumbers = []
   form.value.email = isLoggedIn.value ? userProfile.value.email : ''
   form.value.UserId = isLoggedIn.value ? userProfile.value.id : null
 }
@@ -328,10 +375,13 @@ const form = ref({
   type: '',
   date: '',
   timeOfDay: '',
+  time: '',
   email: '',
   price: 0,
   seatNumbers: [], 
-  UserId: null, // Set dynamically from auth
+  carId: null,
+  UserId: null, // Set dynamically from auth\
+  phone: '',
 })
 
 const showPreConfirmationModal = ref(false)
@@ -343,15 +393,52 @@ const lastBooking = ref({})
 const seats = ref([])
 const message = ref('')
 const success = ref(false)
+const shift = ref('day')
+const timeOptions = ref([])
+
 
 
 function updatePrice() {
   console.log('Updating price', {
-  type: form.value.type,
   time: form.value.timeOfDay,
   seatCount: form.value.seatNumbers.length,
   seats: form.value.seatNumbers
 })
+
+function updateTimeOptions() {
+  if (form.value.timeOfDay === 'day') {
+    timeOptions.value = [
+      { value: 7, label: '07:00 AM' },
+      { value: 8, label: '08:00 AM' },
+      { value: 9, label: '09:00 AM' },
+      { value: 10, label: '10:00 AM' },
+      { value: 11, label: '11:00 AM' },
+      { value: 12, label: '12:00 PM' },
+      { value: 13, label: '01:00 PM' },
+      { value: 14, label: '02:00 PM' },
+      { value: 15, label: '03:00 PM' },
+      { value: 16, label: '04:00 PM' },
+      { value: 17, label: '05:00 PM' },
+    ];
+  } else if (form.value.timeOfDay === 'night') {
+    timeOptions.value = [
+      { value: 18, label: '06:00 PM' },
+      { value: 19, label: '07:00 PM' },
+      { value: 20, label: '08:00 PM' },
+      { value: 21, label: '09:00 PM' },
+      { value: 22, label: '10:00 PM' },
+      { value: 23, label: '11:00 PM' },
+      { value: 0, label: '12:00 AM' },
+    ];
+  } else {
+    timeOptions.value = [];
+  }
+  form.value.time = '';  // reset selected time
+}
+
+watch(() => form.value.timeOfDay, () => {
+  updateTimeOptions();
+});
 
 
   const type = form.value.type
@@ -371,6 +458,16 @@ function updatePrice() {
 
 
 const submitBooking = async () => {
+  console.log('Submitting booking with time:', form.value.time);
+
+  if (!form.value.time) {
+    confirmation.value = '⚠️ Please select a valid departure time.';
+    isError.value = true;
+    return;
+  }
+
+  if (!form.value.carId) form.value.carId = 1;
+
   const bookingPayload = {
     UserId: form.value.UserId,
     depart: form.value.depart,
@@ -380,21 +477,27 @@ const submitBooking = async () => {
     date: form.value.date,
     email: form.value.email,
     timeOfDay: form.value.timeOfDay,
-    seatNumbers: form.value.seatNumbers.join(',') // convert array to comma-separated string
-  }
+    seatNumbers: form.value.seatNumbers,
+    carId: form.value.carId,
+    time: form.value.time, 
+    phone: form.value.phone,
+  };
 
   try {
-    const response = await axios.post('http://127.0.0.1:5000/api/bookings', bookingPayload)
-    lastBooking.value = response.data.booking
-    showPaymentModal.value = true
-    success.value = true
-    message.value = 'Booking successful'
+    const response = await axios.post('http://127.0.0.1:5000/api/bookings', bookingPayload);
+    lastBooking.value = response.data.data;
+    showPaymentModal.value = true;
+    success.value = true;
+    message.value = 'Booking successful';
   } catch (error) {
-    success.value = false
-    message.value = 'Booking failed. Please try again.'
-    console.error(error)
+    success.value = false;
+    message.value = 'Booking failed. Please try again.';
+    console.error('Booking error:', error);
+    console.error('Response data:', error.response?.data);
   }
-}
+};
+
+
 
 
 
@@ -434,26 +537,40 @@ const proceedBooking = async () => {
 }
 
 const handlePaymentComplete = async () => {
-  loading.value = true
-  try {
-    const response = await axios.post('http://localhost:5000/api/payments', {
-      bookingId: lastBooking.value.id,       // send booking id here
-      bookingType: lastBooking.value.type,
-      amount: lastBooking.value.price,
-      method: 'Credit Card',
-      cardName: 'Cardholder Name', // you can get this from payment component or user input
-    })
+  const bookingId = lastBooking.value.id;
+  const bookingType = lastBooking.value.type || form.value.type || 'bus'; // fallback
+  const amount = lastBooking.value.price || form.value.price || 0;
 
-    confirmation.value = `✅ Payment successful! Booking confirmed from ${lastBooking.value.depart} to ${lastBooking.value.arrive} on ${lastBooking.value.date}.`
-    isError.value = false
+  console.log('Payment payload:', {
+    bookingId,
+    bookingType,
+    amount,
+    method: 'Credit Card',
+    cardName: 'Cardholder Name',
+  });
+
+  loading.value = true;
+  try {
+    await axios.post('http://localhost:5000/api/payments', {
+      bookingId,
+      bookingType,
+      amount,
+      method: 'Credit Card',
+      cardName: 'Cardholder Name',
+    });
+
+    confirmation.value = `✅ Payment successful! Booking confirmed from ${lastBooking.value.depart} to ${lastBooking.value.arrive} on ${lastBooking.value.date}.`;
+    isError.value = false;
   } catch (error) {
-    confirmation.value = error.response?.data?.message || 'Something went wrong during payment confirmation.'
-    isError.value = true
+    confirmation.value = error.response?.data?.message || 'Something went wrong during payment confirmation.';
+    isError.value = true;
+    console.error('Payment error:', error.response?.data || error.message);
   } finally {
-    loading.value = false
-    showPaymentModal.value = false
+    loading.value = false;
+    showPaymentModal.value = false;
   }
-}
+};
+
 
 
 
@@ -464,6 +581,9 @@ const cancelBookingPreConfirmation = () => {
 }
 
 onMounted(async () => {
+  form.value.type = 'bus';
+  if (!form.value.carId) form.value.carId = 1  // set default carId here
+
   await initAuth()
   if (isLoggedIn.value && userProfile.value.email) {
     form.value.email = userProfile.value.email
@@ -473,6 +593,7 @@ onMounted(async () => {
   updatePrice()
 })
 
+
 // Update form email and UserId if user profile changes dynamically
 watch(userProfile, (newUser) => {
   if (newUser?.email) {
@@ -481,18 +602,53 @@ watch(userProfile, (newUser) => {
   }
 })
 
-const loadSeats = async () => {
-  const totalSeats = 25
-  const bookedSeats = [3, 7, 12, 18] // ← Replace with real data from backend later
+// Watch for changes in date, timeOfDay, or carId
+watch(
+  () => [form.value.date, form.value.timeOfDay, form.value.carId, form.value.time],
+  () => {
+    console.log('Params changed: loading seats', form.value.date, form.value.timeOfDay, form.value.carId, form.value.time)
+    loadSeats()
+  }
+)
 
-  seats.value = Array.from({ length: totalSeats }, (_, i) => {
-    const number = i + 1
-    return {
-      number,
-      booked: bookedSeats.includes(number)
+
+
+const loadSeats = async () => {
+  if (!form.value.date || !form.value.timeOfDay || !form.value.carId || !form.value.time) return;
+
+  try {
+    const response = await axios.get('http://localhost:5000/api/seats', {
+      params: {
+        date: form.value.date,
+        timeOfDay: form.value.timeOfDay,
+        carId: form.value.carId,
+        time: form.value.time, // ✅ include time
+      }
+    });
+
+    const seatsFromApi = response.data;
+
+    // Update seat booking status
+    leftSeats.value.forEach(seat => {
+      const match = seatsFromApi.find(s => s.number === seat.number);
+      seat.booked = match ? match.booked : false;
+    });
+
+    rightSeats.value.forEach(seat => {
+      const match = seatsFromApi.find(s => s.number === seat.number);
+      seat.booked = match ? match.booked : false;
+    });
+
+    const middleMatch = seatsFromApi.find(s => s.number === middleSeat.value.number);
+    if (middleMatch) {
+      middleSeat.value.booked = middleMatch.booked;
     }
-  })
-}
+
+  } catch (error) {
+    console.error('Error loading booked seats:', error);
+  }
+};
+
 
 const leftSeats = ref(
   Array.from({ length: 12 }, (_, i) => ({
@@ -513,23 +669,33 @@ const rightSeats = ref(
   }))
 );
 
+
 function toggleSeat(seatNumber) {
-  console.log('Toggling seat:', seatNumber)
-  const index = form.value.seatNumbers.indexOf(seatNumber)
-  if (index === -1) {
-    form.value.seatNumbers.push(seatNumber)
-  } else {
-    form.value.seatNumbers.splice(index, 1)
+  const allSeats = [...leftSeats.value, ...rightSeats.value, middleSeat.value];
+  const seat = allSeats.find(s => s.number === seatNumber);
+
+  if (seat?.booked) {
+    // Cannot select booked seat
+    return;
   }
-  console.log('Current seats:', form.value.seatNumbers)
-  updatePrice()
+
+  const index = form.value.seatNumbers.indexOf(seatNumber);
+  if (index === -1) {
+    form.value.seatNumbers.push(seatNumber);
+  } else {
+    form.value.seatNumbers.splice(index, 1);
+  }
+  updatePrice();
 }
+
 
 
 watch(
   () => [form.value.seatNumbers.length, form.value.type, form.value.timeOfDay],
   () => updatePrice()
 )
+
+
 
 </script>
 
@@ -558,4 +724,10 @@ watch(
   width: 155px;
   margin-top: -1px;
 }
+
+.bg-gray-300 {
+  filter: grayscale(100%);
+  opacity: 0.5;
+}
+
 </style>

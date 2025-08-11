@@ -14,12 +14,12 @@
         <div
           class="relative flex flex-col items-center justify-center h-full text-white text-center"
         >
-          <h2 class="text-4xl font-bold text-5xl">{{ slide.title }}</h2>
+          <h2 class="text-5xl font-bold">{{ slide.title }}</h2>
           <p class="mt-4 text-4xl">{{ slide.subtitle }}</p>
           <button
             @click="goToContactPage"
             class="border-2 border-purple-600 text-purple-600 px-8 py-2 mt-8 rounded-full text-lg font-medium hover:bg-purple-700 hover:text-white transition-colors z-10"
-          >Contact</button>
+          >{{ $t('contact') }}</button>
         </div>
       </button>
       <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
@@ -36,10 +36,10 @@
     <section class="py-16 relative">
       <div class="max-w-7xl mx-auto px-4">
         <div class="mb-12">
-          <h2 class="text-4xl font-bold text-gray-900 mb-4">Our Worlds</h2>
+          <h2 class="text-4xl font-bold text-gray-900 mb-4">{{ $t('ourWorldsTitle') }}</h2>
           <p
             class="text-lg text-gray-600 max-w-2xl"
-          >As a family run business, nothing is more important than our relationship with our clients.</p>
+          >{{ $t('ourWorldsDescription') }}</p>
         </div>
         <!-- Image Cards -->
         <div class="relative">
@@ -134,15 +134,15 @@
       <div class="w-full max-w-7xl mx-auto">
         <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div class="relative z-10">
-            <p class="text-purple-600 font-medium mb-2 text-sm uppercase tracking-wide">Our Story</p>
-            <h2 class="text-4xl font-bold text-gray-900 mb-6">About Us</h2>
+            <p class="text-purple-600 font-medium mb-2 text-sm uppercase tracking-wide">{{ $t('ourStory') }}</p>
+            <h2 class="text-4xl font-bold text-gray-900 mb-6">{{ $t('aboutUs') }}</h2>
             <p
               class="text-gray-600 text-lg leading-relaxed mb-8"
-            >We are a passionate travel team dedicated to helping you discover the beauty of Cambodia. From ancient temples and cultural heritage to stunning natural landscapes, we offer unforgettable travel experiences. Whether you're planning an adventure, a family trip, or a relaxing getaway, we make your journey easy, safe, and memorable.</p>
+            >{{ $t('aboutUsDescription') }}</p>
             <button
               @click="goToContactPage"
               class="bg-purple-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-purple-700 transition-colors shadow-lg"
-            >Contact Us</button>
+            >{{ $t('contactUs') }}</button>
           </div>
           <div class="relative w-full">
             <div class="grid grid-cols-2 gap-6">
@@ -169,7 +169,7 @@
     <section class="max-w-7xl mx-auto px-4 py-16">
       <!-- Section Title -->
       <div class="text-center mb-12">
-        <h2 class="text-4xl font-bold text-gray-900 mb-4">Discover Your Dream Destinations</h2>
+        <h2 class="text-4xl font-bold text-gray-900 mb-4">{{ $t('destinationsTitle') }}</h2>
       </div>
 
       <!-- Destination Cards -->
@@ -193,7 +193,7 @@
         <router-link to="/guide">
           <button
             class="bg-purple-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-purple-700 transition-colors"
-          >View All</button>
+          >{{ $t('viewAll') }}</button>
         </router-link>
       </div>
     </section>
@@ -201,10 +201,10 @@
     <!-- FAQ Section -->
     <section class="bg-purple-100 py-16">
       <div class="max-w-4xl mx-auto px-4">
-        <h2 class="text-4xl font-bold text-gray-900 text-center mb-4">FAQs</h2>
+        <h2 class="text-4xl font-bold text-gray-900 text-center mb-4">{{ $t('faqsTitle') }}</h2>
         <p
           class="text-center text-gray-600 mb-12 max-w-3xl mx-auto"
-        >Find quick answers to common questions about booking, payments, cancellations, security, and travel requirements. This section helps you get the information you need—fast and hassle-free.</p>
+        >{{ $t('faqsDescription') }}</p>
         <div class="space-y-0">
           <div
             v-for="faq in faqs"
@@ -241,11 +241,11 @@
     <!-- Insights Section -->
     <section class="max-w-7xl mx-auto px-4 py-16">
       <div class="flex justify-between items-center mb-12">
-        <h2 class="text-4xl font-bold text-gray-900">Popular Blogs</h2>
+        <h2 class="text-4xl font-bold text-gray-900">{{ $t('ourWorldsTitle') }}</h2>
         <router-link to="/blog">
           <button
             class="bg-purple-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-purple-700 transition-colors"
-          >View All</button>
+          >{{ $t('viewAll') }}</button>
         </router-link>
       </div>
 
@@ -270,27 +270,29 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import { useI18n } from 'vue-i18n'
 const router = useRouter();
+const { t } = useI18n();
 
 // Current slide state for hero section
 const currentSlide = ref(0);
 // Hero slides
 const slides = ref([
   {
-    title: "Unveil the Mysteries of Ancient Cambodia",
-    subtitle: "Explore the beauty and culture of Cambodia and beyond.",
+    title: computed(() => t('slides.0.title')),
+    subtitle: computed(() => t("slides.0.subtitle")),
     image:
       "https://blog.takemetour.com/wp-content/uploads/2019/07/Ta-Prohm-Temple-1024x681.jpg"
   },
   {
-    title: "Embrace the Serenity of Sunset Temples",
-    subtitle: "Join us for unforgettable experiences.",
+    title: computed(() => t("slides.1.title")),
+    subtitle: computed(() => t("slides.1.subtitle")),
     image:
       "https://plus.unsplash.com/premium_photo-1661907933652-9f43a2a6031c?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y2FtYm9kaWElMjBsYW5kc2NhcGV8ZW58MHx8MHx8fDA%3D"
   },
   {
-    title: "Journey Through Rural Traditions",
-    subtitle: "Immerse yourself in local traditions.",
+    title: computed(() => t("slides.2.title")),
+    subtitle: computed(() => t("slides.2.subtitle")),
     image:
       "https://beta-planet.gvi.co.uk/wp-content/uploads/2023/02/1662325452-2023-feb-24-16-17-14-000000-tonle-sap-cambodia-2021-08-26-18-15-03-utc.jpg"
   }
@@ -301,33 +303,33 @@ const currentCardIndex = ref(0)
 const worldCards = ref([
   {
     id: 1,
-    title: 'Zoo',
+    title: computed(() => t("worldCards.0.title")),
     image: 'https://www.tribuneindia.com/sortd-service/imaginary/v22-01/jpg/large/high?url=dGhldHJpYnVuZS1zb3J0ZC1wcm8tcHJvZC1zb3J0ZC9tZWRpYTdlMmI1MDIwLTRlNTEtMTFlZi04MTJjLTliYTA0YmVhNDc2Zi5qcGc=',
-    description: 'This is a zoo with exotic animals.'
+    description: computed(() => t("worldCards.0.description"))
   },
   {
     id: 2,
-    title: 'Beach',
+    title: computed(() => t("worldCards.1.title")),
     image: 'https://hanoivoyage.com/uploads//Blogs/Cambodia/Visit-Cambodia/thumnail/sihanoukville-thumbnail-01.jpg',
-    description: 'A beautiful sandy beach with clear waters.'
+    description: computed(() => t("worldCards.1.description"))
   },
   {
     id: 3,
-    title: 'Waterfall',
+    title: computed(() => t("worldCards.2.title")),
     image: 'https://www.guidingcambodia.com/wp-content/uploads/2023/12/Phnom-Kulen-Waterfall-02-853x640-1.jpg',
-    description: 'A relaxing and scenic waterfall in the forest.'
+    description: computed(() => t("worldCards.2.description"))
   },
   {
     id: 4,
-    title: 'Mountain',
+    title: computed(() => t("worldCards.3.title")),
     image: 'https://khmerplaces.com/storage/posts/May2020/36WfY2yWwYZV6ll9icXs.jpg',
-    description: 'A majestic mountain perfect for hiking.'
+    description: computed(() => t("worldCards.3.description"))
   },
   {
     id: 5,
-    title: 'Forest',
+    title: computed(() => t("worldCards.4.title")),
     image: 'https://media-cdn.tripadvisor.com/media/attractions-splice-spp-720x480/0f/99/03/fd.jpg',
-    description: 'A dense forest with wildlife and adventure.'
+    description: computed(() => t("worldCards.4.description"))
   }
 ])
 

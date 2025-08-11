@@ -62,11 +62,10 @@
             <th class="py-3 px-5 border-b">Date</th>
             <th class="py-3 px-5 border-b">From</th>
             <th class="py-3 px-5 border-b">To</th>
-            <th class="py-3 px-5 border-b">Type</th>
             <th class="py-3 px-5 border-b">Travel Date</th>
-            <th class="py-3 px-5 border-b">Email</th>
+            <th class="py-3 px-5 border-b">Phone</th>
             <th class="py-3 px-5 border-b">Price</th>
-            <th class="py-3 px-5 border-b">Status</th>
+            <th class="py-3 px-5 border-b">Seat</th>
             <th class="py-3 px-5 border-b">Action</th>
           </tr>
         </thead>
@@ -80,33 +79,29 @@
             <td class="py-3 px-5 border-b">{{ formatDate(booking.createdAt) }}</td>
             <td class="py-3 px-5 border-b">{{ booking.depart }}</td>
             <td class="py-3 px-5 border-b">{{ booking.arrive }}</td>
-            <td class="py-3 px-5 border-b capitalize">{{ booking.type }}</td>
             <td class="py-3 px-5 border-b">{{ booking.date }}</td>
-            <td class="py-3 px-5 border-b">{{ booking.email }}</td>
+            <td class="py-3 px-5 border-b">{{ booking.phone }}</td>
             <td class="py-3 px-5 border-b font-semibold text-green-700">${{ booking.price?.toFixed(2) || '0.00' }}</td>
             <td class="py-3 px-5 border-b">
-              <span
-                :class="statusBadgeClass(booking.status)"
-                class="px-2 py-1 rounded text-xs font-semibold uppercase"
-              >
-                {{ booking.status }}
-              </span>
+              {{ Array.isArray(booking.seatNumbers) ? booking.seatNumbers.join(', ') : booking.seatNumbers || '—' }}
             </td>
             <td class="py-3 px-5 border-b">
-              <button
-                v-if="booking.status !== 'cancelled'"
-                @click="confirmCancel(booking.id)"
-                :disabled="isTravelDatePast(booking.date)"
-                :class="[
-                  'px-4 py-1 text-sm rounded text-white',
-                  isTravelDatePast(booking.date) ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-600'
-                ]"
-                :title="isTravelDatePast(booking.date) ? 'Cannot cancel past travel date' : 'Cancel booking'"
-              >
-                Cancel
-              </button>
-              <span v-else class="italic text-gray-500">Cancelled</span>
-            </td>
+      <button
+        v-if="booking.status !== 'cancelled'"
+        @click="confirmCancel(booking.id)"
+        :disabled="isTravelDatePast(booking.date) || booking.status === 'completed'"
+        :class="[
+          'px-4 py-1 text-sm rounded text-white',
+          (isTravelDatePast(booking.date) || booking.status === 'completed')
+            ? 'bg-gray-400 cursor-not-allowed'
+            : 'bg-red-500 hover:bg-red-600'
+        ]"
+        :title="(isTravelDatePast(booking.date) ? 'Cannot cancel past travel date' : '') + (booking.status === 'completed' ? ' Cannot cancel completed booking' : '')"
+      >
+        Cancel
+      </button>
+      <span v-else class="italic text-gray-500">Cancelled</span>
+    </td>
           </tr>
         </tbody>
       </table>
@@ -167,14 +162,17 @@ const fetchBookingHistory = async () => {
 const confirmCancel = async (id) => {
   const confirmed = window.confirm('Are you sure you want to cancel this booking?')
   if (!confirmed) return
+
   try {
-    await axios.put(`http://localhost:5000/api/bookings/${id}/cancel`)
+    await axios.patch(`http://localhost:5000/api/bookings/${id}/cancel`)
     await fetchBookingHistory()
     alert('Booking cancelled successfully.')
   } catch (err) {
-    alert('Failed to cancel booking.')
+    const msg = err.response?.data?.message || 'Failed to cancel booking.'
+    alert(msg)
   }
 }
+
 
 const formatDate = (dateStr) => {
   const date = new Date(dateStr)
