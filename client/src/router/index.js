@@ -129,7 +129,7 @@ import AdminFlightBooking from '@/views/admin/AdminFlightBooking.vue'
 import AdminBoatBooking from '@/views/admin/AdminBoatBooking.vue'
 import AdminBusBooking from '@/views/admin/AdminBusBooking.vue'
 import Payment from '@/components/Payment.vue'
-import PlaceDetails from '@/views/PlaceDetails.vue'
+
 // Auth guard
 
 const getUserFromStorage = () => {
@@ -276,13 +276,6 @@ const routes = [
 
     ]
   },
-  {
-  path: '/places/:id',
-  name: 'PlaceDetails',
-  component: PlaceDetails,
-  props: true
-},
-
   // Separate route for creating user under /users/create (not nested in admin for now)
   { path: '/users/create', name: 'CreateUser', component: CreateUser },
 
