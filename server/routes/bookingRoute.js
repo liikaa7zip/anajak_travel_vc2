@@ -4,11 +4,14 @@ const bookingController = require('../controllers/bookingController');
 const { Booking } = require('../models');
 
 router.get('/', bookingController.getAllBookings);
+router.get('/recent', bookingController.getRecentBookings);
 router.get('/:id', bookingController.getBookingById);
 router.post('/', bookingController.createBooking);
 router.patch('/:id/cancel', bookingController.cancelBooking);
 router.get('/booked-seats', bookingController.getBookedSeats);
 router.get('/bookings/completed', bookingController.getCompletedBookings);
+
+
 router.put('/:id/complete', async (req, res) => {
   try {
     const booking = await Booking.findByPk(req.params.id);
