@@ -64,22 +64,25 @@
             Change Location
           </button>
 
-          <!-- Location Input Board -->
+          <!-- Location Selection Board -->
           <div
             v-if="showLocationInput"
             class="mt-4 p-4 bg-white rounded shadow-md text-black max-w-xs"
           >
-            <label class="block mb-2 font-semibold" for="newLocation">
-              Enter new location:
+            <label class="block mb-2 font-semibold" for="provinceSelect">
+              Choose a province:
             </label>
-            <input
-              id="newLocation"
+            <select
+              id="provinceSelect"
               v-model="newLocation"
-              type="text"
-              placeholder="Type location"
               class="border border-gray-300 rounded px-3 py-2 w-full mb-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
-              @keyup.enter="submitNewLocation"
-            />
+            >
+              <option disabled value="">-- Select Province --</option>
+              <option v-for="province in provinces" :key="province" :value="province">
+                {{ province }}
+              </option>
+            </select>
+
             <div class="flex justify-end gap-3">
               <button
                 @click="cancelChangeLocation"
@@ -89,7 +92,8 @@
               </button>
               <button
                 @click="submitNewLocation"
-                class="px-4 py-2 rounded bg-purple-700 text-white hover:bg-purple-800 transition"
+                :disabled="!newLocation"
+                class="px-4 py-2 rounded bg-purple-700 text-white hover:bg-purple-800 transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Submit
               </button>
@@ -151,6 +155,36 @@ const provinceBackgrounds = {
     "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0",
 };
 
+// List all 25 Cambodian provinces (example list, update as needed)
+const provinces = [
+  "Siem Reap",
+  "Phnom Penh",
+  "Battambang",
+  "Kampong Cham",
+  "Kampong Chhnang",
+  "Kampong Speu",
+  "Kampong Thom",
+  "Kampot",
+  "Kandal",
+  "Kep",
+  "Koh Kong",
+  "Kratie",
+  "Mondulkiri",
+  "Oddar Meanchey",
+  "Pailin",
+  "Preah Vihear",
+  "Prey Veng",
+  "Pursat",
+  "Ratanakiri",
+  "Stung Treng",
+  "Svay Rieng",
+  "Takeo",
+  "Tbong Khmum",
+  "Banteay Meanchey",
+  "Sihanoukville",
+];
+
+// Background image fallback
 const backgroundImageUrl = computed(() => {
   const key = location.value.toLowerCase();
   const imageUrl = provinceBackgrounds[key] || provinceBackgrounds["siem reap"];
@@ -163,7 +197,6 @@ onMounted(() => {
     currentDateTime.value = new Date();
   }, 1000);
 
-  // Load from localStorage if exists
   const saved = localStorage.getItem(STORAGE_KEY);
   if (saved) {
     try {
@@ -175,7 +208,6 @@ onMounted(() => {
       console.warn("Failed to parse saved weather data", e);
     }
   } else {
-    // If nothing saved, initialize default weather
     updateWeather(location.value);
   }
 });
@@ -187,6 +219,7 @@ const showLocationInput = ref(false);
 const newLocation = ref("");
 
 function fetchWeatherData(loc) {
+  // Simple mock: you can add real API calls here
   if (loc.toLowerCase() === "phnom penh") {
     return {
       temperature: 32,
@@ -255,7 +288,7 @@ function updateWeather(loc) {
   forecast.value = data.forecast;
   location.value = loc;
 
-  saveToLocalStorage(); // Save updated data persistently
+  saveToLocalStorage();
 }
 
 function cancelChangeLocation() {
@@ -264,18 +297,11 @@ function cancelChangeLocation() {
 }
 
 function submitNewLocation() {
-  if (newLocation.value.trim() === "") return;
-  updateWeather(newLocation.value.trim());
+  if (!newLocation.value) return;
+  updateWeather(newLocation.value);
   searchQuery.value = "";
   cancelChangeLocation();
 }
-
-function handleSearch() {
-  if (searchQuery.value.trim() !== "") {
-    updateWeather(searchQuery.value.trim());
-  }
-}
-
 </script>
 
 <style scoped>
