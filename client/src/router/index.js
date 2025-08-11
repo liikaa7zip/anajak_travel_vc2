@@ -130,15 +130,12 @@ import AdminFlightBooking from '@/views/admin/AdminFlightBooking.vue'
 import AdminBoatBooking from '@/views/admin/AdminBoatBooking.vue'
 import AdminBusBooking from '@/views/admin/AdminBusBooking.vue'
 import Payment from '@/components/Payment.vue'
-<<<<<<< HEAD
-=======
 import TransportDashbord from '@/views/TransportOwner/TransportDashbord.vue'
 import TransportLayout from '@/layouts/TransportLayout.vue'
 import TransportUser from '@/views/TransportOwner/TransportUser.vue'
 import TransportBus from '@/views/TransportOwner/TransportBus.vue'
 import TransportBoat from '@/views/TransportOwner/TransportBoat.vue'
 import TransportOwnerChat from '@/views/TransportOwner/TransportOwnerChat.vue'
->>>>>>> ee017b5d0dc4e7d404daaec5f9be81899f3c8133
 
 // Auth guard
 
@@ -294,8 +291,6 @@ const routes = [
 
     ]
   },
-<<<<<<< HEAD
-=======
   {
     path: '/transport_owner',
     component: TransportLayout,
@@ -310,7 +305,6 @@ const routes = [
     ]
   },
 
->>>>>>> ee017b5d0dc4e7d404daaec5f9be81899f3c8133
   // Separate route for creating user under /users/create (not nested in admin for now)
   { path: '/users/create', name: 'CreateUser', component: CreateUser },
 
