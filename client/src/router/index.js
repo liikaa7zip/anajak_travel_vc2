@@ -38,6 +38,9 @@ import AdminUsers from '../views/admin/AdminUsers.vue'
 import CreateUser from '../components/CreateUser.vue'
 // import AdminBlog from '../views/admin/AdminBlog.vue'
 
+//favorite
+import favorite from '../views/favorite.vue'
+
 
 // Provinces
 import Battambang from '../views/provinces/Battambang.vue'
@@ -130,6 +133,12 @@ import AdminFlightBooking from '@/views/admin/AdminFlightBooking.vue'
 import AdminBoatBooking from '@/views/admin/AdminBoatBooking.vue'
 import AdminBusBooking from '@/views/admin/AdminBusBooking.vue'
 import Payment from '@/components/Payment.vue'
+import TransportDashbord from '@/views/TransportOwner/TransportDashbord.vue'
+import TransportLayout from '@/layouts/TransportLayout.vue'
+import TransportUser from '@/views/TransportOwner/TransportUser.vue'
+import TransportBus from '@/views/TransportOwner/TransportBus.vue'
+import TransportBoat from '@/views/TransportOwner/TransportBoat.vue'
+import TransportOwnerChat from '@/views/TransportOwner/TransportOwnerChat.vue'
 // Auth guard
 
 const getUserFromStorage = () => {
@@ -185,6 +194,9 @@ const routes = [
       { path: 'profile', component: UserProfile, beforeEnter: requireAuth },
       { path: 'settings', component: UserSettings, beforeEnter: requireAuth },
 
+      //favorite
+      { path: 'favorite', component: favorite, beforeEnter: requireAuth },
+
       // Provinces
       { path: 'guide/battambang', name: 'Battambang', component: Battambang },
       { path: 'guide/banteay-meanchey', name: 'BanteayMeanchey', component: BanteayMeanchey },
@@ -216,6 +228,8 @@ const routes = [
       { path: 'guide/:province/BusTickets', name: 'ProvinceBusTickets', component: BusTickets, props: true },
       { path: 'guide/:province/CarRental', name: 'ProvinceCarRental', component: CarRental, props: true },
       { path: 'guide/:province/FlightReservation', name: 'ProvinceFlightReservation', component: FlightReservation, props: true },
+      { path: 'guide/:province/ProvinceList', name: 'ProvinceProvinceList', component: ProvinceList, props: true },
+      { path: 'guide/:view/favorite', name: 'Provincefavorite', component: favorite, props: true },
 
       // Food routes
       { path: 'foods', component: FoodListView, name: 'FoodList' },
@@ -279,6 +293,19 @@ const routes = [
 
     ]
   },
+  {
+    path: '/transport_owner',
+    component: TransportLayout,
+    meta: { requiresAuth: true, role: 'transport_owner' },
+    children: [
+      { path: '', redirect: 'transportdashboard' },
+      { path: 'transportdashboard', component: TransportDashbord, name: 'TransportOwnerDashboard' },
+      { path: 'transportuser', component: TransportUser, name: 'TransportUser'},
+      { path: 'transportbus', component: TransportBus, name: 'TransportBus' },
+      { path: 'transportboat', component: TransportBoat, name: 'TransportBoat' },
+      { path: 'transportownerchat', component: TransportOwnerChat, name: 'TransportOwnerChat' }
+    ]
+  },
 
   // Separate route for creating user under /users/create (not nested in admin for now)
   { path: '/users/create', name: 'CreateUser', component: CreateUser },
@@ -287,7 +314,10 @@ const routes = [
   { path: '/dashboard', redirect: '/admin/dashboard' },
 
   // Catch-all 404 redirect
-  { path: '/:pathMatch(.*)*', redirect: '/home' }
+  { path: '/:pathMatch(.*)*', redirect: '/home' },
+
+
+  
 ]
 
 // Create router

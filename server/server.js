@@ -15,6 +15,9 @@ const locationRoutes = require('./routes/locationRoutes');
 
 const createDefaultAdmin = require('./seeders/createDefaultAdmin');
 const createDefaultLocations = require('./seeders/createDefaultLocations');
+const createDefaultCars = require('./seeders/20250807-insert-cars')
+const createDefaultRoles = require('./seeders/createDefaultRoles');
+
 // orderfood
 const foodRoutes = require('./routes/foodRoutes');
 const orderFoodRoutes = require('./routes/orderFoodRoutes');
@@ -35,6 +38,8 @@ const travelGuidesRoutes = require('./routes/travelGuidesRoutes');
 const galleryPhotosRoutes = require('./routes/galleryPhotosRoutes');
 const itineraryRoutes = require('./routes/itineraryRoutes');
 const categoryRoutes = require('./routes/category');
+const carRoutes = require('./routes/carRoutes');
+const seatsRoutes = require('./routes/seatsRoute')
 
 const payment = require('./routes/PaymentRoutes');
 
@@ -67,6 +72,9 @@ app.use('/api/travel-guides', travelGuidesRoutes);
 app.use('/api/gallery-photos', galleryPhotosRoutes);
 app.use('/api/itineraries', itineraryRoutes);
 app.use('/api/payments', payment);
+app.use('/api/cars', carRoutes);
+app.use('/api/seats', seatsRoutes)
+
 // Uncomment if you want admin user routes
 // app.use('/api/admin-users', adminUserRoutes);
 app.use('/api/categories', categoryRoutes);
@@ -78,35 +86,34 @@ const io = new Server(server, {
 });
 
 io.on('connection', (socket) => {
-  console.log('User connected', socket.id);
-
-  socket.on('join', (username) => {
-    socket.join(username);
-    console.log(`${username} joined room ${username}`);
-  });
-
-  socket.on('send_message', async (data, callback) => {
+  socket.on('send_message', async (msg, callback) => {
     try {
+      // Save message to DB
       const savedMsg = await Message.create({
-        sender: data.sender,
-        receiver: data.receiver,
-        message: data.message,
+        senderId: msg.senderId,
+        receiverId: msg.receiverId,
+        sender: msg.sender,
+        receiver: msg.receiver,
+        message: msg.message,
       });
 
-      io.to(data.sender).emit('receive_message', savedMsg);
-      io.to(data.receiver).emit('receive_message', savedMsg);
+      // Emit to receiver (assuming you have userId-based rooms or tracking)
+      io.to(msg.receiverId.toString()).emit('receive_message', savedMsg);
 
+      // Confirm to sender
       callback({ status: 'ok' });
-    } catch (err) {
-      console.error('Failed to save message:', err);
-      callback({ status: 'error', error: err.message });
+    } catch (error) {
+      console.error('Error saving message:', error);
+      callback({ status: 'error', error: error.message });
     }
   });
 
-  socket.on('disconnect', () => {
-    console.log('User disconnected', socket.id);
+  // When user connects, join a room with their user id for direct messages
+  socket.on('join', (userId) => {
+    socket.join(userId);
   });
 });
+
 
 const PORT = process.env.PORT || 5000;
 
@@ -115,6 +122,8 @@ sequelize.sync({ alter: true })
     console.log('Database synced');
     await createDefaultAdmin();
     await createDefaultLocations();
+    await createDefaultCars();
+    
 
     server.listen(PORT, () => {
       console.log(`Server running on http://localhost:${PORT}`);

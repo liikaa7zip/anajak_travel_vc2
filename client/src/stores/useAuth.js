@@ -82,6 +82,7 @@ export function useAuth() {
   })
  const isHotelowner = computed(() => userProfile.value?.role === 'hotel_owner')
 const isReturantowner = computed(() => userProfile.value?.role === 'restaurant_owner')
+const isTransportowner = computed(() => userProfile.value?.role === 'transport_owner')
 
 
   // Clear all auth data
@@ -258,6 +259,9 @@ const isReturantowner = computed(() => userProfile.value?.role === 'restaurant_o
 if (user.role === 'hotel_owner') {
   return '/hotel_owner/hoteldashboard'
 }
+if (user.role === 'transport_owner') {
+  return '/transport_owner/transportdashboard'
+}
   
 
   return '/home'
@@ -282,6 +286,7 @@ if (user.role === 'hotel_owner') {
     displayName,
     isHotelowner,
     isReturantowner,
+    isTransportowner,
     // Methods
     login,
     register,

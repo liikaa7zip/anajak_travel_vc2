@@ -71,7 +71,10 @@
               <img :src="province.image" :alt="province.name"
                 class="w-full h-48 object-cover group-hover:scale-105 transition duration-300" />
             </router-link>
-            <button @click.stop="toggleFavorite(province)"
+
+            <router-link :to="`/guide/${toKebab(province.routeName)}/favorite`"
+              class="absolute top-2 right-2 px-3 py-2 rounded-full" aria-label="Favorite">
+              <button @click.stop="toggleFavorite(province)"
               class="absolute top-2 right-2 px-3 py-2 rounded-full transition text-sm shadow-lg" aria-label="Favorite">
               <svg v-if="province.favorite" xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                 viewBox="0 0 24 24">
@@ -86,9 +89,6 @@
                   clip-rule="evenodd" />
               </svg>
             </button>
-            <router-link :to="`/guide/${toKebab(province.routeName)}`"
-              class="absolute top-2 left-2 text-white px-3 py-2 rounded-full transition text-sm shadow-lg">
-              <!-- Your other icon or content -->
             </router-link>
           </div>
           <div class="p-4">
@@ -100,9 +100,9 @@
                 <i class="fa-solid fa-house-chimney"></i>
               </button>
               </router-link>
-              <router-link :to="`/guide/${toKebab(province.routeName)}/restaurant`"
+              <router-link :to="`/guide/${toKebab(province.routeName)}/ProvinceList`"
                 class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm">
-                <i class="fa-duotone fa-solid fa-bowl-food"></i>
+                <i class="fa-solid fa-utensils"></i>
               </router-link>
               <!-- Booking Toggle Button -->
               <button
@@ -115,7 +115,7 @@
               <!-- Booking Options Dropdown -->
               <div
                 v-if="province.showBookingOptions"
-                class="absolute top-12 left-0 flex flex-col items-start gap-2 bg-white shadow-md rounded p-2 w-40 z-10"
+                class="absolute top-12  flex flex-col items-center gap-2 bg-white shadow-md rounded p-2 w-40 z-10"
               >
                 <router-link
                   :to="`/guide/${toKebab(province.routeName)}/BusTickets`"

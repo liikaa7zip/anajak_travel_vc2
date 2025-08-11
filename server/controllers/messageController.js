@@ -9,16 +9,20 @@ const db = require('../models');
 
 // Fetch conversation between two users
 exports.getConversationBetweenUsers = async (req, res) => {
-  const { user1, user2 } = req.query;
-  if (!user1 || !user2) return res.status(400).json({ error: 'Missing user1 or user2' });
+  const user1 = parseInt(req.query.user1, 10);
+  const user2 = parseInt(req.query.user2, 10);
+
+  if (!user1 || !user2) {
+    return res.status(400).json({ error: 'Missing user1 or user2' });
+  }
 
   try {
     const messages = await Message.findAll({
       where: {
         [Op.or]: [
-          { sender: user1, receiver: user2 },
-          { sender: user2, receiver: user1 }
-        ]
+          { senderId: user1, receiverId: user2 },
+          { senderId: user2, receiverId: user1 },
+        ],
       },
       order: [['createdAt', 'ASC']],
     });
@@ -30,22 +34,30 @@ exports.getConversationBetweenUsers = async (req, res) => {
   }
 };
 
-// Send a message
 exports.sendMessage = async (req, res) => {
-  const { sender, receiver, message } = req.body;
+  const { sender, receiver, senderId, receiverId, message } = req.body;
 
-  if (!sender || !receiver || !message) {
-    return res.status(400).json({ error: 'Missing sender, receiver, or message' });
+  if (!sender || !receiver || !senderId || !receiverId || !message) {
+    return res.status(400).json({ error: 'Missing sender, receiver, senderId, receiverId, or message' });
   }
 
   try {
-    const newMessage = await Message.create({ sender, receiver, message });
+    const newMessage = await Message.create({
+      sender,
+      receiver,
+      senderId,
+      receiverId,
+      message
+    });
     res.status(201).json(newMessage);
   } catch (error) {
     console.error('Error sending message:', error);
-    res.status(500).json({ error: 'Server error' });
+    res.status(500).json({ error: error.message });
   }
 };
+
+
+
 
 // DELETE a message by ID
 exports.deleteMessagesBySender = async (req, res) => {
