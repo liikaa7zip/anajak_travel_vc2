@@ -136,6 +136,7 @@ import TransportUser from '@/views/TransportOwner/TransportUser.vue'
 import TransportBus from '@/views/TransportOwner/TransportBus.vue'
 import TransportBoat from '@/views/TransportOwner/TransportBoat.vue'
 import TransportOwnerChat from '@/views/TransportOwner/TransportOwnerChat.vue'
+import AdminReport from '@/views/admin/AdminReport.vue'
 
 // Auth guard
 
@@ -262,6 +263,7 @@ const routes = [
       { path: 'flight', component: AdminFlightBooking },
       { path: 'boat', component: AdminBoatBooking },
       { path: 'bus', component: AdminBusBooking},
+      { path: 'report', component: AdminReport },
     ]
   },
   {
