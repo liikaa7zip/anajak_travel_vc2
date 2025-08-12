@@ -171,7 +171,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="b in recentBookings" :key="b.id" class="border-b border-gray-200 hover:bg-indigo-50 transition-colors duration-200 cursor-pointer">
+                    <tr v-for="b in recentBookings" :key="b.id" class=" text-center border-b border-gray-200 hover:bg-indigo-50 transition-colors duration-200 cursor-pointer">
                         <td class="py-3 px-6 font-mono text-gray-700">{{ b.id }}</td>
                         <td class="py-3 px-6 font-semibold text-indigo-700">{{ b.User?.username || '—' }}</td>
                         <td class="py-3 px-6">
@@ -205,25 +205,19 @@
         </div>
       
       <!-- Recent Messages -->
-      <div class="bg-white rounded-xl p-6 shadow border border-gray-200">
-        <div class="font-semibold text-gray-800 mb-4">Recent Messages</div>
-        <div class="space-y-3">
-          <div>
-            <div class="flex justify-between items-center">
-              <span class="text-gray-700">Sreyk</span>
-              <span class="text-xs text-gray-500">8:31am</span>
-            </div>
-            <div class="text-xs text-gray-500">I need a help</div>
-          </div>
-          <div>
-            <div class="flex justify-between items-center">
-              <span class="text-gray-700">Panha</span>
-              <span class="text-xs text-gray-500">8:31am</span>
-            </div>
-            <div class="text-xs text-gray-500">What should I do here?</div>
-          </div>
+       <div class="bg-white rounded-xl p-6 shadow border border-gray-200">
+    <div class="font-semibold text-gray-800 mb-4">Recent Messages</div>
+    <div class="space-y-3">
+      <div v-for="msg in messages" :key="msg.id">
+        <div class="flex justify-between items-center">
+          <span class="text-gray-700">{{ msg.sender }}</span>
+          <span class="text-xs text-purple-400">{{ formatTime(msg.createdAt) }}</span>  
         </div>
+        <div class="text-xs text-gray-500">{{ msg.message }}</div>
       </div>
+    </div>
+  </div>
+  
       <!-- Top Users -->
       <div class="bg-white rounded-xl p-6 shadow border border-gray-200">
         <div class="font-semibold text-gray-800 mb-4">Top Users</div>
@@ -308,7 +302,7 @@ const revenueChangePercent = ref(0)
 const allMonthsLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 const monthsLabels = allMonthsLabels.slice(0, filteredRevenueData.value.length)
 const recentBookings = ref([]);
-
+const messages = ref([])
 
 // Revenue data per month for the chart (Jan - Jul)
 const revenueData = ref([0, 0, 0, 0, 0, 0, 0])
@@ -335,6 +329,25 @@ function updateFilteredData() {
 
     // Show just the selected month on the chart
     filteredRevenueData.value = [displayedMonthRevenue.value]
+  }
+}
+
+function formatTime(dateString) {
+  const date = new Date(dateString)
+  let hours = date.getHours()
+  const minutes = date.getMinutes().toString().padStart(2, '0')
+  const ampm = hours >= 12 ? 'pm' : 'am'
+  hours = hours % 12
+  hours = hours ? hours : 12
+  return `${hours}:${minutes}${ampm}`
+}
+
+async function fetchRecentMessages() {
+  try {
+    const response = await axios.get('http://localhost:5000/api/messages/recent')
+    messages.value = response.data
+  } catch (error) {
+    console.error('Failed to fetch recent messages:', error)
   }
 }
 
@@ -401,6 +414,7 @@ totalRevenue.value = revenueData.value.reduce((sum, val) => sum + val, 0)
 
 onMounted(() => {
   fetchStats();
+  fetchRecentMessages()
   
 })
 
