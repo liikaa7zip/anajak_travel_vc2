@@ -39,7 +39,8 @@ const galleryPhotosRoutes = require('./routes/galleryPhotosRoutes');
 const itineraryRoutes = require('./routes/itineraryRoutes');
 const categoryRoutes = require('./routes/category');
 const carRoutes = require('./routes/carRoutes');
-const seatsRoutes = require('./routes/seatsRoute')
+const seatsRoutes = require('./routes/seatsRoute');
+const reportRoutes = require('./routes/reportRoutes');
 
 const payment = require('./routes/PaymentRoutes');
 
@@ -73,7 +74,8 @@ app.use('/api/gallery-photos', galleryPhotosRoutes);
 app.use('/api/itineraries', itineraryRoutes);
 app.use('/api/payments', payment);
 app.use('/api/cars', carRoutes);
-app.use('/api/seats', seatsRoutes)
+app.use('/api/seats', seatsRoutes);
+app.use('/api/reports', reportRoutes);
 
 // Uncomment if you want admin user routes
 // app.use('/api/admin-users', adminUserRoutes);
