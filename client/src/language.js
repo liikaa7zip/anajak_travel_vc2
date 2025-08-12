@@ -1,4 +1,21 @@
 import { createI18n } from 'vue-i18n'
+import BanteayMeanchey from './views/provinces/BanteayMeanchey.vue'
+import KampongThom from './views/provinces/KampongThom.vue'
+import Pursat from './views/provinces/Pursat.vue'
+import Mondulkiri from './views/provinces/Mondulkiri.vue'
+import SvayRieng from './views/provinces/SvayRieng.vue'
+import SiemReap from './views/provinces/SiemReap.vue'
+import PreyVeng from './views/provinces/PreyVeng.vue'
+import Kratie from './views/provinces/Kratie.vue'
+import KampongChhnang from './views/provinces/KampongChhnang.vue'
+import KampongCham from './views/provinces/KampongCham.vue'
+import Battambang from './views/provinces/Battambang.vue'
+import PhnomPenh from './views/provinces/PhnomPenh.vue'
+import TbongKhmum from './views/provinces/TbongKhmum.vue'
+import KohKong from './views/provinces/KohKong.vue'
+import Kandal from './views/provinces/Kandal.vue'
+import KampongSpeu from './views/provinces/KampongSpeu.vue'
+import Pailin from './views/provinces/Pailin.vue'
 
 // Translation messages
 const messages = {
@@ -104,32 +121,32 @@ const messages = {
             sebastian: {
                 name: 'Sebastian',
                 role: 'Graphic Designer',
-                comment: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text.'
+                comment: 'This app is amazing! I love how easy it is to find beautiful places in Cambodia. The design is clean and simple to use. Great job!'
             },
             evangeline: {
                 name: 'Evangeline',
                 role: 'Model',
-                comment: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text.'
+                comment: 'I planned my whole trip using this app. The itinerary feature is super helpful. Would love to see more destinations added soon!'
             },
             alexander: {
                 name: 'Alexander',
                 role: 'Software Engineer',
-                comment: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text.'
+                comment: 'I really like the Khmer and English language switch—it makes it so easy for me and my friends to use together. Thank you for thinking of that!'
             },
             michael: {
                 name: 'Michael',
                 role: 'Travel Blogger',
-                comment: 'Amazing experience exploring Cambodia with Anajak Travel. The guides were knowledgeable and the destinations were breathtaking.'
+                comment: 'Nice UI and fast performance. I especially love the "Favorites" feature. Please add booking functionality next!'
             },
             sarah: {
                 name: 'Sarah',
                 role: 'Photographer',
-                comment: 'Perfect trip planning and execution. Highly recommend for anyone visiting Cambodia! The cultural sites were incredible.'
+                comment: 'I’m so impressed! It’s perfect for students like me who want to travel on a budget. Very informative and helpful.'
             },
             david: {
                 name: 'David',
                 role: 'Adventure Seeker',
-                comment: 'Unforgettable memories created with professional service and great attention to detail. Will definitely book again!'
+                comment: 'A great travel app overall. It helped me discover places I’ve never heard of before. Just wish it had offline support too.'
             }
         },
 
@@ -284,10 +301,70 @@ const messages = {
                 description: 'Many temples in Battambang',
                 image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJqvmkc5uAXt4MA0aPAawOVhKYY28coyMFiA&s'
             }
-        ]
+        ],
 
+        // Traveling Guide page
+        heroTitle: '🗺️ Welcome to the travel guide, ',
+        heroSubtitle: 'and go to your dream place in Cambodia.',
+        travelGuideTitle: 'Explore Cambodian Provinces',
+        BanteayMeanchey: "Banteay Meanchey",
+        KampongThom: "Kampong Thom",
+        StungTreng: "Stung Treng",
+        Rattanakiri: "Rattanakiri",
+        OddarMeanchey: "Oddar Meanchey",
+        PreahVihear: "Preah Vihear",
+        Takeo: "Takeo",
+        SihanoukVille: "Sihanouk Ville",
+        Pursat: "Pursat",
+        Mondulkiri: "Mondulkiri",
+        SvayRieng: "Svay Rieng",
+        SiemReap: "Siem Reap",
+        PreyVeng: "Prey Veng",
+        Kratie: "Kratie",
+        KampongChhnang: "Kampong Chhnang",
+        KampongCham: "Kampong Cham",
+        Battambang: "Battambang",
+        PhnomPenh: "Phnom Penh",
+        TbongKhmum: "Tbong Khmum",
+        KohKong: "Koh Kong",
+        Kep: "Kep",
+        Kandal: "Kandal",
+        Kampot: "Kampot",
+        KampongSpeu: "Kampong Speu",
+        Pailin: "Pailin",
     },
+
     km: {
+        // Traveling Guide page
+        heroTitle: 'សូមស្វាគមន៍មកកាន់មគ្គុទ្ទេសក៍ទេសចរណ៍,',
+        heroSubtitle: 'ហើយទៅកន្លែងសុបិន្តរបស់អ្នកក្នុងប្រទេសកម្ពុជា',
+        travelGuideTitle: 'ស្វែងយល់ពីខេត្តនានារបស់កម្ពុជា',
+        BanteayMeanchey: "បន្ទាយមានជ័យ",
+        KampongThom: "កំពង់ធំ",
+        StungTreng: "ស្ទឹងត្រែង",
+        Rattanakiri: "រតនគិរី",
+        OddarMeanchey: "ឧត្តរមានជ័យ",
+        PreahVihear: "ព្រះវិហារ",
+        Takeo: "តាកែវ",
+        SihanoukVille: "ក្រុងព្រះសីហនុ",
+        Pursat: "ពោធិ៍សាត់",
+        Mondulkiri: "មណ្ឌលគីរី",
+        SvayRieng: "ស្វាយរៀង",
+        SiemReap: "សៀមរាប",
+        PreyVeng: "ព្រៃវែង",
+        Kratie: "ក្រចេះ",
+        KampongChhnang: "កំពង់ឆ្នាំង",
+        KampongCham: "កំពង់ចាម",
+        Battambang: "បាត់ដំបង",
+        PhnomPenh: "ភ្នំពេញ",
+        TbongKhmum: "ត្បូងឃ្មុំ",
+        KohKong: "កោះកុង",
+        Kep: "កែប",
+        Kandal: "កណ្ដាល",
+        Kampot: "កំពត",
+        KampongSpeu: "កំពង់ស្ពឺ",
+        Pailin: "ប៉ៃលិន",
+
         // navbar
         logo: 'អាណាចក្រធ្វើដំណើរ',
         home: 'ទំព័រដើម',
@@ -389,32 +466,32 @@ const messages = {
             sebastian: {
                 name: 'សេបាស្ទៀន',
                 role: 'អ្នករចនាក្រាហ្វិច',
-                comment: 'Lorem Ipsum គឺជាអត្ថបទសាកល្បងនៃឧស្សាហកម្មបោះពុម្ពនិងការតម្រៀបអក្សរ។'
+                comment: 'អេបនេះអស្ចារ្យណាស់! ខ្ញុំចូលចិត្តរបៀបងាយស្រួលក្នុងការស្វែងរកទីកន្លែងស្រស់ស្អាតនៅកម្ពុជា។ រចនាប័ទ្មស្អាត និងងាយប្រើ។ ល្អមែនទែន!'
             },
             evangeline: {
                 name: 'អេវ៉ានជែលីន',
                 role: 'តារាម៉ូដែល',
-                comment: 'Lorem Ipsum គឺជាអត្ថបទសាកល្បងនៃឧស្សាហកម្មបោះពុម្ពនិងការតម្រៀបអក្សរ។'
+                comment: 'ខ្ញុំបានរៀបចំដំណើរកម្សាន្តទាំងមូលរបស់ខ្ញុំដោយប្រើអេបនេះ។ មុខងារ "ការធ្វើដំណើរ" មានប្រយោជន៍ណាស់។ សូមបន្ថែមទីកន្លែងថ្មីៗទៀតនៅពេលក្រោយផង!'
             },
             alexander: {
                 name: 'អាឡិចសាន់ឌឺ',
                 role: 'វិស្វករផ្នែកទន់',
-                comment: 'Lorem Ipsum គឺជាអត្ថបទសាកល្បងនៃឧស្សាហកម្មបោះពុម្ពនិងការតម្រៀបអក្សរ។'
+                comment: 'ខ្ញុំចូលចិត្តមុខងារប្ដូរភាសាខ្មែរនិងអង់គ្លេសណាស់—វាងាយស្រួលសម្រាប់ខ្ញុំ និងមិត្តភក្តិប្រើប្រាស់ជាមួយគ្នា។ អរគុណច្រើនសម្រាប់ការគិតរួចរបស់អ្នក!'
             },
             michael: {
                 name: 'ម៉ៃឃល',
                 role: 'អ្នកសរសេរប្លុកទេសចរណ៍',
-                comment: 'បទពិសោធន៍ដ៏អស្ចារ្យក្នុងការរុករកកម្ពុជាជាមួយអាណាចក្រទេសចរណ៍។ មគ្គុទ្ទេសក៍មានចំណេះដឹង និងគោលដៅទេសចរណ៍គួរឱ្យចាប់អារម្មណ៍។'
+                comment: 'រចនាប័ទ្មស្អាត និងលឿន។ ខ្ញុំចូលចិត្តពិសេសនឹងមុខងារ “ចំណូលចិត្ត”។ សូមបន្ថែមមុខងារកក់សំបុត្រផងបានទេ?'
             },
             sarah: {
                 name: 'សារ៉ា',
                 role: 'អ្នកថតរូប',
-                comment: 'ការរៀបចំដំណើរកម្សាន្តល្អឥតខ្ចោះ។ សូមណែនាំយ៉ាងខ្លាំងសម្រាប់អ្នកដែលទៅលេងកម្ពុជា! ទីតាំងវប្បធម៌គឺអស្ចារ្យណាស់។'
+                comment: 'ខ្ញុំទំនក់ចិត្តខ្លាំងណាស់! វាសមស្របសម្រាប់និស្សិតដូចខ្ញុំ ដែលចង់ដំណើរកម្សាន្តដោយប្រើថវិកាតិច។ ព័ត៌មានមានប្រយោជន៍ណាស់។'
             },
             david: {
                 name: 'ដេវីដ',
                 role: 'អ្នកស្វែងរកដំណើរផ្សងព្រេង',
-                comment: 'ការចងចាំដែលមិនអាចបំភ្លេចបានជាមួយសេវាកម្មប្រកបដោយវិជ្ជាជីវៈនិងការយកចិត្តទុកដាក់លើព័ត៌មានលម្អិត។ នឹងកក់ម្តងទៀតជាមិនខាន!'
+                comment: 'អេបដ៏ល្អមួយសម្រាប់ការធ្វើដំណើរ។ វាជួយឱ្យខ្ញុំស្គាល់កន្លែងថ្មីៗដែលមិនដែលបានឮពីមុន។ ប្រសិនបើមានមុខងារប្រើបានក្រៅបណ្តាញ (offline) កាន់តែប្រសើរជាងនេះទៀត។'
             }
         },
 
@@ -569,9 +646,10 @@ const messages = {
                 description: 'ប្រាសាទជាច្រើននៅខេត្តបាត់ដំបង',
                 image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJqvmkc5uAXt4MA0aPAawOVhKYY28coyMFiA&s'
             }
-        ]
-    }
+        ],
 
+        
+    }
 }
 
 // Get saved locale or fallback to 'en'
