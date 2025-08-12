@@ -135,202 +135,205 @@
 <script>
 export default {
   name: "TravelingGuide",
+  computed: {
+    // Computed properties can be added here
+  },
   data() {
     return {
       provinces: [
         {
-          name: "Battambang",
+          name: this.$t("provinces.Battambang.name"),
           routeName: "Battambang",
           image:
             "https://pppenglish.sgp1.digitaloceanspaces.com/image/main/field/image/a_statue_of_lok_ta_dambang_kronhung_at_his_namesake_roundabout_on_national_road_5_in_battambang_town._yousos_apdoulrashim.jpg",
-          description: "Rich in colonial architecture and rice fields.",
+          description: this.$t("provinces.Battambang.description"),
           showBookingOptions: false,
         },
         {
-          name: "Siem Reap",
+          name: this.$t("provinces.SiemReap.name"),
           routeName: "SiemReap",
           image: "https://cms.siemreaper.click/uploads/angkor_wat2712_4e0d04bf8f.jpeg",
-          description: "Home of Angkor Wat, Cambodia’s crown jewel.",
+          description: this.$t("provinces.SiemReap.description"),
           showBookingOptions: false,
         },
         {
-          name: "Phnom Penh",
+          name: this.$t("provinces.PhnomPenh.name"),
           routeName: "PhnomPenh",
           image:
             "https://www.angkor7thtravel.com/images/destination/1673244202_0!!-!!Independence%20Monument.jpg",
-          description: "Bustling capital with rich history and culture.",
+          description: this.$t("provinces.PhnomPenh.description"),
           showBookingOptions: false,
         },
         {
-          name: "Kampot",
+          name: this.$t("provinces.Kampot.name"),
           routeName: "Kampot",
           image:
             "https://dnf06fpg9xipc.cloudfront.net/geocambodia/province-landmark/07.jpg",
-          description: "Charming riverside town with pepper farms.",
+          description: this.$t("provinces.Kampot.description"),
           showBookingOptions: false,
         },
         {
-          name: "Kep",
+          name: this.$t("provinces.Kep.name"),
           routeName: "Kep",
           image: "https://img.harbor-property.com/bkarticle/2021/10/25/173634624.jpg",
-          description: "Famous for crab market and coastal views.",
+          description: this.$t("provinces.Kep.description"),
           showBookingOptions: false,
         },
         {
-          name: "Sihanoukville",
+          name: this.$t("provinces.Sihanoukville.name"),
           routeName: "Sihanoukville",
           image:
             "https://mediaim.expedia.com/destination/1/492c45494b515ffc04169afcad554808.jpg",
-          description: "Gateway to Cambodia’s islands and beaches.",
+          description: this.$t("provinces.Sihanoukville.description"),
           showBookingOptions: false,
         },
         {
-          name: "Pailin",
+          name: this.$t("provinces.Pailin.name"),
           routeName: "Pailin",
           image:
             "https://www.shutterstock.com/image-photo/pailin-city-province-cambodia-july-260nw-2332159129.jpg",
-          description: "Mountains, gems, and peaceful countryside.",
+          description: this.$t("provinces.Pailin.description"),
           showBookingOptions: false,
         },
         {
-          name: "Koh Kong",
+          name: this.$t("provinces.KohKong.name"),
           routeName: "KohKong",
           image:
             "https://i0.wp.com/www.cambodialifestyle.com/wp-content/uploads/2024/04/Koh-Kong3.jpg?fit=1024%2C722&ssl=1",
-          description: "Lush rainforest and untouched beaches.",
+          description: this.$t("provinces.KohKong.description"),
           showBookingOptions: false,
         },
         {
-          name: "Takeo",
+          name: this.$t("provinces.Takeo.name"),
           routeName: "Takeo",
           image:
             "https://dnf06fpg9xipc.cloudfront.net/geocambodia/province-landmark/21.jpg",
-          description: "Ancient temples and cultural sites.",
+          description: this.$t("provinces.Takeo.description"),
           showBookingOptions: false,
         },
         {
-          name: "Kandal",
+          name: this.$t("provinces.Kandal.name"),
           routeName: "Kandal",
           image:
             "https://soprita.com/wp-content/uploads/2025/03/LleWYPYfulce13Kazygv.jpg",
-          description: "Surrounds Phnom Penh with villages and farms.",
+          description: this.$t("provinces.Kandal.description"),
           showBookingOptions: false,
         },
         {
-          name: "Kampong Cham",
+          name: this.$t("provinces.KampongCham.name"),
           routeName: "KampongCham",
           image:
             "https://khmerplaces.com/storage/provinces/August2020/SKG2ZykZUT7xz4q6t9kF.jpg",
-          description: "Known for rubber plantations and bridges.",
+          description: this.$t("provinces.KampongCham.description"),
           showBookingOptions: false,
         },
         {
-          name: "Kampong Chhnang",
+          name: this.$t("provinces.KampongChhnang.name"),
           routeName: "KampongChhnang",
           image:
             "https://pppenglish.sgp1.digitaloceanspaces.com/image/main/field/image/img_6722.jpg",
-          description: "Floating villages and traditional pottery.",
+          description: this.$t("provinces.KampongChhnang.description"),
           showBookingOptions: false,
         },
         {
-          name: "Kampong Speu",
+          name: this.$t("provinces.KampongSpeu.name"),
           routeName: "KampongSpeu",
           image: "https://www.asiakingtravel.com/cuploads/files/Kampong-Speu-1(2).jpg",
-          description: "Hiking and waterfalls near Phnom Aural.",
+          description: this.$t("provinces.KampongSpeu.description"),
           showBookingOptions: false,
         },
         {
-          name: "Kampong Thom",
+          name: this.$t("provinces.KampongThom.name"),
           routeName: "KampongThom",
           image: "https://www.ppmlgroup.com/wp-content/uploads/2022/02/5b2b2134f3661.jpg",
-          description: "Central hub with ancient Sambor Prei Kuk.",
+          description: this.$t("provinces.KampongThom.description"),
           showBookingOptions: false,
         },
         {
-          name: "Kratie",
+          name: this.$t("provinces.Kratie.name"),
           routeName: "Kratie",
           image:
             "https://visitlocaltravel.com/blog/wp-content/uploads/2024/02/Kratie-Province.png",
-          description: "Home of Irrawaddy dolphins along the Mekong.",
+          description: this.$t("provinces.Kratie.description"),
           showBookingOptions: false,
         },
         {
-          name: "Prey Veng",
+          name: this.$t("provinces.PreyVeng.name"),
           routeName: "PreyVeng",
           image:
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkgdLEtXKbWJfrmIc-2vfaSfDEh5pOFu-RZg&s",
-          description: "Scenic province with hidden countryside charm.",
+          description: this.$t("provinces.PreyVeng.description"),
           showBookingOptions: false,
         },
         {
-          name: "Svay Rieng",
+          name: this.$t("provinces.SvayRieng.name"),
           routeName: "SvayRieng",
           image: "https://aicdn.picsart.com/755df232-46fb-452f-b47d-4f640d33b6e0.jpg",
-          description: "Borders Vietnam and full of rice fields.",
+          description: this.$t("provinces.SvayRieng.description"),
           showBookingOptions: false,
         },
         {
-          name: "Pursat",
+          name: this.$t("provinces.Pursat.name"),
           routeName: "Pursat",
           image:
             "https://visitlocaltravel.com/blog/wp-content/uploads/2024/03/Pursat-Province.png",
-          description: "Marble carving and Cardamom Mountains.",
+          description: this.$t("provinces.Pursat.description"),
           showBookingOptions: false,
         },
         {
-          name: "Oddar Meanchey",
+          name: this.$t("provinces.OddarMeanchey.name"),
           routeName: "OddarMeanchey",
           image:
             "https://i0.wp.com/www.cambodialifestyle.com/wp-content/uploads/2024/03/ministry-of-tourism-cambodia-2019-02-18-07-39-42am-Oddar-Meanchey-01.jpg",
-          description: "Remote province with forests and temples.",
+          description: this.$t("provinces.OddarMeanchey.description"),
           showBookingOptions: false,
         },
         {
-          name: "Preah Vihear",
+          name: this.$t("provinces.PreahVihear.name"),
           routeName: "PreahVihear",
           image:
             "https://www.birdguideasso.org/wp-content/uploads/2018/09/Preah-Vihear-Temple-1-e1545105862913.jpg",
-          description: "UNESCO temple on a mountaintop border.",
+          description: this.$t("provinces.PreahVihear.description"),
           showBookingOptions: false,
         },
         {
-          name: "Stung Treng",
+          name: this.$t("provinces.StungTreng.name"),
           routeName: "StungTreng",
           image:
             "https://i0.wp.com/www.cambodialifestyle.com/wp-content/uploads/2024/04/Stueng-Treng-5.jpg?fit=1001%2C683&ssl=1",
-          description: "River town at the Laos border.",
+          description: this.$t("provinces.StungTreng.description"),
           showBookingOptions: false,
         },
         {
-          name: "Rattanakiri",
+          name: this.$t("provinces.Rattanakiri.name"),
           routeName: "Rattanakiri",
           image:
             "https://khmerplaces.com/storage/provinces/September2020/QDgd8Maca0dOirc0xI4v.jpg",
-          description: "Waterfalls, forests, and ethnic villages.",
+          description: this.$t("provinces.Rattanakiri.description"),
           showBookingOptions: false,
         },
         {
-          name: "Mondulkiri",
+          name: this.$t("provinces.Mondulkiri.name"),
           routeName: "Mondulkiri",
           image:
             "https://i0.wp.com/www.cambodialifestyle.com/wp-content/uploads/2024/04/Mondulkiri3.jpg?fit=1024%2C751&ssl=1",
-          description: "Cool climate and elephant sanctuaries.",
+          description: this.$t("provinces.Mondulkiri.description"),
           showBookingOptions: false,
         },
         {
-          name: "Tbong Khmum",
+          name: this.$t("provinces.TbongKhmum.name"),
           routeName: "TbongKhmum",
           image:
             "https://i0.wp.com/www.cambodialifestyle.com/wp-content/uploads/2024/04/Tbong-Khmum-3.jpg?fit=600%2C428&ssl=1",
-          description: "Split from Kampong Cham; rural and peaceful.",
+          description: this.$t("provinces.TbongKhmum.description"),
           showBookingOptions: false,
         },
         {
-          name: "Banteay Meanchey",
+          name: this.$t("provinces.BanteayMeanchey.name"),
           routeName: "BanteayMeanchey",
           image:
             "https://i0.wp.com/www.cambodialifestyle.com/wp-content/uploads/2024/04/Banteay-Meanchey2.jpg?fit=1024%2C683&ssl=1",
-          description: "Border province with temples and markets.",
+          description: this.$t("provinces.BanteayMeanchey.description"),
           showBookingOptions: false,
         },
       ],

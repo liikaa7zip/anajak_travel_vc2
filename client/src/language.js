@@ -16,6 +16,13 @@ import KohKong from './views/provinces/KohKong.vue'
 import Kandal from './views/provinces/Kandal.vue'
 import KampongSpeu from './views/provinces/KampongSpeu.vue'
 import Pailin from './views/provinces/Pailin.vue'
+import Kep from './views/provinces/Kep.vue'
+import Sihanoukville from './views/provinces/Sihanoukville.vue'
+import Takeo from './views/provinces/Takeo.vue'
+import OddarMeanchey from './views/provinces/OddarMeanchey.vue'
+import PreahVihear from './views/provinces/PreahVihear.vue'
+import StungTreng from './views/provinces/StungTreng.vue'
+import Rattanakiri from './views/provinces/Rattanakiri.vue'
 
 // Translation messages
 const messages = {
@@ -332,6 +339,108 @@ const messages = {
         Kampot: "Kampot",
         KampongSpeu: "Kampong Speu",
         Pailin: "Pailin",
+        provinces: {
+            Battambang: {
+                name: "Battambang",
+                description: "Rich in colonial architecture and rice fields.",
+            },
+            SiemReap: {
+                name: "Siem Reap",
+                description: "A city with significant historical importance and colonial architecture.",
+            },
+            PhnomPenh: {
+                name: "Phnom Penh",
+                description: "Bustling capital with rich history and culture.",
+            },
+            Kampot: {
+                name: "Kampot",
+                description: "Charming riverside town with pepper farms.",
+            },
+            Kep: {
+                name: "Kep",
+                description: "Famous for crab market and coastal views.",
+            },
+            Sihanoukville: {
+                name: "Sihanoukville",
+                description: "Gateway to Cambodia’s islands and beaches.",
+            },
+            Pailin: {
+                name: "Pailin",
+                description: "Mountains, gems, and peaceful countryside.",
+            },
+            KohKong: {
+                name: "Koh Kong",
+                description: "Lush rainforest and untouched beaches.",
+            },
+            Takeo: {
+                name: "Takeo",
+                description: "Ancient temples and cultural sites.",
+            },
+            Kandal: {
+                name: "Kandal",
+                description: "Surrounds Phnom Penh with villages and farms.",
+            },
+            KampongCham: {
+                name: "Kampong Cham",
+                description: "Known for rubber plantations and bridges.",
+            },
+            KampongChhnang: {
+                name: "Kampong Chhnang",
+                description: "Floating villages and traditional pottery.",
+            },
+            KampongSpeu: {
+                name: "Kampong Speu",
+                description: "Hiking and waterfalls near Phnom Aural.",
+            },
+            KampongThom: {
+                name: "Kampong Thom",
+                description: "Central hub with ancient Sambor Prei Kuk.",
+            },
+            Kratie: {
+                name: "Kratie",
+                description: "Home of Irrawaddy dolphins along the Mekong.",
+            },
+            PreyVeng: {
+                name: "Prey Veng",
+                description: "Scenic province with hidden countryside charm.",
+            },
+            SvayRieng: {
+                name: "Svay Rieng",
+                description: "Borders Vietnam and full of rice fields.",
+            },
+            Pursat: {
+                name: "Pursat",
+                description: "Marble carving and Cardamom Mountains.",
+            },
+            OddarMeanchey: {
+                name: "Oddar Meanchey",
+                description: "Remote province with forests and temples.",
+            },
+            PreahVihear: {
+                name: "Preah Vihear",
+                description: "UNESCO temple on a mountaintop border.",
+            },
+            StungTreng: {
+                name: "Stung Treng",
+                description: "River town at the Laos border.",
+            },
+            Rattanakiri: {
+                name: "Rattanakiri",
+                description: "Waterfalls, forests, and ethnic villages.",
+            },
+            Mondulkiri: {
+                name: "Mondulkiri",
+                description: "Cool climate and elephant sanctuaries.",
+            },
+            TbongKhmum: {
+                name: "Tbong Khmum",
+                description: "Split from Kampong Cham; rural and peaceful.",
+            },
+            BanteayMeanchey: {
+                name: "Banteay Meanchey",
+                description: "Border province with temples and markets.",
+            }
+        },
     },
 
     km: {
@@ -364,6 +473,108 @@ const messages = {
         Kampot: "កំពត",
         KampongSpeu: "កំពង់ស្ពឺ",
         Pailin: "ប៉ៃលិន",
+        provinces: {
+            Battambang: {
+                name: "បាត់ដំបង",
+                description: "សម្បូរទៅដោយស្ថាបត្យកម្មអាណានិគម និងវាលស្រែ",
+            },
+            SiemReap: {
+                name: "សៀមរាប",
+                description: "ទីក្រុងមានសារៈសំខាន់ផ្លូវប្រវត្តិសាស្ត្រនិងស្ថាបត្យកម្មយុគកុលនី។",
+            },
+            PhnomPenh: {
+                name: "ភ្នំពេញ",
+                description: "រាជធានីពោរពេញដោយប្រវត្តិសាស្ត្រនិងវប្បធម៌។",
+            },
+            Kampot: {
+                name: "កំពត",
+                description: "ទីក្រុងនៅជាប់ទន្លេ មានដំណាំម្រេចល្បីឈ្មោះ។",
+            },
+            Kep: {
+                name: "កែប",
+                description: "ល្បីពីផ្សារក្តាមនិងទេសភាពឆ្នេរខ្សាច់។",
+            },
+            Sihanoukville: {
+                name: "ព្រះសីហនុ",
+                description: "ច្រកចូលទៅកាន់កោះនិងឆ្នេរខ្សាច់នៅកម្ពុជា។",
+            },
+            Pailin: {
+                name: "ប៉ៃលិន",
+                description: "តំបន់ភ្នំ គ្រឿងអលង្ការ និងជនបទស្ងប់ស្ងាត់។",
+            },
+            KohKong: {
+                name: "កោះកុង",
+                description: "ព្រៃរហ័សនិងឆ្នេរដែលមិនទាន់មានអ្នកទស្សនា។",
+            },
+            Takeo: {
+                name: "តាកែវ",
+                description: "ប្រាសាទបុរាណនិងបេតិកភណ្ឌវប្បធម៌។",
+            },
+            Kandal: {
+                name: "កណ្ដាល",
+                description: "លំនៅដ្ឋានជុំវិញភ្នំពេញ មានភូមិនិងស្រែចម្ការ។",
+            },
+            KampongCham: {
+                name: "កំពង់ចាម",
+                description: "ល្បីពីចម្ការជ័រនិងស្ពាន។",
+            },
+            KampongChhnang: {
+                name: "កំពង់ឆ្នាំង",
+                description: "ភូមិលើទឹកនិងការចម្ការ៉ូបបុរាណ។",
+            },
+            KampongSpeu: {
+                name: "កំពង់ស្ពឺ",
+                description: "កន្លែងធ្វើដំណើរជិះភ្នំនិងទឹកជ្រោះក្បែរភ្នំអូរ៉ាល់។",
+            },
+            KampongThom: {
+                name: "កំពង់ធំ",
+                description: "កណ្ដាលប្រទេស មានប្រាសាទសំបូរព្រៃគុក។",
+            },
+            Kratie: {
+                name: "ក្រចេះ",
+                description: "ផ្ទះរស់នៅរបស់ដាល់ហ្វាំងអ៊ីរ៉ាវ៉ាឌីនៅទន្លេមេគង្គ។",
+            },
+            PreyVeng: {
+                name: "ព្រៃវែង",
+                description: "ខេត្តស្រស់ស្អាតជាមួយទេសភាពជនបទលាក់ខ្លួន។",
+            },
+            SvayRieng: {
+                name: "ស្វាយរៀង",
+                description: "នៅជាប់ព្រំដែនវៀតណាម ពោរពេញដោយស្រែស្រូវ។",
+            },
+            Pursat: {
+                name: "ពោធិ៍សាត់",
+                description: "ល្បីពីការប៉ាន់ថ្មនិងភ្នំកាដាម៉ូម។",
+            },
+            OddarMeanchey: {
+                name: "ឧត្តរមានជ័យ",
+                description: "ខេត្តដាច់ស្រយាល មានព្រៃឈើនិងប្រាសាទ។",
+            },
+            PreahVihear: {
+                name: "ព្រះវិហារ",
+                description: "ប្រាសាទបេតិកភណ្ឌពិភពលោកលើភ្នំនៅព្រំដែន។",
+            },
+            StungTreng: {
+                name: "ស្ទឹងត្រែង",
+                description: "ទីក្រុងនៅត្បូងប្រទេសជិតព្រំដែនឡាវ។",
+            },
+            Rattanakiri: {
+                name: "រតនគិរី",
+                description: "ទឹកជ្រោះ ព្រៃឈើនិងភូមិជនជាតិភាគតិច។",
+            },
+            Mondulkiri: {
+                name: "មណ្ឌលគិរី",
+                description: "អាកាសធាតុត្រជាក់និងមជ្ឈមណ្ឌលដំឡូងដំឡង់។",
+            },
+            TbongKhmum: {
+                name: "ត្បូងឃ្មុំ",
+                description: "បានបំបែកចេញពីកំពង់ចាម មានជនបទស្ងប់ស្ងាត់។",
+            },
+            BanteayMeanchey: {
+                name: "បន្ទាយមានជ័យ",
+                description: "ខេត្តជាប់ព្រំដែន ល្បីពីប្រាសាទនិងផ្សារ។",
+            }
+        },
 
         // navbar
         logo: 'អាណាចក្រធ្វើដំណើរ',
@@ -648,7 +859,7 @@ const messages = {
             }
         ],
 
-        
+
     }
 }
 
