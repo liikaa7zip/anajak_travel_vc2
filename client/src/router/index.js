@@ -32,7 +32,6 @@ import UserProfile from '../views/UserProfile.vue'
 import UserSettings from '../views/UserSettings.vue'
 
 // Admin
-import AdminDashboard from '../views/admin/AdminDashboard.vue'
 import AdminUsers from '../views/admin/AdminUsers.vue'
 import CreateUser from '../components/CreateUser.vue'
 // import AdminBlog from '../views/admin/AdminBlog.vue'
@@ -131,6 +130,7 @@ import AdminHotelBooking from '@/views/admin/AdminHotelBooking.vue'
 import AdminFlightBooking from '@/views/admin/AdminFlightBooking.vue'
 import AdminBoatBooking from '@/views/admin/AdminBoatBooking.vue'
 import AdminBusBooking from '@/views/admin/AdminBusBooking.vue'
+import Dashboard from '@/views/admin/Dashboard.vue'
 import Payment from '@/components/Payment.vue'
 import TransportDashbord from '@/views/TransportOwner/TransportDashbord.vue'
 import TransportLayout from '@/layouts/TransportLayout.vue'
@@ -253,7 +253,7 @@ const routes = [
     meta: { requiresAdmin: true },
     children: [
       { path: '', redirect: 'dashboard' },
-      { path: 'dashboard', component: AdminDashboard, name: 'AdminDashboard' },
+      { path: 'dashboard', component: Dashboard, name: 'Dashboard' },
       { path: 'users', component: AdminUsers, name: 'AdminUsers' },
       { path: 'chat', component: AdminChat },
       { path: 'blog', component: AdminBlog },
