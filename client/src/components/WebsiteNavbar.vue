@@ -244,7 +244,6 @@ const changeLanguage = () => {
   localStorage.setItem('locale', locale.value)
 }
 
-
 onMounted(async () => {
   await initAuth();
 });

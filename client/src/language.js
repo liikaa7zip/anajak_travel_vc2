@@ -310,6 +310,11 @@ const messages = {
             }
         ],
 
+        // Favorite 
+        FavoriteTitle: 'My Favorite Places',
+        GotoGuide: 'Go to guide',
+        NoFavorite: 'No favorite places yet.',
+
         // Traveling Guide page
         heroTitle: '🗺️ Welcome to the travel guide, ',
         heroSubtitle: 'and go to your dream place in Cambodia.',
@@ -444,6 +449,10 @@ const messages = {
     },
 
     km: {
+        // Favorite
+        NoFavorite: 'គ្មានកន្លែងចូលចិត្តនៅឡើយទេ។',
+        FavoriteTitle: 'កន្លែង​ដែល​ខ្ញុំ​ចូលចិត្ត',
+        GotoGuide: 'ទៅមគ្គុទ្ទេសក៍',
         // Traveling Guide page
         heroTitle: 'សូមស្វាគមន៍មកកាន់មគ្គុទ្ទេសក៍ទេសចរណ៍,',
         heroSubtitle: 'ហើយទៅកន្លែងសុបិន្តរបស់អ្នកក្នុងប្រទេសកម្ពុជា',
@@ -476,7 +485,7 @@ const messages = {
         provinces: {
             Battambang: {
                 name: "បាត់ដំបង",
-                description: "សម្បូរទៅដោយស្ថាបត្យកម្មអាណានិគម និងវាលស្រែ",
+                description: "សម្បូរទៅដោយស្ថាបត្យកម្មអាណានិគម និងវាលស្រែ។",
             },
             SiemReap: {
                 name: "សៀមរាប",
