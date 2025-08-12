@@ -97,3 +97,19 @@ exports.renameUserInMessages = async (req, res) => {
     });
   }
 };
+
+
+exports.getRecentMessages = async (req, res) => {
+  try {
+    // Get recent 10 messages, order by newest first
+    const recentMessages = await Message.findAll({
+      order: [['createdAt', 'DESC']],
+      limit: 7,
+    });
+
+    res.json(recentMessages);
+  } catch (error) {
+    console.error('Error fetching recent messages:', error);
+    res.status(500).json({ error: 'Server error fetching recent messages' });
+  }
+};
