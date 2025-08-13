@@ -42,9 +42,13 @@
           {{ report.unit }}
         </p>
         <div class="flex gap-3">
-          <button class="px-4 py-1.5 rounded-lg bg-gray-100 text-gray-700 font-medium hover:bg-gray-200 transition">
-            View
-          </button>
+          <button
+  @click="$router.push('report/booking-table')"
+  class="px-4 py-1.5 rounded-lg bg-gray-100 text-gray-700 font-medium hover:bg-gray-200 transition"
+>
+  View
+</button>
+
           <button
             @click="exportSingleCSV(report)"
             class="px-4 py-1.5 rounded-lg bg-purple-600 text-white font-medium hover:bg-purple-700 transition"

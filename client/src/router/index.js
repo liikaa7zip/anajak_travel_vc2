@@ -137,7 +137,8 @@ import TransportBus from '@/views/TransportOwner/TransportBus.vue'
 import TransportBoat from '@/views/TransportOwner/TransportBoat.vue'
 import TransportOwnerChat from '@/views/TransportOwner/TransportOwnerChat.vue'
 import AdminReport from '@/views/admin/AdminReport.vue'
-
+import BookingTable from '@/components/AdminReport/BookingTable.vue'
+import HotelChat from '@/views/HotelOwner/HotelChat.vue'
 // Auth guard
 
 const getUserFromStorage = () => {
@@ -264,6 +265,7 @@ const routes = [
       { path: 'boat', component: AdminBoatBooking },
       { path: 'bus', component: AdminBusBooking},
       { path: 'report', component: AdminReport },
+      { path: 'report/booking-table', component: BookingTable},
     ]
   },
   {
@@ -289,7 +291,8 @@ const routes = [
       {path: 'bookingoverview',component:BookingOverview},
       {path: 'housekeeping',component:HouseKeeping},
       {path: 'reversations',component:Reversations},
-      {path: 'rooms',component:Rooms}
+      {path: 'rooms',component:Rooms},
+      { path: 'chat', component: HotelChat, name: 'HotelChat' },
 
     ]
   },
