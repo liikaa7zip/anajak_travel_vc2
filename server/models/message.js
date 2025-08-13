@@ -19,6 +19,11 @@ module.exports = (sequelize, DataTypes) => {
     receiverId: {
       type: DataTypes.INTEGER,
       allowNull: false
+    },
+    seen: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
     }
 
   });

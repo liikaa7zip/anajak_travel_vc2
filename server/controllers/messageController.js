@@ -113,3 +113,51 @@ exports.getRecentMessages = async (req, res) => {
     res.status(500).json({ error: 'Server error fetching recent messages' });
   }
 };
+
+// Get unread message counts for each sender
+const getUnreadCounts = async (req, res) => {
+  try {
+    // Group by senderId and receiverId, count unseen messages
+    const unreadCounts = await Message.findAll({
+      attributes: [
+        'senderId',
+        'receiverId',
+        [Sequelize.fn('COUNT', Sequelize.col('id')), 'count'],
+      ],
+      where: {
+        seen: false,
+      },
+      group: ['senderId', 'receiverId'],
+      raw: true,
+    });
+
+    res.json(unreadCounts);
+  } catch (error) {
+    console.error('Error fetching unread counts:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+// Mark all messages from a sender to this receiver as seen
+exports.markMessagesSeen = async (req, res) => {
+  const { senderId, receiverId } = req.body;
+
+  if (!senderId || !receiverId) {
+    return res.status(400).json({ error: 'senderId and receiverId are required' });
+  }
+
+  try {
+    const [updated] = await Message.update(
+      { seen: true },
+      { where: { senderId, receiverId, seen: false } }
+    );
+
+    res.json({ success: true, updated });
+  } catch (error) {
+    console.error('Error marking messages seen:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+
+exports.getUnreadCounts = getUnreadCounts; 
