@@ -1,6 +1,6 @@
 <template>
   <div class="bg-gray-50 min-h-screen p-6">
-    <h1>hi</h1>
+
     <h1 class="text-3xl font-extrabold mb-8 text-gray-800">Reports Dashboard</h1>
 
     <!-- Filters -->
