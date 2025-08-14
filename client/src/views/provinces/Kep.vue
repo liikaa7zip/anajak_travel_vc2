@@ -9,8 +9,8 @@
       />
       <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center px-10">
         <h1 class="text-white text-3xl sm:text-6xl font-bold">
-          <i class="fa-notdog fa-solid fa-location-dot"></i>Kep <br />
-          <span class="text-4xl">Province</span>
+          <i class="fa-notdog fa-solid fa-location-dot"></i>{{ $t('Province.Kep.KepHeroTitle') }}<br />
+          <span class="text-4xl">{{ $t('Province.Kep.KepHeroSubtitle') }}</span>
         </h1>
       </div>
     </section>
@@ -18,10 +18,10 @@
     <!-- About Section -->
     <section class="pt-12 pb-6 pr-16 pl-16">
       <div class="bg-white rounded-lg shadow p-4 flex flex-col sm:flex-row items-start justify-between gap-4">
-        <div class="max-w-xl">
-          <h2 class="text-2xl font-semibold mb-2 text-purple-600">About Kep</h2>
-          <p class="text-sm text-gray-700">
-            Kep is Cambodia’s smallest province, located in the country’s southern coastal region. Once a vibrant beach retreat for French colonials and Cambodian elites in the 1960s, today it offers a quiet, charming escape with a mix of crumbling villas, seafood delights, serene beaches, and natural beauty. Known for its blue crab, pepper farms, and lush hills, Kep is a perfect destination for relaxation and eco-tourism, with nearby access to islands and national parks.
+        <div class="max-w-xl m-8">
+          <h2 class="text-3xl font-semibold mb-2 text-purple-600">{{ $t('Province.Kep.aboutKep') }}</h2>
+          <p class="text-lg text-gray-700">
+            {{ $t('Province.Kep.aboutKepDescription') }}
           </p>
         </div>
         <img
@@ -34,7 +34,7 @@
 
     <!-- Top Attractions -->
     <section class="pt-6 pb-6 pr-16 pl-16">
-      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Top Attractions</h2>
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">{{ $t('Province.Kep.Attractions.AttractionTitle') }}</h2>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div v-for="(attraction, index) in topAttractions" :key="index" class="bg-white rounded shadow overflow-hidden">
           <img :src="attraction.img" alt="" class="w-full h-40 object-cover" />
@@ -46,26 +46,26 @@
     <!-- Things to Do & Travel Tips -->
     <section class="pt-6 pb-6 pr-16 pl-16 grid sm:grid-cols-2 gap-6">
       <div>
-        <h2 class="text-2xl font-semibold mb-2 text-purple-600">Things to Do</h2>
-        <ul class="list-disc pl-5 text-sm text-gray-700">
-          <li>Visit the famous Kep Crab Market</li>
-          <li>Hike in Kep National Park</li>
-          <li>Take a boat to Rabbit Island (Koh Tonsay)</li>
+        <h2 class="text-2xl font-semibold mb-2 text-purple-600">{{ $t('Province.Kep.ThingsToDo') }}</h2>
+        <ul class="list-disc pl-5 text-lg text-gray-700">
+          <li>{{ $t('Province.Kep.First') }}</li>
+          <li>{{ $t('Province.Kep.Second') }}</li>
+          <li>{{ $t('Province.Kep.Third') }}</li>
         </ul>
       </div>
       <div>
-        <h2 class="text-2xl font-semibold mb-2 text-purple-600">Travel Tips</h2>
-        <ul class="list-disc pl-5 text-sm text-gray-700">
-          <li>Best time: Nov – Mar (cool and dry)</li>
-          <li>Pack light clothing and insect repellent</li>
-          <li>Consider renting a scooter for flexible travel</li>
+        <h2 class="text-2xl font-semibold mb-2 text-purple-600">{{ $t('Province.Kep.TravelTips') }}</h2>
+        <ul class="list-disc pl-5 text-lg text-gray-700">
+          <li>{{ $t('Province.Kep.BestTime') }}</li>
+          <li>{{ $t('Province.Kep.Transport') }}</li>
+          <li>{{ $t('Province.Kep.DressCode') }}</li>
         </ul>
       </div>
     </section>
 
     <!-- Photo Gallery -->
     <section class="pt-6 pb-6 pr-16 pl-16">
-      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Photo Gallery</h2>
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">{{ $t('Province.Kep.PhotoGallery') }}</h2>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <img v-for="(photo, index) in galleryPhotos" :key="index" :src="photo" alt="" class="rounded shadow object-cover h-28 w-full" />
       </div>
@@ -73,7 +73,7 @@
 
     <!-- Province Map -->
     <section class="pt-6 pb-6 pr-16 pl-16">
-      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Province Map</h2>
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">{{ $t('Province.Kep.Map') }}</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3917.326799889947!2d104.29208197588686!3d10.486838389682713!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3107e9cb4d3f982b%3A0x43a6fc1c2a7e48d4!2sKep%20Province!5e0!3m2!1sen!2skh!4v1710000000005"

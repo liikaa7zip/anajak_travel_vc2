@@ -47,7 +47,7 @@
     <section class="pt-12 pb-6 pr-16 pl-16 grid sm:grid-cols-2 gap-6">
       <div>
         <h2 class="text-2xl font-semibold mb-2 text-purple-600">{{ $t("Province.SiemReap.ThingsToDo") }}</h2>
-        <ul class="list-disc pl-5 text-sm text-gray-700">
+        <ul class="list-disc pl-5 text-lg text-gray-700">
           <li>{{ $t("Province.SiemReap.First") }}</li>
           <li>{{ $t("Province.SiemReap.Second") }}</li>
           <li>{{ $t("Province.SiemReap.Third") }}</li>
@@ -55,7 +55,7 @@
       </div>
       <div>
         <h2 class="text-2xl font-semibold mb-2 text-purple-600">{{ $t("Province.SiemReap.TravelTips") }}</h2>
-        <ul class="list-disc pl-5 text-sm text-gray-700">
+        <ul class="list-disc pl-5 text-lg text-gray-700">
           <li>{{ $t("Province.SiemReap.BestTime") }}</li>
           <li>{{ $t("Province.SiemReap.Transport") }}</li>
           <li>{{ $t("Province.SiemReap.DressCode") }}</li>
