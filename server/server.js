@@ -1,8 +1,12 @@
 // server.js (or app.js)
+// require('dotenv').config();
 const express = require('express');
 const http = require('http');
 const cors = require('cors');
 const { sequelize } = require('./models');
+
+
+// const weatherRoutes = require('./routes/weatherRoutes');
 
 const bookingRoutes = require('./routes/bookingRoute');
 const transportRoutes = require('./routes/transportRoutes');
@@ -51,6 +55,10 @@ app.use(cors({
 
 app.use(express.json());
 app.use(cors());
+
+
+// // Routes
+// app.use('/weather', weatherRoutes);
 
 // API Routes
 app.use('/api/users', userRoutes);
