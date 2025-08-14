@@ -10,6 +10,9 @@ const flightRoutes = require('./routes/flightRoutes');
 const boatBookingRoutes = require('./routes/boatBookingRoutes');
 const userRoutes = require('./routes/userRoutes');
 const hotelRoutes = require('./routes/hotelRoutes');
+const hotelOwnerRoutes = require('./routes/hotelOwnerRoutes');
+const adminHotelRoutes = require('./routes/adminHotelRoutes');
+const userHotelRoutes = require('./routes/userHotelRoutes');
 const hotelBookingRoutes = require('./routes/hotelBookingRoutes');
 const locationRoutes = require('./routes/locationRoutes');
 
@@ -57,7 +60,10 @@ app.use('/api/flightbookings', flightRoutes);
 app.use('/api/boatbookings', boatBookingRoutes);
 app.use('/api/transports', transportRoutes);
 app.use('/api/hotels', hotelRoutes);
-app.use('/api/hotel-booking', hotelBookingRoutes);  // Note singular 'hotel-booking'
+app.use('/api/hotel-owners', hotelOwnerRoutes);
+app.use('/api/admin-hotels', adminHotelRoutes);
+app.use('/api/bookings', hotelBookingRoutes); 
+app.use('/api/user-hotels', userHotelRoutes);
 app.use('/api/locations', locationRoutes);
 app.use('/api/foods', foodRoutes);
 app.use('/api/orders', orderFoodRoutes);
