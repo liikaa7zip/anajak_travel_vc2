@@ -124,11 +124,12 @@ import AdminBlog from '@/views/admin/AdminBlog.vue'
 // Auth guard helper functions
 
 import UserPlan from '@/views/UserPlan.vue'
-import AdminHotelBooking from '@/views/admin/AdminHotelBooking.vue'
 import AdminFlightBooking from '@/views/admin/AdminFlightBooking.vue'
 import AdminBoatBooking from '@/views/admin/AdminBoatBooking.vue'
 import AdminBusBooking from '@/views/admin/AdminBusBooking.vue'
 import Payment from '@/components/Payment.vue'
+import AdminHotelBooking from '@/views/admin/AdminHotelBooking.vue'
+import CreateHotel from '@/views/admin/CreateHotel.vue'
 // Auth guard
 
 const getUserFromStorage = () => {
@@ -246,6 +247,8 @@ const routes = [
       { path: 'flight', component: AdminFlightBooking },
       { path: 'boat', component: AdminBoatBooking },
       { path: 'bus', component: AdminBusBooking},
+      { path: 'admin-hotel', component: AdminHotelBooking },
+      { path : 'create-hotel', component: CreateHotel },
     ]
   },
   {

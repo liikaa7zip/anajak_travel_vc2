@@ -11,43 +11,49 @@
     />
   </div>
 
-  <!-- Right side: Status Dropdown + Export Button -->
-  <div class="flex flex-wrap gap-4 items-center w-full md:w-auto">
-    <!-- Status Dropdown -->
-    <div class="relative w-full md:w-48">
-      <select
-        v-model="statusFilter"
-        class="block appearance-none w-full bg-white border border-gray-300 px-4 py-3 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer"
-        aria-label="Filter by status"
-      >
-        <option value="">All Statuses</option>
-        <option value="confirmed">Confirmed</option>
-        <option value="cancelled">Cancelled</option>
-      </select>
-      <!-- Dropdown arrow icon -->
-      <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-400">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-4 w-4"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-        </svg>
-      </div>
-    </div>
+  
 
-    <!-- Export Button -->
-    <button
-      @click="exportBookings"
-      class="bg-green-600 hover:bg-green-700 text-white font-semibold px-5 py-3 rounded-xl shadow-md transition"
-      aria-label="Export Bookings"
-    >
-      Export
-    </button>
+  <!-- Controls -->
+    <div class="flex flex-wrap gap-4 items-center w-full md:w-auto">
+      <!-- Create Hotel Button -->
+      <router-link
+        to="/admin/create-hotel"
+        class="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-5 py-3 rounded-xl shadow-md transition inline-block"
+      >
+        ➕ Create Hotel
+      </router-link>
+
+      <!-- Status Dropdown -->
+      <div class="relative w-full md:w-48">
+        <select
+          v-model="statusFilter"
+          class="block appearance-none w-full bg-white border border-gray-300 px-4 py-3 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer"
+        >
+          <option value="">All Statuses</option>
+          <option value="confirmed">Confirmed</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+        <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Export Button -->
+      <button
+        @click="exportBookings"
+        class="bg-green-600 hover:bg-green-700 text-white font-semibold px-5 py-3 rounded-xl shadow-md transition"
+      >
+        Export
+      </button>
+    </div>
   </div>
-</div>
+
+  <!-- Show Create Form -->
+  <div v-if="showCreateForm" class="mb-6">
+    <CreateHotelForm @created="fetchBookings" />
+  </div>
 
 
 
@@ -153,6 +159,7 @@
 <script setup>
 import { ref, computed, onMounted, h } from 'vue'
 import axios from 'axios'
+import CreateHotelForm from './CreateHotel.vue'
 
 const bookings = ref([])
 const search = ref('')
@@ -161,10 +168,14 @@ const page = ref(1)
 const itemsPerPage = 10
 const sortKey = ref('')
 const sortAsc = ref(true)
+const showCreateForm = ref(false)
+const toggleCreateForm = () => {
+  showCreateForm.value = !showCreateForm.value
+}
 
 const fetchBookings = async () => {
   try {
-    const response = await axios.get('http://localhost:5000/api/hotel-booking')
+    const response = await axios.get('http://localhost:5000/api/admin-hotels')
     bookings.value = response.data
   } catch (error) {
     console.error('Failed to fetch bookings:', error)

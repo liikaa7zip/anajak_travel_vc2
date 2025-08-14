@@ -10,6 +10,7 @@
       {{ error }}
     </div>
 
+
     <!-- Hotel Content -->
     <div
       v-else-if="hotel"
@@ -28,11 +29,10 @@
         <!-- Title, Location, Price -->
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
-           <h1 class="text-gray-600 text-sm mb-2">
-            <i class="fas fa-map-marker-alt mr-2 text-blue-500"></i>
-            {{ hotel.locationName || "Unknown Location" }}
-          </h1>
-            
+            <h1 class="text-gray-600 text-sm mb-2">
+              <i class="fas fa-map-marker-alt mr-2 text-blue-500"></i>
+              {{ hotel.locationName || "Unknown Location" }}
+            </h1>
           </div>
           <p class="text-purple-600 font-bold text-2xl sm:text-3xl">
             ${{ isValidPrice(hotel.pricePerNight) ? hotel.pricePerNight.toFixed(2) : 'N/A' }}
@@ -64,14 +64,29 @@
           </div>
         </div>
 
-        <!-- CTA -->
+        <!-- Rooms List -->
         <div>
-          <router-link
-            :to="`/book/${hotel.id}`"
-            class="inline-block bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold text-lg hover:bg-purple-700 transition"
-          >
-            Book Now
-          </router-link>
+          <h2 class="text-xl font-semibold text-gray-800 mb-4">Available Rooms</h2>
+          <div v-if="rooms.length > 0" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div v-for="room in rooms" :key="room.id" class="border rounded-lg p-4 shadow hover:shadow-lg">
+              <div class="flex justify-between items-center mb-2">
+                <div>
+                  <div class="font-bold text-lg">Room #{{ room.roomNumber }}</div>
+                  <div class="text-gray-600 text-sm">{{ room.RoomCategory?.name || room.type }}</div>
+                </div>
+                <div class="text-green-700 font-bold text-lg">${{ room.pricePerNight?.toFixed(2) || 'N/A' }}</div>
+              </div>
+              <div class="text-gray-500 text-sm mb-2">Max Occupancy: {{ room.maxOccupancy || '-' }}</div>
+              <div class="mb-2 text-xs text-gray-500">{{ room.RoomCategory?.description }}</div>
+              <router-link
+                :to="`/book/${hotel.id}?roomId=${room.id}`"
+                class="inline-block bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition"
+              >
+                Book This Room
+              </router-link>
+            </div>
+          </div>
+          <div v-else class="text-gray-500 italic">No available rooms for this hotel.</div>
         </div>
       </div>
     </div>
@@ -85,10 +100,11 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
-import api from '@/services/api';
+import axios from 'axios';
 
 const route = useRoute();
 const hotel = ref(null);
+const rooms = ref([]);
 const loading = ref(false);
 const error = ref(null);
 
@@ -101,11 +117,22 @@ const handleImageError = (event) => {
   event.target.src = 'https://via.placeholder.com/800x400';
 };
 
+const fetchRooms = async (hotelId) => {
+  try {
+    const res = await axios.get(`http://localhost:5000/api/hotels/${hotelId}/rooms`);
+    rooms.value = res.data;
+  } catch (err) {
+    rooms.value = [];
+    console.error('Error fetching rooms:', err);
+  }
+};
+
 onMounted(async () => {
   loading.value = true;
   try {
-    const res = await api.get(`/hotels/${route.params.id}`);
+    const res = await axios.get(`http://localhost:5000/api/hotels/${route.params.id}`);
     hotel.value = res.data;
+    await fetchRooms(route.params.id);
   } catch (err) {
     error.value = 'Failed to load hotel details. Please try again later.';
     console.error('Error fetching hotel:', err);
