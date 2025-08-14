@@ -34,7 +34,7 @@
 
     <!-- Top Attractions -->
     <section class="pt-6 pb-6 pr-16 pl-16">
-      <h2 class="text-2xl font-semibold mb-4 text-purple-600">{{ $t('Province.BanteayMeanchey.Attractions') }}</h2>
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">{{ $t('Province.BanteayMeanchey.Attractions.AttractionTitle') }}</h2>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div v-for="(attraction, index) in topAttractions" :key="index" class="bg-white rounded shadow overflow-hidden">
           <img :src="attraction.img" alt="" class="w-full h-40 object-cover" />
