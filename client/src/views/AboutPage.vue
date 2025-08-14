@@ -373,51 +373,51 @@ function previousSlide() {
 const faqs = ref([
   {
     id: 1,
-    question: "How do I book a trip on your website?",
+    question: t('faqs[0].question'), // 'How do I book a trip?'
     answer:
-      "Just choose your destination, select your travel dates, click “Book Now,” fill in your details, and make the payment. You’ll get a confirmation email right after!",
+      t('faqs[0].answer'), // 'You can book a trip through our website by selecting your desired destination, dates, and services. Follow the prompts to complete your booking.'
     isOpen: false
   },
   {
     id: 2,
-    question: "What payment methods do you accept?",
+    question: t('faqs[1].question'), // 'What payment methods do you accept?',
     answer:
-      "We accept all major credit cards, including Visa, MasterCard, American Express, and Discover. We also support payments via PayPal and bank transfers for certain bookings.",
+      t('faqs[1].answer'), // 'We accept all major credit cards, including Visa, MasterCard, American Express, and Discover. We also support payments via PayPal and bank transfers for certain bookings.',
     isOpen: false
   },
   {
     id: 3,
-    question: "Is my payment secure?",
+    question: t('faqs[2].question'), // 'Is my payment secure?',
     answer:
-      "Yes, your payment security is our top priority. We use industry-standard encryption and secure payment gateways to protect your personal and financial information.",
+      t('faqs[2].answer'), // 'Yes, your payment security is our top priority. We use industry-standard encryption and secure payment gateways to protect your personal and financial information.',
     isOpen: false
   },
   {
     id: 4,
-    question: "When will my credit card be charged?",
+    question: t('faqs[3].question'), // 'When will my credit card be charged?',
     answer:
-      "Your credit card will typically be charged at the time of booking confirmation. For some specific packages or services, a deposit might be charged initially, with the remaining balance due closer to your travel date.",
+      t('faqs[3].answer'), // 'Your credit card will typically be charged at the time of booking confirmation. For some specific packages or services, a deposit might be charged initially, with the remaining balance due closer to your travel date.',
     isOpen: false
   },
   {
     id: 5,
-    question: "Can I cancel or modify my booking?",
+    question: t('faqs[4].question'), // 'Can I cancel or modify my booking?',
     answer:
-      "Cancellation and modification policies vary depending on the specific trip or service booked. Please refer to the terms and conditions provided during the booking process or contact our support team for assistance.",
+      t('faqs[4].answer'), // 'Cancellation and modification policies vary depending on the specific trip or service booked. Please refer to the terms and conditions provided during the booking process or contact our support team for assistance.',
     isOpen: false
   },
   {
     id: 6,
-    question: "What are your cancellation and refund policies?",
+    question: t('faqs[5].question'), // 'What are your cancellation and refund policies?',
     answer:
-      "Our cancellation and refund policies are detailed in the terms and conditions of each booking. Generally, refunds are subject to cancellation fees and timing relative to your departure date. We recommend reviewing these policies carefully before confirming your booking.",
+      t('faqs[5].answer'), // 'Our cancellation and refund policies are detailed in the terms and conditions of each booking. Generally, refunds are subject to cancellation fees and timing relative to your departure date. We recommend reviewing these policies carefully before confirming your booking.',
     isOpen: false
   },
   {
     id: 7,
-    question: "Do I need a visa to travel to my destination?",
+    question: t('faqs[6].question'), // 'Do I need a visa to travel to my destination?',
     answer:
-      "Visa requirements depend on your nationality and the destination country. We advise checking the latest visa regulations with the embassy or consulate of your destination country well in advance of your travel date.",
+      t('faqs[6].answer'), // 'Visa requirements depend on your nationality and the destination country. We advise checking the latest visa regulations with the embassy or consulate of your destination country well in advance of your travel date.',
     isOpen: false
   }
 ]);
@@ -473,34 +473,29 @@ const insights = ref([
 const destinations = ref([
   {
     id: 1,
-    title: "Angkor Wat",
-    description: "The world's largest religious monument",
-    image:
-      "https://cms.siemreaper.click/uploads/angkor_wat_sunrise_discovery2712_997b977984.jpg"
+    title: t('destinations[0].AngkorWat'), // 'Angkor Wat'
+    description: t('destinations[0].description'), // 'The world's largest religious monument'
+    image: "https://cms.siemreaper.click/uploads/angkor_wat_sunrise_discovery2712_997b977984.jpg"
   },
   {
     id: 2,
-    title: "Kampot River",
-    description: "Scenic riverside and countryside life",
-    image:
-      "https://pippalihotel.com/wp-content/uploads/2023/03/Get-To-Know-Kampot-River-3.jpg"
+    title: t('destinations[1].KampotRiver'), // 'Kampot River'
+    description: t('destinations[1].description'), // 'Scenic riverside and countryside life'
+    image: "https://pippalihotel.com/wp-content/uploads/2023/03/Get-To-Know-Kampot-River-3.jpg"
   },
   {
     id: 3,
-    title: "Phnom Penh",
-    description: "Capital city with rich culture",
-    image:
-      "https://blog.bangkokair.com/wp-content/uploads/2025/01/01_phnom-penh-travel-guide.jpg"
+    title: t('destinations[2].PhnomPenh'), // 'Phnom Penh'
+    description: t('destinations[2].description'), // 'Capital city with rich culture'
+    image: "https://blog.bangkokair.com/wp-content/uploads/2025/01/01_phnom-penh-travel-guide.jpg"
   },
   {
     id: 4,
-    title: "Banan Temple",
-    description: "Many temple in Battambang",
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJqvmkc5uAXt4MA0aPAawOVhKYY28coyMFiA&s"
+    title: t('destinations[3].BananTemple'), // 'Banan Temple'
+    description: t('destinations[3].description'), // 'Many temples in Battambang'
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJqvmkc5uAXt4MA0aPAawOVhKYY28coyMFiA&s"
   }
 ]);
-
 // Contact button
 function goToContactPage() {
   router.push("/contact");

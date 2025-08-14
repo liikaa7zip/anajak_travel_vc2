@@ -135,9 +135,6 @@
 <script>
 export default {
   name: "TravelingGuide",
-  computed: {
-    // Computed properties can be added here
-  },
   data() {
     return {
       provinces: [

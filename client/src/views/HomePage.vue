@@ -514,7 +514,7 @@ export default {
           src: cruises,
           name: 'Cruises',
           description: 'Explore the beautiful waterways and enjoy luxurious amenities.',
-          badge: 'New'
+          badge: 'Popular'
         },
         {
           id: 2,
@@ -528,28 +528,28 @@ export default {
           src: museum,
           name: 'Museum Tours',
           description: 'Explore the world-class museums and cultural landmarks.',
-          badge: 'Cultural'
+          badge: 'Popular'
         },
         {
           id: 4,
           src: food,
           name: 'Food Tours',
           description: 'Indulge in the local cuisine and savor the flavors of the region.',
-          badge: 'Gastronomic'
+          badge: 'Popular'
         },
         {
           id: 5,
           src: hiking,
           name: 'Hiking Tours',
           description: 'Experience the breathtaking landscapes and challenging trails.',
-          badge: 'Adventure'
+          badge: 'Popular'
         },
         {
           id: 6,
           src: city,
           name: 'City Tours',
           description: 'Discover the vibrant culture and history of the city.',
-          badge: 'Cultural'
+          badge: 'Popular'
         }
       ];
     },
