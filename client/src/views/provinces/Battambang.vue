@@ -9,8 +9,8 @@
       />
       <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center px-10">
         <h1 class="text-white text-3xl sm:text-6xl font-bold">
-          <i class="fa-notdog fa-solid fa-location-dot"></i>Battambang <br />
-          <span class="text-4xl">Province</span>
+          <i class="fa-notdog fa-solid fa-location-dot"></i>{{ $t('Province.Battambang.btbHeroTitle') }}<br />
+          <span class="text-4xl">{{ $t('Province.Battambang.btbHeroSubtitle') }}</span>
         </h1>
       </div>
     </section>
@@ -18,10 +18,10 @@
     <!-- About Section -->
     <section class="pt-12 pb-6 pr-16 pl-16">
       <div class="bg-white rounded-lg shadow p-4 flex flex-col sm:flex-row items-start justify-between gap-4">
-        <div class="max-w-xl">
-          <h2 class="text-2xl font-semibold mb-2 text-purple-600">About Battambang</h2>
-          <p class="text-sm text-gray-700">
-            Battambang is the second-largest city in Cambodia and serves as the capital of Battambang Province. Though less hectic than Phnom Penh or Siem Reap, it offers a more authentic, peaceful Cambodian experience. It is known for its preserved French colonial buildings, vibrant art scene, and rice-producing countryside.
+        <div class="max-w-xl m-10">
+          <h2 class="text-3xl font-semibold mb-2 text-purple-600">{{ $t('Province.Battambang.aboutBTB') }}</h2>
+          <p class="text-lg text-gray-700">
+            {{ $t('Province.Battambang.aboutBTBDescription') }}
           </p>
         </div>
         <img
@@ -34,7 +34,7 @@
 
     <!-- Top Attractions -->
     <section class="pt-12 pb-6 pr-16 pl-16">
-      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Top Attractions</h2>
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">{{ $t('Province.Battambang.Attractions') }}</h2>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div v-for="(attraction, index) in topAttractions" :key="index" class="bg-white rounded shadow overflow-hidden">
           <img :src="attraction.img" alt="" class="w-full h-40 object-cover" />
@@ -44,28 +44,28 @@
     </section>
 
     <!-- Things to Do & Travel Tips -->
-    <section class="pt-12 pb-6 pr-16 pl-16 grid sm:grid-cols-2 gap-6">
+    <section class="pt-12 pb-6 pr-16 pl-16 grid sm:grid-cols-2 gap-6 m-6">
       <div>
-        <h2 class="text-2xl font-semibold mb-2 text-purple-600">Things to Do</h2>
-        <ul class="list-disc pl-5 text-sm text-gray-700">
-          <li>Ride the Bamboo Train</li>
-          <li>Join a Khmer Cooking Class</li>
-          <li>Visit Art Galleries</li>
+        <h2 class="text-3xl font-semibold mb-2 text-purple-600">{{ $t('Province.Battambang.ThingsToDo') }}</h2>
+        <ul class="list-disc pl-5 text-lg text-gray-700">
+          <li>{{ $t('Province.Battambang.BambooTrain') }}</li>
+          <li>{{ $t('Province.Battambang.CookingClass') }}</li>
+          <li>{{ $t('Province.Battambang.ArtGalleries') }}</li>
         </ul>
       </div>
       <div>
-        <h2 class="text-2xl font-semibold mb-2 text-purple-600">Travel Tips</h2>
-        <ul class="list-disc pl-5 text-sm text-gray-700">
-          <li>Best time: Nov – Mar</li>
-          <li>Transport: Bus, Taxi, Train, Plain</li>
-          <li>Dress modestly for temple visits</li>
+        <h2 class="text-3xl font-semibold mb-2 text-purple-600">{{ $t('Province.Battambang.TravelTips') }}</h2>
+        <ul class="list-disc pl-5 text-lg text-gray-700">
+          <li>{{ $t('Province.Battambang.BestTime') }}</li>
+          <li>{{ $t('Province.Battambang.Transport') }}</li>
+          <li>{{ $t('Province.Battambang.DressCode') }}</li>
         </ul>
       </div>
     </section>
 
     <!-- Photo Gallery -->
     <section class="pt-12 pb-6 pr-16 pl-16">
-      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Photo Gallery</h2>
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">{{ $t('Province.Battambang.PhotoGallery') }}</h2>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <img v-for="(photo, index) in galleryPhotos" :key="index" :src="photo" alt="" class="rounded shadow object-cover h-28 w-full" />
       </div>
@@ -73,7 +73,7 @@
 
     <!-- Province Map -->
     <section class="pt-12 pb-6 pr-16 pl-16">
-      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Province Map</h2>
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">{{ $t('Province.Battambang.Map') }}</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31315.23960491142!2d103.1831048335589!3d13.102447626101994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31050b2eb8d9311f%3A0x4b8326bd6ddeeec6!2sBattambang!5e0!3m2!1sen!2skh!4v1710000000000"

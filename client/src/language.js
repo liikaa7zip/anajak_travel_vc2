@@ -413,9 +413,49 @@ const messages = {
                 description: "Border province with temples and markets.",
             }
         },
+        Province: {
+            Battambang: {
+                btbHeroTitle: "Battambang",
+                btbHeroSubtitle: "Province",
+                aboutBTB: "About Battambang Province",
+                aboutBTBDescription: "Battambang is the second-largest city in Cambodia and serves as the capital of Battambang Province. Though less hectic than Phnom Penh or Siem Reap, it offers a more authentic, peaceful Cambodian experience. It is known for its preserved French colonial buildings, vibrant art scene, and rice-producing countryside.",
+                Attractions: "Top Attractions",
+                ThingsToDo: "Things to Do",
+                BambooTrain: "Ride the Bamboo Train",
+                CookingClass: "Join a Khmer Cooking Class",
+                ArtGalleries: "Visit Art Galleries",
+                TravelTips: "Travel Tips",
+                BestTime: "Best time: Nov – Mar",
+                Transport: "Transport: Bus, Taxi, Train, Plain",
+                DressCode: "Dress modestly for temple visits",
+                PhotoGallery: "Photo Gallery",
+                Map: "Province Map",
+            },
+        },
     },
 
     km: {
+
+        Province: {
+            Battambang: {
+                btbHeroTitle: "បាត់ដំបង",
+                btbHeroSubtitle: "ខេត្ត",
+                aboutBTB: "អំពីខេត្តបាត់ដំបង",
+                aboutBTBDescription: "បាត់ដំបង គឺជាទីក្រុងធំទីពីរក្នុងប្រទេសកម្ពុជា និងបម្រើជារាជធានីនៃខេត្តបាត់ដំបង។ ទោះបីជាមានភាពមមាញឹកជាងទីក្រុងភ្នំពេញ ឬខេត្តសៀមរាបក៏ដោយ វាផ្តល់នូវបទពិសោធន៍ដ៏ពិតប្រាកដ និងសន្តិភាពរបស់កម្ពុជា។ វាត្រូវបានគេស្គាល់ដោយសារអគារអាណានិគមបារាំងដែលត្រូវបានអភិរក្ស ទិដ្ឋភាពសិល្បៈដ៏រស់រវើក និងជនបទដែលផលិតស្រូវ។",
+                Attractions: "ទីកន្លែងទាក់ទាញ",
+                ThingsToDo: "អ្វីដែលត្រូវធ្វើ",
+                BambooTrain: "ជិះរថភ្លើងឈើ",
+                CookingClass: "ចូលរួមថ្នាក់បង្រៀនម្ហូបខ្មែរ",
+                ArtGalleries: "ទស្សនាគំនូរ",
+                TravelTips: "គន្លឹះដំណើរកំសាន្ត",
+                BestTime: "អំឡុងពេលល្អបំផុត: វិច្ឆិកា - មីនា",
+                Transport: "ការដឹកជញ្ជូន: ឡានក្រុង, តាក់ស៊ី, រថភ្លើង, យន្តហោះ",
+                DressCode: "សម្លៀកបំពាក់យ៉ាងសមរម្យសម្រាប់ការទស្សនាទីបំផុត",
+                PhotoGallery: "រូបថត",
+                Map: "ផែនទីខេត្ត",
+            },
+        },
+
         destinations: [
             {
                 AngkorWat: 'ព្រះអង្គរ វត្ត',
