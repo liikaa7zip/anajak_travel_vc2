@@ -1,4 +1,5 @@
 import { createI18n } from 'vue-i18n'
+import PhnomPenh from './views/provinces/PhnomPenh.vue'
 // Translation messages
 const messages = {
     en: {
@@ -479,6 +480,29 @@ const messages = {
                 PhotoGallery: "Photo Gallery",
                 Map: "Province Map",
             },
+            PhnomPenh: {
+                PPHeroTitle: "Phnom Penh",
+                PPHeroSubtitle: "Capital City",
+                aboutPP: "About Phnom Penh Capital City",
+                aboutPPDescription: "Phnom Penh is Cambodia’s bustling capital located at the confluence of the Mekong and Tonle Sap Rivers. The city blends French colonial charm with modern development and Khmer culture. Attractions include the Royal Palace, Silver Pagoda, and historic sites like the Killing Fields and Tuol Sleng Genocide Museum.",
+                Attractions: {
+                    AttractionTitle: "Top Attractions",
+                    First: "Royal Palace",
+                    Second: "Tuol Sleng Genocide Museum",
+                    Third: "Wat Phnom",
+                    Fourth: "Central Market"
+                },
+                ThingsToDo: "Things to Do",
+                First: "Tour the Royal Palace and Silver Pagoda",
+                Second: "Visit Tuol Sleng Genocide Museum (S21)",
+                Third: "Shop at Central and Russian Markets",
+                TravelTips: "Travel Tips",
+                BestTime: "Best time: Nov – Feb",
+                Transport: "Transport: Tuk-tuks, taxis, Grab app",
+                DressCode: "Stay alert in busy traffic and markets",
+                PhotoGallery: "Photo Gallery",
+                Map: "City Map",
+            },
         },
     },
 
@@ -547,6 +571,29 @@ const messages = {
                 DressCode: "ស្លៀកពាក់សមរម្យសម្រាប់ការទស្សនាប្រាសាទ",
                 PhotoGallery: "រូបថត",
                 Map: "ផែនទីខេត្ត",
+            },
+            PhnomPenh: {
+                PPHeroTitle: "ភ្នំពេញ",
+                PPHeroSubtitle: "រាជធានី",
+                aboutPP: "អំពីរាជធានីភ្នំពេញ",
+                aboutPPDescription: "ភ្នំពេញ គឺជារាជធានីដ៏មមាញឹករបស់ប្រទេសកម្ពុជា ដែលមានទីតាំងនៅចំណុចប្រសព្វនៃទន្លេមេគង្គ និងទន្លេសាប។ ទីក្រុងនេះរួមបញ្ចូលគ្នានូវភាពទាក់ទាញនៃអាណានិគមបារាំងជាមួយនឹងការអភិវឌ្ឍន៍ទំនើប និងវប្បធម៌ខ្មែរ។ កន្លែងទាក់ទាញរួមមាន ព្រះបរមរាជវាំង វត្តប្រាក់ និងទីតាំងប្រវត្តិសាស្ត្រដូចជាវាលពិឃាត និងសារមន្ទីរប្រល័យពូជសាសន៍ទួលស្លែងជាដើម។",
+                Attractions: {
+                    AttractionTitle: "កន្លែងទាក់ទាញ",
+                    First: "ព្រះបរមរាជវាំង",
+                    Second: "មន្ទីរពិសោធន៍សម្លាប់ទួលស្លែង",
+                    Third: "វត្តភ្នំ",
+                    Fourth: "ផ្សារកណ្តាល"
+                },
+                ThingsToDo: "អ្វីដែលត្រូវធ្វើ",
+                First: "ទស្សនាព្រះបរមរាជវាំង និងព្រះវិហារសំเงิน",
+                Second: "ទៅមើលមន្ទីរពិសោធន៍សម្លាប់ទួលស្លែង (S21)",
+                Third: "ទៅផ្សារកណ្តាល និងផ្សាររុស្ស៊ី",
+                TravelTips: "គន្លឹះដំណើរកំសាន្ត",
+                BestTime: "អំឡុងពេលល្អបំផុត: វិច្ឆិកា - កុម្ភៈ",
+                Transport: "ការដឹកជញ្ជូន: តុកតុក, តាក់ស៊ី, កម្មវិធី Grab",
+                DressCode: "ត្រូវតែប្រុងប្រយ័ត្ននៅក្នុងចរាចរដ៏មមាញឹក និងផ្សារ",
+                PhotoGallery: "រូបថត",
+                Map: "ផែនទីក្រុង",
             },
         },
 
