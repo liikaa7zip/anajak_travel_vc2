@@ -437,33 +437,33 @@ function toggleFaq(selectedFaq) {
 const insights = ref([
   {
     id: 1,
-    title: "Sampov Mountain",
+    title: t('insights[0].title'), // 'Phnom Sampeou Mountain'
     description:
-      "A scenic mountain with caves, temples, and deep historical stories.",
+      t('insights[0].description'), // 'A scenic mountain with caves, temples, and deep historical stories.'
     image:
       "https://www.gocambodia.tours/wp-content/uploads/2016/12/On-the-top-of-Phnom-Sampeou-Mountain.jpg"
   },
   {
     id: 2,
-    title: "Ta Muen Thom Temple",
+    title: t('insights[1].title'), // 'Prasat Hin Muang Tum'
     description:
-      "An ancient Khmer temple hidden in the forest near the Thai border.",
+      t('insights[1].description'), // 'An ancient Khmer temple hidden in the forest near the Thai border.'
     image:
       "https://mel365.com/wp-content/uploads/2015/03/Prasat-Hin-Muang-Tum_20121227_037_Historical-Park_-Khmer_-Prasat-Ta-Moan-Thom_-Temple_-Thailand.jpg"
   },
   {
     id: 3,
-    title: "Koh Rong",
+    title: t('insights[2].title'), // 'Song Saa Private Island'
     description:
-      "A tropical island with white sand beaches and crystal-clear waters.",
+      t('insights[2].description'), // 'A tropical island with white sand beaches and crystal-clear waters.'
     image:
       "https://images.mrandmrssmith.com/images/698x522/4390977-song-saa-private-island-koh-rong-islands-cambodia.jpg"
   },
   {
     id: 4,
-    title: "Kirirom",
+    title: t('insights[3].title'), // 'Kirirom National Park'
     description:
-      "A peaceful national park with pine forests, cool air, and waterfalls.",
+      t('insights[3].description'), // 'A peaceful national park with pine forests, cool air, and waterfalls.'
     image:
       "https://www.asiakingtravel.com/cuploads/files/Kampong-Speu/Kirirom%20National%20Park/Kirirom-National-Park-1.jpg"
   }
