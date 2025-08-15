@@ -1,5 +1,6 @@
 import { createI18n } from 'vue-i18n'
 import PhnomPenh from './views/provinces/PhnomPenh.vue'
+import KohKong from './views/provinces/KohKong.vue'
 // Translation messages
 const messages = {
     en: {
@@ -595,6 +596,29 @@ const messages = {
                 PhotoGallery: "Photo Gallery",
                 Map: "Province Map",
             },
+            KohKong: {
+                KKHeroTitle: "Koh Kong",
+                KKHeroSubtitle: "Province",
+                aboutKK: "About Koh Kong Province",
+                aboutKKDescription: "Koh Kong is a province located in southwest Cambodia, known for its lush rainforests, pristine beaches, and the Cardamom Mountains. It borders Thailand and offers adventure activities like trekking, waterfall visits, and wildlife spotting. The region is still largely untouched by mass tourism, offering a tranquil nature escape.",
+                Attractions: {
+                    AttractionTitle: "Top Attractions",
+                    First: "Cardamom Mountains",
+                    Second: "Koh Kong Beaches",
+                    Third: "Tatai Waterfalls",
+                    Fourth: "Koh Kong Islands"
+                },
+                ThingsToDo: "Things to Do",
+                First: "Explore the Cardamom Mountains and waterfalls",
+                Second: "Relax on Koh Kong’s secluded beaches",
+                Third: "Visit the Tatai River and nearby islands",
+                TravelTips: "Travel Tips",
+                BestTime: "Best time to visit: Nov – Apr",
+                Transport: "Prepare for remote travel conditions and limited facilities",
+                DressCode: "Use local guides for trekking and eco-tours",
+                PhotoGallery: "Photo Gallery",
+                Map: "Province Map",
+            },
         },
     },
 
@@ -776,6 +800,29 @@ const messages = {
                 BestTime: "ពេលវេលាល្អបំផុត: ខែវិច្ឆិកា – ខែមីនា",
                 Transport: "ការដឹកជញ្ជូន: ម៉ូតូ, តាក់ស៊ី",
                 DressCode: "យកលុយសម្រាប់អ្នកលក់តូចៗ",
+                PhotoGallery: "រូបថត",
+                Map: "ផែនទីខេត្ត",
+            },
+            KohKong: {
+                KKHeroTitle: "កោះកុង",
+                KKHeroSubtitle: "ខេត្ត",
+                aboutKK: "អំពីខេត្តកោះកុង",
+                aboutKKDescription: "ខេត្តកោះកុង ជាខេត្តមួយស្ថិតនៅភាគនិរតីនៃប្រទេសកម្ពុជា ដែលល្បីល្បាញដោយសារព្រៃឈើខៀវស្រងាត់ ឆ្នេរស្អាត និងជួរភ្នំក្រវាញ។ វាមានព្រំប្រទល់ជាប់ប្រទេសថៃ និងផ្តល់នូវសកម្មភាពផ្សងព្រេងដូចជា ការដើរលេង ការទស្សនាទឹកធ្លាក់ និងការប្រទះឃើញសត្វព្រៃ។ តំបន់នេះនៅតែមិនត្រូវបានប៉ះពាល់ដោយទេសចរណ៍ដ៏ធំ ដែលផ្តល់នូវការរត់គេចពីធម្មជាតិដ៏ស្ងប់ស្ងាត់។",
+                Attractions: {
+                    AttractionTitle: "កន្លែងទាក់ទាញ",
+                    First: "ភ្នំកាដាម៉ូម",
+                    Second: "ឆ្នេរកោះកុង",
+                    Third: "ទឹកជ្រោះតាតៃ",
+                    Fourth: "កោះ ក្នុងខេត្តកោះកុង"
+                },
+                ThingsToDo: "អ្វីដែលត្រូវធ្វើ",
+                First: "ទស្សនាភ្នំក្រវាញ និងទឹកធ្លាក់",
+                Second: "សម្រាកនៅលើឆ្នេរស្ងាត់នៃខេត្តកោះកុង",
+                Third: "ទស្សនាទន្លេតាតៃ និងកោះក្បែរនោះ",
+                TravelTips: "គន្លឹះធ្វើដំណើរ",
+                BestTime: "ពេលវេលាល្អបំផុត: ខែវិច្ឆិកា – ខែមេសា",
+                Transport: "រៀបចំសម្រាប់លក្ខខណ្ឌធ្វើដំណើរពីចម្ងាយ និងកន្លែងមានកំណត់",
+                DressCode: "ប្រើមគ្គុទ្ទេសក៍ក្នុងតំបន់សម្រាប់ការដើរលេង និងដំណើរទេសចរណ៍ធម្មជាតិ",
                 PhotoGallery: "រូបថត",
                 Map: "ផែនទីខេត្ត",
             },
