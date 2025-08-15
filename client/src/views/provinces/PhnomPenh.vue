@@ -10,7 +10,7 @@
       <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center px-10">
         <h1 class="text-white text-3xl sm:text-6xl font-bold">
           <i class="fa-notdog fa-solid fa-location-dot"></i>{{ $t("Province.PhnomPenh.PPHeroTitle") }}<br />
-          <span class="text-4xl">{{ $t("Province.PhnomPenh.PPHeroSubtitle") }}</span>
+          <span class="text-5xl">{{ $t("Province.PhnomPenh.PPHeroSubtitle") }}</span>
         </h1>
       </div>
     </section>
