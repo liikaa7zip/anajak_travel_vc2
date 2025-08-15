@@ -5,9 +5,9 @@
       <img src="https://asiapioneertravel.com/wp-content/uploads/2024/04/cambodia-family-holiday.jpg" alt="Cambodia"
         class="w-full h-full object-cover" />
       <div class="absolute inset-0 bg-black bg-opacity-40 justify-center flex items-center px-6">
-        <h1 class="text-white text-3xl sm:text-4xl font-bold text-center">
+        <h1 class="text-white text-3xl sm:text-5xl font-bold text-center">
           {{ $t('heroTitle') }} <br />
-          <span class="text-xl">{{ $t('heroSubtitle') }}</span>
+          <span class="text-3xl">{{ $t('heroSubtitle') }}</span>
         </h1>
       </div>
     </section>
