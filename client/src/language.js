@@ -1,6 +1,7 @@
 import { createI18n } from 'vue-i18n'
 import PhnomPenh from './views/provinces/PhnomPenh.vue'
 import KohKong from './views/provinces/KohKong.vue'
+import Kandal from './views/provinces/Kandal.vue'
 // Translation messages
 const messages = {
     en: {
@@ -619,6 +620,52 @@ const messages = {
                 PhotoGallery: "Photo Gallery",
                 Map: "Province Map",
             },
+            Takeo: {
+                TKHeroTitle: "Takeo",
+                TKHeroSubtitle: "Province",
+                aboutTK: "About Takeo Province",
+                aboutTKDescription: "Takeo, often referred to as the \"Cradle of Khmer Civilization\", is a province rich in ancient history and archaeological wonders. It is home to Angkor Borei and Phnom Da, two sites that provide a glimpse into Cambodia's pre-Angkorian past. Surrounded by rice paddies and small fishing communities, the province offers a peaceful and cultural escape.",
+                Attractions: {
+                    AttractionTitle: "Top Attractions",
+                    First: "Angkor Borei",
+                    Second: "Phnom Da",
+                    Third: "Tonle Bati",
+                    Fourth: "Chiso Mountain"
+                },
+                ThingsToDo: "Things to Do",
+                First: "Explore Angkor Borei archaeological site",
+                Second: "Climb Phnom Da Temple mountain",
+                Third: "Visit the ancient Ta Prohm Temple in Tonle Bati",
+                TravelTips: "Travel Tips",
+                BestTime: "Visit during dry season (Nov–Mar) for best access",
+                Transport: "Bring sunscreen, hat, and water for temple hikes",
+                DressCode: "Local guides can enrich your historical experience",
+                PhotoGallery: "Photo Gallery",
+                Map: "Province Map",
+            },
+            Kandal: {
+                KDHeroTitle: "Kandal",
+                KDHeroSubtitle: "Province",
+                aboutKD: "About Kandal Province",
+                aboutKDDescription: "Kandal Province surrounds Cambodia’s capital, Phnom Penh, making it a strategically important and accessible region. Despite its proximity to the bustling capital, Kandal retains a peaceful, rural atmosphere with traditional Khmer villages, lush rice fields, and tranquil riverfronts. The province is divided by the mighty Mekong and Bassac Rivers, offering beautiful landscapes and fertile farmlands. It’s a great destination for travelers seeking a short escape from Phnom Penh to experience authentic countryside life, local industries, and pagoda-filled scenery.",
+                Attractions: {
+                    AttractionTitle: "Top Attractions",
+                    First: "Udong Mountain",
+                    Second: "Takhmao Town",
+                    Third: "Koh Dach Island",
+                    Fourth: "Kien Svay Floating Market"
+                },
+                ThingsToDo: "Things to Do",
+                First: "Visit Udong Mountain",
+                Second: "Explore the Mekong River islands",
+                Third: "Experience local markets",
+                TravelTips: "Travel Tips",
+                BestTime: "Best time: Nov – Mar",
+                Transport: "Transport: Bus, Taxi, Boat",
+                DressCode: "Dress comfortably for river trips",
+                PhotoGallery: "Photo Gallery",
+                Map: "Province Map",
+            },
         },
     },
 
@@ -823,6 +870,52 @@ const messages = {
                 BestTime: "ពេលវេលាល្អបំផុត: ខែវិច្ឆិកា – ខែមេសា",
                 Transport: "រៀបចំសម្រាប់លក្ខខណ្ឌធ្វើដំណើរពីចម្ងាយ និងកន្លែងមានកំណត់",
                 DressCode: "ប្រើមគ្គុទ្ទេសក៍ក្នុងតំបន់សម្រាប់ការដើរលេង និងដំណើរទេសចរណ៍ធម្មជាតិ",
+                PhotoGallery: "រូបថត",
+                Map: "ផែនទីខេត្ត",
+            },
+            Takeo: {
+                TKHeroTitle: "តាកែវ",
+                TKHeroSubtitle: "ខេត្ត",
+                aboutTK: "អំពីខេត្តតាកែវ",
+                aboutTKDescription: "តាកែវ​ដែល​គេ​តែង​ហៅ​ថា​ជា «​លំនៅ​នៃ​អរិយធម៌​ខ្មែរ​» ជា​ខេត្ត​មួយ​ដែល​សម្បូរ​ទៅ​ដោយ​ប្រវត្តិសាស្ត្រ​បុរាណ និង​អច្ឆរិយ​វត្ថុ​បុរាណវិទ្យា។ វាជាទីតាំងរបស់អង្គរបូរី និងភ្នំដា ដែលជាទីតាំងពីរដែលផ្តល់ពន្លឺដល់អតីតកាលមុនសម័យអង្គររបស់កម្ពុជា។ ហ៊ុំព័ទ្ធដោយវាលស្រែ និងសហគមន៍នេសាទតូចៗ ខេត្តនេះផ្តល់នូវភាពស្ងប់ស្ងាត់ និងវប្បធម៌។",
+                Attractions: {
+                    AttractionTitle: "កន្លែងទាក់ទាញ",
+                    First: "អង្គរបុរី",
+                    Second: "ភ្នំដា",
+                    Third: "ទន្លេបាទី",
+                    Fourth: "ភ្នំជីសូ"
+                },
+                ThingsToDo: "អ្វីដែលត្រូវធ្វើ",
+                First: "ស្វែងយល់ពីរមណីយដ្ឋានអង្គរបូរី",
+                Second: "ឡើងភ្នំប្រាសាទភ្នំដា",
+                Third: "ទស្សនាប្រាសាទតាព្រហ្មបុរាណនៅទន្លេបាទី",
+                TravelTips: "គន្លឹះធ្វើដំណើរ",
+                BestTime: "ទស្សនាក្នុងរដូវប្រាំង (វិច្ឆិកា ដល់ មីនា) ដើម្បីចូលប្រើប្រាស់បានល្អបំផុត",
+                Transport: "យកឡេការពារកំដៅថ្ងៃ មួក និងទឹកសម្រាប់ដើរលេងប្រាសាទ",
+                DressCode: "មគ្គុទ្ទេសក៍ក្នុងស្រុកអាចបង្កើនបទពិសោធន៍ប្រវត្តិសាស្ត្ររបស់អ្នក",
+                PhotoGallery: "រូបថត",
+                Map: "ផែនទីខេត្ត",
+            },
+             Kandal: {
+                KDHeroTitle: "កណ្ដាល",
+                KDHeroSubtitle: "ខេត្ត",
+                aboutKD: "អំពីខេត្តកណ្ដាល",
+                aboutKDDescription: "ខេត្តកណ្តាល ហ៊ុំព័ទ្ធទីក្រុងភ្នំពេញរបស់ប្រទេសកម្ពុជា ដែលធ្វើឱ្យវាក្លាយជាតំបន់យុទ្ធសាស្ត្រដ៏សំខាន់ និងអាចចូលទៅដល់បាន។ ថ្វីត្បិតតែស្ថិតនៅជិតទីប្រជុំជនដ៏អ៊ូអរ ប៉ុន្តែខេត្តកណ្តាលនៅតែរក្សាបាននូវបរិយាកាសបែបជនបទប្រកបដោយសន្តិភាព ជាមួយនឹងភូមិបុរាណខ្មែរ វាលស្រែដ៏ខៀវស្រងាត់ និងមាត់ទន្លេដ៏ស្ងប់ស្ងាត់។ ខេត្តនេះត្រូវបានបែងចែកដោយទន្លេមេគង្គ និងទន្លេបាសាក់ ដែលផ្តល់នូវទេសភាពដ៏ស្រស់ស្អាត និងដីស្រែមានជីជាតិ។ វា​ជា​ទិសដៅ​ដ៏​ល្អ​សម្រាប់​អ្នក​ធ្វើ​ដំណើរ​ដែល​ស្វែង​រក​ការ​រត់​គេច​ពី​ទីក្រុង​ភ្នំពេញ​ក្នុង​រយៈពេល​ខ្លី​ដើម្បី​ទទួល​បាន​បទពិសោធន៍​ជីវិត​បែប​ជនបទ​ពិតប្រាកដ ឧស្សាហកម្ម​ក្នុង​ស្រុក និង​ទេសភាព​ពេញ​វត្ត",
+                Attractions: {
+                    AttractionTitle: "កន្លែងទាក់ទាញ",
+                    First: "ភ្នំឧត្តុង្គ",
+                    Second: "ទីក្រុងតាខ្មៅ",
+                    Third: "កោះដាច់",
+                    Fourth: "ផ្សារបណ្តែតទឹកកៀនស្វាយ"
+                },
+                ThingsToDo: "អ្វីដែលត្រូវធ្វើ",
+                First: "ទស្សនាភ្នំឧត្តុង្គ",
+                Second: "ស្វែងយល់អំពីកោះទន្លេមេគង្គ",
+                Third: "អនុស្សាវរីយ៍ទីផ្សារក្នុងស្រុក",
+                TravelTips: "គន្លឹះធ្វើដំណើរ",
+                BestTime: "ពេលវេលាល្អបំផុត: ខែវិច្ឆិកា – ខែមីនា",
+                Transport: "ការដឹកជញ្ជូន: ឡានក្រុង, តាក់ស៊ី, កប៉ាល់",
+                DressCode: "សម្លៀកបំពាក់សម្រួលសម្រាប់ដំណើរកំសាន្តតាមទន្លេ",
                 PhotoGallery: "រូបថត",
                 Map: "ផែនទីខេត្ត",
             },
