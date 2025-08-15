@@ -76,11 +76,7 @@ exports.verifyRestaurantOwner = (req, res, next) => {
 
 // Middleware to allow admin or restaurant owner
 exports.verifyAdminOrRestaurantOwner = (req, res, next) => {
-  if (
-    req.user &&
-    req.user.role &&
-    ['admin', 'restaurant_owner'].includes(req.user.role.toLowerCase())
-  ) {
+  if (req.user && (req.user.role === 'admin' || req.user.role === 'restaurant_owner'|| req.user.role === 'transport_owner' )) {
     return next();
   }
   return res.status(403).json({ message: 'Forbidden: Admin or Restaurant Owner only' });

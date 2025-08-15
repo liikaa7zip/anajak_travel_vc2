@@ -1,33 +1,73 @@
-// routes/messageRoutes.js
-const express = require('express');
-const router = express.Router();
-const messageController = require('../controllers/messageController');
-const { User, Message, Sequelize } = require('../models');
-const { Op } = Sequelize;
+  // routes/messageRoutes.js
+  const express = require('express');
+  const router = express.Router();
+  const messageController = require('../controllers/messageController');
+  const { User, Message, Sequelize } = require('../models');
+  const { Op } = Sequelize;
 
-// Get all users who sent messages (for admin chat list)
-router.get('/users', async (req, res) => {
+  // Get all users who sent messages (for admin chat list)
+  router.get('/users', async (req, res) => {
   try {
-    const users = await Message.findAll({
-      attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('sender')), 'sender']],
+    // Get all users who exist (filter as needed)
+    const users = await User.findAll({
+      attributes: ['id', 'email'],  // only id and email
     });
-
-    const usernames = users.map(u => u.get('sender'));
-    res.json(usernames);
+    res.json(users);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Server error' });
   }
 });
 
-// Get conversation between two users (user1 and user2)
-router.get('/conversation', messageController.getConversationBetweenUsers);
-// router.delete('/messages/:id', messageController.deleteMessage);
-router.delete('/user/:sender', messageController.deleteMessagesBySender); 
-router.put('/rename', messageController.renameUserInMessages);
+// Get all users who have chatted with the given userId
+router.get('/users/:userId', async (req, res) => {
+  const userId = req.params.userId;
+
+  try {
+    // Find distinct user IDs who have chatted with userId
+    const chatUserIdsRaw = await Message.findAll({
+      where: {
+        [Op.or]: [
+          { senderId: userId },
+          { receiverId: userId }
+        ]
+      },
+      attributes: [
+        [Sequelize.literal(`DISTINCT CASE WHEN senderId = ${userId} THEN receiverId ELSE senderId END`), 'userId']
+      ],
+      raw: true
+    });
+
+    const chatUserIds = chatUserIdsRaw.map(u => u.userId);
+
+    if (chatUserIds.length === 0) return res.json([]);
+
+    // Fetch full user info for those userIds
+    const chatUsers = await User.findAll({
+      where: { id: chatUserIds },
+      attributes: ['id', 'email', 'username']
+    });
+
+    res.json(chatUsers);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
 
 
-// Send message
-router.post('/', messageController.sendMessage);
+  // Get conversation between two users (user1 and user2)
+  router.get('/conversation', messageController.getConversationBetweenUsers);
+  // router.delete('/messages/:id', messageController.deleteMessage);
+  router.delete('/user/:sender', messageController.deleteMessagesBySender); 
+  router.put('/rename', messageController.renameUserInMessages);
+  router.get('/recent', messageController.getRecentMessages);
+  router.get('/unread-counts', messageController.getUnreadCounts);
+  router.post('/mark-seen', messageController.markMessagesSeen);
 
-module.exports = router;
+  // Send message
+  router.post('/', messageController.sendMessage);
+
+  
+
+  module.exports = router;

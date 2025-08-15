@@ -58,6 +58,7 @@
             <option value="user">User</option>
             <option value="restaurant_owner">Restaurant Owner</option>
             <option value="hotel_owner">Hotel Owner</option>
+            <option value="transport_owner">Transport Owner</option>
           </select>
         </div>
 
@@ -108,34 +109,53 @@ const message = ref('')
 const success = ref(false)
 
 const submitForm = async () => {
-  message.value = ''
-  success.value = false
+  message.value = '';
+  success.value = false;
 
   try {
-    const res = await fetch('http://localhost:5000/api/users/register', {
+    const adminToken = localStorage.getItem('token');
+    if (!adminToken) {
+      message.value = 'Admin token missing. Please log in again.';
+      success.value = false;
+      return;
+    }
+
+    const res = await fetch('http://localhost:5000/api/users/admin/create-user', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + adminToken,
       },
       body: JSON.stringify(form),
-    })
+    });
 
-    const data = await res.json()
+    const text = await res.text();
 
-    if (!res.ok) {
-      message.value = data.message || 'Failed to create user'
-      success.value = false
-      return
+    try {
+      const data = JSON.parse(text);
+
+      if (!res.ok) {
+        message.value = data.message || 'Failed to create user';
+        success.value = false;
+        return;
+      }
+
+      message.value = data.message || 'User created successfully!';
+      success.value = true;
+      resetForm();
+
+    } catch (parseError) {
+      console.error('Response is not JSON:', text);
+      message.value = 'Server error or invalid response received:\n' + text;
+      success.value = false;
     }
-
-    message.value = data.message || 'User created successfully!'
-    success.value = true
-    resetForm()
   } catch (err) {
-    message.value = 'Network or server error: ' + err.message
-    success.value = false
+    message.value = 'Network or server error: ' + err.message;
+    success.value = false;
   }
-}
+};
+
+
 
 const resetForm = () => {
   form.username = ''

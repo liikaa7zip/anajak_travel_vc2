@@ -95,14 +95,14 @@
         <li>
           <router-link to="/admin/chat" class="nav-link" active-class="router-link-exact-active">
             <i class="icon ri-message-3-line"></i>
-            Contact Messages
+            Messages
           </router-link>
         </li>
         <li>
-          <a href="#" class="nav-link">
+          <router-link to="/admin/report" class="nav-link" active-class="router-link-exact-active">
             <i class="icon ri-bar-chart-2-line"></i>
             Reports
-          </a>
+          </router-link>
         </li>
       </ul>
     </div>

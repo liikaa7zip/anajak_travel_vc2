@@ -18,6 +18,9 @@ const locationRoutes = require('./routes/locationRoutes');
 
 const createDefaultAdmin = require('./seeders/createDefaultAdmin');
 const createDefaultLocations = require('./seeders/createDefaultLocations');
+const createDefaultCars = require('./seeders/20250807-insert-cars')
+const createDefaultRoles = require('./seeders/createDefaultRoles');
+
 // orderfood
 const foodRoutes = require('./routes/foodRoutes');
 const orderFoodRoutes = require('./routes/orderFoodRoutes');
@@ -38,19 +41,31 @@ const travelGuidesRoutes = require('./routes/travelGuidesRoutes');
 const galleryPhotosRoutes = require('./routes/galleryPhotosRoutes');
 const itineraryRoutes = require('./routes/itineraryRoutes');
 const categoryRoutes = require('./routes/category');
+const carRoutes = require('./routes/carRoutes');
+const seatsRoutes = require('./routes/seatsRoute');
+const reportRoutes = require('./routes/reportRoutes');
 
 const payment = require('./routes/PaymentRoutes');
 
 const app = express();
 const server = http.createServer(app);
 
+// ✅ Allow both Vue dev ports
+const allowedOrigins = ['http://localhost:3000', 'http://localhost:3001'];
+
 app.use(cors({
-  origin: 'http://localhost:3000',  // Your frontend URL
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
 }));
 
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
 
 // API Routes
 app.use('/api/users', userRoutes);
@@ -73,46 +88,54 @@ app.use('/api/travel-guides', travelGuidesRoutes);
 app.use('/api/gallery-photos', galleryPhotosRoutes);
 app.use('/api/itineraries', itineraryRoutes);
 app.use('/api/payments', payment);
+app.use('/api/cars', carRoutes);
+app.use('/api/seats', seatsRoutes);
+app.use('/api/reports', reportRoutes);
+
 // Uncomment if you want admin user routes
 // app.use('/api/admin-users', adminUserRoutes);
 app.use('/api/categories', categoryRoutes);
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:3000',
+    origin:  allowedOrigins,
     methods: ['GET', 'POST'],
+    credentials: true,
   },
 });
 
 io.on('connection', (socket) => {
-  console.log('User connected', socket.id);
-
-  socket.on('join', (username) => {
-    socket.join(username);
-    console.log(`${username} joined room ${username}`);
-  });
-
-  socket.on('send_message', async (data, callback) => {
+  socket.on('send_message', async (msg, callback) => {
     try {
+      // Save message to DB
       const savedMsg = await Message.create({
-        sender: data.sender,
-        receiver: data.receiver,
-        message: data.message,
+        senderId: msg.senderId,
+        receiverId: msg.receiverId,
+        sender: msg.sender,
+        receiver: msg.receiver,
+        message: msg.message,
       });
 
-      io.to(data.sender).emit('receive_message', savedMsg);
-      io.to(data.receiver).emit('receive_message', savedMsg);
+      // Emit to both sender and receiver rooms
+      io.to(msg.senderId.toString()).emit('receive_message', savedMsg);
+      io.to(msg.receiverId.toString()).emit('receive_message', savedMsg);
 
+      // Confirm to sender
       callback({ status: 'ok' });
-    } catch (err) {
-      console.error('Failed to save message:', err);
-      callback({ status: 'error', error: err.message });
+    } catch (error) {
+      console.error('Error saving message:', error);
+      callback({ status: 'error', error: error.message });
     }
   });
 
-  socket.on('disconnect', () => {
-    console.log('User disconnected', socket.id);
+  // Join user to their room on connection
+  socket.on('join', (userId) => {
+    socket.join(userId);
   });
 });
+
+
+
+
 
 const PORT = process.env.PORT || 5000;
 
@@ -121,6 +144,8 @@ sequelize.sync({ force: true })
     console.log('Database synced');
     await createDefaultAdmin();
     await createDefaultLocations();
+    await createDefaultCars();
+    
 
     server.listen(PORT, () => {
       console.log(`Server running on http://localhost:${PORT}`);

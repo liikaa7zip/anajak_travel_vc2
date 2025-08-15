@@ -154,36 +154,35 @@ function validate() {
 }
 
 async function submitPayment() {
-  if (!validate()) return
+  if (!validate()) return;
 
-  loading.value = true
-  errorMessage.value = ''
+  loading.value = true;
+  errorMessage.value = '';
 
   try {
     const response = await axios.post('http://localhost:5000/api/payments', {
-      bookingId: props.bookingId, 
-      bookingType: props.bookingType,
-      amount: props.amount,
+      bookingId: props.bookingId,     // make sure this is set and valid
+      bookingType: props.bookingType, // should be a valid string like 'day'
+      amount: props.amount,            // number > 0
       method: 'Credit Card',
       cardName: cardName.value,
-      // Add other required payment fields your backend expects here
-    })
-    
-    console.log('Payment success response:', response.data)
+    });
+
+    console.log('Payment success response:', response.data);
     emit('paid', {
       method: 'Credit Card',
       cardName: cardName.value,
       bookingType: props.bookingType,
       amount: props.amount,
-    })
+    });
   } catch (error) {
-    // Log full error info to understand backend rejection
-    console.error('Payment error:', error.response ? error.response.data : error)
-    errorMessage.value = error.response?.data?.message || 'Payment failed, please try again.'
+    console.error('Payment error:', error.response?.data || error);
+    errorMessage.value = error.response?.data?.error || 'Payment failed, please try again.';
   } finally {
-    loading.value = false
+    loading.value = false;
   }
 }
+
 
 
 </script>
