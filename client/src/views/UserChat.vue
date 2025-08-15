@@ -23,18 +23,28 @@
 
         <ul class="user-list">
           <li
-            v-for="u in availableUsers"
-            :key="u.id"
-            @click="selectChatPartner(u)"
-            :class="['user-card', selectedUser?.id === u.id ? 'active' : '']"
-            :title="`${u.username || u.email} (${u.role})`"
-          >
-            <div class="avatar">{{ getInitials(u.username || u.email) }}</div>
-            <div class="user-info">
-              <strong class="username">{{ u.username || u.email }}</strong>
-              <small class="role">{{ u.role.replace('_', ' ').toUpperCase() }}</small>
-            </div>
-          </li>
+  v-for="u in availableUsers"
+  :key="u.id"
+  @click="selectChatPartner(u)"
+  :class="[
+    'user-card',
+    selectedUser?.id === u.id ? 'active' : '',
+    u.unreadCount > 0 ? 'unread' : ''
+  ]"
+  :title="`${u.username || u.email} (${u.role})`"
+>
+  <div class="avatar">{{ getInitials(u.username || u.email) }}</div>
+  <div class="user-info">
+    <strong :style="{ fontWeight: u.unreadCount > 0 ? 'bold' : 'normal' }">
+      {{ u.username || u.email }}
+    </strong>
+    <small class="role">{{ u.role.replace('_', ' ').toUpperCase() }}</small>
+  </div>
+  <span v-if="u.unreadCount > 0" class="unread-badge">{{ u.unreadCount }}</span>
+</li>
+
+
+
         </ul>
       </section>
     </div>
@@ -116,6 +126,7 @@ const selectedRole = ref('');
 const availableUsers = ref([]);
 const selectedUser = ref(null);
 const typing = ref(false);
+const chatMessages = ref([])
 const showScrollButton = ref(false);
 const roles = [
   { value: 'admin', label: 'Admin' },
@@ -135,8 +146,29 @@ function selectRole(role) {
 async function loadUsersByRole() {
   if (!selectedRole.value) return;
   try {
+    // Fetch users by role
     const res = await axios.get(`http://localhost:5000/api/users/by-role/${selectedRole.value}`);
-    availableUsers.value = res.data.filter(u => u.id !== user.id);
+
+    // Fetch all unread counts
+    const unreadRes = await axios.get('http://localhost:5000/api/messages/unread-counts');
+
+    // Map unread counts for current user:
+    // Key: senderId, value: count of unread messages sent TO current user (user.id)
+    const unreadMap = {};
+    unreadRes.data.forEach(item => {
+      if (item.receiverId === user.id) {
+        unreadMap[item.senderId] = parseInt(item.count, 10);
+      }
+    });
+
+    // Assign unreadCount to each user in the list
+    availableUsers.value = res.data
+      .filter(u => u.id !== user.id)
+      .map(u => ({
+        ...u,
+        unreadCount: unreadMap[u.id] || 0,
+      }));
+
     if (availableUsers.value.length > 0) {
       selectChatPartner(availableUsers.value[0]);
     } else {
@@ -148,11 +180,27 @@ async function loadUsersByRole() {
   }
 }
 
-function selectChatPartner(u) {
+
+
+
+async function selectChatPartner(u) {
   selectedUser.value = u;
   messages.value = [];
+
+  if (u.unreadCount > 0) {
+    u.unreadCount = 0; // clear locally
+
+    await axios.post('http://localhost:5000/api/messages/mark-seen', {
+      senderId: u.id,
+      receiverId: user.id,
+    });
+  }
+
   loadMessages();
 }
+
+
+
 
 async function loadMessages() {
   if (!selectedUser.value) return;
@@ -161,11 +209,22 @@ async function loadMessages() {
       `http://localhost:5000/api/messages/conversation?user1=${user.id}&user2=${selectedUser.value.id}`
     );
     messages.value = response.data;
+
+    // Mark unseen messages from partner as seen
+    const unseenIds = messages.value
+      .filter(m => m.receiverId === user.id && !m.seen)
+      .map(m => m.id);
+
+    if (unseenIds.length > 0) {
+      await axios.post('http://localhost:5000/api/messages/mark-seen', { ids: unseenIds });
+    }
+
     scrollToBottom();
   } catch (error) {
     console.error('Error loading messages:', error);
   }
 }
+
 
 function sendMessage() {
   if (!newMessage.value.trim()) return;
@@ -236,14 +295,21 @@ onMounted(() => {
   socket.emit('join', username);
 
   socket.on('receive_message', (msg) => {
-    if (
-      (msg.sender === user.email && msg.receiver === selectedUser.value?.email) ||
-      (msg.sender === selectedUser.value?.email && msg.receiver === user.email)
-    ) {
-      messages.value.push(msg);
-      scrollToBottom();
-    }
-  });
+  // Only show message if it's for this conversation
+  if (
+    msg.senderId === selectedUser.value?.id ||
+    msg.receiverId === selectedUser.value?.id
+  ) {
+    messages.value.push(msg);
+    scrollToBottom();
+  }
+
+  // Optionally, update unread count for user list
+  const userInList = availableUsers.value.find(u => u.id === msg.senderId);
+  if (userInList && msg.receiverId === user.id) {
+    userInList.unreadCount = (userInList.unreadCount || 0) + 1;
+  }
+});
 
   if (messagesContainer.value) {
     messagesContainer.value.addEventListener('scroll', onScroll);
@@ -636,6 +702,23 @@ onBeforeUnmount(() => {
 .scroll-bottom-btn:hover {
   background: #584ddb;
 }
+
+.user-card.unread {
+  background-color: #fff8f8;
+}
+
+.unread-badge {
+  background-color: #ff4c4c;
+  color: white;
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  border-radius: 12px;
+  font-weight: 700;
+  margin-left: auto;
+  user-select: none;
+}
+
+
 
 /* Animations */
 @keyframes fadeInUp {

@@ -11,8 +11,18 @@
         </p>
       </div>
       <div class="mt-4 md:mt-0 flex gap-2">
-        <button class="bg-purple-100 text-purple-800 px-4 py-2 rounded-lg font-semibold shadow hover:bg-purple-200 border border-purple-300 transition">+ New Report</button>
-        <button class="bg-blue-100 text-blue-800 px-4 py-2 rounded-lg font-semibold shadow hover:bg-blue-200 border border-blue-300 transition">+ New Blog</button>
+        <router-link 
+          to="/admin/blog" 
+          class="bg-purple-100 text-purple-800 px-4 py-2 rounded-lg font-semibold shadow hover:bg-purple-200 border border-purple-300 transition"
+        >
+          + New Blog
+        </router-link>
+        <router-link 
+          to="/admin/blog" 
+          class="bg-blue-100 text-blue-800 px-4 py-2 rounded-lg font-semibold shadow hover:bg-blue-200 border border-blue-300 transition"
+        >
+          + New Blog
+        </router-link>
       </div>
     </div>
 
@@ -21,31 +31,32 @@
       <div class="bg-purple-100 rounded-xl p-6 flex flex-col items-center shadow hover:scale-105 transition border border-gray-200">
         <span class="text-3xl mb-2">👤</span>
         <div class="text-lg font-semibold text-gray-700">Total Users</div>
-        <div class="text-3xl font-bold text-gray-800 mt-1">2,340</div>
+        <div class="text-3xl font-bold text-gray-800 mt-1">{{ totalUsers }}</div>
         <span class="text-purple-500 text-xs mt-2">+5% this month</span>
       </div>
       <div class="bg-orange-100 rounded-xl p-6 flex flex-col items-center shadow hover:scale-105 transition border border-gray-200">
         <span class="text-3xl mb-2">🗂️</span>
         <div class="text-lg font-semibold text-gray-700">Bookings</div>
-        <div class="text-3xl font-bold text-gray-800 mt-1">1,120</div>
+        <div class="text-3xl font-bold text-gray-800 mt-1">{{ totalBookings }}</div>
         <span class="text-blue-500 text-xs mt-2">+12% this month</span>
       </div>
       <div class="bg-green-100 rounded-xl p-6 flex flex-col items-center shadow hover:scale-105 transition border border-gray-200">
         <span class="text-3xl mb-2">💵</span>
         <div class="text-lg font-semibold text-gray-700">Revenue</div>
-        <div class="text-3xl font-bold text-gray-800 mt-1">$8,500</div>
+        <div class="text-3xl font-bold text-gray-800 mt-1">${{ totalRevenue.toLocaleString() }}</div>
+
         <span class="text-pink-500 text-xs mt-2">+8% this month</span>
       </div>
       <div class="bg-pink-100 rounded-xl p-6 flex flex-col items-center shadow hover:scale-105 transition border border-gray-200">
         <span class="text-3xl mb-2">📝</span>
         <div class="text-lg font-semibold text-gray-700">Blogs</div>
-        <div class="text-3xl font-bold text-gray-800 mt-1">320</div>
+        <div class="text-3xl font-bold text-gray-800 mt-1">{{ totalBlogs }}</div>
         <span class="text-purple-500 text-xs mt-2">+2 new</span>
       </div>
       <div class="bg-blue-100 rounded-xl p-6 flex flex-col items-center shadow hover:scale-105 transition border border-gray-200">
         <span class="text-3xl mb-2">⭐</span>
         <div class="text-lg font-semibold text-gray-700">Avg. Rating</div>
-        <div class="text-3xl font-bold text-gray-800 mt-1">4.8</div>
+        <div class="text-3xl font-bold text-gray-800 mt-1">{{ avgRating.toFixed(1) }}</div>
         <span class="text-pink-500 text-xs mt-2">+0.1 this month</span>
       </div>
     </div>
@@ -56,11 +67,33 @@
       <div class="bg-white rounded-xl p-6 shadow col-span-2 flex flex-col border border-gray-200">
         <div class="flex justify-between items-center mb-4">
           <span class="text-gray-800 font-semibold text-lg">Revenue This Month</span>
-          <span class="text-gray-500 text-sm">April 2024</span>
+          <div class="flex items-center gap-2">
+            <span class="text-gray-500 text-sm">{{ allMonthsLabels[selectedMonthRange - 1] }} 2024</span>
+            <select v-model.number="selectedMonthRange">
+              <option :value="0">All Months</option>
+              <option v-for="(month, index) in allMonthsLabels" :key="index" :value="index + 1">
+                {{ month }}
+              </option>
+            </select>
+          </div>
         </div>
-        <!-- Line Chart -->
-        <canvas ref="revenueChart" id="revenue-line-chart" height="120"></canvas>
+
+
+  
+      <!-- Add the dynamic revenue and % change here -->
+      <div class="text-3xl font-bold text-gray-800 mt-4">
+        ${{ displayedMonthRevenue.toLocaleString() }}
       </div>
+      <span 
+        :class="revenueChangePercent >= 0 ? 'text-green-500' : 'text-red-500'" 
+        class="text-xs mt-1"
+      >
+        {{ revenueChangePercent >= 0 ? '+' : '' }}{{ revenueChangePercent.toFixed(1) }}% this month
+      </span>  
+      <!-- Line Chart -->
+      <canvas ref="revenueChart" id="revenue-line-chart" height="120" class="mt-4"></canvas>
+    </div>
+
       <!-- System Health -->
       <div class="bg-white rounded-xl p-6 shadow flex flex-col gap-4 border border-gray-200">
         <div class="font-semibold text-gray-800 mb-2">System Health</div>
@@ -91,22 +124,33 @@
     <div class="bg-white rounded-xl p-6 shadow flex flex-col gap-4 border border-gray-200 mt-8">
       <div class="font-semibold text-gray-800 mb-2">Quick Actions</div>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <button class="bg-purple-100 text-purple-800 rounded-lg py-3 font-semibold shadow hover:bg-purple-200 border border-purple-300 transition flex flex-col items-center">
-          <span class="text-2xl mb-1">🌍</span>
-          Add Destination
-        </button>
-        <button class="bg-blue-100 text-blue-800 rounded-lg py-3 font-semibold shadow hover:bg-blue-200 border border-blue-300 transition flex flex-col items-center">
-          <span class="text-2xl mb-1">🍽️</span>
-          Add Menu
-        </button>
-        <button class="bg-purple-100 text-purple-800 rounded-lg py-3 font-semibold shadow hover:bg-purple-200 border border-purple-300 transition flex flex-col items-center">
-          <span class="text-2xl mb-1">👤</span>
-          View Users
-        </button>
-        <button class="bg-blue-100 text-blue-800 rounded-lg py-3 font-semibold shadow hover:bg-blue-200 border border-blue-300 transition flex flex-col items-center">
-          <span class="text-2xl mb-1">✉️</span>
-          Send Notification
-        </button>
+        <router-link to="/admin/destinations" class="w-full">
+          <button class="w-full bg-purple-100 text-purple-800 rounded-lg py-3 font-semibold shadow hover:bg-purple-200 border border-purple-300 transition flex flex-col items-center">
+            <span class="text-2xl mb-1">🌍</span>
+            Add Destination
+          </button>
+        </router-link>
+
+        <router-link to="/admin/menu" class="w-full">
+          <button class="w-full bg-blue-100 text-blue-800 rounded-lg py-3 font-semibold shadow hover:bg-blue-200 border border-blue-300 transition flex flex-col items-center">
+            <span class="text-2xl mb-1">🍽️</span>
+            Add Menu
+          </button>
+        </router-link>
+
+        <router-link to="/admin/users" class="w-full">
+          <button class="w-full bg-purple-100 text-purple-800 rounded-lg py-3 font-semibold shadow hover:bg-purple-200 border border-purple-300 transition flex flex-col items-center">
+            <span class="text-2xl mb-1">👤</span>
+            View Users
+          </button>
+        </router-link>
+
+        <router-link to="/admin/chat" class="w-full">
+          <button class="w-full bg-blue-100 text-blue-800 rounded-lg py-3 font-semibold shadow hover:bg-blue-200 border border-blue-300 transition flex flex-col items-center">
+            <span class="text-2xl mb-1">✉️</span>
+            Send Notification
+          </button>
+        </router-link>
       </div>
     </div>
 
@@ -130,6 +174,7 @@
           </div>
         </div>
       </div>
+      
       <!-- Recent Messages -->
       <div class="bg-white rounded-xl p-6 shadow border border-gray-200">
         <div class="font-semibold text-gray-800 mb-4">Recent Messages</div>
@@ -214,47 +259,167 @@
 </template>
 
 <script setup>
-import { ref, onMounted, nextTick } from 'vue'
+import { ref, onMounted, watch } from 'vue'
+import axios from 'axios'
 
 const revenueChart = ref(null)
+let chartInstance = null 
 
-onMounted(async () => {
-  await nextTick()
-  if (window.Chart && revenueChart.value) {
-    new window.Chart(revenueChart.value.getContext('2d'), {
-      type: 'line',
-      data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-        datasets: [{
-          label: 'Revenue',
-          data: [1200, 1900, 3000, 2500, 3200, 4000, 3800],
-          borderColor: '#8b5cf6', // Purple
-          backgroundColor: 'rgba(139, 92, 246, 0.1)',
-          tension: 0.4,
-          fill: true,
-          pointBackgroundColor: '#8b5cf6',
-          pointBorderColor: '#fff',
-          pointRadius: 5,
-        }]
-      },
-      options: {
-        plugins: {
-          legend: { display: false }
-        },
-        scales: {
-          x: {
-            grid: { color: '#e5e7eb' },
-            ticks: { color: '#6b7280' }
-          },
-          y: {
-            grid: { color: '#e5e7eb' },
-            ticks: { color: '#6b7280' }
-          }
-        }
-      }
-    })
+// Reactive state for dashboard stats
+const totalUsers = ref(0)
+const totalBookings = ref(0)
+const totalRevenue = ref(0)
+const totalBlogs = ref(320) 
+const blogs = ref([]) // Store all blogs
+const avgRating = ref(4.8)
+const selectedMonthRange = ref(0)  
+const filteredRevenueData = ref([])
+const displayedMonthRevenue = ref(0)
+const revenueChangePercent = ref(0)
+const allMonthsLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+const monthsLabels = allMonthsLabels.slice(0, filteredRevenueData.value.length)
+
+
+
+// Revenue data per month for the chart (Jan - Jul)
+const revenueData = ref([0, 0, 0, 0, 0, 0, 0])
+function updateFilteredData() {
+  const monthIndex = Number(selectedMonthRange.value) - 1
+
+  if (selectedMonthRange.value === 0) {
+    // Show total revenue for all months
+    displayedMonthRevenue.value = revenueData.value.reduce((sum, val) => sum + val, 0)
+    revenueChangePercent.value = 0 // or calculate change compared to last month or previous year if you want
+
+    // For chart show all 12 months data
+    filteredRevenueData.value = revenueData.value.slice(0, 12)
+  } else {
+    // Show revenue for selected month only
+    displayedMonthRevenue.value = revenueData.value[monthIndex] || 0
+
+    if (monthIndex > 0) {
+      const prevMonthRevenue = revenueData.value[monthIndex - 1] || 0
+      revenueChangePercent.value = prevMonthRevenue === 0 ? 0 : ((displayedMonthRevenue.value - prevMonthRevenue) / prevMonthRevenue) * 100
+    } else {
+      revenueChangePercent.value = 0
+    }
+
+    // Show just the selected month on the chart
+    filteredRevenueData.value = [displayedMonthRevenue.value]
+  }
+}
+
+
+
+
+
+
+
+// When revenueData changes, recalc filtered data immediately
+watch(revenueData, () => {
+  updateFilteredData()
+}, { deep: true, immediate: true })
+
+// When selected month changes, update filtered data and rerender chart
+watch(selectedMonthRange, () => {
+  updateFilteredData()
+  renderChart()
+})
+watch(filteredRevenueData, () => {
+  renderChart()
+}, { immediate: true })
+
+// Fetch all required stats from backend APIs
+async function fetchStats() {
+  try {
+    // 1. Get all users and count
+    const usersRes = await axios.get('http://localhost:5000/api/users')
+    totalUsers.value = usersRes.data.length
+
+    // 2. Get all bookings and count
+    const bookingsRes = await axios.get('http://localhost:5000/api/bookings')
+    totalBookings.value = bookingsRes.data.length
+
+    // 3. Get payments and revenue
+    const paymentsRes = await axios.get('http://localhost:5000/api/payments')
+    const payments = paymentsRes.data  // <- Must be here!
+        
+    const blogsRes = await axios.get('http://localhost:5000/api/featured-stories')
+    blogs.value = blogsRes.data
+    totalBlogs.value = blogs.value.length
+
+    revenueData.value = Array(12).fill(0)
+
+    payments.forEach(payment => {
+    const month = new Date(payment.createdAt).getMonth()  // 0-based
+  if (month >= 0 && month < 12) {
+    revenueData.value[month] += payment.amount
   }
 })
+console.log('Revenue by month:', revenueData.value)
+totalRevenue.value = revenueData.value.reduce((sum, val) => sum + val, 0)
+
+
+  } catch (error) {
+    console.error('Error fetching blogs:', error)
+  }
+}
+
+
+onMounted(() => {
+  fetchStats()
+})
+
+// Render ChartJS line chart with real revenue data
+function renderChart() {
+  if (!window.Chart || !revenueChart.value) return
+
+  if (chartInstance) {
+    chartInstance.destroy()
+  }
+
+  const allMonthsLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+  let labels = []
+  if (selectedMonthRange.value === 0) {
+    // Show all months
+    labels = allMonthsLabels.slice(0, filteredRevenueData.value.length)
+  } else {
+    // Show only selected month label
+    const monthIndex = selectedMonthRange.value - 1
+    labels = [allMonthsLabels[monthIndex] || '']
+  }
+
+  chartInstance = new window.Chart(revenueChart.value.getContext('2d'), {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Revenue',
+        data: filteredRevenueData.value,
+        borderColor: '#8b5cf6',
+        backgroundColor: 'rgba(139, 92, 246, 0.1)',
+        tension: 0.4,
+        fill: true,
+        pointBackgroundColor: '#8b5cf6',
+        pointBorderColor: '#fff',
+        pointRadius: 5,
+      }]
+    },
+    options: {
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { grid: { color: '#e5e7eb' }, ticks: { color: '#6b7280' } },
+        y: { grid: { color: '#e5e7eb' }, ticks: { color: '#6b7280' } }
+      }
+    }
+  })
+}
+
+
+
+
+
 
 const destinations = [
   {
@@ -290,7 +455,9 @@ const destinations = [
     rating: 4.7
   }
 ]
+
 </script>
+
 
 <style scoped>
 /* Custom scrollbar for light background */

@@ -61,7 +61,9 @@ router.get('/users/:userId', async (req, res) => {
   // router.delete('/messages/:id', messageController.deleteMessage);
   router.delete('/user/:sender', messageController.deleteMessagesBySender); 
   router.put('/rename', messageController.renameUserInMessages);
-
+  router.get('/recent', messageController.getRecentMessages);
+  router.get('/unread-counts', messageController.getUnreadCounts);
+  router.post('/mark-seen', messageController.markMessagesSeen);
 
   // Send message
   router.post('/', messageController.sendMessage);

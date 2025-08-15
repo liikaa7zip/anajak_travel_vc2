@@ -10,6 +10,9 @@ const flightRoutes = require('./routes/flightRoutes');
 const boatBookingRoutes = require('./routes/boatBookingRoutes');
 const userRoutes = require('./routes/userRoutes');
 const hotelRoutes = require('./routes/hotelRoutes');
+const hotelOwnerRoutes = require('./routes/hotelOwnerRoutes');
+const adminHotelRoutes = require('./routes/adminHotelRoutes');
+const userHotelRoutes = require('./routes/userHotelRoutes');
 const hotelBookingRoutes = require('./routes/hotelBookingRoutes');
 const locationRoutes = require('./routes/locationRoutes');
 
@@ -39,20 +42,30 @@ const galleryPhotosRoutes = require('./routes/galleryPhotosRoutes');
 const itineraryRoutes = require('./routes/itineraryRoutes');
 const categoryRoutes = require('./routes/category');
 const carRoutes = require('./routes/carRoutes');
-const seatsRoutes = require('./routes/seatsRoute')
+const seatsRoutes = require('./routes/seatsRoute');
+const reportRoutes = require('./routes/reportRoutes');
 
 const payment = require('./routes/PaymentRoutes');
 
 const app = express();
 const server = http.createServer(app);
 
+// ✅ Allow both Vue dev ports
+const allowedOrigins = ['http://localhost:3000', 'http://localhost:3001'];
+
 app.use(cors({
-  origin: 'http://localhost:3000',  // Your frontend URL
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
 }));
 
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
 
 // API Routes
 app.use('/api/users', userRoutes);
@@ -62,7 +75,10 @@ app.use('/api/flightbookings', flightRoutes);
 app.use('/api/boatbookings', boatBookingRoutes);
 app.use('/api/transports', transportRoutes);
 app.use('/api/hotels', hotelRoutes);
-app.use('/api/hotel-booking', hotelBookingRoutes);  // Note singular 'hotel-booking'
+app.use('/api/hotel-owners', hotelOwnerRoutes);
+app.use('/api/admin-hotels', adminHotelRoutes);
+app.use('/api/bookings', hotelBookingRoutes); 
+app.use('/api/user-hotels', userHotelRoutes);
 app.use('/api/locations', locationRoutes);
 app.use('/api/foods', foodRoutes);
 app.use('/api/orders', orderFoodRoutes);
@@ -73,15 +89,17 @@ app.use('/api/gallery-photos', galleryPhotosRoutes);
 app.use('/api/itineraries', itineraryRoutes);
 app.use('/api/payments', payment);
 app.use('/api/cars', carRoutes);
-app.use('/api/seats', seatsRoutes)
+app.use('/api/seats', seatsRoutes);
+app.use('/api/reports', reportRoutes);
 
 // Uncomment if you want admin user routes
 // app.use('/api/admin-users', adminUserRoutes);
 app.use('/api/categories', categoryRoutes);
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:3000',
+    origin:  allowedOrigins,
     methods: ['GET', 'POST'],
+    credentials: true,
   },
 });
 
@@ -97,7 +115,8 @@ io.on('connection', (socket) => {
         message: msg.message,
       });
 
-      // Emit to receiver (assuming you have userId-based rooms or tracking)
+      // Emit to both sender and receiver rooms
+      io.to(msg.senderId.toString()).emit('receive_message', savedMsg);
       io.to(msg.receiverId.toString()).emit('receive_message', savedMsg);
 
       // Confirm to sender
@@ -108,11 +127,14 @@ io.on('connection', (socket) => {
     }
   });
 
-  // When user connects, join a room with their user id for direct messages
+  // Join user to their room on connection
   socket.on('join', (userId) => {
     socket.join(userId);
   });
 });
+
+
+
 
 
 const PORT = process.env.PORT || 5000;
