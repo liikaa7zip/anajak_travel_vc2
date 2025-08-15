@@ -129,10 +129,8 @@ import AdminBoatBooking from '@/views/admin/AdminBoatBooking.vue'
 import AdminBusBooking from '@/views/admin/AdminBusBooking.vue'
 import Dashboard from '@/views/admin/Dashboard.vue'
 import Payment from '@/components/Payment.vue'
-<<<<<<< HEAD
 import AdminHotelBooking from '@/views/admin/AdminHotelBooking.vue'
 import CreateHotel from '@/views/admin/CreateHotel.vue'
-=======
 import TransportDashbord from '@/views/TransportOwner/TransportDashbord.vue'
 import TransportLayout from '@/layouts/TransportLayout.vue'
 import TransportUser from '@/views/TransportOwner/TransportUser.vue'
@@ -142,7 +140,6 @@ import TransportOwnerChat from '@/views/TransportOwner/TransportOwnerChat.vue'
 import AdminReport from '@/views/admin/AdminReport.vue'
 import BookingTable from '@/components/AdminReport/BookingTable.vue'
 import HotelChat from '@/views/HotelOwner/HotelChat.vue'
->>>>>>> master
 // Auth guard
 
 const getUserFromStorage = () => {
@@ -268,13 +265,10 @@ const routes = [
       { path: 'flight', component: AdminFlightBooking },
       { path: 'boat', component: AdminBoatBooking },
       { path: 'bus', component: AdminBusBooking},
-<<<<<<< HEAD
       { path: 'admin-hotel', component: AdminHotelBooking },
       { path : 'create-hotel', component: CreateHotel },
-=======
       { path: 'report', component: AdminReport },
       { path: 'report/booking-table', component: BookingTable},
->>>>>>> master
     ]
   },
   {
