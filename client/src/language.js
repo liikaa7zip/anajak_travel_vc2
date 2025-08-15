@@ -2,6 +2,8 @@ import { createI18n } from 'vue-i18n'
 import PhnomPenh from './views/provinces/PhnomPenh.vue'
 import KohKong from './views/provinces/KohKong.vue'
 import Kandal from './views/provinces/Kandal.vue'
+import KampongCham from './views/provinces/KampongCham.vue'
+import KampongChhnang from './views/provinces/KampongChhnang.vue'
 // Translation messages
 const messages = {
     en: {
@@ -666,6 +668,52 @@ const messages = {
                 PhotoGallery: "Photo Gallery",
                 Map: "Province Map",
             },
+            KampongCham: {
+                KPCHeroTitle: "Kampong Cham",
+                KPCHeroSubtitle: "Province",
+                aboutKPC: "About Kampong Cham Province",
+                aboutKPCDescription: "Kampong Cham is one of Cambodia’s most culturally rich provinces. The name means 'Port of the Chams,' referencing the Cham people, an ethnic minority group with Islamic heritage. The province is known for its peaceful riverside atmosphere, historical temples, and old French colonial buildings. It offers an authentic glimpse into rural Cambodian life.",
+                Attractions: {
+                    AttractionTitle: "Top Attractions",
+                    First: "Phnom Pros and Phnom Srey",
+                    Second: "Bamboo Bridge",
+                    Third: "Mekong River",
+                    Fourth: "Wat Nokor"
+                },
+                ThingsToDo: "Things to Do",
+                First: "Visit Phnom Pros and Phnom Srey",
+                Second: "Explore the Bamboo Bridge",
+                Third: "Enjoy the Mekong River views",
+                TravelTips: "Travel Tips",
+                BestTime: "Best time: Nov – Mar",
+                Transport: "Transport: Bus, Motorbike",
+                DressCode: "Bring a hat for sun protection",
+                PhotoGallery: "Photo Gallery",
+                Map: "Province Map",
+            },
+            KampongChhnang: {
+                KPCHHeroTitle: "Kampong Chhnang",
+                KPCHeroSubtitle: "Province",
+                aboutKPCH: "About Kampong Chhnang Province",
+                aboutKPCHDescription: "Kampong Chhnang, meaning “Port of Pottery,” is a central province in Cambodia, located along the Tonlé Sap River. Known for its scenic landscapes, floating villages, and traditional pottery, Kampong Chhnang is rich in history, culture, and natural beauty. It serves as a vital agricultural hub, especially for rice farming, due to its fertile plains and proximity to waterways.",
+                Attractions: {
+                    AttractionTitle: "Top Attractions",
+                    First: "Pottery Villages",
+                    Second: "Floating Villages",
+                    Third: "Tonle Sap River",
+                    Fourth: "Makong River"
+                },
+                ThingsToDo: "Things to Do",
+                First: "Visit Pottery Villages",
+                Second: "Explore the Floating Villages",
+                Third: "Take a boat ride on Tonle Sap",
+                TravelTips: "Travel Tips",
+                BestTime: "Best time: Nov – Mar",
+                Transport: "Transport: Boat, Motorbike",
+                DressCode: "Bring a camera for scenery",
+                PhotoGallery: "Photo Gallery",
+                Map: "Province Map",
+            },
         },
     },
 
@@ -916,6 +964,52 @@ const messages = {
                 BestTime: "ពេលវេលាល្អបំផុត: ខែវិច្ឆិកា – ខែមីនា",
                 Transport: "ការដឹកជញ្ជូន: ឡានក្រុង, តាក់ស៊ី, កប៉ាល់",
                 DressCode: "សម្លៀកបំពាក់សម្រួលសម្រាប់ដំណើរកំសាន្តតាមទន្លេ",
+                PhotoGallery: "រូបថត",
+                Map: "ផែនទីខេត្ត",
+            },
+             KampongCham: {
+                KPCHeroTitle: "កំពង់ចាម",
+                KPCHeroSubtitle: "ខេត្ត",
+                aboutKPC: "អំពីខេត្តកំពង់ចាម",
+                aboutKPCDescription: "កំពង់ចាម ជា​ខេត្ត​មួយ​ក្នុង​ចំណោម​ខេត្ត​សម្បូរ​វប្បធម៌​បំផុត​របស់​កម្ពុជា។ ឈ្មោះ​នេះ​មាន​ន័យ​ថា “កំពង់ផែ​ចាម” ដែល​សំដៅ​លើ​ជនជាតិ​ចាម ជា​ក្រុម​ជនជាតិ​ភាគតិច​ដែល​មាន​កេរដំណែល​សាសនា​ឥស្លាម។ ខេត្ត​នេះ​ត្រូវ​បាន​គេ​ស្គាល់​ថា​មាន​បរិយាកាស​ស្ងប់ស្ងាត់​តាម​មាត់​ទន្លេ ប្រាសាទ​ប្រវត្តិសាស្ត្រ និង​អគារ​សម័យ​អាណានិគម​បារាំង​ចាស់។ វា​ផ្តល់​នូវ​ទិដ្ឋភាព​ពិត​ប្រាកដ​ក្នុង​ជីវិត​ជន​បទ​ខ្មែរ។",
+                Attractions: {
+                    AttractionTitle: "កន្លែងទាក់ទាញ",
+                    First: "ភ្នំប្រុស និង ភ្នំស្រី",
+                    Second: "ស្ពានឈើ",
+                    Third: "ទន្លេមេគង្គ",
+                    Fourth: "វត្តនគរ"
+                },
+                ThingsToDo: "អ្វីដែលត្រូវធ្វើ",
+                First: "ទស្សនាភ្នំប្រុស និង ភ្នំស្រី",
+                Second: "ស្វែងយល់អំពីស្ពានឈើ",
+                Third: "អនុស្សាវរីយ៍ទន្លេមេគង្គ",
+                TravelTips: "គន្លឹះធ្វើដំណើរ",
+                BestTime: "ពេលវេលាល្អបំផុត: ខែវិច្ឆិកា – ខែមីនា",
+                Transport: "ការដឹកជញ្ជូន៖ ឡានក្រុង ម៉ូតូ",
+                DressCode: "យកមួកសម្រាប់ការពារកំដៅថ្ងៃ",
+                PhotoGallery: "រូបថត",
+                Map: "ផែនទីខេត្ត",
+            },
+            KampongChhnang: {
+                KPCHHeroTitle: "កំពង់ឆ្នាំង",
+                KPCHeroSubtitle: "ខេត្ត",
+                aboutKPCH: "អំពីខេត្តកំពង់ឆ្នាំង",
+                aboutKPCHDescription: "កំពង់ឆ្នាំង មានន័យថា “កំពង់ផែផូស្វ័រ” គឺជាខេត្តកណ្តាលមួយក្នុងប្រទេសកម្ពុជា ដែលមានទីតាំងនៅតាមដងទន្លេសាប។ កំពង់ឆ្នាំង​សម្បូរ​ទៅដោយ​ប្រវត្តិសាស្ត្រ វប្បធម៌ និង​សម្រស់​ធម្មជាតិ​ដែល​ល្បីល្បាញ​ដោយសារ​ទេសភាព​ភូមិ​បណ្តែត​ទឹក និង​សិប្បកម្ម​បុរាណ​។ វាបម្រើជាមជ្ឈមណ្ឌលកសិកម្មដ៏សំខាន់ ជាពិសេសសម្រាប់ការធ្វើស្រែចម្ការ ដោយសារវាលទំនាបមានជីជាតិ និងនៅជិតផ្លូវទឹក។",
+                Attractions: {
+                    AttractionTitle: "កន្លែងទាក់ទាញ",
+                    First: "ភូមិសិប្បកម្ម",
+                    Second: "ភូមិចង្វាក់",
+                    Third: "ទន្លេសាប",
+                    Fourth: "ទន្លេមេគង្គ"
+                },
+                ThingsToDo: "អ្វីដែលត្រូវធ្វើ",
+                First: "ទស្សនាភូមិសិប្បកម្ម",
+                Second: "ស្វែងយល់អំពីភូមិចង្វាក់",
+                Third: "ជិះកប៉ាល់នៅទន្លេសាប",
+                TravelTips: "គន្លឹះធ្វើដំណើរ",
+                BestTime: "ពេលវេលាល្អបំផុត: ខែវិច្ឆិកា – ខែមីនា",
+                Transport: "ការដឹកជញ្ជូន៖ ទូក ម៉ូតូ",
+                DressCode: "យកកាមេរ៉ាសម្រាប់ថតទេសភាព",
                 PhotoGallery: "រូបថត",
                 Map: "ផែនទីខេត្ត",
             },
