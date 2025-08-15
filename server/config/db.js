@@ -28,7 +28,7 @@
 const { Sequelize} = require('sequelize');
 
 const sequelize = new Sequelize(
-  'anajak_travel_vc2', // database name
+  'anajak_travel_vc', // database name
   'root',              // username
   null,                // password
   {

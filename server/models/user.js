@@ -1,11 +1,6 @@
-
 'use strict';
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/db');
 
-
-
-module.exports = (sequelize) => {
+module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     id: {
       type: DataTypes.INTEGER,

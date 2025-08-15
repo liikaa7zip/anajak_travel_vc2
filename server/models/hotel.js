@@ -29,18 +29,10 @@ module.exports = (sequelize, DataTypes) => {
     ownerId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {
-        model: 'Users',
-        key: 'id'
-      }
     },
     locationId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {
-        model: 'Locations',
-        key: 'id'
-      }
     }
   });
   return Hotel;
