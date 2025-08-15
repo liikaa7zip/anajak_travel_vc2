@@ -9,8 +9,8 @@
       />
       <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center px-10">
         <h1 class="text-white text-3xl sm:text-6xl font-bold">
-          <i class="fa-solid fa-location-dot"></i> Prey Veng <br />
-          <span class="text-4xl">Province</span>
+          <i class="fa-solid fa-location-dot"></i> {{ $t("Province.PreyVeng.PVHeroTitle") }} <br />
+          <span class="text-5xl">{{ $t("Province.PreyVeng.PVHeroSubtitle") }}</span>
         </h1>
       </div>
     </section>
@@ -18,10 +18,10 @@
     <!-- About Section -->
     <section class="pt-12 pb-6 px-16">
       <div class="bg-white rounded-lg shadow p-4 flex flex-col sm:flex-row items-start justify-between gap-4">
-        <div class="max-w-xl">
-          <h2 class="text-2xl font-semibold mb-2 text-purple-600">About Prey Veng</h2>
-          <p class="text-sm text-gray-700">
-            Prey Veng is a largely agricultural province in southeastern Cambodia, known for its vast rice fields and rural lifestyle. It offers a glimpse into traditional Khmer village life, with pagodas, markets, and festivals. The province is also home to several ancient temples, including Wat Preah En Kauv, dating back to the Angkor period.
+        <div class="max-w-xl m-8">
+          <h2 class="text-2xl font-semibold mb-2 text-purple-600">{{ $t("Province.PreyVeng.aboutPV") }}</h2>
+          <p class="text-lg text-gray-700">
+            {{ $t("Province.PreyVeng.aboutPVDescription") }}
           </p>
         </div>
         <img
@@ -34,7 +34,7 @@
 
     <!-- Top Attractions -->
     <section class="py-6 px-16">
-      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Top Attractions</h2>
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">{{ $t("Province.PreyVeng.Attractions.AttractionTitle") }}</h2>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div v-for="(attraction, index) in topAttractions" :key="index" class="bg-white rounded shadow overflow-hidden">
           <img :src="attraction.img" alt="" class="w-full h-40 object-cover" />
@@ -46,26 +46,26 @@
     <!-- Things to Do & Travel Tips -->
     <section class="py-6 px-16 grid sm:grid-cols-2 gap-6">
       <div>
-        <h2 class="text-2xl font-semibold mb-2 text-purple-600">Things to Do</h2>
-        <ul class="list-disc pl-5 text-sm text-gray-700">
-          <li>Visit ancient Wat Preah En Kauv temple</li>
-          <li>Explore local floating villages</li>
-          <li>Experience rural Khmer markets and festivals</li>
+        <h2 class="text-2xl font-semibold mb-2 text-purple-600">{{ $t("Province.PreyVeng.ThingsToDo") }}</h2>
+        <ul class="list-disc pl-5 text-lg text-gray-700">
+          <li>{{ $t("Province.PreyVeng.First") }}</li>
+          <li>{{ $t("Province.PreyVeng.Second") }}</li>
+          <li>{{ $t("Province.PreyVeng.Third") }}</li>
         </ul>
       </div>
       <div>
-        <h2 class="text-2xl font-semibold mb-2 text-purple-600">Travel Tips</h2>
-        <ul class="list-disc pl-5 text-sm text-gray-700">
-          <li>Best time to visit: Nov – Feb</li>
-          <li>Travel by motorbike or local bus</li>
-          <li>Respect local customs and traditions</li>
+        <h2 class="text-2xl font-semibold mb-2 text-purple-600">{{ $t("Province.PreyVeng.TravelTips") }}</h2>
+        <ul class="list-disc pl-5 text-lg text-gray-700">
+          <li>{{ $t("Province.PreyVeng.BestTime") }}</li>
+          <li>{{ $t("Province.PreyVeng.Transport") }}</li>
+          <li>{{ $t("Province.PreyVeng.DressCode") }}</li>
         </ul>
       </div>
     </section>
 
     <!-- Photo Gallery -->
     <section class="py-6 px-16">
-      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Photo Gallery</h2>
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">{{ $t("Province.PreyVeng.PhotoGallery") }}</h2>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <img v-for="(photo, index) in galleryPhotos" :key="index" :src="photo" alt="" class="rounded shadow object-cover h-28 w-full" />
       </div>
@@ -73,7 +73,7 @@
 
     <!-- Province Map -->
     <section class="py-6 px-16">
-      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Province Map</h2>
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">{{ $t("Province.PreyVeng.Map") }}</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.116340637763!2d105.22914627588628!3d11.484219989592417!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3107a6df6db5fef9%3A0xc0513431638e2575!2sPrey%20Veng%20Province!5e0!3m2!1sen!2skh!4v1710000000019"
