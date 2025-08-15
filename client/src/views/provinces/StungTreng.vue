@@ -9,8 +9,8 @@
       />
       <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center px-10">
         <h1 class="text-white text-3xl sm:text-6xl font-bold">
-          <i class="fa-solid fa-location-dot"></i> Stung Treng <br />
-          <span class="text-4xl">Province</span>
+          <i class="fa-solid fa-location-dot"></i> {{ $t("Province.StungTreng.STHeroTitle") }} <br />
+          <span class="text-5xl">{{ $t("Province.StungTreng.STHeroSubtitle") }}</span>
         </h1>
       </div>
     </section>
@@ -18,10 +18,10 @@
     <!-- About Section -->
     <section class="pt-12 pb-6 px-16">
       <div class="bg-white rounded-lg shadow p-4 flex flex-col sm:flex-row items-start justify-between gap-4">
-        <div class="max-w-xl">
-          <h2 class="text-2xl font-semibold mb-2 text-purple-600">About Stung Treng</h2>
-          <p class="text-sm text-gray-700">
-            Stung Treng is a northern Cambodian province situated along the Mekong River and near the Laos border. It is known for its dense forests, rich biodiversity, and beautiful river landscapes. The province offers excellent opportunities for ecotourism, including fishing, boat tours, and visits to protected wildlife areas.
+        <div class="max-w-xl m-8">
+          <h2 class="text-2xl font-semibold mb-2 text-purple-600">{{ $t("Province.StungTreng.aboutST") }}</h2>
+          <p class="text-lg text-gray-700">
+            {{ $t("Province.StungTreng.aboutSTDescription") }}
           </p>
         </div>
         <img
@@ -34,7 +34,7 @@
 
     <!-- Top Attractions -->
     <section class="py-6 px-16">
-      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Top Attractions</h2>
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">{{ $t("Province.StungTreng.Attractions.AttractionTitle") }}</h2>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div v-for="(attraction, index) in topAttractions" :key="index" class="bg-white rounded shadow overflow-hidden">
           <img :src="attraction.img" alt="" class="w-full h-40 object-cover" />
@@ -46,26 +46,26 @@
     <!-- Things to Do & Travel Tips -->
     <section class="py-6 px-16 grid sm:grid-cols-2 gap-6">
       <div>
-        <h2 class="text-2xl font-semibold mb-2 text-purple-600">Things to Do</h2>
-        <ul class="list-disc pl-5 text-sm text-gray-700">
-          <li>Boat tours on the Mekong River</li>
-          <li>Visit the Sekong and Sre Pok river confluence</li>
-          <li>Explore the Upper Mekong protected forests</li>
+        <h2 class="text-2xl font-semibold mb-2 text-purple-600">{{ $t("Province.StungTreng.ThingsToDo") }}</h2>
+        <ul class="list-disc pl-5 text-lg text-gray-700">
+          <li>{{ $t("Province.StungTreng.First") }}</li>
+          <li>{{ $t("Province.StungTreng.Second") }}</li>
+          <li>{{ $t("Province.StungTreng.Third") }}</li>
         </ul>
       </div>
       <div>
-        <h2 class="text-2xl font-semibold mb-2 text-purple-600">Travel Tips</h2>
-        <ul class="list-disc pl-5 text-sm text-gray-700">
-          <li>Best time to visit: Nov – Mar</li>
-          <li>Bring insect repellent for forested areas</li>
-          <li>Hire local guides for nature excursions</li>
+        <h2 class="text-2xl font-semibold mb-2 text-purple-600">{{ $t("Province.StungTreng.TravelTips") }}</h2>
+        <ul class="list-disc pl-5 text-lg text-gray-700">
+          <li>{{ $t("Province.StungTreng.BestTime") }}</li>
+          <li>{{ $t("Province.StungTreng.Transport") }}</li>
+          <li>{{ $t("Province.StungTreng.DressCode") }}</li>
         </ul>
       </div>
     </section>
 
     <!-- Photo Gallery -->
     <section class="py-6 px-16">
-      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Photo Gallery</h2>
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">{{ $t("Province.StungTreng.PhotoGallery") }}</h2>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <img v-for="(photo, index) in galleryPhotos" :key="index" :src="photo" alt="" class="rounded shadow object-cover h-28 w-full" />
       </div>
@@ -73,7 +73,7 @@
 
     <!-- Province Map -->
     <section class="py-6 px-16">
-      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Province Map</h2>
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">{{ $t("Province.StungTreng.Map") }}</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3937.615853732586!2d105.56318741579908!3d13.524648691417864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311e7ff3f4b71eab%3A0x1a4e7bbf3e2b3d9f!2sStung%20Treng%20Province!5e0!3m2!1sen!2skh!4v1710000000027"
