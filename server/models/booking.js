@@ -63,10 +63,10 @@ module.exports = (sequelize, DataTypes) => {
     carId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {
-        model: 'cars',
-        key: 'id',
-      },
+      // references: {
+      //   model: 'cars',
+      //   key: 'id',
+      // },
     },
 
     time: {
