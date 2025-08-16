@@ -1,6 +1,6 @@
 // Enhanced Hotel Owner Routes
 const router = require('express').Router();
-const controller = require('../controllers/HotelOwnerController');
+const controller = require('../controllers/hotelOwnerController');
 const { verifyHotelOwner,verifyToken} = require('../middlewares/authMiddleware');
 
 // Apply hotel owner verification middleware to all routes
