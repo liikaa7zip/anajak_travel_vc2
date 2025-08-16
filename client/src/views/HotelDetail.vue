@@ -67,25 +67,67 @@
         <!-- Rooms List -->
         <div>
           <h2 class="text-xl font-semibold text-gray-800 mb-4">Available Rooms</h2>
-          <div v-if="rooms.length > 0" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div v-for="room in rooms" :key="room.id" class="border rounded-lg p-4 shadow hover:shadow-lg">
-              <div class="flex justify-between items-center mb-2">
-                <div>
-                  <div class="font-bold text-lg">Room #{{ room.roomNumber }}</div>
-                  <div class="text-gray-600 text-sm">{{ room.RoomCategory?.name || room.type }}</div>
-                </div>
-                <div class="text-green-700 font-bold text-lg">${{ room.pricePerNight?.toFixed(2) || 'N/A' }}</div>
-              </div>
-              <div class="text-gray-500 text-sm mb-2">Max Occupancy: {{ room.maxOccupancy || '-' }}</div>
-              <div class="mb-2 text-xs text-gray-500">{{ room.RoomCategory?.description }}</div>
-              <router-link
-                :to="`/book/${hotel.id}?roomId=${room.id}`"
-                class="inline-block bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition"
-              >
-                Book This Room
-              </router-link>
-            </div>
-          </div>
+          <div v-if="rooms.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  <div
+  v-for="room in rooms"
+  :key="room.id"
+  class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
+>
+  <img
+  :src="room.images && room.images.length > 0
+        ? room.images[0]
+        : 'https://placehold.co/400x250?text=No+Image'"
+  :alt="`Room ${room.roomNumber}`"
+  class="w-full h-[200px] object-cover"
+  @error="handleImageError"
+/>
+
+
+
+
+
+
+
+    <!-- Room Content -->
+    <div class="p-4 space-y-3">
+      <!-- Room Info -->
+      <div class="flex justify-between items-start">
+        <div>
+          <h3 class="font-bold text-lg">Room #{{ room.roomNumber }}</h3>
+          <p class="text-sm text-gray-500">{{ room.RoomCategory?.name || room.type }}</p>
+        </div>
+        <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">
+          ${{ room.pricePerNight?.toFixed(2) || 'N/A' }}
+        </span>
+      </div>
+
+      <!-- Description -->
+      <p class="text-gray-600 text-sm line-clamp-3">
+        {{ room.RoomCategory?.description || 'No description available' }}
+      </p>
+
+      <!-- Amenities -->
+      <div v-if="room.amenities && room.amenities.length" class="flex flex-wrap gap-1">
+  <span v-for="(amenity, index) in room.amenities" :key="index"
+        class="bg-blue-50 text-blue-700 px-2 py-0.5 rounded text-xs">
+    {{ amenity }}
+  </span>
+</div>
+
+
+
+
+      <!-- Action -->
+      <router-link
+        :to="`/book/${hotel.id}?roomId=${room.id}`"
+        class="block w-full text-center bg-purple-600 text-white py-2 rounded-lg font-medium hover:bg-purple-700 transition"
+      >
+        Book This Room
+      </router-link>
+    </div>
+  </div>
+</div>
+
           <div v-else class="text-gray-500 italic">No available rooms for this hotel.</div>
         </div>
       </div>
@@ -113,19 +155,27 @@ const isValidPrice = (price) => {
 };
 
 const handleImageError = (event) => {
-  console.warn(`Image load failed for hotel ${route.params.id}`);
-  event.target.src = 'https://via.placeholder.com/800x400';
+  const altText = event.target.alt || 'Room/Hotel';
+  console.warn(`Image load failed: ${altText}`);
+  event.target.src = 'https://placehold.co/400x250?text=No+Image';
 };
+
+
 
 const fetchRooms = async (hotelId) => {
   try {
-    const res = await axios.get(`http://localhost:5000/api/hotels/${hotelId}/rooms`);
-    rooms.value = res.data;
+    const res = await axios.get(`http://localhost:5000/api/hotel-owners/rooms`);
+    rooms.value = res.data.map(room => ({
+      ...room,
+      amenities: Array.isArray(room.amenities) ? room.amenities : JSON.parse(room.amenities || '[]')
+    }));
   } catch (err) {
     rooms.value = [];
     console.error('Error fetching rooms:', err);
   }
 };
+
+
 
 onMounted(async () => {
   loading.value = true;
@@ -140,6 +190,8 @@ onMounted(async () => {
     loading.value = false;
   }
 });
+
+
 </script>
     <style scoped>
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
