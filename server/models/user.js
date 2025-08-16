@@ -1,11 +1,6 @@
-
 'use strict';
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/db');
 
-
-
-module.exports = (sequelize) => {
+module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     id: {
       type: DataTypes.INTEGER,
@@ -20,7 +15,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
-      validate: { isEmail: true }
+      validate: { isEmail: true },
     },
     password: {
       type: DataTypes.STRING,
