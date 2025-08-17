@@ -44,9 +44,8 @@ const categoryRoutes = require('./routes/category');
 const carRoutes = require('./routes/carRoutes');
 const seatsRoutes = require('./routes/seatsRoute');
 const reportRoutes = require('./routes/reportRoutes');
-
 const payment = require('./routes/PaymentRoutes');
-
+const reviewRoutes = require('./routes/reviewRoutes');
 const app = express();
 const server = http.createServer(app);
 
@@ -91,7 +90,8 @@ app.use('/api/payments', payment);
 app.use('/api/cars', carRoutes);
 app.use('/api/seats', seatsRoutes);
 app.use('/api/reports', reportRoutes);
-
+app.use('/api/reviews', reviewRoutes);
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // Uncomment if you want admin user routes
 // app.use('/api/admin-users', adminUserRoutes);
 app.use('/api/categories', categoryRoutes);
