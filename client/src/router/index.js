@@ -15,6 +15,7 @@ import TravelingGuide from '../views/TravelingGuide.vue'
 import UserChat from '../views/UserChat.vue'
 import favorite from '@/views/favorite.vue'
 
+
 // Travel Booking
 import BusTickets from '../views/Travelingbooking/BusTickets.vue'
 import BoatTickets from '../views/Travelingbooking/BoatTickets.vue'
@@ -141,6 +142,7 @@ import AdminReport from '@/views/admin/AdminReport.vue'
 import BookingTable from '@/components/AdminReport/BookingTable.vue'
 import HotelChat from '@/views/HotelOwner/HotelChat.vue'
 import CreateRoom from '@/views/HotelOwner/CreateRoom.vue'
+import Review from '@/views/Review.vue'
 // Auth guard
 
 const getUserFromStorage = () => {
@@ -169,6 +171,7 @@ const routes = [
       { path: 'guide', component: TravelingGuide },
       { path: 'chat', component: UserChat },
       { path: 'booking-history', component: BookingHistory },
+      { path: "review", name: "Review", component: Review },
 
       // Hotels
       { path: 'hotel', component: HotelList },

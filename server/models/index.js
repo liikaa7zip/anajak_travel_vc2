@@ -26,6 +26,7 @@ db.BoatBooking = require('./BoatBooking')(sequelize, DataTypes);
 db.Category = require('./Category')(sequelize, DataTypes);
 db.Payment = require('./Payment')(sequelize, DataTypes);
 db.Car = require('./car')(sequelize, Sequelize.DataTypes);
+db.Review = require('./review')(sequelize, DataTypes);
 // === Define Relationships === //
 
 // User ↔ Hotel (hotel owner)
@@ -104,6 +105,9 @@ db.Food.belongsToMany(db.Order, {
     foreignKey: 'foodId',
     otherKey: 'orderId'
 });
+// === Review Associations === //
+db.User.hasMany(db.Review, { foreignKey: 'userId', as: 'reviews', onDelete: 'CASCADE' });
+db.Review.belongsTo(db.User, { foreignKey: 'userId', as: 'user' });
 
 
 module.exports = db;
