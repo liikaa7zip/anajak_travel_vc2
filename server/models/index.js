@@ -23,6 +23,8 @@ db.Booking = require('./booking')(sequelize, Sequelize.DataTypes);
 db.Category = require('./Category')(sequelize, Sequelize.DataTypes);
 db.Payment = require('./Payment')(sequelize, DataTypes);
 db.Car = require('./car')(sequelize, Sequelize.DataTypes);
+db.GalleryPhoto = require('./GalleryPhoto')(sequelize, DataTypes);
+
 // === Define Relationships === //
 
 // User ↔ HotelBooking

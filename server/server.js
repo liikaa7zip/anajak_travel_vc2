@@ -3,6 +3,9 @@ const express = require('express');
 const http = require('http');
 const cors = require('cors');
 const { sequelize } = require('./models');
+const multer = require("multer");
+const fs = require("fs");
+
 
 const bookingRoutes = require('./routes/bookingRoute');
 const transportRoutes = require('./routes/transportRoutes');
@@ -85,6 +88,31 @@ app.use('/api/payments', payment);
 app.use('/api/cars', carRoutes);
 app.use('/api/seats', seatsRoutes);
 app.use('/api/reports', reportRoutes);
+app.use("/uploads", express.static("uploads"));
+
+// Serve uploads folder so images can be accessed publicly
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+const uploadDir = path.join(__dirname, "uploads");
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir);
+}
+
+// Configure multer storage
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, uploadDir);
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
+
+const upload = multer({ storage });
+
+// Route for upload
+app.post("/upload", upload.single("file"), (req, res) => {
+  res.json({ file: req.file });
+});
 
 // Uncomment if you want admin user routes
 // app.use('/api/admin-users', adminUserRoutes);
