@@ -79,7 +79,7 @@ app.use('/api/transports', transportRoutes);
 app.use('/api/hotels', hotelRoutes);
 app.use('/api/hotel-owners', hotelOwnerRoutes);
 app.use('/api/admin-hotels', adminHotelRoutes);
-app.use('/api/bookings', hotelBookingRoutes); 
+app.use('/api/hotel-bookings', hotelBookingRoutes); 
 app.use('/api/user-hotels', userHotelRoutes);
 app.use('/api/locations', locationRoutes);
 app.use('/api/foods', foodRoutes);

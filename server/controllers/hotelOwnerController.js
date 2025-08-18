@@ -263,45 +263,76 @@ exports.getRooms = async (req, res) => {
   }
 };
 
+// GET available rooms for users
 exports.getRoomsForUsers = async (req, res) => {
-  const hotelId = req.params.hotelId;
-
   try {
-    const hotel = await Hotel.findByPk(hotelId);
-    if (!hotel) return res.status(404).json({ error: 'Hotel not found' });
+    const { hotelId } = req.params;
 
-    const rooms = await Room.findAll({
+    if (!hotelId) {
+      return res.status(400).json({ message: 'Hotel ID is required' });
+    }
+
+    // 1. Find all rooms in this hotel
+    const allRooms = await Room.findAll({
       where: { hotelId },
       include: [
-        { model: RoomCategory, as: 'RoomCategory', attributes: ['name', 'description'] }
+        { model: RoomCategory, attributes: ['name', 'description'] }
       ]
     });
 
-    const formattedRooms = rooms.map(room => {
-      let images = [];
-      if (room.images) {
-        if (Array.isArray(room.images)) images = room.images;
-        else if (typeof room.images === 'string') {
-          try { images = JSON.parse(room.images); } catch { images = [room.images]; }
-        }
-      }
-
-      let amenities = [];
-      if (room.amenities) {
-        if (Array.isArray(room.amenities)) amenities = room.amenities;
-        else if (typeof room.amenities === 'string') {
-          try { amenities = JSON.parse(room.amenities); } catch { amenities = [room.amenities]; }
-        }
-      }
-
-      return { ...room.toJSON(), images, amenities };
+    // 2. Find all bookings for this hotel with status pending/confirmed
+    const bookedRooms = await HotelBooking.findAll({
+      where: {
+        hotelId,
+        status: { [Op.in]: ['pending', 'confirmed'] }
+      },
+      attributes: ['roomId']
     });
 
-    res.json(formattedRooms);
+    // 3. Make array of booked room IDs
+    const bookedRoomIds = bookedRooms.map(b => b.roomId);
 
-  } catch (error) {
-    console.error('Error fetching rooms:', error);
-    res.status(500).json({ error: 'Failed to fetch rooms' });
+    // 4. Filter rooms that are NOT booked
+    const availableRooms = allRooms.filter(room => !bookedRoomIds.includes(room.id));
+
+    res.json(availableRooms);
+  } catch (err) {
+    console.error('Error fetching available rooms:', err);
+    res.status(500).json({ message: 'Failed to fetch available rooms', error: err.message });
+  }
+};
+
+exports.updateRoomStatus = async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body; // e.g., "available", "maintenance", "occupied"
+  const ownerId = req.user.id;
+
+  try {
+    // Find the hotel owned by the current user
+    const hotel = await Hotel.findOne({ where: { ownerId } });
+    if (!hotel) {
+      return res.status(404).json({ error: 'No hotel found' });
+    }
+
+    // Find the room in this hotel
+    const room = await Room.findOne({
+      where: { id, hotelId: hotel.id }
+    });
+
+    if (!room) {
+      return res.status(404).json({ message: 'Room not found' });
+    }
+
+    // Update room status
+    await room.update({ status });
+
+    res.json({
+      message: `Room status updated to ${status}`,
+      room
+    });
+  } catch (err) {
+    console.error('Error updating room status:', err);
+    res.status(500).json({ message: 'Failed to update room status' });
   }
 };
 
