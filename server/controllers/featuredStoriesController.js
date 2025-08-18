@@ -21,7 +21,16 @@ exports.getById = async (req, res) => {
 
 exports.create = async (req, res) => {
   try {
-    const newStory = await FeaturedStory.create(req.body);
+    const { title, excerpt, link } = req.body;
+    const imagePath = req.file ? `/uploads/${req.file.filename}` : null;
+
+    const newStory = await FeaturedStory.create({
+      title,
+      excerpt,
+      link,
+      image: imagePath,
+    });
+
     res.status(201).json(newStory);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -31,8 +40,12 @@ exports.create = async (req, res) => {
 exports.update = async (req, res) => {
   try {
     const story = await FeaturedStory.findByPk(req.params.id);
-    if (!story) return res.status(404).json({ error: 'Story not found' });
-    await story.update(req.body);
+    if (!story) return res.status(404).json({ error: "Story not found" });
+
+    const { title, excerpt, link } = req.body;
+    const imagePath = req.file ? `/uploads/${req.file.filename}` : story.image; // keep old image if none uploaded
+
+    await story.update({ title, excerpt, link, image: imagePath });
     res.json(story);
   } catch (err) {
     res.status(500).json({ error: err.message });

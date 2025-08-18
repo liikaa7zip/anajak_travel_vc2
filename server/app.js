@@ -10,7 +10,7 @@ const hotelRoutes = require('./routes/hotelRoutes');
 const hotelBookingRoutes = require('./routes/hotelBookingRoutes');
 const flightRoutes = require('./routes/flightRoutes');
 const boatBookingRoutes = require('./routes/boatBookingRoutes');
-
+const reviewRoutes = require('./routes/reviewRoutes');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -37,7 +37,7 @@ app.use('/api/boatbookings', boatBookingRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/hotels', hotelRoutes);
 app.use('/api/hotel-bookings', hotelBookingRoutes);
-
+app.use('/api/reviews', reviewRoutes);
 // Sync DB and start server
 sequelize.sync({ alter: true })
   .then(() => {

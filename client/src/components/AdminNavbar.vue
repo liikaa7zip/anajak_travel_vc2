@@ -87,6 +87,12 @@
           </router-link>
         </li>
         <li>
+          <router-link to="/admin/admin-hotel" class="nav-link" active-class="router-link-exact-active">
+            <i class="icon ri-article-line"></i>
+            Hotel
+          </router-link>
+        </li>
+        <li>
           <a href="#" class="nav-link">
             <i class="icon ri-map-pin-line"></i>
             Travel Guide
