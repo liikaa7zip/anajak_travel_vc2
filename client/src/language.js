@@ -35,7 +35,9 @@ const messages = {
         restaurant: 'Restaurant Reservations',
         plan: 'User Plan',
         itinerary: 'Travel Itinerary',
+        favorite: 'My Favorite',
         blog: 'Blog Page',
+        review: 'review',
         english: 'English',
         khmer: 'Khmer',
         login: 'Login',
@@ -1005,7 +1007,7 @@ const messages = {
     },
 
     km: {
-
+        // Province details
         Province: {
             Battambang: {
                 btbHeroTitle: "បាត់ដំបង",
@@ -1599,9 +1601,9 @@ const messages = {
         // navbar
         logo: 'អាណាចក្រធ្វើដំណើរ',
         home: 'ទំព័ដើម',
-        about: 'អំពីពួកយើង',
-        guide: 'មគ្គុទ្ទេសក៍ដំណើរកំសាន្ត',
-        travelBookings: 'ការកក់ដំណើរកំសាន្ត',
+        about: 'ពួកយើង',
+        guide: 'មគ្គុទ្ទេសក៍ដំណើរ',
+        travelBookings: 'ការកក់ដំណើរ',
         transportations: 'ការដឹកជញ្ជូន',
         hotelsDining: 'សណ្ឋាគារ និងភោជនីយដ្ឋាន',
         moreServices: 'សេវាកម្មបន្ថែម',
@@ -1613,7 +1615,9 @@ const messages = {
         restaurant: 'កក់ភោជនីយដ្ឋាន',
         plan: 'ផែនការរបស់អ្នក',
         itinerary: 'ផែនការធ្វើដំណើរ',
+        favorite: 'សំណប់ចិត្តរបស់ខ្ញុំ',
         blog: 'ទំព័រប្លុក',
+        review: 'ការពិនិត្យ',
         english: 'អង់គ្លេស',
         khmer: 'ខ្មែរ',
         login: 'ចូលគណនី',
