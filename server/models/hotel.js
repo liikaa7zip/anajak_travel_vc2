@@ -1,3 +1,4 @@
+// models/hotel.js
 module.exports = (sequelize, DataTypes) => {
   const Hotel = sequelize.define('Hotel', {
     id: {
@@ -25,21 +26,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.JSON,
       allowNull: true,
     },
-    locationId: {
+    ownerId: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    locationId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    }
   });
-
-  Hotel.associate = (models) => {
-
-    Hotel.belongsTo(models.Location, {
-      foreignKey: 'locationId',
-      as: 'location',
-      onDelete: 'CASCADE'
-    });
-
-  };
-
   return Hotel;
 };

@@ -1,340 +1,274 @@
 <template>
-    <h2 class="text-3xl font-extrabold text-gray-700 mt-6">🏨 Hotel Bookings</h2>
-  <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4 mt-12">
-  <!-- Left side: Search Input -->
-  <div class="w-full md:w-auto">
-    <input
-      v-model="search"
-      type="text"
-      placeholder="Search by User or Hotel name..."
-      class="border border-gray-300 rounded-xl px-4 py-3 w-full md:w-64 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
-    />
-  </div>
+  <div>
+    <h2 class="text-3xl font-extrabold text-gray-700 mt-6">🏨 Hotel Management</h2>
 
-  <!-- Right side: Status Dropdown + Export Button -->
-  <div class="flex flex-wrap gap-4 items-center w-full md:w-auto">
-    <!-- Status Dropdown -->
-    <div class="relative w-full md:w-48">
-      <select
-        v-model="statusFilter"
-        class="block appearance-none w-full bg-white border border-gray-300 px-4 py-3 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer"
-        aria-label="Filter by status"
-      >
-        <option value="">All Statuses</option>
-        <option value="confirmed">Confirmed</option>
-        <option value="cancelled">Cancelled</option>
-      </select>
-      <!-- Dropdown arrow icon -->
-      <div class="pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-400">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-4 w-4"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
+    <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4 mt-12">
+      <!-- Search -->
+      <div class="w-full md:w-auto">
+        <input
+          v-model="search"
+          type="text"
+          placeholder="Search by Hotel name or Owner..."
+          class="border border-gray-300 rounded-xl px-4 py-3 w-full md:w-64 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
+        />
+      </div>
+
+      <!-- Controls -->
+      <div class="flex flex-wrap gap-4 items-center w-full md:w-auto">
+        <!-- Create Hotel Button -->
+        <router-link
+          to="/admin/create-hotel"
+          class="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-5 py-3 rounded-xl shadow-md transition inline-block"
         >
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-        </svg>
+          ➕ Create Hotel
+        </router-link>
+
+        <!-- Export Button -->
+        <button
+          @click="exportHotels"
+          class="bg-green-600 hover:bg-green-700 text-white font-semibold px-5 py-3 rounded-xl shadow-md transition"
+        >
+          Export
+        </button>
       </div>
     </div>
 
-    <!-- Export Button -->
-    <button
-      @click="exportBookings"
-      class="bg-green-600 hover:bg-green-700 text-white font-semibold px-5 py-3 rounded-xl shadow-md transition"
-      aria-label="Export Bookings"
-    >
-      Export
-    </button>
-  </div>
-</div>
-
-
-
+    <!-- Hotel Table -->
     <div class="overflow-x-auto rounded-lg shadow-inner border border-gray-200">
       <table class="min-w-full table-auto border-collapse">
         <thead class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white uppercase text-xs tracking-wider">
           <tr>
-            <th class="px-5 py-3 text-left cursor-pointer" @click="sortBy('User.username')">
-              User
-              <SortIcon :active="sortKey === 'User.username'" :asc="sortAsc" />
-            </th>
-            <th class="px-5 py-3 text-left cursor-pointer" @click="sortBy('Hotel.name')">
-              Hotel
-              <SortIcon :active="sortKey === 'Hotel.name'" :asc="sortAsc" />
-            </th>
-            <th class="px-5 py-3 text-left cursor-pointer" @click="sortBy('checkInDate')">
-              Check-In
-              <SortIcon :active="sortKey === 'checkInDate'" :asc="sortAsc" />
-            </th>
-            <th class="px-5 py-3 text-left cursor-pointer" @click="sortBy('checkOutDate')">
-              Check-Out
-              <SortIcon :active="sortKey === 'checkOutDate'" :asc="sortAsc" />
-            </th>
-            <th class="px-5 py-3 text-center cursor-pointer" @click="sortBy('guests')">
-              Guests
-              <SortIcon :active="sortKey === 'guests'" :asc="sortAsc" />
-            </th>
-            <th class="px-5 py-3 text-right cursor-pointer" @click="sortBy('totalPrice')">
-              Total Price
-              <SortIcon :active="sortKey === 'totalPrice'" :asc="sortAsc" />
-            </th>
-            <th class="px-5 py-3 text-center cursor-pointer" @click="sortBy('status')">
-              Status
-              <SortIcon :active="sortKey === 'status'" :asc="sortAsc" />
-            </th>
+            <th class="px-5 py-3 text-left">Hotel Name</th>
+            <th class="px-5 py-3 text-left">Price/Night</th>
+            <th class="px-5 py-3 text-left">Owner Email</th>
+            <th class="px-5 py-3 text-left">Location</th>
+            <th class="px-5 py-3 text-center">Actions</th>
           </tr>
         </thead>
-        <transition-group tag="tbody" name="fade" class="divide-y divide-gray-200">
-          <tr
-            v-for="booking in paginatedBookings"
-            :key="booking.id"
-            class="odd:bg-white even:bg-indigo-50 hover:bg-indigo-100 transition"
-          >
-            <td class="px-5 py-3 truncate">{{ booking.User?.username || '—' }}</td>
-            <td class="px-5 py-3 truncate">{{ booking.Hotel?.name || '—' }}</td>
-            <td class="px-5 py-3">{{ formatDate(booking.checkInDate) }}</td>
-            <td class="px-5 py-3">{{ formatDate(booking.checkOutDate) }}</td>
-            <td class="px-5 py-3 text-center">{{ booking.guests }}</td>
-            <td class="px-5 py-3 text-right font-semibold">${{ booking.totalPrice.toFixed(2) }}</td>
-
-            <!-- STATUS -->
-            <td class="px-5 py-3 text-center">
-              <span
-                :class="[
-                  'text-xs font-semibold px-3 py-1 rounded-full',
-                  booking.status === 'confirmed' ? 'bg-green-100 text-green-600' :
-                  booking.status === 'cancelled' ? 'bg-red-100 text-red-600' :
-                  'bg-yellow-100 text-yellow-600'
-                ]"
-              >
-                {{ booking.status }}
-              </span>
-            </td>
+        <tbody class="divide-y divide-gray-200">
+          <tr v-for="hotel in filteredHotels" :key="hotel.id" class="odd:bg-white even:bg-indigo-50 hover:bg-indigo-100 transition">
+            <td class="px-5 py-3 truncate">{{ hotel.name }}</td>
+            <td class="px-5 py-3 font-semibold">${{ hotel.pricePerNight.toFixed(2) }}</td>
+            <td class="px-5 py-3">{{ hotel.owner?.email || '—' }}</td>
+            <td class="px-5 py-3">{{ hotel.Location?.name || '—' }}</td>
+            <td class="px-5 py-3 text-center flex justify-center gap-2">
+  <button @click="deleteHotel(hotel.id)" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg">Delete</button>
+  <button @click="editHotel(hotel)" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-lg">Edit</button>
+</td>
 
           </tr>
-        </transition-group>
+        </tbody>
       </table>
     </div>
 
-    <!-- Pagination Controls -->
-    <div
-      class="flex flex-col sm:flex-row items-center justify-between mt-6 space-y-3 sm:space-y-0"
-    >
-      <p class="text-gray-600 text-sm">
-        Showing <span class="font-semibold">{{ paginatedBookings.length }}</span> of
-        <span class="font-semibold">{{ filteredBookings.length }}</span> bookings
-        (Page {{ page }} of {{ totalPages }})
-      </p>
+        <!-- Edit Hotel Modal -->
+<div v-if="editingHotel" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
+  <div class="bg-white rounded-2xl w-96 p-6 shadow-2xl transform transition-transform duration-300 scale-95 animate-slide-in">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-4 border-b pb-2">
+      <h3 class="text-2xl font-bold text-purple-700 flex items-center gap-2">
+        ✏️ Edit Hotel
+      </h3>
+      <button @click="editingHotel = null" class="text-gray-400 hover:text-gray-600 text-xl">&times;</button>
+    </div>
 
-      <div class="inline-flex space-x-2">
-        <button
-          @click="prevPage"
-          :disabled="page === 1"
-          class="px-4 py-2 rounded-lg border border-indigo-500 text-indigo-500 font-semibold hover:bg-indigo-100 disabled:opacity-50 disabled:cursor-not-allowed transition"
-          aria-label="Previous Page"
-        >
-          ❮
-        </button>
+    <!-- Form -->
+    <div class="flex flex-col gap-4">
+      <div>
+        <label class="text-gray-700 font-semibold mb-1 block">Hotel Name</label>
+        <input
+          v-model="editingHotel.name"
+          placeholder="Enter hotel name"
+          class="w-full border border-purple-300 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 shadow-sm"
+        />
+      </div>
 
-        <button
-          @click="nextPage"
-          :disabled="page === totalPages"
-          class="px-4 py-2 rounded-lg border border-indigo-500 text-indigo-500 font-semibold hover:bg-indigo-100 disabled:opacity-50 disabled:cursor-not-allowed transition"
-          aria-label="Next Page"
-        >
-          ❯
-        </button>
+      <div>
+        <label class="text-gray-700 font-semibold mb-1 block">Price per Night ($)</label>
+        <input
+          v-model="editingHotel.pricePerNight"
+          type="number"
+          placeholder="Enter price per night"
+          class="w-full border border-purple-300 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 shadow-sm"
+        />
+      </div>
+
+      <div>
+        <label class="text-gray-700 font-semibold mb-1 block">Image URL</label>
+        <input
+          v-model="editingHotel.imageUrl"
+          placeholder="Enter image URL"
+          class="w-full border border-purple-300 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 shadow-sm"
+        />
+      </div>
+
+      <div>
+        <label class="text-gray-700 font-semibold mb-1 block">Description</label>
+        <textarea
+          v-model="editingHotel.description"
+          placeholder="Enter hotel description"
+          class="w-full border border-purple-300 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 shadow-sm resize-none"
+          rows="3"
+        ></textarea>
       </div>
     </div>
 
+    <!-- Actions -->
+    <div class="flex justify-end gap-3 mt-5">
+      <button
+        @click="editingHotel = null"
+        class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold px-4 py-2 rounded-xl transition"
+      >
+        Cancel
+      </button>
+      <button
+        @click="saveHotel"
+        class="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-4 py-2 rounded-xl shadow-md transition"
+      >
+        Save Changes
+      </button>
+    </div>
+  </div>
+</div>
+
+
+  </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted, h } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
 
-const bookings = ref([])
+const hotels = ref([])
 const search = ref('')
-const statusFilter = ref('')
-const page = ref(1)
-const itemsPerPage = 10
-const sortKey = ref('')
-const sortAsc = ref(true)
+const editingHotel = ref(null)
 
-const fetchBookings = async () => {
+const token = localStorage.getItem('token')
+
+// Fetch all hotels
+const fetchHotels = async () => {
   try {
-    const response = await axios.get('http://localhost:5000/api/hotel-booking')
-    bookings.value = response.data
-  } catch (error) {
-    console.error('Failed to fetch bookings:', error)
+    const res = await axios.get('http://localhost:5000/api/admin-hotels', {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    hotels.value = res.data
+  } catch (err) {
+    console.error('[FETCH HOTELS ERROR]', err)
   }
 }
 
-onMounted(fetchBookings)
+onMounted(fetchHotels)
 
-const filteredBookings = computed(() => {
+// Filter by name or owner email
+const filteredHotels = computed(() => {
   const s = search.value.trim().toLowerCase()
-  const status = statusFilter.value
-
-  return bookings.value.filter((b) => {
-    const userName = b.User?.username?.toLowerCase() || ''
-    const hotelName = b.Hotel?.name?.toLowerCase() || ''
-    const matchesSearch = !s || userName.includes(s) || hotelName.includes(s)
-    const matchesStatus = !status || b.status === status
-    return matchesSearch && matchesStatus
+  return hotels.value.filter(h => {
+    const name = h.name.toLowerCase()
+    const ownerEmail = h.owner?.email?.toLowerCase() || ''
+    return !s || name.includes(s) || ownerEmail.includes(s)
   })
 })
 
-const sortedBookings = computed(() => {
-  if (!sortKey.value) return filteredBookings.value
-
-  return [...filteredBookings.value].sort((a, b) => {
-    const getValue = (obj, path) => path.split('.').reduce((o, k) => (o ? o[k] : ''), obj)
-
-    let valA = getValue(a, sortKey.value)
-    let valB = getValue(b, sortKey.value)
-
-    if (valA instanceof Date || !isNaN(Date.parse(valA))) valA = new Date(valA)
-    if (valB instanceof Date || !isNaN(Date.parse(valB))) valB = new Date(valB)
-
-    if (valA == null) valA = ''
-    if (valB == null) valB = ''
-
-    if (valA > valB) return sortAsc.value ? 1 : -1
-    if (valA < valB) return sortAsc.value ? -1 : 1
-    return 0
-  })
-})
-
-const totalPages = computed(() => Math.max(1, Math.ceil(filteredBookings.value.length / itemsPerPage)))
-const startIndex = computed(() => (page.value - 1) * itemsPerPage)
-const endIndex = computed(() => page.value * itemsPerPage)
-const paginatedBookings = computed(() =>
-  sortedBookings.value.slice(startIndex.value, endIndex.value)
-)
-
-function sortBy(key) {
-  if (sortKey.value === key) {
-    sortAsc.value = !sortAsc.value
-  } else {
-    sortKey.value = key
-    sortAsc.value = true
+// Delete hotel
+const deleteHotel = async (id) => {
+  if (!confirm('Are you sure you want to delete this hotel?')) return
+  try {
+    await axios.delete(`http://localhost:5000/api/admin-hotels/${id}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    hotels.value = hotels.value.filter(h => h.id !== id)
+    alert('Hotel deleted successfully!')
+  } catch (err) {
+    console.error('[DELETE HOTEL ERROR]', err)
+    alert('Failed to delete hotel.')
   }
-  page.value = 1
 }
 
-function formatDate(date) {
-  if (!date) return '—'
-  return new Date(date).toLocaleDateString(undefined, {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  })
+// Cancel hotel (just an example: set status to cancelled)
+const cancelHotel = async (id) => {
+  try {
+    await axios.patch(`http://localhost:5000/api/admin-hotels/${id}/cancel`, {}, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    const hotel = hotels.value.find(h => h.id === id)
+    if (hotel) hotel.status = 'cancelled'
+    alert('Hotel cancelled successfully!')
+  } catch (err) {
+    console.error('[CANCEL HOTEL ERROR]', err)
+    alert('Failed to cancel hotel.')
+  }
 }
 
-function nextPage() {
-  if (page.value < totalPages.value) page.value++
-}
-
-function prevPage() {
-  if (page.value > 1) page.value--
-}
-
-
-// SortIcon as a render function to avoid runtime template error
-const SortIcon = {
-  props: ['active', 'asc'],
-  setup(props) {
-    if (!props.active) return () => null
-    return () =>
-      props.asc
-        ? h(
-            'svg',
-            {
-              xmlns: 'http://www.w3.org/2000/svg',
-              class: 'inline h-3 w-3 ml-1 text-xs select-none',
-              fill: 'none',
-              viewBox: '0 0 24 24',
-              stroke: 'currentColor',
-            },
-            [
-              h('path', {
-                'stroke-linecap': 'round',
-                'stroke-linejoin': 'round',
-                'stroke-width': '3',
-                d: 'M5 15l7-7 7 7',
-              }),
-            ]
-          )
-        : h(
-            'svg',
-            {
-              xmlns: 'http://www.w3.org/2000/svg',
-              class: 'inline h-3 w-3 ml-1 text-xs select-none',
-              fill: 'none',
-              viewBox: '0 0 24 24',
-              stroke: 'currentColor',
-            },
-            [
-              h('path', {
-                'stroke-linecap': 'round',
-                'stroke-linejoin': 'round',
-                'stroke-width': '3',
-                d: 'M19 9l-7 7-7-7',
-              }),
-            ]
-          )
-  },
-}
-
-function exportBookings() {
-  const data = filteredBookings.value.map(b => ({
-    User: b.User?.username || '',
-    Hotel: b.Hotel?.name || '',
-    CheckIn: formatDate(b.checkInDate),
-    CheckOut: formatDate(b.checkOutDate),
-    Guests: b.guests,
-    TotalPrice: b.totalPrice.toFixed(2),
-    Status: b.status,
+// Export hotels to CSV
+const exportHotels = () => {
+  const data = filteredHotels.value.map(h => ({
+    Name: h.name,
+    Price: h.pricePerNight.toFixed(2),
+    Owner: h.owner?.email || '',
+    Location: h.location?.name || ''
   }))
+  if (!data.length) return
 
-  // Convert to CSV string
   const csvRows = []
-  const headers = Object.keys(data[0] || {}).join(',')
+  const headers = Object.keys(data[0]).join(',')
   csvRows.push(headers)
-
   for (const row of data) {
     csvRows.push(Object.values(row).map(v => `"${v}"`).join(','))
   }
 
   const csvString = csvRows.join('\n')
-
-  // Download CSV
   const blob = new Blob([csvString], { type: 'text/csv' })
   const url = URL.createObjectURL(blob)
   const a = document.createElement('a')
   a.href = url
-  a.download = 'bookings_export.csv'
+  a.download = 'hotels_export.csv'
   a.click()
   URL.revokeObjectURL(url)
+}
+
+// Open modal to edit hotel
+const editHotel = (hotel) => {
+  editingHotel.value = { ...hotel } // clone so changes don't immediately affect table
+  console.log('Editing hotel:', editingHotel.value)
+}
+
+
+// Save hotel changes
+const saveHotel = async () => {
+  if (!editingHotel.value) return
+  try {
+    const { id, name, pricePerNight, imageUrl, description } = editingHotel.value
+    await axios.put(`http://localhost:5000/api/admin-hotels/${id}`, 
+      { name, pricePerNight, imageUrl, description },
+      { headers: { Authorization: `Bearer ${token}` } }
+    )
+
+    // Update local hotels array
+    const index = hotels.value.findIndex(h => h.id === id)
+    if (index !== -1) hotels.value[index] = { ...editingHotel.value }
+
+    editingHotel.value = null // close modal
+    alert('Hotel updated successfully!')
+  } catch (err) {
+    console.error('[UPDATE HOTEL ERROR]', err)
+    alert('Failed to update hotel.')
+  }
 }
 
 </script>
 
 <style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: all 0.3s ease;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-  transform: translateY(10px);
-}
 table {
   border-spacing: 0 !important;
 }
 
-/* Close dropdown if clicking outside */
+/* Optional animation for modal */
+@keyframes slide-in {
+  0% { transform: scale(0.95); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.animate-slide-in {
+  animation: slide-in 0.25s ease-out forwards;
+}
 </style>

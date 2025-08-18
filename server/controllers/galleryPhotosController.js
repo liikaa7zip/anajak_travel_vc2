@@ -1,61 +1,103 @@
-const GalleryPhoto = require('../models/GalleryPhoto');
+const { GalleryPhoto } = require("../models"); // adjust if your model name differs
 
-// GET all photos
+// GET all
 exports.getAll = async (req, res) => {
   try {
-    const photos = await GalleryPhoto.findAll({ order: [['id', 'DESC']] });
-    res.json(photos);
+    const photos = await GalleryPhoto.findAll();
+
+    console.log("Raw photos from DB:", photos.map(p => p.dataValues));
+
+    const photosWithUrl = photos.map(photo => {
+  // Remove any leading slash in photo.image
+  const imageFile = photo.image.startsWith('/') ? photo.image.slice(1) : photo.image;
+  const url = photo.image ? `http://localhost:5000/${imageFile}` : null;
+  console.log("Photo URL generated:", url);
+  return {
+    ...photo.dataValues,
+    image: url
+  };
+});
+
+
+    res.json(photosWithUrl);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error("Error fetching gallery photos:", err);
+    res.status(500).json({ error: 'Failed to fetch gallery photos' });
   }
 };
 
-// GET a single photo by ID
+
+// GET by ID
 exports.getById = async (req, res) => {
   try {
     const photo = await GalleryPhoto.findByPk(req.params.id);
-    if (!photo) return res.status(404).json({ error: 'Photo not found' });
+    if (!photo) return res.status(404).json({ error: "Not found" });
     res.json(photo);
   } catch (err) {
+    console.error(err);
     res.status(500).json({ error: err.message });
   }
 };
 
-// POST a new photo
+// CREATE
 exports.create = async (req, res) => {
   try {
-    const { url, title, description } = req.body;
-    const photo = await GalleryPhoto.create({ url, title, description });
-    res.status(201).json(photo);
+    console.log("Incoming file:", req.file);   // <-- log uploaded file
+    console.log("Incoming body:", req.body);
+
+    const { title, description } = req.body;
+    const image = req.file ? req.file.filename : null;
+
+    const newPhoto = await GalleryPhoto.create({ title, description, image });
+
+    console.log("Saved photo:", newPhoto);
+
+    res.status(201).json(newPhoto);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error("Error creating photo:", err);
+    res.status(500).json({ error: "Failed to save photo" });
   }
 };
 
-// PUT update a photo
+// UPDATE
 exports.update = async (req, res) => {
   try {
+    const { title, description } = req.body;
     const photo = await GalleryPhoto.findByPk(req.params.id);
-    if (!photo) return res.status(404).json({ error: 'Photo not found' });
+    if (!photo) return res.status(404).json({ error: "Not found" });
 
-    const { url, title, description } = req.body;
-    await photo.update({ url, title, description });
+    if (req.file) {
+      photo.image = `/uploads/${req.file.filename}`;
+    }
+    photo.title = title;
+    photo.description = description;
 
+    await photo.save();
     res.json(photo);
   } catch (err) {
+    console.error("Error updating gallery photo:", err);
     res.status(500).json({ error: err.message });
   }
 };
 
-// DELETE a photo
+// DELETE
 exports.delete = async (req, res) => {
   try {
     const photo = await GalleryPhoto.findByPk(req.params.id);
-    if (!photo) return res.status(404).json({ error: 'Photo not found' });
+    if (!photo) return res.status(404).json({ error: "Not found" });
+
+    // Optional: delete the file from uploads folder
+    if (photo.image) {
+      const fs = require("fs");
+      const path = require("path");
+      const filePath = path.join(__dirname, "..", photo.image);
+      if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+    }
 
     await photo.destroy();
-    res.json({ message: 'Deleted successfully' });
+    res.json({ message: "Deleted successfully" });
   } catch (err) {
+    console.error("Error deleting gallery photo:", err);
     res.status(500).json({ error: err.message });
   }
 };

@@ -165,7 +165,7 @@
           class="cursor-pointer rounded-lg shadow-md overflow-hidden hover:shadow-xl transition"
           @click="openModal(photo.url)"
         >
-          <img :src="photo.url" :alt="photo.title" class="w-full h-36 object-cover" />
+          <img :src="photo.image" :alt="photo.title" class="w-full h-36 object-cover" />
           <div class="p-3 bg-white dark:bg-white">
             <h3 class="font-semibold text-lg text-gray-900 dark:text-purple-700">{{ photo.title }}</h3>
             <p class="text-sm text-gray-600 dark:text-gray-500">{{ photo.description }}</p>
@@ -307,19 +307,32 @@ async function fetchData() {
       axios.get(`${API_BASE}/featured-stories`),
       axios.get(`${API_BASE}/travel-guides`),
       axios.get(`${API_BASE}/gallery-photos`),
-    ])
+    ]);
 
-    featuredPosts.value = featuredRes.data
+    featuredPosts.value = featuredRes.data.map(post => ({
+      ...post,
+      image: post.image ? `http://localhost:5000${post.image}` : null,
+    }));
+
     travelGuides.value = guideRes.data.map(g => ({
       ...g,
       tags: typeof g.tags === 'string' ? g.tags.split(',').map(t => t.trim()) : [],
       isPopular: g.isPopular || false,
-    }))
-    galleryPhotos.value = galleryRes.data
+    }));
+
+    galleryPhotos.value = galleryRes.data.map(photo => ({
+  ...photo,
+  image: photo.image || null,  // already a full URL
+}));
+
+
+
   } catch (err) {
-    console.error('Error fetching data:', err)
+    console.error('Error fetching data:', err);
   }
 }
+
+
 
 function subscribe() {
   if (!validateEmail(email.value)) {

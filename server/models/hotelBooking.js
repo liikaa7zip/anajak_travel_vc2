@@ -1,33 +1,90 @@
+// Enhanced Hotel Booking Model
 module.exports = (sequelize, DataTypes) => {
-  return sequelize.define('HotelBooking', {
+  const HotelBooking = sequelize.define('HotelBooking', {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     userId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
     },
     hotelId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+    },
+    roomId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
     checkInDate: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
     },
     checkOutDate: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
     },
     guests: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      defaultValue: 1,
+      validate: {
+        min: 1,
+        max: 10
+      }
     },
-    totalPrice: {
+    totalAmount: {
       type: DataTypes.FLOAT,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        min: 0
+      }
     },
     status: {
+      type: DataTypes.ENUM('pending', 'confirmed', 'cancelled', 'completed', 'no-show'),
+      defaultValue: 'pending',
+    },
+    notes: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    specialRequests: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    paymentMethod: {
       type: DataTypes.STRING,
-      allowNull: false,
-      defaultValue: 'confirmed'
-    }
+      allowNull: true,
+    },
+    cancellationFee: {
+      type: DataTypes.FLOAT,
+      defaultValue: 0,
+    },
+    cancelledAt: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+  }, {
+    timestamps: true,
+    indexes: [
+      {
+        fields: ['userId']
+      },
+      {
+        fields: ['hotelId']
+      },
+      {
+        fields: ['roomId']
+      },
+      {
+        fields: ['checkInDate', 'checkOutDate']
+      },
+      {
+        fields: ['status']
+      }
+    ]
   });
+
+  return HotelBooking;
 };

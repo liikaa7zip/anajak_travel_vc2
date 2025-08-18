@@ -34,7 +34,7 @@
       <form @submit.prevent="saveFeatured" :class="darkMode ? 'bg-gray-800 text-gray-100' : 'bg-white'" class="p-6 rounded shadow mb-6">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <input v-model="featuredForm.title" placeholder="Title" required class="p-3 border rounded" />
-          <input v-model="featuredForm.image" placeholder="Image URL" required class="p-3 border rounded" />
+          <input type="file" @change="onFeaturedFileChange" accept="image/*" class="p-3 border rounded" />
           <input v-model="featuredForm.excerpt" placeholder="Excerpt" required class="p-3 border rounded md:col-span-2" />
           <input v-model="featuredForm.link" placeholder="External Link (optional)" class="p-3 border rounded md:col-span-2" />
         </div>
@@ -110,7 +110,7 @@
 
       <form @submit.prevent="savePhoto" :class="darkMode ? 'bg-gray-800 text-gray-100' : 'bg-white'" class="p-6 rounded shadow mb-6">
         <input v-model="photoForm.title" placeholder="Photo Title" required class="p-3 border rounded mb-4 w-full" />
-        <input v-model="photoForm.url" placeholder="Image URL" required class="p-3 border rounded mb-4 w-full" />
+        <input type="file" @change="onPhotoFileChange" accept="image/*" class="p-3 border rounded mb-4 w-full" />
         <textarea v-model="photoForm.description" placeholder="Description" rows="3" class="p-3 border rounded mb-4 w-full resize-none"></textarea>
         <button type="submit" class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-6 py-3 rounded hover:bg-indigo-800 transition">
           {{ photoEditIndex === -1 ? 'Add Photo' : 'Update Photo' }}
@@ -119,7 +119,8 @@
 
       <ul :class="darkMode ? 'divide-gray-700' : 'divide-gray-300'" class="divide-y max-h-96 overflow-y-auto">
         <li v-for="(photo, i) in filteredPhotos" :key="photo.id" class="py-4 flex justify-between items-center space-x-4">
-          <img :src="photo.url" alt="photo-thumb" class="w-20 h-20 rounded object-cover shadow flex-shrink-0" />
+          <img :src="photo.image" alt="photo-thumb" class="w-20 h-20 rounded object-cover shadow flex-shrink-0" />
+
           <div class="flex-grow">
             <h4 class="font-semibold text-lg">{{ photo.title }}</h4>
             <p class="text-sm opacity-80">{{ photo.description }}</p>
@@ -161,6 +162,17 @@ const filteredPhotos = computed(() => {
 });
 
 
+// For Featured Stories
+const featuredFile = ref(null)
+function onFeaturedFileChange(e) {
+  featuredFile.value = e.target.files[0]
+}
+
+// For Gallery Photos
+const photoFile = ref(null)
+function onPhotoFileChange(e) {
+  photoFile.value = e.target.files[0]
+}
 
 
 const filteredFeaturedPosts = computed(() => {
@@ -172,27 +184,44 @@ const filteredFeaturedPosts = computed(() => {
 
 async function fetchFeatured() {
   try {
-    const res = await axios.get(`${API_BASE}/featured-stories`)
-    featuredPosts.value = res.data
+    const res = await axios.get(`${API_BASE}/featured-stories`);
+    featuredPosts.value = res.data.map(post => ({
+      ...post,
+      image: post.image ? `http://localhost:5000${post.image}` : null
+    }));
   } catch (err) {
-    console.error('Error fetching featured stories:', err)
+    console.error('Error fetching featured stories:', err);
   }
 }
 
+
 async function saveFeatured() {
   try {
+    const formData = new FormData()
+    formData.append("title", featuredForm.value.title)
+    formData.append("excerpt", featuredForm.value.excerpt)
+    formData.append("link", featuredForm.value.link)
+    if (featuredFile.value) {
+      formData.append("image", featuredFile.value) // file field
+    }
+
     if (featuredEditIndex.value === -1) {
-      await axios.post(`${API_BASE}/featured-stories`, featuredForm.value)
+      await axios.post(`${API_BASE}/featured-stories`, formData, {
+        headers: { "Content-Type": "multipart/form-data" }
+      })
     } else {
       const id = featuredPosts.value[featuredEditIndex.value].id
-      await axios.put(`${API_BASE}/featured-stories/${id}`, featuredForm.value)
+      await axios.put(`${API_BASE}/featured-stories/${id}`, formData, {
+        headers: { "Content-Type": "multipart/form-data" }
+      })
     }
     await fetchFeatured()
     clearFeaturedForm()
   } catch (err) {
-    console.error('Error saving featured:', err)
+    console.error("Error saving featured:", err)
   }
 }
+
 
 function editFeatured(post, index) {
   featuredForm.value = { ...post }
@@ -300,27 +329,39 @@ const photoEditIndex = ref(-1)
 
 async function fetchGallery() {
   try {
-    const res = await axios.get(`${API_BASE}/gallery-photos`)
-    galleryPhotos.value = res.data
+    const res = await axios.get(`${API_BASE}/gallery-photos`);
+    console.log("Gallery API response:", res.data); // <-- log API response
+    galleryPhotos.value = res.data.map(post => ({
+      ...post,
+      image: post.image // already full URL from backend
+    }));
   } catch (err) {
-    console.error('Error fetching gallery photos:', err)
+    console.error('Error fetching gallery photos:', err);
   }
 }
 
+
 async function savePhoto() {
-  try {
-    if (photoEditIndex.value === -1) {
-      await axios.post(`${API_BASE}/gallery-photos`, photoForm.value)
-    } else {
-      const id = galleryPhotos.value[photoEditIndex.value].id
-      await axios.put(`${API_BASE}/gallery-photos/${id}`, photoForm.value)
-    }
-    await fetchGallery()
-    clearPhotoForm()
-  } catch (err) {
-    console.error('Error saving photo:', err)
+  const formData = new FormData()
+  formData.append("title", photoForm.value.title)
+  formData.append("description", photoForm.value.description)
+  if (photoFile.value) {
+    formData.append("image", photoFile.value)
+  }
+
+  if (photoEditIndex.value === -1) {
+    await axios.post(`${API_BASE}/gallery-photos`, formData, {
+      headers: { "Content-Type": "multipart/form-data" }
+    })
+  } else {
+    const id = galleryPhotos.value[photoEditIndex.value].id
+    await axios.put(`${API_BASE}/gallery-photos/${id}`, formData, {
+      headers: { "Content-Type": "multipart/form-data" }
+    })
   }
 }
+
+
 
 function editPhoto(photo, index) {
   photoForm.value = { ...photo }

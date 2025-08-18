@@ -24,32 +24,36 @@
         >
           <i class="icon ri-global-line"></i>
           Go to Website
-        </router-link>
+          </router-link>
           <router-link to="/hotel_owner/hoteldashboard" class="nav-link" active-class="active">
-  <i class="fas fa-tachometer-alt w-5"></i>
-  <span>Dashboard</span>
-</router-link>
+            <i class="fas fa-tachometer-alt w-5"></i>
+            <span>Dashboard</span>
+          </router-link>
 
-<router-link to="/hotel_owner/housekeeping" class="nav-link" active-class="active">
-  <i class="fas fa-broom w-5"></i>
-  <span>Housekeeping</span>
-</router-link>
+          <router-link to="/hotel_owner/housekeeping" class="nav-link" active-class="active">
+            <i class="fas fa-broom w-5"></i>
+            <span>Housekeeping</span>
+          </router-link>
 
-<router-link to="/hotel_owner/rooms" class="nav-link" active-class="active">
-  <i class="fas fa-bed w-5"></i>
-  <span>Rooms</span>
-</router-link>
+          <router-link to="/hotel_owner/rooms" class="nav-link" active-class="active">
+            <i class="fas fa-bed w-5"></i>
+            <span>Rooms</span>
+          </router-link>
 
-<router-link to="/hotel_owner/reversations" class="nav-link" active-class="active">
-  <i class="fas fa-book w-5"></i>
-  <span>Reservations</span>
-</router-link>
+          <router-link to="/hotel_owner/reversations" class="nav-link" active-class="active">
+            <i class="fas fa-book w-5"></i>
+            <span>Reservations</span>
+          </router-link>
 
-<router-link to="/hotel_owner/bookingoverview" class="nav-link" active-class="active">
-  <i class="fas fa-chart-line w-5"></i>
-  <span>Booking Overview</span>
-</router-link>
+          <router-link to="/hotel_owner/bookingoverview" class="nav-link" active-class="active">
+            <i class="fas fa-chart-line w-5"></i>
+            <span>Booking Overview</span>
+          </router-link>
 
+          <router-link to="/hotel_owner/chat" class="nav-link" active-class="active">
+            <i class="fas fa-chart-line w-5"></i>
+            <span>Messages</span>
+          </router-link>
         </nav>
       </div>
 

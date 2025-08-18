@@ -27,38 +27,85 @@
           </button>
 
           <transition name="fade">
-            <div v-if="showDropdown"
-              class="absolute left-0 mt-3 w-max min-w-[600px] bg-white border border-gray-200 rounded-xl shadow-xl z-50 p-6 grid grid-cols-3 gap-6 animate-fade-in">
-              <div>
-                <h3 class="text-blue-600 font-semibold text-sm mb-3">
-                  {{ $t('transportations') }}
-                </h3>
-                <router-link to="/FlightReservation" class="dropdown-item">✈️ {{ $t('flight') }}</router-link>
-                <router-link to="/CarRental" class="dropdown-item">🚗 {{ $t('car') }}</router-link>
-                <router-link to="/Bustickets" class="dropdown-item">🚌 {{ $t('bus') }}</router-link>
-                <router-link to="/Boatickets" class="dropdown-item">⛴️ {{ $t('boat') }}</router-link>
-              </div>
-              <div>
-                <h3 class="text-blue-600 font-semibold text-sm mb-3">
-                  {{ $t('hotelsDining') }}
-                </h3>
-                <router-link to="/hotel" class="dropdown-item">🏨 {{ $t('hotel') }}</router-link>
-                <router-link to="/province" class="dropdown-item">🍽️ {{ $t('restaurant') }}</router-link>
-              </div>
-              <div>
-                <h3 class="text-blue-600 font-semibold text-sm mb-3">
-                  {{ $t('moreServices') }}
-                </h3>
-                <router-link to="/user-plan" class="dropdown-item">🗺️ {{ $t('plan') }}</router-link>
-                <router-link to="/TravelItinerary" class="dropdown-item">📅 {{ $t('itinerary') }}</router-link>
-                <router-link to="/favorites" class="dropdown-item">❤️ {{ $t('favorite') }}</router-link>
-              </div>
-            </div>
-          </transition>
+      <div
+        v-if="showDropdown"
+        class="absolute left-0 mt-3 w-max min-w-[600px] bg-white border border-gray-200 rounded-xl shadow-xl z-50 p-6 grid grid-cols-3 gap-6 animate-fade-in"
+      >
+        <div>
+          <h3 class="text-blue-600 font-semibold text-sm mb-3">
+            {{ $t('transportations') }}
+          </h3>
+          <router-link
+            to="/FlightReservation"
+            class="dropdown-item"
+            @click="handleClick"
+            :class="{ 'cursor-not-allowed opacity-50 pointer-events-none': !isLoggedIn }"
+          >✈️ {{ $t('flight') }}</router-link>
+          <router-link
+            to="/CarRental"
+            class="dropdown-item"
+            @click="handleClick"
+            :class="{ 'cursor-not-allowed opacity-50 pointer-events-none': !isLoggedIn }"
+          >🚗 {{ $t('car') }}</router-link>
+          <router-link
+            to="/Bustickets"
+            class="dropdown-item"
+            @click="handleClick"
+            :class="{ 'cursor-not-allowed opacity-50 pointer-events-none': !isLoggedIn }"
+          >🚌 {{ $t('bus') }}</router-link>
+          <router-link
+            to="/Boatickets"
+            class="dropdown-item"
+            @click="handleClick"
+            :class="{ 'cursor-not-allowed opacity-50 pointer-events-none': !isLoggedIn }"
+          >⛴️ {{ $t('boat') }}</router-link>
+        </div>
+        <div>
+          <h3 class="text-blue-600 font-semibold text-sm mb-3">
+            {{ $t('hotelsDining') }}
+          </h3>
+          <router-link
+            to="/hotel"
+            class="dropdown-item"
+            @click="handleClick"
+            :class="{ 'cursor-not-allowed opacity-50 pointer-events-none': !isLoggedIn }"
+          >🏨 {{ $t('hotel') }}</router-link>
+          <router-link
+            to="/province"
+            class="dropdown-item"
+            @click="handleClick"
+            :class="{ 'cursor-not-allowed opacity-50 pointer-events-none': !isLoggedIn }"
+          >🍽️ {{ $t('restaurant') }}</router-link>
+        </div>
+        <div>
+          <h3 class="text-blue-600 font-semibold text-sm mb-3">
+            {{ $t('moreServices') }}
+          </h3>
+          <router-link
+            to="/user-plan"
+            class="dropdown-item"
+            @click="handleClick"
+            :class="{ 'cursor-not-allowed opacity-50 pointer-events-none': !isLoggedIn }"
+          >🗺️ {{ $t('plan') }}</router-link>
+          <router-link
+            to="/TravelItinerary"
+            class="dropdown-item"
+            @click="handleClick"
+            :class="{ 'cursor-not-allowed opacity-50 pointer-events-none': !isLoggedIn }"
+          >📅 {{ $t('itinerary') }}</router-link>
+          <router-link
+            to="/favorites"
+            class="dropdown-item"
+            @click="handleClick"
+            :class="{ 'cursor-not-allowed opacity-50 pointer-events-none': !isLoggedIn }"
+          >❤️ {{ $t('favorite') }}</router-link>
+        </div>
+      </div>
+    </transition>
         </div>
 
         <router-link to="/blog" class="nav-link">{{ $t('blog') }}</router-link>
-
+        <router-link to="/review" class="nav-link">{{ $t('review') }}</router-link>
         <select v-model="locale" @change="changeLanguage"
           class="border text-sm px-2 py-1 rounded-md focus:outline-none">
           <option value="en">{{ $t('english') }}</option>
@@ -238,10 +285,19 @@ const {
 const showDropdown = ref(false);
 const showProfileDropdown = ref(false);
 const showDebug = ref(false);
+
 // i18n
 const { locale } = useI18n()
 const changeLanguage = () => {
   localStorage.setItem('locale', locale.value)
+}
+
+function handleClick(event) {
+  if (!isLoggedIn.value) {
+    event.preventDefault()
+    alert('Please log in to access this feature.')
+    // router.push('/login') // optional redirect
+  }
 }
 
 onMounted(async () => {
