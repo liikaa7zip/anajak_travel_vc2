@@ -27,7 +27,7 @@
           <input 
             v-model="email" 
             type="email" 
-            placeholder="name@gmail.com" 
+            :placeholder="$t('log.placeholderEmail')" 
             autocomplete="email"
             class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 transition-all duration-300 hover:border-purple-500"
             required

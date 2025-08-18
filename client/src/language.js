@@ -17,6 +17,7 @@ import Mondulkiri from './views/provinces/Mondulkiri.vue'
 import TbongKhmum from './views/provinces/TbongKhmum.vue'
 import Register from './views/Register.vue'
 import { Title } from 'chart.js'
+import Login from './views/Login.vue'
 // Translation messages
 const messages = {
     en: {
@@ -1024,11 +1025,26 @@ const messages = {
             Welcome: "Welcome back!",
             TitleSignIn: "Sign In",
             Email: "Email",
-            placeholder: "name@gmail.com",
+            placeholderEmail: "name@gmail.com",
             Password: "Password",
             SignIn: 'Sign In',
             DoNotHaveAcc: 'Do not have an account?',
             Register: 'Register'
+        },
+        // Register
+        Register: {
+            TitleApp: "Anajak Travel",
+            Explore: "Explore the world with us!",
+            CreateAcc: "Create Account",
+            Name: "Name",
+            placeholderName: "Enter your name",
+            Email: "Email",
+            placeholderEmail: "name@gmail.com",
+            Password: "Password",
+            Text: "By signing up you agree to terms and conditions at blah.",
+            RegisterBtn: 'Register',
+            AlreadyHaveAcc: 'Already have an account?',
+            Login: 'Login'
         }
     },
 
@@ -1039,11 +1055,26 @@ const messages = {
             Welcome: "សូមស្វាគមន៍ត្រឡប់មកវិញ!",
             TitleSignIn: "ចូលគណនី",
             Email: "អ៊ីមែល",
-            placeholder: "ឈ្មោះ@gmail.com",
+            placeholderEmail: "ឈ្មោះ@gmail.com",
             Password: "ពាក្យសម្ងាត់",
             SignIn: 'ចូលគណនី',
             DoNotHaveAcc: 'មិនទាន់មានគណនីមែនទេ?',
             Register: 'ចុះឈ្មោះ'
+        },
+        // Register
+        Register: {
+            TitleApp: "អាណាចក្រធ្វើដំណើរ",
+            Explore: "ស្វែងរកពិភពលោកជាមួយយើង!",
+            CreateAcc: "បង្កើតគណនី",
+            Name: "ឈ្មោះ",
+            placeholderName: "បញ្ចូលឈ្មោះរបស់អ្នក",
+            Email: "អ៊ីមែល",
+            placeholderEmail: "ឈ្មោះ@gmail.com",
+            Password: "ពាក្យសម្ងាត់",
+            Text: "តាមរយៈការចុះឈ្មោះ អ្នកយល់ព្រមតាមលក្ខខណ្ឌនៅ blah ",
+            RegisterBtn: 'ចុះឈ្មោះ',
+            AlreadyHaveAcc: 'មានគណនីរួចហើយ?',
+            Login: 'ចូលគណនី'
         },
 
         // Province details
