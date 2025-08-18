@@ -6,20 +6,31 @@
       
       <!-- Search + Add Room -->
       <div class="flex gap-2 w-full sm:w-auto">
-        <input
-          type="text"
-          v-model="searchQuery"
-          placeholder="Search by room number or type"
-          class="flex-1 border rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-500 outline-none"
-        />
-          <!-- RouteLink for Add Room -->
+  <input
+    type="text"
+    v-model="searchQuery"
+    placeholder="Search by room number or type"
+    class="flex-1 border rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-500 outline-none"
+  />
+
+  <!-- Add Room Button -->
   <router-link
     to="/hotel_owner/create-room"
     class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition flex items-center justify-center"
   >
     Add Room
   </router-link>
-      </div>
+
+  <!-- View All Bookings Button -->
+  <router-link
+    to="/hotel_owner/hotel-bookings"
+    class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition flex items-center justify-center"
+  >
+    View All Bookings
+  </router-link>
+</div>
+
+
     </div>
 
     <!-- Rooms Table -->
@@ -38,6 +49,7 @@
               <th class="px-4 py-2">Price/Night</th>
               <th class="px-4 py-2">Max Occupancy</th>
               <th class="px-4 py-2">Amenities</th>
+              <th class="px-4 py-2">Status</th>
               <th class="px-4 py-2">Actions</th>
             </tr>
           </thead>
@@ -48,11 +60,24 @@
               <td class="px-4 py-2">{{ room.RoomCategory?.name || 'N/A' }}</td>
               <td class="px-4 py-2">${{ room.pricePerNight?.toFixed(2) || 'N/A' }}</td>
               <td class="px-4 py-2">{{ room.maxOccupancy }}</td>
+              
               <td class="px-4 py-2">
                 <span v-for="(amenity, index) in room.amenities" :key="index" class="bg-purple-100 text-purple-700 px-2 py-1 rounded-full text-xs mr-1 mb-1 inline-block">
                   {{ amenity }}
                 </span>
               </td>
+              <td class="px-4 py-2">
+  <span
+    :class="{
+      'bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm': room.status === 'available',
+      'bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-sm': room.status === 'occupied',
+      'bg-red-100 text-red-800 px-2 py-1 rounded-full text-sm': room.status === 'maintenance'
+    }"
+  >
+    {{ room.status.charAt(0).toUpperCase() + room.status.slice(1) }}
+  </span>
+</td>
+
               <td class="px-4 py-2 flex gap-2">
                 <button class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600" @click="editRoom(room.id)">Edit</button>
                 <button class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600" @click="deleteRoom(room.id)">Delete</button>
