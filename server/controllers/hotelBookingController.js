@@ -102,7 +102,41 @@ exports.getBookingById = async (req, res) => {
   }
 };
 
-// CREATE new booking with validation
+exports.getBookingsByHotel = async (req, res) => {
+  const { hotelId } = req.params;
+
+  try {
+    const bookings = await HotelBooking.findAll({
+      where: {
+        hotelId,
+        status: { [Op.in]: ['pending', 'confirmed'] }
+      },
+      attributes: ['roomId', 'checkInDate', 'checkOutDate', 'status']
+    });
+
+    res.json(bookings);
+  } catch (error) {
+    console.error('Error fetching hotel bookings:', error);
+    res.status(500).json({ message: 'Failed to fetch hotel bookings' });
+  }
+};
+
+// Get bookings by hotelId
+exports.getBookingsByHotelId = async (req, res) => {
+  try {
+    const { hotelId } = req.params;
+    const bookings = await HotelBooking.findAll({
+      where: { hotelId: hotelId },
+      include: [{ model: Room }]   // so you know which rooms are booked
+    });
+
+    res.json(bookings);
+  } catch (error) {
+    console.error("Error fetching bookings by hotelId:", error);
+    res.status(500).json({ error: "Failed to fetch bookings" });
+  }
+};
+
 exports.createBooking = async (req, res) => {
   try {
     console.log('Received booking request body:', req.body);
@@ -234,6 +268,13 @@ exports.createBooking = async (req, res) => {
       paymentMethod
     });
 
+    // Update room status
+const updateResult = await Room.update(
+  { status: 'occupied' },
+  { where: { id: roomId } }
+);
+console.log('Room update result:', updateResult);
+
     // Fetch the created booking with all relations
     const createdBooking = await HotelBooking.findByPk(newBooking.id, {
       include: [
@@ -243,8 +284,7 @@ exports.createBooking = async (req, res) => {
       ]
     });
 
-    res.status(201).json({
-      message: 'Booking created successfully',
+    res.status(201).json({message: 'Booking created successfully',
       booking: createdBooking
     });
 
@@ -253,6 +293,8 @@ exports.createBooking = async (req, res) => {
     res.status(400).json({ message: 'Failed to create booking', error: err.message });
   }
 };
+
+
 
 // UPDATE booking status
 exports.updateBookingStatus = async (req, res) => {
@@ -306,6 +348,8 @@ exports.updateBookingStatus = async (req, res) => {
     res.status(500).json({ message: 'Error updating booking status', error: err.message });
   }
 };
+
+
 
 // CANCEL booking
 exports.cancelBooking = async (req, res) => {
