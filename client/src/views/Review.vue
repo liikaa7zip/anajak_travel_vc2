@@ -2,7 +2,7 @@
   <div class="max-w-3xl mx-auto p-6 space-y-8">
     <!-- Review List -->
     <div>
-      <h2 class="text-3xl font-bold mb-6 text-gray-800">Customer Reviews</h2>
+      <h2 class="text-3xl font-bold mb-6 text-gray-800">{{ $t("Reviews.Title") }}</h2>
 
       <div v-if="reviews.length">
         <div
@@ -33,7 +33,7 @@
                     {{ review.user?.username || "Anonymous" }}
                   </p>
                   <p class="text-xs text-gray-500">
-                    Posted {{ new Date(review.createdAt).toLocaleDateString() }}
+                    {{ $t("Reviews.Posted") }} {{ new Date(review.createdAt).toLocaleDateString() }}
                   </p>
                 </div>
               </div>
@@ -61,13 +61,13 @@
 
       <!-- Empty state -->
       <div v-else class="text-center text-gray-500 italic">
-        No reviews yet. Be the first to write one!
+        {{ $t("Reviews.NoReviews") }}
       </div>
     </div>
 
     <!-- Write Review (only if logged in) -->
     <div v-if="isLoggedIn" class="bg-white p-6 rounded-2xl shadow-md border">
-      <h2 class="text-2xl font-bold mb-5 text-gray-800">Write a Review</h2>
+      <h2 class="text-2xl font-bold mb-5 text-gray-800">{{ $t("Reviews.WriteReview") }}</h2>
 
       <!-- Rating -->
       <div class="flex items-center mb-4">
@@ -102,7 +102,7 @@
           @click="addImage"
           class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg transition"
         >
-          Add
+          {{ $t("Reviews.Add") }}
         </button>
       </div>
 
@@ -131,13 +131,13 @@
         @click="submitReview"
         class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl shadow-md transition"
       >
-        Submit Review
+        {{ $t("Reviews.SubmitReview") }}
       </button>
     </div>
 
     <!-- Not logged in -->
     <div v-else class="text-center text-gray-500 italic">
-      Please log in to write a review.
+      {{ $t("Reviews.NotLogIn") }}
     </div>
   </div>
 </template>

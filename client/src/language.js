@@ -37,7 +37,7 @@ const messages = {
         itinerary: 'Travel Itinerary',
         favorite: 'My Favorite',
         blog: 'Blog Page',
-        review: 'review',
+        Review: 'review',
         english: 'English',
         khmer: 'Khmer',
         login: 'Login',
@@ -1004,6 +1004,17 @@ const messages = {
                 Map: "Province Map",
             },
         },
+
+        // Customer Reviews
+        Reviews: {
+            Title: "Customer Reviews",
+            Posted: "Posted",
+            WriteReview: "Write a Review",
+            Add: "Add",
+            SubmitReview: "Submit Review",
+            NoReviews: "No reviews yet. Be the first to write one!",
+            NotLogIn: 'Please log in to write a review.'
+        }
     },
 
     km: {
@@ -1617,7 +1628,7 @@ const messages = {
         itinerary: 'ផែនការធ្វើដំណើរ',
         favorite: 'សំណប់ចិត្តរបស់ខ្ញុំ',
         blog: 'ទំព័រប្លុក',
-        review: 'ការពិនិត្យ',
+        Review: 'ការពិនិត្យ',
         english: 'អង់គ្លេស',
         khmer: 'ខ្មែរ',
         login: 'ចូលគណនី',
@@ -2018,6 +2029,17 @@ const messages = {
                 description: "ខេត្តជាប់ព្រំដែន ល្បីពីប្រាសាទនិងផ្សារ",
             }
         },
+
+        // Customer Reviews
+        Reviews: {
+            Title: "ការពិនិត្យអតិថិជន",
+            Posted: "បានបង្ហោះ",
+            WriteReview: "សរសេរការពិនិត្យ",
+            Add: "បន្ថែម",
+            SubmitReview: "ដាក់ស្នើការពិនិត្យ",
+            NoReviews: "មិន​ទាន់​មានពិនិត្យមើល​នៅឡើយ​ទេ​។ ក្លាយជាអ្នកសរសេរដំបូង!",
+            NotLogIn: 'សូមចុះឈ្មោះចូលដើម្បីសរសេរការវាយតម្លៃ។'
+        }
     }
 }
 
