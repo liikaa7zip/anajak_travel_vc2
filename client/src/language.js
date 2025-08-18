@@ -15,6 +15,8 @@ import StungTreng from './views/provinces/StungTreng.vue'
 import Rattanakiri from './views/provinces/Rattanakiri.vue'
 import Mondulkiri from './views/provinces/Mondulkiri.vue'
 import TbongKhmum from './views/provinces/TbongKhmum.vue'
+import Register from './views/Register.vue'
+import { Title } from 'chart.js'
 // Translation messages
 const messages = {
     en: {
@@ -1014,10 +1016,36 @@ const messages = {
             SubmitReview: "Submit Review",
             NoReviews: "No reviews yet. Be the first to write one!",
             NotLogIn: 'Please log in to write a review.'
+        },
+
+        // Log In
+        log: {
+            TitleApp: "Anajak Travel",
+            Welcome: "Welcome back!",
+            TitleSignIn: "Sign In",
+            Email: "Email",
+            placeholder: "name@gmail.com",
+            Password: "Password",
+            SignIn: 'Sign In',
+            DoNotHaveAcc: 'Do not have an account?',
+            Register: 'Register'
         }
     },
 
     km: {
+        // Log In
+        log: {
+            TitleApp: "អាណាចក្រធ្វើដំណើរ",
+            Welcome: "សូមស្វាគមន៍ត្រឡប់មកវិញ!",
+            TitleSignIn: "ចូលគណនី",
+            Email: "អ៊ីមែល",
+            placeholder: "ឈ្មោះ@gmail.com",
+            Password: "ពាក្យសម្ងាត់",
+            SignIn: 'ចូលគណនី',
+            DoNotHaveAcc: 'មិនទាន់មានគណនីមែនទេ?',
+            Register: 'ចុះឈ្មោះ'
+        },
+
         // Province details
         Province: {
             Battambang: {

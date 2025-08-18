@@ -7,10 +7,10 @@
 
       <div class="relative z-10 text-center bg-black bg-opacity-40 p-6 rounded-lg">
         <h1 class="text-4xl font-bold bg-gradient-to-r from-orange-500 via-yellow-500 to-red-500 bg-clip-text text-transparent drop-shadow-lg">
-          Anajak Travel
+          {{ $t('log.TitleApp') }}
         </h1>
         <p class="text-lg font-medium bg-gradient-to-r from-orange-400 via-pink-500 to-purple-500 bg-clip-text text-transparent mt-2 drop-shadow-lg">
-          Welcome back!
+          {{ $t('log.Welcome') }}
         </p>
       </div>
     </div>
@@ -18,12 +18,12 @@
     <!-- Right Side: Form -->
     <div class="w-1/2 p-10 flex flex-col justify-center">
       <h2 class="text-2xl font-bold text-gray-800 mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-        Sign In
+        {{ $t('log.TitleSignIn') }}
       </h2>
       
       <form @submit.prevent="handleLogin" class="space-y-6">
         <div class="relative">
-          <label class="block text-sm font-medium text-gray-700">Email</label>
+          <label class="block text-sm font-medium text-gray-700">{{ $t('log.Email') }}</label>
           <input 
             v-model="email" 
             type="email" 
@@ -35,7 +35,7 @@
         </div>
         
         <div class="relative">
-          <label class="block text-sm font-medium text-gray-700">Password</label>
+          <label class="block text-sm font-medium text-gray-700">{{ $t('log.Password') }}</label>
           <input 
             v-model="password" 
             type="password" 
@@ -51,13 +51,13 @@
           :disabled="loading"
           class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-2 rounded-lg transition-all duration-300 font-semibold shadow-md hover:shadow-lg transform hover:-translate-y-1 disabled:opacity-50"
         >
-          {{ loading ? 'Signing In...' : 'Sign In' }}
+          {{ loading ? 'Signing In...' : $t('log.SignIn') }}
         </button>
         
         <p class="mt-4 text-sm text-center text-gray-600">
-          Don't have an account?
+          {{ $t('log.DoNotHaveAcc') }}
           <router-link to="/register" class="text-purple-600 font-medium hover:underline transition-colors duration-300">
-            Register
+            {{ $t('log.Register') }}
           </router-link>
         </p>
         

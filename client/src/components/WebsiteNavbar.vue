@@ -27,81 +27,52 @@
           </button>
 
           <transition name="fade">
-      <div
-        v-if="showDropdown"
-        class="absolute left-0 mt-3 w-max min-w-[600px] bg-white border border-gray-200 rounded-xl shadow-xl z-50 p-6 grid grid-cols-3 gap-6 animate-fade-in"
-      >
-        <div>
-          <h3 class="text-blue-600 font-semibold text-sm mb-3">
-            {{ $t('transportations') }}
-          </h3>
-          <router-link
-            to="/FlightReservation"
-            class="dropdown-item"
-            @click="handleClick"
-            :class="{ 'cursor-not-allowed opacity-50 pointer-events-none': !isLoggedIn }"
-          >✈️ {{ $t('flight') }}</router-link>
-          <router-link
-            to="/CarRental"
-            class="dropdown-item"
-            @click="handleClick"
-            :class="{ 'cursor-not-allowed opacity-50 pointer-events-none': !isLoggedIn }"
-          >🚗 {{ $t('car') }}</router-link>
-          <router-link
-            to="/Bustickets"
-            class="dropdown-item"
-            @click="handleClick"
-            :class="{ 'cursor-not-allowed opacity-50 pointer-events-none': !isLoggedIn }"
-          >🚌 {{ $t('bus') }}</router-link>
-          <router-link
-            to="/Boatickets"
-            class="dropdown-item"
-            @click="handleClick"
-            :class="{ 'cursor-not-allowed opacity-50 pointer-events-none': !isLoggedIn }"
-          >⛴️ {{ $t('boat') }}</router-link>
-        </div>
-        <div>
-          <h3 class="text-blue-600 font-semibold text-sm mb-3">
-            {{ $t('hotelsDining') }}
-          </h3>
-          <router-link
-            to="/hotel"
-            class="dropdown-item"
-            @click="handleClick"
-            :class="{ 'cursor-not-allowed opacity-50 pointer-events-none': !isLoggedIn }"
-          >🏨 {{ $t('hotel') }}</router-link>
-          <router-link
-            to="/province"
-            class="dropdown-item"
-            @click="handleClick"
-            :class="{ 'cursor-not-allowed opacity-50 pointer-events-none': !isLoggedIn }"
-          >🍽️ {{ $t('restaurant') }}</router-link>
-        </div>
-        <div>
-          <h3 class="text-blue-600 font-semibold text-sm mb-3">
-            {{ $t('moreServices') }}
-          </h3>
-          <router-link
-            to="/user-plan"
-            class="dropdown-item"
-            @click="handleClick"
-            :class="{ 'cursor-not-allowed opacity-50 pointer-events-none': !isLoggedIn }"
-          >🗺️ {{ $t('plan') }}</router-link>
-          <router-link
-            to="/TravelItinerary"
-            class="dropdown-item"
-            @click="handleClick"
-            :class="{ 'cursor-not-allowed opacity-50 pointer-events-none': !isLoggedIn }"
-          >📅 {{ $t('itinerary') }}</router-link>
-          <router-link
-            to="/favorites"
-            class="dropdown-item"
-            @click="handleClick"
-            :class="{ 'cursor-not-allowed opacity-50 pointer-events-none': !isLoggedIn }"
-          >❤️ {{ $t('favorite') }}</router-link>
-        </div>
-      </div>
-    </transition>
+            <div v-if="showDropdown"
+              class="absolute left-0 mt-3 w-max min-w-[600px] bg-white border border-gray-200 rounded-xl shadow-xl z-50 p-6 grid grid-cols-3 gap-6 animate-fade-in">
+              <div>
+                <h3 class="text-blue-600 font-semibold text-sm mb-3">
+                  {{ $t('transportations') }}
+                </h3>
+                <router-link to="/FlightReservation" class="dropdown-item" @click="handleClick"
+                  :class="{ 'cursor-not-allowed opacity-50 pointer-events-none': !isLoggedIn }">✈️ {{ $t('flight')
+                  }}</router-link>
+                <router-link to="/CarRental" class="dropdown-item" @click="handleClick"
+                  :class="{ 'cursor-not-allowed opacity-50 pointer-events-none': !isLoggedIn }">🚗 {{ $t('car')
+                  }}</router-link>
+                <router-link to="/Bustickets" class="dropdown-item" @click="handleClick"
+                  :class="{ 'cursor-not-allowed opacity-50 pointer-events-none': !isLoggedIn }">🚌 {{ $t('bus')
+                  }}</router-link>
+                <router-link to="/Boatickets" class="dropdown-item" @click="handleClick"
+                  :class="{ 'cursor-not-allowed opacity-50 pointer-events-none': !isLoggedIn }">⛴️ {{ $t('boat')
+                  }}</router-link>
+              </div>
+              <div>
+                <h3 class="text-blue-600 font-semibold text-sm mb-3">
+                  {{ $t('hotelsDining') }}
+                </h3>
+                <router-link to="/hotel" class="dropdown-item" @click="handleClick"
+                  :class="{ 'cursor-not-allowed opacity-50 pointer-events-none': !isLoggedIn }">🏨 {{ $t('hotel')
+                  }}</router-link>
+                <router-link to="/province" class="dropdown-item" @click="handleClick"
+                  :class="{ 'cursor-not-allowed opacity-50 pointer-events-none': !isLoggedIn }">🍽️ {{ $t('restaurant')
+                  }}</router-link>
+              </div>
+              <div>
+                <h3 class="text-blue-600 font-semibold text-sm mb-3">
+                  {{ $t('moreServices') }}
+                </h3>
+                <router-link to="/user-plan" class="dropdown-item" @click="handleClick"
+                  :class="{ 'cursor-not-allowed opacity-50 pointer-events-none': !isLoggedIn }">🗺️ {{ $t('plan')
+                  }}</router-link>
+                <router-link to="/TravelItinerary" class="dropdown-item" @click="handleClick"
+                  :class="{ 'cursor-not-allowed opacity-50 pointer-events-none': !isLoggedIn }">📅 {{ $t('itinerary')
+                  }}</router-link>
+                <router-link to="/favorites" class="dropdown-item" @click="handleClick"
+                  :class="{ 'cursor-not-allowed opacity-50 pointer-events-none': !isLoggedIn }">❤️ {{ $t('favorite')
+                  }}</router-link>
+              </div>
+            </div>
+          </transition>
         </div>
 
         <router-link to="/blog" class="nav-link">{{ $t('blog') }}</router-link>
@@ -205,9 +176,7 @@
                       >
                       <span
                         class="inline-block text-[10px] mt-1 font-medium rounded-full px-2 py-0.5 bg-yellow-100 text-yellow-700"
-                        v-if="isTransportowner"
-                        >Transport Owner</span
-                      >
+                        v-if="isTransportowner">Transport Owner</span>
                     </div>
                   </div>
                 </div>
@@ -235,11 +204,7 @@
                     <i class="ri-restaurant-line mr-2 text-gray-500"></i>
                     {{ $t('restaurantDashboard') }}
                   </router-link>
-                  <router-link
-                    v-if="isTransportowner"
-                    to="/transport_owner/transportdashboard"
-                    class="dropdown-item"
-                  >
+                  <router-link v-if="isTransportowner" to="/transport_owner/transportdashboard" class="dropdown-item">
                     <i class="ri-bus-2-line mr-2 text-gray-500"></i>
 
                     transport_owner Dashboard
