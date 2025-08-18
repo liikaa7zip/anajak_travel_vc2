@@ -105,7 +105,7 @@
         </div>
 
         <router-link to="/blog" class="nav-link">{{ $t('blog') }}</router-link>
-
+        <router-link to="/review" class="nav-link">{{ $t('review') }}</router-link>
         <select v-model="locale" @change="changeLanguage"
           class="border text-sm px-2 py-1 rounded-md focus:outline-none">
           <option value="en">{{ $t('english') }}</option>
