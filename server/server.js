@@ -1,5 +1,5 @@
-// server.js
-require('dotenv').config();
+// server.js (or app.js)
+// require('dotenv').config();
 const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io'); // Single import of Server
@@ -7,7 +7,9 @@ const cors = require('cors');
 const axios = require('axios');
 const { sequelize } = require('./models');
 
-const weatherRoutes = require('./routes/weatherRoutes');
+
+// const weatherRoutes = require('./routes/weatherRoutes');
+
 const bookingRoutes = require('./routes/bookingRoute');
 const transportRoutes = require('./routes/transportRoutes');
 const flightRoutes = require('./routes/flightRoutes');
@@ -39,7 +41,42 @@ const Message = db.Message;
 const app = express();
 const server = http.createServer(app);
 
-// Initialize Socket.IO
+app.use(cors({
+  origin: 'http://localhost:3000',  // Your frontend URL
+  credentials: true,
+}));
+
+app.use(express.json());
+app.use(cors());
+
+
+// // Routes
+// app.use('/weather', weatherRoutes);
+
+// API Routes
+app.use('/api/users', userRoutes);
+app.use('/api/messages', messageRoutes);
+app.use('/api/bookings', bookingRoutes);
+app.use('/api/flightbookings', flightRoutes);
+app.use('/api/boatbookings', boatBookingRoutes);
+app.use('/api/transports', transportRoutes);
+app.use('/api/hotels', hotelRoutes);
+app.use('/api/hotel-booking', hotelBookingRoutes);  // Note singular 'hotel-booking'
+app.use('/api/locations', locationRoutes);
+app.use('/api/foods', foodRoutes);
+app.use('/api/orders', orderFoodRoutes);
+// app.use('/api', locationRoutes);
+app.use('/api/featured-stories', featuredStoriesRoutes);
+app.use('/api/travel-guides', travelGuidesRoutes);
+app.use('/api/gallery-photos', galleryPhotosRoutes);
+app.use('/api/itineraries', itineraryRoutes);
+app.use('/api/payments', payment);
+app.use('/api/cars', carRoutes);
+app.use('/api/seats', seatsRoutes)
+
+// Uncomment if you want admin user routes
+// app.use('/api/admin-users', adminUserRoutes);
+app.use('/api/categories', categoryRoutes);
 const io = new Server(server, {
   cors: {
     origin: 'http://localhost:3000',
