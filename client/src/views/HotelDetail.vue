@@ -75,12 +75,15 @@
 >
   <img
   :src="room.images && room.images.length > 0
-        ? room.images[0]
+        ? room.images[0].startsWith('http')
+          ? room.images[0]                
+          : `http://localhost:5000/${room.images[0]}`
         : 'https://placehold.co/400x250?text=No+Image'"
   :alt="`Room ${room.roomNumber}`"
   class="w-full h-[200px] object-cover"
   @error="handleImageError"
 />
+
 
 
 
@@ -140,19 +143,20 @@
   </div>
 </template>
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import axios from 'axios';
 
 const route = useRoute();
+
+// Reactive state
 const hotel = ref(null);
 const rooms = ref([]);
 const loading = ref(false);
 const error = ref(null);
 
-const isValidPrice = (price) => {
-  return typeof price === 'number' && !isNaN(price);
-};
+// Helpers
+const isValidPrice = (price) => typeof price === 'number' && !isNaN(price);
 
 const handleImageError = (event) => {
   const altText = event.target.alt || 'Room/Hotel';
@@ -160,14 +164,20 @@ const handleImageError = (event) => {
   event.target.src = 'https://placehold.co/400x250?text=No+Image';
 };
 
-
-
+// Fetch rooms for a specific hotel
 const fetchRooms = async (hotelId) => {
   try {
-    const res = await axios.get(`http://localhost:5000/api/hotel-owners/rooms`);
+    const res = await axios.get(`http://localhost:5000/api/hotels/${hotelId}/rooms`);
     rooms.value = res.data.map(room => ({
       ...room,
-      amenities: Array.isArray(room.amenities) ? room.amenities : JSON.parse(room.amenities || '[]')
+      // Parse amenities string into array if needed
+      amenities: Array.isArray(room.amenities)
+        ? room.amenities
+        : JSON.parse(room.amenities || '[]'),
+      // Parse images string into array if needed
+      images: Array.isArray(room.images)
+        ? room.images
+        : JSON.parse(room.images || '[]')
     }));
   } catch (err) {
     rooms.value = [];
@@ -175,24 +185,33 @@ const fetchRooms = async (hotelId) => {
   }
 };
 
-
-
-onMounted(async () => {
+// Load hotel + rooms
+const loadHotel = async (hotelId = route.params.id) => {
   loading.value = true;
+  error.value = null;
+  rooms.value = []; // Clear old rooms
+  hotel.value = null;
   try {
-    const res = await axios.get(`http://localhost:5000/api/hotels/${route.params.id}`);
+    const res = await axios.get(`http://localhost:5000/api/hotels/${hotelId}`);
     hotel.value = res.data;
-    await fetchRooms(route.params.id);
+    await fetchRooms(hotelId);
   } catch (err) {
     error.value = 'Failed to load hotel details. Please try again later.';
     console.error('Error fetching hotel:', err);
   } finally {
     loading.value = false;
   }
+};
+
+// Fetch hotel on component mount
+onMounted(() => loadHotel());
+
+// Watch for route changes (when user clicks another hotel)
+watch(() => route.params.id, (newId) => {
+  if (newId) loadHotel(newId);
 });
-
-
 </script>
+
     <style scoped>
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
 </style>

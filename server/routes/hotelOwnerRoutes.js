@@ -39,4 +39,5 @@ router.get('/booking-calendar', controller.getBookingCalendar);
 router.get('/room-occupancy', controller.getRoomOccupancyTimeline);
 router.get('/booking-report', controller.downloadBookingReport);
 
+router.get('/:hotelId/rooms', controller.getRoomsForUsers);
 module.exports = router;
