@@ -2,6 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const { sequelize } = require('./models');
 
+import dotenv from 'dotenv';
+
+import weatherRoutes from './routes/weatherRoutes.js';
+dotenv.config();
+
 // Import routes
 const bookingRoutes = require('./routes/bookingRoute');
 const transportRoutes = require('./routes/transportRoutes');
@@ -23,6 +28,9 @@ app.use(cors({
 
 // Middleware
 app.use(express.json());
+
+// Use weather routes
+app.use('/weather', weatherRoutes);
 
 // Basic health check
 app.get('/', (req, res) => {
