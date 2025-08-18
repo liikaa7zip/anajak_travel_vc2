@@ -18,7 +18,7 @@
     to="/hotel_owner/create-room"
     class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition flex items-center justify-center"
   >
-    Add Room
+    Add Rooms
   </router-link>
 
   <!-- View All Bookings Button -->
