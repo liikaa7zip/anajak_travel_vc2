@@ -153,7 +153,7 @@ const error = ref(null);
 let timer = null;
 
 // Socket.IO connection
-const socket = io('http://localhost:3000');
+const socket = io('http://localhost:5000');
 
 // Computed
 const formattedDateTime = computed(() => {
@@ -175,7 +175,7 @@ const backgroundImageUrl = computed(() => {
 async function fetchWeatherData(loc) {
   try {
     const response = await axios.get(
-      `http://localhost:3000/api/weather?location=${encodeURIComponent(loc)}`
+      `http://localhost:5000/api/weather?location=${encodeURIComponent(loc)}`
     );
     const data = response.data;
     return {
