@@ -40,7 +40,7 @@ const messages = {
         itinerary: 'Travel Itinerary',
         favorite: 'My Favorite',
         blog: 'Blog Page',
-        Review: 'review',
+        Review: 'Review',
         english: 'English',
         khmer: 'Khmer',
         login: 'Login',
