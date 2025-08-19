@@ -40,4 +40,6 @@ router.get('/room-occupancy', controller.getRoomOccupancyTimeline);
 router.get('/booking-report', controller.downloadBookingReport);
 
 router.get('/:hotelId/rooms', controller.getRoomsForUsers);
+router.put('/:id', controller.updateRoomStatus);
+
 module.exports = router;

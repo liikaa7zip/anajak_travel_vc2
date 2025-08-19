@@ -71,64 +71,58 @@
   <div
   v-for="room in rooms"
   :key="room.id"
-  class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
+  :class="[
+    'bg-white rounded-xl overflow-hidden shadow-lg transition-all duration-300 transform',
+    unavailableRooms.includes(room.id) 
+      ? 'opacity-50 cursor-not-allowed' 
+      : 'hover:shadow-2xl hover:-translate-y-1'
+  ]"
 >
   <img
-  :src="room.images && room.images.length > 0
-        ? room.images[0].startsWith('http')
-          ? room.images[0]                
-          : `http://localhost:5000/${room.images[0]}`
-        : 'https://placehold.co/400x250?text=No+Image'"
-  :alt="`Room ${room.roomNumber}`"
-  class="w-full h-[200px] object-cover"
-  @error="handleImageError"
-/>
+    :src="room.images && room.images.length > 0
+          ? room.images[0].startsWith('http')
+            ? room.images[0]
+            : `http://localhost:5000/${room.images[0]}`
+          : 'https://placehold.co/400x250?text=No+Image'"
+    :alt="`Room ${room.roomNumber}`"
+    class="w-full h-[200px] object-cover"
+    @error="handleImageError"
+  />
 
-
-
-
-
-
-
-
-    <!-- Room Content -->
-    <div class="p-4 space-y-3">
-      <!-- Room Info -->
-      <div class="flex justify-between items-start">
-        <div>
-          <h3 class="font-bold text-lg">Room #{{ room.roomNumber }}</h3>
-          <p class="text-sm text-gray-500">{{ room.RoomCategory?.name || room.type }}</p>
-        </div>
-        <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">
-          ${{ room.pricePerNight?.toFixed(2) || 'N/A' }}
-        </span>
+  <div class="p-4 space-y-3">
+    <div class="flex justify-between items-start">
+      <div>
+        <h3 class="font-bold text-lg">Room #{{ room.roomNumber }}</h3>
+        <p class="text-sm text-gray-500">{{ room.RoomCategory?.name || room.type }}</p>
       </div>
+      <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">
+        ${{ room.pricePerNight?.toFixed(2) || 'N/A' }}
+      </span>
+    </div>
 
-      <!-- Description -->
-      <p class="text-gray-600 text-sm line-clamp-3">
-        {{ room.RoomCategory?.description || 'No description available' }}
-      </p>
+    <p class="text-gray-600 text-sm line-clamp-3">
+      {{ room.RoomCategory?.description || 'No description available' }}
+    </p>
 
-      <!-- Amenities -->
-      <div v-if="room.amenities && room.amenities.length" class="flex flex-wrap gap-1">
-  <span v-for="(amenity, index) in room.amenities" :key="index"
-        class="bg-blue-50 text-blue-700 px-2 py-0.5 rounded text-xs">
-    {{ amenity }}
-  </span>
+    <div v-if="room.amenities && room.amenities.length" class="flex flex-wrap gap-1">
+      <span v-for="(amenity, index) in room.amenities" :key="index"
+            class="bg-blue-50 text-blue-700 px-2 py-0.5 rounded text-xs">
+        {{ amenity }}
+      </span>
+    </div>
+
+    <router-link
+  :to="`/book/${hotel.id}?roomId=${room.id}`"
+  class="block w-full text-center bg-purple-600 text-white py-2 rounded-lg font-medium hover:bg-purple-700 transition"
+>
+  Book This Room
+</router-link>
+
+  </div>
 </div>
 
 
 
-
-      <!-- Action -->
-      <router-link
-        :to="`/book/${hotel.id}?roomId=${room.id}`"
-        class="block w-full text-center bg-purple-600 text-white py-2 rounded-lg font-medium hover:bg-purple-700 transition"
-      >
-        Book This Room
-      </router-link>
-    </div>
-  </div>
 </div>
 
           <div v-else class="text-gray-500 italic">No available rooms for this hotel.</div>
@@ -142,6 +136,7 @@
     </div>
   </div>
 </template>
+
 <script setup>
 import { ref, onMounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
@@ -154,6 +149,7 @@ const hotel = ref(null);
 const rooms = ref([]);
 const loading = ref(false);
 const error = ref(null);
+const unavailableRooms = ref([]); // Stores room IDs that are unavailable
 
 // Helpers
 const isValidPrice = (price) => typeof price === 'number' && !isNaN(price);
@@ -164,36 +160,56 @@ const handleImageError = (event) => {
   event.target.src = 'https://placehold.co/400x250?text=No+Image';
 };
 
-// Fetch rooms for a specific hotel
 const fetchRooms = async (hotelId) => {
   try {
     const res = await axios.get(`http://localhost:5000/api/hotels/${hotelId}/rooms`);
-    rooms.value = res.data.map(room => ({
+    const fetchedRooms = res.data.map(room => ({
       ...room,
-      // Parse amenities string into array if needed
-      amenities: Array.isArray(room.amenities)
-        ? room.amenities
-        : JSON.parse(room.amenities || '[]'),
-      // Parse images string into array if needed
-      images: Array.isArray(room.images)
-        ? room.images
-        : JSON.parse(room.images || '[]')
+      amenities: Array.isArray(room.amenities) ? room.amenities : JSON.parse(room.amenities || '[]'),
+      images: Array.isArray(room.images) ? room.images : JSON.parse(room.images || '[]')
     }));
+
+    // Filter out unavailable rooms
+    rooms.value = fetchedRooms.filter(room => !unavailableRooms.value.includes(room.id));
   } catch (err) {
     rooms.value = [];
     console.error('Error fetching rooms:', err);
   }
 };
 
-// Load hotel + rooms
+
+const fetchUnavailableRooms = async (hotelId) => {
+  try {
+    const res = await axios.get(`http://localhost:5000/api/hotel-bookings/hotel/${hotelId}`);
+    const bookings = res.data;
+
+    // Mark all rooms with pending/confirmed bookings as unavailable
+    unavailableRooms.value = bookings
+      .filter(b => b.status === 'confirmed' || b.status === 'pending')
+      .map(b => b.roomId);
+  } catch (err) {
+    console.error('Failed to fetch unavailable rooms:', err);
+    unavailableRooms.value = [];
+  }
+};
+
+
+
 const loadHotel = async (hotelId = route.params.id) => {
   loading.value = true;
   error.value = null;
-  rooms.value = []; // Clear old rooms
+  rooms.value = [];
   hotel.value = null;
+  unavailableRooms.value = [];
+
   try {
     const res = await axios.get(`http://localhost:5000/api/hotels/${hotelId}`);
     hotel.value = res.data;
+
+    // Fetch unavailable rooms first
+    await fetchUnavailableRooms(hotelId);
+
+    // Then fetch only available rooms
     await fetchRooms(hotelId);
   } catch (err) {
     error.value = 'Failed to load hotel details. Please try again later.';
@@ -203,6 +219,7 @@ const loadHotel = async (hotelId = route.params.id) => {
   }
 };
 
+
 // Fetch hotel on component mount
 onMounted(() => loadHotel());
 
@@ -211,6 +228,7 @@ watch(() => route.params.id, (newId) => {
   if (newId) loadHotel(newId);
 });
 </script>
+
 
     <style scoped>
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');

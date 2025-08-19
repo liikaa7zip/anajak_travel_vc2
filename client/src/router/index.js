@@ -143,6 +143,7 @@ import BookingTable from '@/components/AdminReport/BookingTable.vue'
 import HotelChat from '@/views/HotelOwner/HotelChat.vue'
 import CreateRoom from '@/views/HotelOwner/CreateRoom.vue'
 import Review from '@/views/Review.vue'
+import HotelBookings from '@/views/HotelOwner/HotelBookings.vue'
 // Auth guard
 
 const getUserFromStorage = () => {
@@ -301,6 +302,7 @@ const routes = [
       {path: 'rooms',component:Rooms},
       { path: 'chat', component: HotelChat, name: 'HotelChat' },
       { path: 'create-room', component: CreateRoom, name: 'CreateRoom' },
+      { path: 'hotel-bookings', component: HotelBookings, name: 'HotelBookings' },
 
     ]
   },
