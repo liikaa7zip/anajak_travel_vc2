@@ -1,20 +1,39 @@
-const { Food, Location } = require('../models');
+const { Food, Location, Category } = require('../models');
 
 exports.getAllFood = async (req, res) => {
   try {
-    const locationId = req.query.locationId;  // get locationId from query string
+    const locationId = req.query.locationId;  
     let whereCondition = {};
 
     if (locationId) {
       whereCondition.locationId = locationId;
     }
 
-    const foods = await Food.findAll({ where: whereCondition });
+    const foods = await Food.findAll({
+  where: whereCondition,
+  include: [
+    {
+      model: Category,
+      as: 'category',   // matches association
+      attributes: ['id', 'name']
+    },
+    {
+      model: Location,
+      as: 'Location',   // ✅ match the alias exactly (capital L)
+      attributes: ['id', 'name', 'country']
+    }
+  ]
+});
+
+
     res.json(foods);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: 'Failed to fetch food' });
   }
 };
+
+
 exports.updateFood = async (req, res) => {
   try {
     const { id } = req.params
