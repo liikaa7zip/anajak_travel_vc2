@@ -9,8 +9,8 @@
       />
       <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center px-6">
         <h1 class="text-white text-3xl sm:text-6xl font-bold">
-          <i class="fa-solid fa-location-dot"></i> Kampong Speu <br />
-          <span class="text-4xl">Province</span>
+          <i class="fa-solid fa-location-dot"></i> {{ $t("Province.KampongSpeu.KPSHeroTitle") }} <br />
+          <span class="text-5xl">{{ $t("Province.KampongSpeu.KPSHeroSubtitle") }}</span>
         </h1>
       </div>
     </section>
@@ -18,10 +18,10 @@
     <!-- About Section -->
     <section class="pt-12 pb-6 pr-16 pl-16">
       <div class="bg-white rounded-lg shadow p-4 flex flex-col sm:flex-row items-start justify-between gap-4">
-        <div class="max-w-xl">
-          <h2 class="text-2xl font-semibold mb-2 text-purple-600">About Kampong Speu</h2>
-          <p class="text-sm text-gray-700">
-            Kampong Speu, meaning "Port of Starfruit," is a province in central Cambodia known for its scenic natural beauty, including waterfalls and mountains. The province is home to Kirirom National Park and Phnom Aoral, the highest peak in Cambodia. It offers eco-tourism, hiking, and adventure experiences.
+        <div class="max-w-xl m-8">
+          <h2 class="text-2xl font-semibold mb-2 text-purple-600">{{ $t("Province.KampongSpeu.aboutKPS") }}</h2>
+          <p class="text-lg text-gray-700">
+            {{ $t("Province.KampongSpeu.aboutKPSDescription") }}
           </p>
         </div>
         <img
@@ -34,7 +34,7 @@
 
     <!-- Top Attractions -->
     <section class="pt-12 pb-6 pr-16 pl-16">
-      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Top Attractions</h2>
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">{{ $t("Province.KampongSpeu.Attractions.AttractionTitle") }}</h2>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div v-for="(attraction, index) in topAttractions" :key="index" class="bg-white rounded shadow overflow-hidden">
           <img :src="attraction.img" alt="" class="w-full h-40 object-cover" />
@@ -46,26 +46,26 @@
     <!-- Things to Do & Travel Tips -->
     <section class="pt-12 pb-6 pr-16 pl-16 grid sm:grid-cols-2 gap-6">
       <div>
-        <h2 class="text-2xl font-semibold mb-2 text-purple-600">Things to Do</h2>
-        <ul class="list-disc pl-5 text-sm text-gray-700">
-          <li>Hike Phnom Aoral</li>
-          <li>Visit Kirirom National Park</li>
-          <li>Explore Chambok Community</li>
+        <h2 class="text-2xl font-semibold mb-2 text-purple-600">{{ $t("Province.KampongSpeu.ThingsToDo") }}</h2>
+        <ul class="list-disc pl-5 text-lg text-gray-700">
+          <li>{{ $t("Province.KampongSpeu.First") }}</li>
+          <li>{{ $t("Province.KampongSpeu.Second") }}</li>
+          <li>{{ $t("Province.KampongSpeu.Third") }}</li>
         </ul>
       </div>
       <div>
-        <h2 class="text-2xl font-semibold mb-2 text-purple-600">Travel Tips</h2>
-        <ul class="list-disc pl-5 text-sm text-gray-700">
-          <li>Best time: Nov – Feb</li>
-          <li>Transport: Private car, minivan</li>
-          <li>Pack trekking shoes</li>
+        <h2 class="text-2xl font-semibold mb-2 text-purple-600">{{ $t("Province.KampongSpeu.TravelTips") }}</h2>
+        <ul class="list-disc pl-5 text-lg text-gray-700">
+          <li>{{ $t("Province.KampongSpeu.BestTime") }}</li>
+          <li>{{ $t("Province.KampongSpeu.Transport") }}</li>
+          <li>{{ $t("Province.KampongSpeu.DressCode") }}</li>
         </ul>
       </div>
     </section>
 
     <!-- Photo Gallery -->
     <section class="pt-12 pb-6 pr-16 pl-16">
-      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Photo Gallery</h2>
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">{{ $t("Province.KampongSpeu.PhotoGallery") }}</h2>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <img v-for="(photo, index) in galleryPhotos" :key="index" :src="photo" alt="" class="rounded shadow object-cover h-28 w-full" />
       </div>
@@ -73,7 +73,7 @@
 
     <!-- Province Map -->
     <section class="pt-12 pb-6 pr-16 pl-16">
-      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Province Map</h2>
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">{{ $t("Province.KampongSpeu.Map") }}</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.1234567890123!2d104.5167!3d11.4500!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a5f5f5f5f5f5f%3A0x9b1c2d3e4f5a6b7c!2sKampong%20Speu!5e0!3m2!1sen!2skh!4v1627180800000"

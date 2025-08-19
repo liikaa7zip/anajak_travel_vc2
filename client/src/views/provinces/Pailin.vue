@@ -9,8 +9,8 @@
       />
       <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center px-6">
         <h1 class="text-white text-3xl sm:text-6xl font-bold">
-          <i class="fa-notdog fa-solid fa-location-dot"></i>Pailin <br />
-          <span class="text-4xl">Province</span>
+          <i class="fa-notdog fa-solid fa-location-dot"></i>{{ $t("Province.Pailin.PLHeroTitle") }}<br />
+          <span class="text-5xl">{{ $t("Province.Pailin.PLHeroSubtitle") }}</span>
         </h1>
       </div>
     </section>
@@ -18,10 +18,10 @@
     <!-- About Section -->
     <section class="pt-12 pb-6 pr-16 pl-16">
       <div class="bg-white rounded-lg shadow p-4 flex flex-col sm:flex-row items-start justify-between gap-4">
-        <div class="max-w-xl">
-          <h2 class="text-2xl font-semibold mb-2 text-purple-600">About Pailin</h2>
-          <p class="text-sm text-gray-700">
-            Pailin is a small, quiet province located in western Cambodia, near the border with Thailand. Once infamous as a Khmer Rouge stronghold and a hub for gem mining, Pailin today is a peaceful area known for its scenic landscapes, gemstone markets, and cultural blend influenced by both Cambodian and Thai traditions. Surrounded by the beautiful Cardamom Mountains, it offers a tranquil getaway for nature lovers, history buffs, and off-the-beaten-path travelers.
+        <div class="max-w-xl m-8">
+          <h2 class="text-3xl font-semibold mb-2 text-purple-600">{{ $t("Province.Pailin.aboutPL") }}</h2>
+          <p class="text-lg text-gray-700">
+            {{ $t("Province.Pailin.aboutPLDescription") }}
           </p>
         </div>
         <img
@@ -34,7 +34,7 @@
 
     <!-- Top Attractions -->
     <section class="pt-12 pb-6 pr-16 pl-16">
-      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Top Attractions</h2>
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">{{ $t("Province.Pailin.Attractions.AttractionTitle") }}</h2>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div v-for="(attraction, index) in topAttractions" :key="index" class="bg-white rounded shadow overflow-hidden">
           <img :src="attraction.img" alt="" class="w-full h-40 object-cover" />
@@ -46,26 +46,26 @@
     <!-- Things to Do & Travel Tips -->
     <section class="pt-12 pb-6 pr-16 pl-16 grid sm:grid-cols-2 gap-6">
       <div>
-        <h2 class="text-2xl font-semibold mb-2 text-purple-600">Things to Do</h2>
-        <ul class="list-disc pl-5 text-sm text-gray-700">
-          <li>Visit Phnom Yat Waterfall</li>
-          <li>Explore O’Smach Border Area</li>
-          <li>Discover local gem markets</li>
+        <h2 class="text-2xl font-semibold mb-2 text-purple-600">{{ $t("Province.Pailin.ThingsToDo") }}</h2>
+        <ul class="list-disc pl-5 text-lg text-gray-700">
+          <li>{{ $t("Province.Pailin.First") }}</li>
+          <li>{{ $t("Province.Pailin.Second") }}</li>
+          <li>{{ $t("Province.Pailin.Third") }}</li>
         </ul>
       </div>
       <div>
-        <h2 class="text-2xl font-semibold mb-2 text-purple-600">Travel Tips</h2>
-        <ul class="list-disc pl-5 text-sm text-gray-700">
-          <li>Best time: Nov – Mar</li>
-          <li>Transport: Motorbike, Taxi</li>
-          <li>Carry cash for small vendors</li>
+        <h2 class="text-2xl font-semibold mb-2 text-purple-600">{{ $t("Province.Pailin.TravelTips") }}</h2>
+        <ul class="list-disc pl-5 text-lg text-gray-700">
+          <li>{{ $t("Province.Pailin.BestTime") }}</li>
+          <li>{{ $t("Province.Pailin.Transport") }}</li>
+          <li>{{ $t("Province.Pailin.DressCode") }}</li>
         </ul>
       </div>
     </section>
 
     <!-- Photo Gallery -->
     <section class="pt-12 pb-6 pr-16 pl-16">
-      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Photo Gallery</h2>
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">{{ $t("Province.Pailin.PhotoGallery") }}</h2>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <img v-for="(photo, index) in galleryPhotos" :key="index" :src="photo" alt="" class="rounded shadow object-cover h-28 w-full" />
       </div>
@@ -73,7 +73,7 @@
 
     <!-- Province Map -->
     <section class="pt-12 pb-6 pr-16 pl-16">
-      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Province Map</h2>
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">{{ $t("Province.Pailin.Map") }}</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3819.1234567890123!2d102.6167!3d12.8500!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a5f5f5f5f5f5f%3A0x9b1c2d3e4f5a6b7c!2sPailin!5e0!3m2!1sen!2skh!4v1627180800000"

@@ -150,12 +150,12 @@
                 class="w-full h-full object-cover transition-transform group-hover:scale-110" />
               <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
               <div class="absolute bottom-4 left-4 text-white">
-                <h3 class="text-lg font-bold mb-1">{{ $t('destinations.cruises.name') }}</h3>
-                <p class="text-sm text-white/90">{{ $t('destinations.cruises.description') }}</p>
+                <h3 class="text-lg font-bold mb-1">{{ destinations[0].name }}</h3>
+                <p class="text-sm text-white/90">{{ destinations[0].description }}</p>
               </div>
               <div v-if="destinations[0].badge"
                 class="absolute top-4 left-4 bg-purple-600 text-white px-3 py-1 rounded-full text-xs font-medium">{{
-                  $t('destinations.cruises.badge') }}</div>
+                  destinations[0].badge }}</div>
             </div>
 
             <!-- Beach Tours - Large horizontal card (top-center) -->
@@ -164,8 +164,8 @@
                 class="w-full h-full object-cover transition-transform group-hover:scale-110" />
               <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
               <div class="absolute bottom-4 left-4 text-white">
-                <h3 class="text-xl font-bold mb-1">{{ $t('destinations.1.name') }}</h3>
-                <p class="text-sm text-white/90">{{ $t('destinations.1.description') }}</p>
+                <h3 class="text-xl font-bold mb-1">{{ destinations[1].name }}</h3>
+                <p class="text-sm text-white/90">{{ destinations[1].description }}</p>
               </div>
               <div v-if="destinations[1].badge"
                 class="absolute top-4 left-4 bg-purple-600 text-white px-3 py-1 rounded-full text-xs font-medium">{{
@@ -243,7 +243,7 @@
                 </div>
                 <div v-if="destinations[0].badge"
                   class="absolute top-4 left-4 bg-purple-600 text-white px-3 py-1 rounded-full text-xs font-medium">{{
-                  destinations[0].badge }}</div>
+                    destinations[0].badge }}</div>
               </div>
 
               <div class="relative group cursor-pointer overflow-hidden rounded-2xl h-48">
@@ -256,7 +256,7 @@
                 </div>
                 <div v-if="destinations[1].badge"
                   class="absolute top-4 left-4 bg-purple-600 text-white px-3 py-1 rounded-full text-xs font-medium">{{
-                  destinations[1].badge }}</div>
+                    destinations[1].badge }}</div>
               </div>
 
               <!-- Bottom row -->
@@ -270,7 +270,7 @@
                 </div>
                 <div v-if="destinations[2].badge"
                   class="absolute top-4 left-4 bg-purple-600 text-white px-3 py-1 rounded-full text-xs font-medium">{{
-                  destinations[2].badge }}</div>
+                    destinations[2].badge }}</div>
               </div>
 
               <div class="relative group cursor-pointer overflow-hidden rounded-2xl h-48">
@@ -283,7 +283,7 @@
                 </div>
                 <div v-if="destinations[3].badge"
                   class="absolute top-4 left-4 bg-purple-600 text-white px-3 py-1 rounded-full text-xs font-medium">{{
-                  destinations[3].badge }}</div>
+                    destinations[3].badge }}</div>
               </div>
             </div>
 
@@ -315,7 +315,7 @@
               </div>
               <div v-if="destination.badge"
                 class="absolute top-4 left-4 bg-purple-600 text-white px-3 py-1 rounded-full text-xs font-medium">{{
-                destination.badge }}</div>
+                  destination.badge }}</div>
             </div>
           </div>
         </div>
@@ -512,44 +512,44 @@ export default {
         {
           id: 1,
           src: cruises,
-          name: this.$t('destinations.cruises.name'),
-          description: this.$t('destinations.cruises.description'),
-          badge: this.$t('destinations.cruises.badge')
+          name: 'Cruises',
+          description: 'Explore the beautiful waterways and enjoy luxurious amenities.',
+          badge: 'Popular'
         },
         {
           id: 2,
           src: kohrong,
-          name: this.$t('destinations.beachTours.name'),
-          description: this.$t('destinations.beachTours.description'),
-          badge: this.$t('destinations.beachTours.badge')
+          name: 'Beach Tours',
+          description: 'Relax on the pristine beaches and soak up the sun.',
+          badge: 'Popular'
         },
         {
           id: 3,
           src: museum,
-          name: this.$t('destinations.museumTour.name'),
-          description: this.$t('destinations.museumTour.description'),
-          badge: this.$t('destinations.museumTour.badge')
+          name: 'Museum Tours',
+          description: 'Explore the world-class museums and cultural landmarks.',
+          badge: 'Popular'
         },
         {
           id: 4,
           src: food,
-          name: this.$t('destinations.food.name'),
-          description: this.$t('destinations.food.description'),
-          badge: this.$t('destinations.food.badge')
+          name: 'Food Tours',
+          description: 'Indulge in the local cuisine and savor the flavors of the region.',
+          badge: 'Popular'
         },
         {
           id: 5,
           src: hiking,
-          name: this.$t('destinations.hiking.name'),
-          description: this.$t('destinations.hiking.description'),
-          badge: this.$t('destinations.hiking.badge')
+          name: 'Hiking Tours',
+          description: 'Experience the breathtaking landscapes and challenging trails.',
+          badge: 'Popular'
         },
         {
           id: 6,
           src: city,
-          name: this.$t('destinations.cityTours.name'),
-          description: this.$t('destinations.cityTours.description'),
-          badge: this.$t('destinations.cityTours.badge')
+          name: 'City Tours',
+          description: 'Discover the vibrant culture and history of the city.',
+          badge: 'Popular'
         }
       ];
     },

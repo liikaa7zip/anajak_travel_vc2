@@ -5,22 +5,22 @@
       <div class="w-1/2 bg-gray-100 p-8 flex items-center justify-center relative overflow-hidden">
        <img src="@/assets/img/register-bg.jpg" alt="Register Background" class="absolute inset-0 w-full h-full object-cover opacity-60 transition-opacity duration-500 hover:opacity-80" />
         <div class="relative z-10 text-center animate-fade-in bg-black bg-opacity-40 p-6 rounded-lg">
-          <h1 class="text-4xl font-bold bg-gradient-to-r from-orange-500 via-yellow-500 to-red-500 bg-clip-text text-transparent drop-shadow-lg animate-bounce-slow">Anajak Travel</h1>
-          <p class="text-lg font-medium bg-gradient-to-r from-orange-400 via-pink-500 to-purple-500 bg-clip-text text-transparent mt-2 drop-shadow-lg animate-pulse">Explore the world with us!</p>
+          <h1 class="text-4xl font-bold bg-gradient-to-r from-orange-500 via-yellow-500 to-red-500 bg-clip-text text-transparent drop-shadow-lg animate-bounce-slow">{{ $t("Register.TitleApp") }}</h1>
+          <p class="text-lg font-medium bg-gradient-to-r from-orange-400 via-pink-500 to-purple-500 bg-clip-text text-transparent mt-2 drop-shadow-lg animate-pulse">{{ $t("Register.Explore") }}</p>
         </div>
       </div>
       
       <!-- Right Side: Form -->
       <div class="w-1/2 p-10 flex flex-col justify-center">
-        <h2 class="text-2xl font-bold text-gray-800 mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Create Account</h2>
-      
+        <h2 class="text-2xl font-bold text-gray-800 mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">{{ $t("Register.CreateAcc") }}</h2>
+
         <form @submit.prevent="handleRegister" class="space-y-6">
           <div class="relative">
-            <label class="block text-sm font-medium text-gray-700">Name</label>
+            <label class="block text-sm font-medium text-gray-700">{{ $t("Register.Name") }}</label>
             <input 
               v-model="username" 
               type="text" 
-              placeholder="Enter your name" 
+              :placeholder="$t('Register.placeholderName')" 
               autocomplete="username"
               class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 transition-all duration-300 hover:border-purple-500" 
               required
@@ -28,11 +28,11 @@
           </div>
           
           <div class="relative">
-            <label class="block text-sm font-medium text-gray-700">Email</label>
+            <label class="block text-sm font-medium text-gray-700">{{ $t("Register.Email") }}</label>
             <input 
               v-model="email" 
               type="email" 
-              placeholder="name@gmail.com" 
+              :placeholder="$t('Register.placeholderEmail')" 
               autocomplete="email"
               class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 transition-all duration-300 hover:border-purple-500" 
               required
@@ -40,7 +40,7 @@
           </div>
           
           <div class="relative">
-            <label class="block text-sm font-medium text-gray-700">Password</label>
+            <label class="block text-sm font-medium text-gray-700">{{ $t("Register.Password") }}</label>
             <input 
               v-model="password" 
               type="password" 
@@ -52,19 +52,19 @@
             />
           </div>
           
-          <p class="text-xs text-gray-500 animate-fade-in-slow">By signing up you agree to terms and conditions at blah.</p>
+          <p class="text-xs text-gray-500 animate-fade-in-slow">{{ $t("Register.Text") }}</p>
           
           <button
             type="submit"
             :disabled="loading"
             class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-2 rounded-lg transition-all duration-300 font-semibold shadow-md hover:shadow-lg transform hover:-translate-y-1 disabled:opacity-50"
           >
-            {{ loading ? 'Creating Account...' : 'Register' }}
+            {{ loading ? 'Creating Account...' : $t("Register.RegisterBtn") }}
           </button>
           
           <p class="mt-4 text-sm text-center text-gray-600">
-            Already have an account?
-            <router-link to="/login" class="text-purple-600 font-medium hover:underline transition-colors duration-300">Login</router-link>
+            {{ $t("Register.AlreadyHaveAcc") }}
+            <router-link to="/login" class="text-purple-600 font-medium hover:underline transition-colors duration-300">{{ $t("Register.Login") }}</router-link>
           </p>
           
           <p v-if="message" class="text-center mt-2 text-sm font-medium" :class="messageClass">
