@@ -92,23 +92,19 @@
       </div>
 
       <!-- Images -->
-      <div>
-        <label class="block text-gray-700 font-medium mb-1">Images (URLs)</label>
-        <div class="flex flex-col gap-2">
-          <div v-for="(img, index) in room.images" :key="index" class="flex gap-2 items-center">
-            <input
-              type="text"
-              v-model="room.images[index]"
-              class="border rounded-lg px-3 py-2 w-full focus:ring-2 focus:ring-purple-500 outline-none"
-              placeholder="Image URL"
-            />
-            <button type="button" @click="removeImage(index)" class="bg-red-500 text-white px-2 py-1 rounded-lg">Remove</button>
-          </div>
-        </div>
-        <button type="button" @click="room.images.push('')" class="mt-2 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">
-          Add Image
-        </button>
-      </div>
+      <div v-for="(img, index) in room.images" :key="index" class="flex gap-2 items-center">
+  <input
+    type="file"
+    @change="onFileChange($event, index)"
+    class="border rounded-lg px-3 py-2 w-full focus:ring-2 focus:ring-purple-500 outline-none"
+  />
+  <button type="button" @click="removeImage(index)" class="bg-red-500 text-white px-2 py-1 rounded-lg">Remove</button>
+</div>
+<button type="button" @click="room.images.push({ file: null, preview: '' })" class="mt-2 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">
+  Add Image
+</button>
+
+
 
       <!-- Submit Button -->
       <div class="mt-6">
@@ -171,13 +167,46 @@ const submitRoom = async () => {
   try {
     message.value = '';
     error.value = '';
-    const res = await axios.post('http://localhost:5000/api/hotel-owners/rooms', room.value);
+
+    const formData = new FormData();
+    formData.append('roomNumber', room.value.roomNumber);
+    formData.append('type', room.value.type);
+    formData.append('pricePerNight', room.value.pricePerNight);
+    formData.append('maxOccupancy', room.value.maxOccupancy);
+    formData.append('categoryId', room.value.categoryId);
+    formData.append('amenities', JSON.stringify(room.value.amenities));
+
+    // Append files
+    room.value.images.forEach(img => {
+      if (img.file) formData.append('images', img.file);
+    });
+
+    const res = await axios.post('http://localhost:5000/api/hotel-owners/rooms', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    });
+
     message.value = 'Room created successfully!';
-    // Reset form
     room.value = { roomNumber: '', type: '', pricePerNight: null, maxOccupancy: null, categoryId: '', amenities: [], images: [] };
   } catch (err) {
     console.error(err);
     error.value = err.response?.data?.error || 'Failed to create room';
+  }
+};
+
+
+const onFileChange = (e, index) => {
+  const file = e.target.files[0];
+  if (file) {
+    room.value.images[index].file = file;
+    room.value.images[index].preview = URL.createObjectURL(file);
+  }
+};
+
+const handleFileUpload = (event, index) => {
+  const file = event.target.files[0];
+  if (file) {
+    room.value.images[index].file = file;
+    room.value.images[index].preview = URL.createObjectURL(file);
   }
 };
 
