@@ -2,6 +2,8 @@
 const router = require('express').Router();
 const controller = require('../controllers/hotelOwnerController');
 const { verifyHotelOwner,verifyToken} = require('../middlewares/authMiddleware');
+const multer = require("multer");
+const path = require("path");
 
 // Apply hotel owner verification middleware to all routes
 router.use(verifyToken);
@@ -17,14 +19,19 @@ router.get('/housekeeping', controller.getHousekeepingStatus);
 router.post('/housekeeping/assign', controller.assignHousekeeper);
 router.put('/housekeeping/:id', controller.updateCleaningStatus);
 
-
+// Multer storage setup
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, "uploads/"),
+  filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname)),
+});
+const upload = multer({ storage });
 // Room management routes
 router.get('/rooms', controller.getRooms);
-router.post('/rooms', controller.createRoom);
 router.get('/rooms/:id', controller.getRoomById);
-router.put('/rooms/:id', controller.updateRoom);
 router.delete('/rooms/:id', controller.deleteRoom);
 router.put('/rooms/:id/availability', controller.setRoomAvailability);
+router.post("/rooms", upload.array("images", 10), controller.createRoom); // allow multiple images
+router.put("/rooms/:id", upload.array("images", 10), controller.updateRoom);
 
 // Room categories
 router.get('/room-categories', controller.getRoomCategories);

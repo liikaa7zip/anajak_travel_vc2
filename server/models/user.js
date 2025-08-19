@@ -25,6 +25,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.ENUM('admin', 'user', 'restaurant_owner', 'hotel_owner', 'transport_owner'),
       allowNull: false,
       defaultValue: 'user',
+    },
+    hasRestaurant: {
+      type: DataTypes.ENUM('has_restaurant', 'no_restaurant'),
+      allowNull: true, // only relevant for hotel_owner
     }
   }, {
     tableName: 'users',
