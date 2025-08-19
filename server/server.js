@@ -1,14 +1,14 @@
 // server.js (or app.js)
-// require('dotenv').config();
+require('dotenv').config();
 const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io'); // Single import of Server
 const cors = require('cors');
-const axios = require('axios');
 const { sequelize } = require('./models');
 
 
-// const weatherRoutes = require('./routes/weatherRoutes');
+// ✅ Import weather routes
+const weatherRoutes = require('./routes/weatherRoutes');
 
 const bookingRoutes = require('./routes/bookingRoute');
 const transportRoutes = require('./routes/transportRoutes');
@@ -50,8 +50,8 @@ app.use(express.json());
 app.use(cors());
 
 
-// // Routes
-// app.use('/weather', weatherRoutes);
+// ✅ API routes
+app.use('/api', weatherRoutes);
 
 // API Routes
 app.use('/api/users', userRoutes);
@@ -115,52 +115,13 @@ app.use('/api/categories', categoryRoutes);
 // Uncomment if you want admin user routes
 // app.use('/api/admin-users', adminUserRoutes);
 
-// Socket.IO for real-time updates
-io.on('connection', (socket) => {
-  console.log('User connected:', socket.id);
 
-  // Handle location change
-  socket.on('changeLocation', async (location) => {
-    try {
-      const response = await axios.get(
-        `http://localhost:${process.env.PORT || 3000}/api/weather?location=${encodeURIComponent(location)}`
-      );
-      socket.broadcast.emit('locationUpdate', response.data);
-    } catch (error) {
-      console.error('Error broadcasting location update:', error);
-    }
-  });
-
-  // Handle chat room joining
-  socket.on('join', (username) => {
-    socket.join(username);
-    console.log(`${username} joined room ${username}`);
-  });
-
-  // Handle message sending
-  socket.on('send_message', async (data, callback) => {
-    try {
-      const savedMsg = await Message.create({
-        sender: data.sender,
-        receiver: data.receiver,
-        message: data.message,
-      });
-
-      io.to(data.sender).emit('receive_message', savedMsg);
-      io.to(data.receiver).emit('receive_message', savedMsg);
-
-      callback({ status: 'ok' });
-    } catch (err) {
-      console.error('Failed to save message:', err);
-      callback({ status: 'error', error: err.message });
-    }
-  });
-
-  // Handle disconnection
-  socket.on('disconnect', () => {
-    console.log('User disconnected:', socket.id);
-  });
+// Basic socket.io test
+io.on("connection", (socket) => {
+  console.log("✅ A user connected");
+  socket.on("disconnect", () => console.log("❌ User disconnected"));
 });
+
 
 const PORT = process.env.PORT || 5000;
 
