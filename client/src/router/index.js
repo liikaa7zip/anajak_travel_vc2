@@ -35,7 +35,7 @@ import UserSettings from '../views/UserSettings.vue'
 
 // Admin
 import AdminUsers from '../views/admin/AdminUsers.vue'
-import CreateUser from '../components/CreateUser.vue'
+import CreateUser from '../views/admin/CreateUser.vue'
 // import AdminBlog from '../views/admin/AdminBlog.vue'
 
 
@@ -274,6 +274,7 @@ const routes = [
       { path : 'create-hotel', component: CreateHotel },
       { path: 'report', component: AdminReport },
       { path: 'report/booking-table', component: BookingTable},
+      { path: 'add-user', component: CreateUser },
     ]
   },
   {
@@ -321,7 +322,7 @@ const routes = [
   },
 
   // Separate route for creating user under /users/create (not nested in admin for now)
-  { path: '/users/create', name: 'CreateUser', component: CreateUser },
+  
 
   // Redirect old /dashboard to admin dashboard
   { path: '/dashboard', redirect: '/admin/dashboard' },

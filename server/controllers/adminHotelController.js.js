@@ -4,7 +4,7 @@ const { Hotel, Location, User } = require('../models');
 
 exports.createHotel = async (req, res) => {
   try {
-    const { name, description, pricePerNight, imageUrl, locationId, ownerEmail } = req.body;
+    const { name, description, pricePerNight, imageUrl, locationId, ownerEmail, hasRestaurant } = req.body;
 
     // Find owner by email
     const owner = await User.findOne({
@@ -21,7 +21,8 @@ exports.createHotel = async (req, res) => {
       pricePerNight,
       imageUrl,
       locationId,
-      ownerId: owner.id // Use the ID from the email lookup
+      ownerId: owner.id,
+      amenities: { hasRestaurant: !!hasRestaurant } // store as boolean in JSON
     });
 
     res.status(201).json({
@@ -36,46 +37,40 @@ exports.createHotel = async (req, res) => {
 };
 
 
+
 exports.updateHotel = async (req, res) => {
-    const { id } = req.params;
-    const { name, description, pricePerNight, imageUrl, locationId, ownerId } = req.body;
-    console.log('[UPDATE HOTEL] Params ID:', id, 'Body:', req.body);
+  const { id } = req.params;
+  const { name, description, pricePerNight, imageUrl, locationId, ownerId, hasRestaurant } = req.body;
 
-    try {
-        const hotel = await Hotel.findByPk(id);
-        console.log('[UPDATE HOTEL] Found hotel:', hotel);
+  try {
+    const hotel = await Hotel.findByPk(id);
 
-        if (!hotel) {
-            return res.status(404).json({ error: 'Hotel not found' });
-        }
+    if (!hotel) return res.status(404).json({ error: 'Hotel not found' });
 
-        if (ownerId) {
-            console.log('[UPDATE HOTEL] Checking new ownerId:', ownerId);
-            const owner = await User.findByPk(ownerId);
-            console.log('[UPDATE HOTEL] Found owner:', owner);
-
-            if (!owner || owner.role !== 'hotel_owner') {
-                console.log('[UPDATE HOTEL] Invalid hotel owner');
-                return res.status(400).json({ error: 'Invalid hotel owner' });
-            }
-        }
-
-        await hotel.update({
-            name,
-            description,
-            pricePerNight,
-            imageUrl,
-            locationId,
-            ownerId
-        });
-
-        console.log('[UPDATE HOTEL] Updated hotel:', hotel);
-        res.json(hotel);
-    } catch (error) {
-        console.error('[UPDATE HOTEL] Error:', error);
-        res.status(500).json({ error: 'Failed to update hotel' });
+    if (ownerId) {
+      const owner = await User.findByPk(ownerId);
+      if (!owner || owner.role !== 'hotel_owner') {
+        return res.status(400).json({ error: 'Invalid hotel owner' });
+      }
     }
+
+    await hotel.update({
+      name,
+      description,
+      pricePerNight,
+      imageUrl,
+      locationId,
+      ownerId,
+      amenities: { ...hotel.amenities, hasRestaurant: !!hasRestaurant } // update or add hasRestaurant
+    });
+
+    res.json(hotel);
+  } catch (error) {
+    console.error('[UPDATE HOTEL] Error:', error);
+    res.status(500).json({ error: 'Failed to update hotel' });
+  }
 };
+
 
 exports.deleteHotel = async (req, res) => {
     const { id } = req.params;

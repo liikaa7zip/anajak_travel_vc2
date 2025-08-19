@@ -78,16 +78,19 @@
       : 'hover:shadow-2xl hover:-translate-y-1'
   ]"
 >
-  <img
-    :src="room.images && room.images.length > 0
-          ? room.images[0].startsWith('http')
-            ? room.images[0]
-            : `http://localhost:5000/${room.images[0]}`
-          : 'https://placehold.co/400x250?text=No+Image'"
-    :alt="`Room ${room.roomNumber}`"
-    class="w-full h-[200px] object-cover"
-    @error="handleImageError"
-  />
+<img
+  :src="room.images && room.images.length > 0
+        ? room.images[0].startsWith('http')
+          ? room.images[0]
+          : `http://localhost:5000/${room.images[0]}`
+        : 'https://placehold.co/400x250?text=No+Image'"
+  :alt="`Room ${room.roomNumber}`"
+  class="w-full h-[200px] object-cover"
+  @error="handleImageError"
+/>
+
+
+
 
   <div class="p-4 space-y-3">
     <div class="flex justify-between items-start">
@@ -163,19 +166,58 @@ const handleImageError = (event) => {
 const fetchRooms = async (hotelId) => {
   try {
     const res = await axios.get(`http://localhost:5000/api/hotels/${hotelId}/rooms`);
-    const fetchedRooms = res.data.map(room => ({
-      ...room,
-      amenities: Array.isArray(room.amenities) ? room.amenities : JSON.parse(room.amenities || '[]'),
-      images: Array.isArray(room.images) ? room.images : JSON.parse(room.images || '[]')
-    }));
+    
+    // Map over each room to ensure amenities and images are arrays
+    const fetchedRooms = res.data.map(room => {
+      let amenities = [];
+      let images = [];
+
+      try {
+        amenities = Array.isArray(room.amenities)
+          ? room.amenities
+          : JSON.parse(room.amenities || '[]');
+      } catch (err) {
+        console.warn(`Failed to parse amenities for room ${room.id}:`, err);
+      }
+
+      try {
+        images = Array.isArray(room.images)
+          ? room.images
+          : JSON.parse(room.images || '[]');
+
+        // Normalize images to full URLs
+        images = images.map(img => {
+          if (!img) return '';
+          return img.startsWith('http')
+            ? img
+            : `http://localhost:5000/uploads/${img.replace(/^uploads\//, '')}`;
+        });
+      } catch (err) {
+        console.warn(`Failed to parse images for room ${room.id}:`, err);
+      }
+
+      return {
+        ...room,
+        amenities,
+        images
+      };
+    });
+
+    // Debug log: show images for all rooms
+    console.log('Fetched rooms with normalized images:', fetchedRooms.map(r => ({
+      id: r.id,
+      images: r.images
+    })));
 
     // Filter out unavailable rooms
     rooms.value = fetchedRooms.filter(room => !unavailableRooms.value.includes(room.id));
+
   } catch (err) {
     rooms.value = [];
     console.error('Error fetching rooms:', err);
   }
 };
+
 
 
 const fetchUnavailableRooms = async (hotelId) => {
