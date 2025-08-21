@@ -126,6 +126,8 @@
 
 
 
+
+
 </div>
 
           <div v-else class="text-gray-500 italic">No available rooms for this hotel.</div>
