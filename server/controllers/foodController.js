@@ -127,16 +127,20 @@ exports.createFood = async (req, res) => {
 };
 
 
-// Toggle food active/inactive
 exports.toggleActive = async (req, res) => {
   try {
     const foodId = req.params.id;
     const userId = req.user.id; // from verifyToken middleware
 
-    // Find the food and ensure the owner is correct
-    const food = await Food.findOne({
-      where: { id: foodId, restaurantOwnerId: userId }
-    });
+    // Fetch the logged-in user
+    const user = await User.findByPk(userId);
+
+    if (!user || user.role !== 'restaurant_owner') {
+      return res.status(403).json({ error: "Not authorized" });
+    }
+
+    // Find the food by ID (any food, not restricted by restaurantOwnerId)
+    const food = await Food.findByPk(foodId);
 
     if (!food) {
       return res.status(404).json({ error: "Food not found" });
@@ -152,6 +156,8 @@ exports.toggleActive = async (req, res) => {
     return res.status(500).json({ error: "Something went wrong" });
   }
 };
+
+
 
 
 exports.getMyFoods = async (req, res) => {
@@ -196,5 +202,39 @@ exports.getFoodsByLocation = async (req, res) => {
     res.json(foods);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch foods by location' });
+  }
+};
+
+
+// Get all active foods for a specific hotel
+exports.getFoodsByHotel = async (req, res) => {
+  try {
+    const hotelId = req.params.hotelId;
+
+    const foods = await Food.findAll({
+      where: { hotelId, isActive: true },
+      include: [
+        {
+          model: Category,
+          as: 'category',
+          attributes: ['id', 'name']
+        },
+        {
+          model: Location,
+          as: 'Location',
+          attributes: ['id', 'name', 'country']
+        }
+      ]
+    });
+
+    if (!foods || foods.length === 0) {
+      return res.status(404).json({ message: 'No foods found for this hotel' });
+    }
+
+    res.json(foods);
+
+  } catch (err) {
+    console.error('Error fetching foods by hotel:', err);
+    res.status(500).json({ error: 'Failed to fetch foods' });
   }
 };

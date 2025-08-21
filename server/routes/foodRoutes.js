@@ -26,5 +26,7 @@ router.delete('/:id', verifyToken, verifyRestaurantOwner, foodController.deleteF
 
 router.put('/toggle/:id', verifyToken, verifyRestaurantOwner, foodController.toggleActive);
 
+// Route to get foods by hotel
+router.get('/by-hotel/:hotelId', foodController.getFoodsByHotel);
 module.exports = router;
 
