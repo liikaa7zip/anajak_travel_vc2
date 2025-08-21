@@ -473,26 +473,26 @@ const insights = ref([
 const destinations = ref([
   {
     id: 1,
-    title: t('destinations[0].AngkorWat'), // 'Angkor Wat'
-    description: t('destinations[0].description'), // 'The world's largest religious monument'
+    title: t('destinations[0].AngkorWat.name'), // 'Angkor Wat'
+    description: t('destinations[0].AngkorWat.description'), // 'The world's largest religious monument'
     image: "https://cms.siemreaper.click/uploads/angkor_wat_sunrise_discovery2712_997b977984.jpg"
   },
   {
     id: 2,
-    title: t('destinations[1].KampotRiver'), // 'Kampot River'
-    description: t('destinations[1].description'), // 'Scenic riverside and countryside life'
+    title: t('destinations[1].KampotRiver.name'), // 'Kampot River'
+    description: t('destinations[1].KampotRiver.description'), // 'Scenic riverside and countryside life'
     image: "https://pippalihotel.com/wp-content/uploads/2023/03/Get-To-Know-Kampot-River-3.jpg"
   },
   {
     id: 3,
-    title: t('destinations[2].PhnomPenh'), // 'Phnom Penh'
-    description: t('destinations[2].description'), // 'Capital city with rich culture'
+    title: t('destinations[2].PhnomPenh.name'), // 'Phnom Penh'
+    description: t('destinations[2].PhnomPenh.description'), // 'Capital city with rich culture'
     image: "https://blog.bangkokair.com/wp-content/uploads/2025/01/01_phnom-penh-travel-guide.jpg"
   },
   {
     id: 4,
-    title: t('destinations[3].BananTemple'), // 'Banan Temple'
-    description: t('destinations[3].description'), // 'Many temples in Battambang'
+    title: t('destinations[3].BananTemple.name'), // 'Banan Temple'
+    description: t('destinations[3].BananTemple.description'), // 'Many temples in Battambang'
     image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJqvmkc5uAXt4MA0aPAawOVhKYY28coyMFiA&s"
   }
 ]);
