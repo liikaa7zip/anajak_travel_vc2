@@ -44,48 +44,33 @@ const getWeather = async (req, res) => {
     const sortedDates = Object.keys(grouped).sort();
     const todayIndex = sortedDates.indexOf(todayStr);
 
-    // const forecastDays = [];
-    // for (let i = 0; i < 4; i++) {
-    //   const targetIndex = todayIndex + i;
-    //   if (targetIndex < sortedDates.length) {
-    //     const dateStr = sortedDates[targetIndex];
-    //     const date = new Date(dateStr);
-    //     const temps = grouped[dateStr].map(item => item.main.temp);
-    //     const maxTemp = Math.max(...temps);
-    //     forecastDays.push({
-    //       day: days[date.getDay()],
-    //       temp: Math.round(maxTemp),
-    //       isToday: dateStr === todayStr
-    //     });
-    //   }
-    // }
 
     const forecastDays = [];
-for (let i = 0; i < 4; i++) {
-  const targetIndex = todayIndex + i;
-  if (targetIndex < sortedDates.length) {
-    const dateStr = sortedDates[targetIndex];
-    const date = new Date(dateStr);
+    for (let i = 0; i < 4; i++) {
+      const targetIndex = todayIndex + i;
+      if (targetIndex < sortedDates.length) {
+        const dateStr = sortedDates[targetIndex];
+        const date = new Date(dateStr);
 
-    const temps = grouped[dateStr].map(item => item.main.temp);
-    const maxTemp = Math.max(...temps);
+        const temps = grouped[dateStr].map(item => item.main.temp);
+        const maxTemp = Math.max(...temps);
 
-    // Pick the first icon of the day (or you could calculate most frequent)
-    const firstItem = grouped[dateStr][0];
-    const iconCode = firstItem.weather[0].icon;
-    const dayIcon = iconMap[iconCode] || "❓";
+        // Pick the first icon of the day (or you could calculate most frequent)
+        const firstItem = grouped[dateStr][0];
+        const iconCode = firstItem.weather[0].icon;
+        const dayIcon = iconMap[iconCode] || "❓";
 
-    forecastDays.push({
-      day: days[date.getDay()],
-      temp: Math.round(maxTemp),
-      icon: dayIcon,                  // ✅ send icon
-      precipitation: firstItem.rain?.["1h"] || firstItem.snow?.["1h"] || 0,
-      humidity: firstItem.main.humidity,
-      wind: Math.round(firstItem.wind.speed * 3.6),
-      isToday: dateStr === todayStr
-    });
-  }
-}
+        forecastDays.push({
+          day: days[date.getDay()],
+          temp: Math.round(maxTemp),
+          icon: dayIcon,                  // ✅ send icon
+          precipitation: firstItem.rain?.["1h"] || firstItem.snow?.["1h"] || 0,
+          humidity: firstItem.main.humidity,
+          wind: Math.round(firstItem.wind.speed * 3.6),
+          isToday: dateStr === todayStr
+        });
+      }
+    }
 
 
 
