@@ -10,32 +10,32 @@
 
       <!-- Content -->
       <h1 class="text-6xl font-extrabold mb-6 drop-shadow-lg z-10 relative">
-        Explore the World with Us
+        {{ $t("Blog.HeroTitle") }}
       </h1>
       <p class="max-w-3xl mx-auto mb-8 text-xl font-light drop-shadow-md z-10 relative">
-        Discover inspiring travel stories, expert tips, and stunning photo galleries from around the globe.
+        {{ $t("Blog.heroDescription") }}
       </p>
 
       <!-- Stats -->
       <div class="flex justify-center space-x-12 text-yellow-300 mb-8 select-none font-semibold text-lg z-10 relative">
         <div>
           <div class="text-5xl font-bold">{{ featuredPosts.length }}</div>
-          <div>Stories Shared</div>
+          <div>{{ $t("Blog.StoriesShared") }}</div>
         </div>
         <div>
           <div class="text-5xl font-bold">{{ travelGuides.length }}</div>
-          <div>Travel Guides</div>
+          <div>{{ $t("Blog.TravelGuides") }}</div>
         </div>
         <div>
           <div class="text-5xl font-bold">{{ galleryPhotos.length }}</div>
-          <div>Photos Captured</div>
+          <div>{{ $t("Blog.PhotosCaptured") }}</div>
         </div>
       </div>
 
       <!-- Button -->
       <button
         class="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-8 py-4 rounded-full font-semibold shadow-lg hover:bg-yellow-300 transition transform hover:-translate-y-1 z-10 relative">
-        Start Your Journey
+        {{ $t("Blog.StartYourJourney") }}
       </button>
     </section>
 
@@ -43,7 +43,7 @@
     <!-- Featured Stories with author and reading time -->
     <section class="max-w-7xl mx-auto px-4">
       <h2 class="text-4xl font-bold mt-12  mb-8 text-gray-700 border-b-4 border-pink-300 inline-block pb-3">
-        Featured Stories
+        {{ $t("Blog.FeaturedStories") }}
       </h2>
       <div class="grid md:grid-cols-3 gap-10">
         <article v-for="post in featuredPosts" :key="post.id" :class="darkMode ? 'bg-gray-800' : 'bg-white'"
@@ -53,9 +53,9 @@
             <div class="flex items-center space-x-3 mb-3 text-sm text-pink-600 dark:text-white-300 font-semibold">
               <span class="bg-indigo-200 dark:bg-pink-400 rounded-full px-3 py-1 uppercase tracking-wide">{{
                 post.category || 'Travel' }}</span>
-              <span>By {{ post.author || 'Admin' }}</span>
+              <span>{{ $t("Blog.By") }} {{ post.author || 'Admin' }}</span>
               <time>{{ post.date || 'Aug 2025' }}</time>
-              <span>• {{ post.readingTime || 5 }} min read</span>
+              <span>• {{ post.readingTime || 5 }} {{ $t("Blog.minRead") }}</span>
             </div>
             <h3 class="text-2xl text-gray-700 font-semibold mb-3">{{ post.title }}</h3>
             <p :class="darkMode ? 'text-gray-300' : 'text-gray-700'" class="mb-4 line-clamp-3">
@@ -63,11 +63,11 @@
             </p>
             <button @click="bookmarkPost(post.id)"
               class="mr-3 px-3 py-1 rounded bg-purple-600 text-white hover:bg-purple-700 transition">
-              ⭐ Bookmark
+              ⭐ {{ $t("Blog.Bookmark") }}
             </button>
             <a v-if="post.link" :href="post.link" target="_blank"
               class="inline-block text-indigo-600 dark:text-yellow-400 hover:underline font-semibold">
-              Read More →
+              {{ $t("Blog.ReadMore") }} →
             </a>
           </div>
         </article>
@@ -77,7 +77,7 @@
     <!-- Travel Guides with expandable summaries -->
     <section class="max-w-5xl mx-auto px-4">
       <h2 class="text-4xl font-bold mb-8 mt-10 border-b-4 text-gray-700 border-pink-300 inline-block pb-3">
-        Travel Guides & Tips
+        {{ $t("Blog.TravelGuidesAndTips") }}
       </h2>
       <ul class="space-y-10">
         <li v-for="guide in travelGuides" :key="guide.id" :class="darkMode ? 'bg-gray-800' : 'bg-white'"
@@ -98,7 +98,7 @@
           </div>
           <div v-if="guide.isPopular"
             class="mt-3 inline-block bg-yellow-400 text-indigo-900 rounded-full px-3 py-1 font-semibold text-sm select-none">
-            Popular
+            {{ $t("Blog.Popular") }}
           </div>
         </li>
       </ul>
@@ -107,7 +107,7 @@
     <!-- Popular Destinations Section -->
     <section class="max-w-7xl mx-auto px-4">
       <h2 class="text-4xl text-gray-700 font-bold mb-8 mt-10 border-b-4 border-pink-300 inline-block pb-3">
-        Popular Destinations
+        {{ $t("Blog.PopularDestinations") }}
       </h2>
       <div class="grid md:grid-cols-4 gap-8">
         <div v-for="dest in popularDestinations" :key="dest.id"
@@ -118,7 +118,7 @@
             <p class="text-sm mb-3 line-clamp-3">{{ dest.description }}</p>
             <button @click="goToDestination(dest.id)"
               class="bg-indigo-600 dark:bg-purple-600 text-white dark:text-white-900 px-4 py-2 rounded hover:bg-purple-700 dark:hover:bg-white-500 transition">
-              Explore →
+              {{ $t("Blog.Explore") }} →
             </button>
           </div>
         </div>
@@ -127,8 +127,7 @@
 
     <!-- Gallery with captions -->
     <section>
-      <h2 class="text-4xl font-bold mb-6 ml-10 mt-10 border-b text-gray-700 border-pink-300 pb-2">Travel Photo Gallery
-      </h2>
+      <h2 class="text-4xl font-bold mb-6 ml-10 mt-10 border-b text-gray-700 border-pink-300 pb-2">{{ $t("Blog.TravelPhotoGallery") }}</h2>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-6xl mx-auto">
         <div v-for="photo in galleryPhotos" :key="photo.id"
           class="cursor-pointer rounded-lg shadow-md overflow-hidden hover:shadow-xl transition"
@@ -151,20 +150,20 @@
 
     <!-- Newsletter with interests -->
     <section class="bg-purple-100 rounded-lg mt-10 p-12 text-center text-gray-600 max-w-xl mx-auto shadow-lg">
-      <h3 class="text-3xl font-bold mb-6">Subscribe to our newsletter</h3>
-      <p class="mb-4 italic">Join {{ subscriberCount }}+ travelers for exclusive tips!</p>
+      <h3 class="text-3xl font-bold mb-6">{{ $t("Blog.Subscribe") }}</h3>
+      <p class="mb-4 italic">{{ $t("Blog.Join") }} {{ subscriberCount }} {{ $t("Blog.travelers") }}</p>
       <form @submit.prevent="subscribe" class="flex flex-col sm:flex-row justify-center items-center gap-5">
         <div class="relative flex-grow max-w-md w-full">
-          <input v-model="email" type="email" placeholder="Your email address" required
+          <input v-model="email" type="email" :placeholder="$t('Blog.placeholder')" required
             class="rounded-full px-6 py-4 text-indigo-900 w-full focus:outline-none focus:ring-4 focus:ring-purple-400" />
         </div>
         <button type="submit"
           class="bg-purple-600 text-white px-8 py-4 rounded-full font-semibold hover:bg-purple-300 shadow-lg transition transform hover:-translate-y-1">
-          Subscribe
+          {{ $t("Blog.SubscribeBtn") }}
         </button>
       </form>
       <div class="mt-6 text-left max-w-md mx-auto">
-        <p class="mb-2 font-semibold">Select your travel interests:</p>
+        <p class="mb-2 font-semibold">{{ $t("Blog.Interests") }}</p>
         <div class="flex flex-wrap justify-center gap-3">
           <label v-for="interest in travelInterests" :key="interest"
             class="inline-flex items-center space-x-2 cursor-pointer">
@@ -184,33 +183,36 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import axios from 'axios'
+import { useI18n } from 'vue-i18n'
+
 
 const featuredPosts = ref([])
 const travelGuides = ref([])
 const galleryPhotos = ref([])
+const { t } = useI18n()
 const popularDestinations = ref([
   {
     id: 1,
-    name: 'Bali, Indonesia',
-    description: 'Tropical paradise with beaches, culture, and rice terraces.',
+    name: t("Blog.BaliIndonesia.name"),
+    description: t("Blog.BaliIndonesia.description"),
     image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80'
   },
   {
     id: 2,
-    name: 'Paris, France',
-    description: 'City of lights, romance, and world-class cuisine.',
+    name: t("Blog.ParisFrance.name"),
+    description: t("Blog.ParisFrance.description"),
     image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80'
   },
   {
     id: 3,
-    name: 'Kyoto, Japan',
-    description: 'Historic temples, beautiful gardens, and traditional culture.',
+    name: t("Blog.KyotoJapan.name"),
+    description: t("Blog.KyotoJapan.description"),
     image: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80'
   },
   {
     id: 4,
-    name: 'New York City, USA',
-    description: 'The city that never sleeps with iconic landmarks.',
+    name: t("Blog.NewYorkCityUSA.name"),
+    description: t("Blog.NewYorkCityUSA.description"),
     image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80'
   },
 ])
@@ -238,7 +240,7 @@ const newsIndex = ref(0)
 let newsInterval = null
 
 const subscriberCount = ref(2315)
-const travelInterests = ['Beaches', 'Mountains', 'Cities', 'Adventure', 'Culture', 'Food']
+const travelInterests = [t("Blog.TravelInterests.Beaches"), t("Blog.TravelInterests.Mountains"), t("Blog.TravelInterests.Cities"), t("Blog.TravelInterests.Adventure"), t("Blog.TravelInterests.Culture"), t("Blog.TravelInterests.Food")]
 const selectedInterests = ref([])
 
 const expandedGuides = ref([])

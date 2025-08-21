@@ -1045,10 +1045,111 @@ const messages = {
             RegisterBtn: 'Register',
             AlreadyHaveAcc: 'Already have an account?',
             Login: 'Login'
+        },
+        // Blog page
+        Blog: {
+            HeroTitle: "Explore the World with Us",
+            heroDescription: "Discover inspiring travel stories, expert tips, and stunning photo galleries from around the globe.",
+            StoriesShared: "Stories Shared",
+            TravelGuides: "Travel Guides",
+            PhotosCaptured: "Photos Captured",
+            StartYourJourney: "Start Your Journey",
+            FeaturedStories: "Featured Stories",
+            By: "By",
+            minRead: "min read",
+            Bookmark: "Bookmark",
+            ReadMore: "Read More",
+            TravelGuidesAndTips: "Travel Guides & Tips",
+            Popular: "Popular",
+            PopularDestinations: "Popular Destinations",
+            Explore: "Explore",
+            TravelPhotoGallery: "Travel Photo Gallery",
+            Subscribe: "Subscribe to our newsletter",
+            placeholder: "Your email address",
+            SubscribeBtn: "Subscribe",
+            Join: "Join",
+            travelers: "+ travelers for exclusive tips!",
+            Interests: "Select your travel interests:",
+
+            BaliIndonesia: {
+                name: "Bali, Indonesia",
+                description: "Tropical paradise with beaches, culture, and rice terraces.",
+            },
+            ParisFrance: {
+                name: "Paris, France",
+                description: "City of lights, romance, and world-class cuisine.",
+            },
+            KyotoJapan: {
+                name: "Kyoto, Japan",
+                description: "Historic temples, beautiful gardens, and traditional culture.",
+            },
+            NewYorkCityUSA: {
+                name: "New York City, USA",
+                description: "The city that never sleeps with iconic landmarks.",
+            },
+            TravelInterests: {
+                Beaches: "Beaches",
+                Mountains: "Mountains",
+                Cities: "Cities",
+                Adventure: "Adventure",
+                Culture: "Culture",
+                Food: "Food",
+            }
         }
     },
 
     km: {
+        // Blog page
+        Blog: {
+            HeroTitle: "រុករកពិភពលោកជាមួយយើង",
+            heroDescription: "ស្វែងយល់ពីដំណើរកម្សាន្តដ៏បំផុសគំនិត គន្លឹះអ្នកជំនាញ និងវិចិត្រសាលរូបថតគួរឱ្យភ្ញាក់ផ្អើលពីជុំវិញពិភពលោក",
+            StoriesShared: "រឿងរ៉ាវដែលបានចែករំលែក",
+            TravelGuides: "មគ្គុទ្ទេសក៍ទេសចរណ៍",
+            PhotosCaptured: "រូបថតដែលបានថត",
+            StartYourJourney: "ចាប់ផ្តើមដំណើររបស់អ្នក",
+            FeaturedStories: "រឿងរ៉ាវដែលបានលេចធ្លោ",
+            By: "ដោយ",
+            minRead: "នាទីអាន",
+            Bookmark: "ចំណាំ",
+            ReadMore: "អានបន្ថែម",
+            TravelGuidesAndTips: "មគ្គុទ្ទេសក៍ និង គន្លឹះដំណើរកំសាន្ត",
+            Popular: "ពេញនិយម",
+            PopularDestinations: "កន្លែងទាក់ទាញពេញនិយម",
+            Explore: "រុករក",
+            TravelPhotoGallery: "វិចិត្រសាលរូបថតដំណើរកំសាន្ត",
+            Subscribe: "ជាវព្រឹត្តិប័ត្រព័ត៌មានរបស់យើង",
+            placeholder: "អាសយដ្ឋានអ៊ីមែលរបស់អ្នក",
+            SubscribeBtn: "ជាវ",
+            Join: "ចូលរួម",
+            travelers: "+ អ្នកដំណើរកំសាន្តសម្រាប់គន្លឹះពិសេស",
+            Interests: "ជ្រើសរើសចំណាប់អារម្មណ៍ដំណើរកំសាន្តរបស់អ្នក",
+
+            BaliIndonesia: {
+                name: "កោះបាលី ប្រទេសឥណ្ឌូនេស៊ី",
+                description: "ឋានសួគ៌ត្រូពិចដែលមានឆ្នេរ វប្បធម៌ និងដីស្រែ",
+            },
+            ParisFrance: {
+                name: "ប៉ារីស ប្រទេសបារាំង",
+                description: "ទីក្រុងនៃពន្លឺ មនោសញ្ចេតនា និងម្ហូបលំដាប់ពិភពលោក",
+            },
+            KyotoJapan: {
+                name: "ក្យូតូ ប្រទេសជប៉ុន",
+                description: "ប្រាសាទប្រវត្តិសាស្ត្រ សួនច្បារដ៏ស្រស់ស្អាត និងវប្បធម៌ប្រពៃណី",
+            },
+            NewYorkCityUSA: {
+                name: "ញូវយ៉ក សហរដ្ឋអាមេរិក",
+                description: "ទីក្រុង​ដែល​មិន​ដែល​ដេក​ជាមួយ​កន្លែង​សម្គាល់​ដ៏​ល្បី",
+            },
+            TravelInterests: {
+                Beaches: "ឆ្នេរ",
+                Mountains: "ភ្នំ",
+                Cities: "ទីក្រុង",
+                Adventure: "ការផ្សងព្រេង",
+                Culture: "វប្បធម៌",
+                Food: "ម្ហូប",
+            }
+        },
+
         // Log In
         log: {
             TitleApp: "អាណាចក្រធ្វើដំណើរ",
