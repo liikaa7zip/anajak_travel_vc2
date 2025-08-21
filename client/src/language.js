@@ -312,21 +312,29 @@ const messages = {
             }
         ],
         destinations: [
-            {
-                AngkorWat: 'Angkor Wat',
-                description: 'The world\'s largest religious monument',
+            {   
+                AngkorWat: {
+                    name: 'Angkor Wat',
+                    description: 'The world\'s largest religious monument',
+                },
             },
             {
-                KampotRiver: 'Kampot River',
-                description: 'Scenic riverside and countryside life',
+                KampotRiver: {
+                    name: 'Kampot River',
+                    description: 'Scenic riverside and countryside life',
+                },
             },
             {
-                PhnomPenh: 'Phnom Penh',
-                description: 'Capital city with rich culture',
+                PhnomPenh: {
+                    name: 'Phnom Penh',
+                    description: 'Capital city with rich culture',
+                },
             },
             {
-                BananTemple: 'Banan Temple',
-                description: 'Many temples in Battambang',
+                BananTemple: {
+                    name: 'Banan Temple',
+                    description: 'Many temples in Battambang',
+                },
             }
         ],
 
@@ -2092,29 +2100,35 @@ const messages = {
             }
         ],
         destinations: [
-            {
-                id: 'siem-reap',
-                title: 'អង្គរវត្ត',
-                description: 'វិមានសាសនាដ៏ធំបំផុតលើលោក',
-                image: 'https://cms.siemreaper.click/uploads/angkor_wat_sunrise_discovery2712_997b977984.jpg'
+            {   
+                AngkorWat: {
+                    name: 'អង្គរវត្ត',
+                    description: 'វិមានសាសនាដ៏ធំបំផុតលើលោក',
+                },
             },
             {
-                id: 'kampot',
-                title: 'ទន្លេកំពត',
-                description: 'ជីវិតនៅជនបទ និងមាត់ទន្លេដ៏ស្រស់ស្អាត',
-                image: 'https://pippalihotel.com/wp-content/uploads/2023/03/Get-To-Know-Kampot-River-3.jpg'
+                KampotRiver: {
+                    name: 'ទន្លេកំពត',
+                    description: 'ជីវិតនៅជនបទ និងមាត់ទន្លេដ៏ស្រស់ស្អាត',
+                },
             },
             {
-                id: 'phnom-penh',
-                title: 'ភ្នំពេញ',
-                description: 'រដ្ឋធានីជាមួយវប្បធម៌ដ៏សម្បូរបែប',
-                image: 'https://blog.bangkokair.com/wp-content/uploads/2025/01/01_phnom-penh-travel-guide.jpg'
+                PhnomPenh: {
+                    name: 'ភ្នំពេញ',
+                    description: 'ជីវិតនៅជនបទ និងមាត់ទន្លេដ៏ស្រស់ស្អាត',
+                },
             },
             {
-                id: 'battambang',
-                title: 'ប្រាសាទបាណន់',
-                description: 'ប្រាសាទជាច្រើននៅខេត្តបាត់ដំបង',
-                image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJqvmkc5uAXt4MA0aPAawOVhKYY28coyMFiA&s'
+                PhnomPenh: {
+                    name: 'ភ្នំពេញ',
+                    description: 'រាជធានីពោរពេញដោយប្រវត្តិសាស្ត្រនិងវប្បធម៌',
+                },
+            },
+            {
+                BananTemple: {
+                    name: 'ប្រាសាទបាណន់',
+                    description: 'ប្រាសាទជាច្រើននៅខេត្តបាត់ដំបង',
+                },
             }
         ],
 
