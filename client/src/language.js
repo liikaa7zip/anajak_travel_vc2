@@ -104,6 +104,38 @@ const messages = {
                 badge: 'Popular'
             }
         },
+        TrendingDestination: {
+            Cruises: {
+                name: 'Cruises',
+                description: 'Explore the beautiful waterways and enjoy luxurious amenities.',
+                badge: 'Popular'
+            },
+            BeachTours: {
+                name: 'Beach Tours',
+                description: 'Relax on pristine beaches and enjoy water sports.',
+                badge: 'Popular'
+            },
+            MuseumTour: {
+                name: 'Museum Tour',
+                description: 'Explore the world-class museums and cultural landmarks.',
+                badge: 'Trending'
+            },
+            FoodTours: {
+                name: 'Food Tours',
+                description: 'Indulge in the local cuisine and savor the flavors of the region.',
+                badge: 'Popular'
+            },
+            HikingTours: {
+                name: 'Hiking Tours',
+                description: 'Experience the breathtaking landscapes and challenging trails.',
+                badge: 'Popular'
+            },
+            cityTours: {
+                name: 'City Tours',
+                description: 'Discover the vibrant culture and history of the city.',
+                badge: 'Trending'
+            }
+        },
         keyFeaturesSubtitle: 'KEY FEATURES',
         keyFeaturesTitle: 'We offer best services',
         keyFeaturesDescription:
@@ -1849,6 +1881,38 @@ const messages = {
             cityTours: {
                 name: 'ទស្សនកិច្ចទីក្រុង',
                 description: 'ស្វែងយល់ពីភាពស្រស់ស្អាតនៃទីក្រុងភ្នំពេញ',
+                badge: 'ពេញនិយម'
+            }
+        },
+        TrendingDestination: {
+            Cruises: {
+                name: 'នាវាចរណ៍',
+                description: 'រុករកផ្លូវទឹកដ៏ស្រស់ស្អាត និងរីករាយជាមួយគ្រឿងបរិក្ខារដ៏ប្រណិត',
+                badge: 'ពេញនិយម'
+            },
+            BeachTours: {
+                name: 'ដំណើរកម្សាន្តតាមឆ្នេរខ្សាច់',
+                description: 'សម្រាកនៅលើឆ្នេរដ៏បរិសុទ្ធ និងរីករាយជាមួយកីឡាទឹក',
+                badge: 'ពេញនិយម'
+            },
+            MuseumTour: {
+                name: 'ដំណើរកម្សាន្តសារមន្ទីរ',
+                description: 'រុករកសារមន្ទីរលំដាប់ពិភពលោក និងកន្លែងសម្គាល់វប្បធម៌',
+                badge: 'កំពុងពេញនិយម'
+            },
+            FoodTours: {
+                name: 'ដំណើរកម្សាន្តអាហារ',
+                description: 'រីករាយជាមួយម្ហូបក្នុងស្រុក និងភ្លក់រសជាតិក្នុងតំបន់',
+                badge: 'ពេញនិយម'
+            },
+            HikingTours: {
+                name: 'ដំណើរកំសាន្តឡើងភ្នំ',
+                description: 'បទពិសោធន៍ទេសភាពដ៏អស្ចារ្យ និងផ្លូវលំៗ',
+                badge: 'Popular'
+            },
+            cityTours: {
+                name: 'ដំណើរកម្សាន្តទីក្រុង',
+                description: 'ស្វែងយល់ពីវប្បធម៌រស់រវើក និងប្រវត្តិសាស្រ្តនៃទីក្រុង',
                 badge: 'ពេញនិយម'
             }
         },
