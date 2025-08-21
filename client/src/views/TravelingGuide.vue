@@ -120,7 +120,7 @@
                 </router-link>
               </div>
 
-              <router-link :to="`/guide/${toKebab(province.routeName)}/weather`"
+              <router-link :to="`/guide/${toKebab(province.routeName)}/WeatherPage`"
                 class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm">
                 <i class="fa-solid fa-cloud-sun"></i>
               </router-link>

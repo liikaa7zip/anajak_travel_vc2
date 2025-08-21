@@ -1,11 +1,18 @@
 // server.js (or app.js)
+require('dotenv').config();
 const express = require('express');
 const http = require('http');
+const { Server } = require('socket.io'); // Single import of Server
 const cors = require('cors');
 const { sequelize } = require('./models');
 const multer = require("multer");
 const fs = require("fs");
+const path = require('path');
 
+
+
+// ✅ Import weather routes
+const weatherRoutes = require('./routes/weatherRoutes');
 
 const bookingRoutes = require('./routes/bookingRoute');
 const transportRoutes = require('./routes/transportRoutes');
@@ -27,18 +34,8 @@ const createDefaultRoles = require('./seeders/createDefaultRoles');
 // orderfood
 const foodRoutes = require('./routes/foodRoutes');
 const orderFoodRoutes = require('./routes/orderFoodRoutes');
-// ..............
-const path = require('path');
-const { Server } = require('socket.io');
-
-const db = require('./models'); // Sequelize models
-const Message = db.Message;
-
 const adminUserRoutes = require('./routes/adminUserRoutes');
 const messageRoutes = require('./routes/messageRoutes');
-
-
-
 const featuredStoriesRoutes = require('./routes/featuredStoriesRoutes');
 const travelGuidesRoutes = require('./routes/travelGuidesRoutes');
 const galleryPhotosRoutes = require('./routes/galleryPhotosRoutes');
@@ -46,6 +43,13 @@ const itineraryRoutes = require('./routes/itineraryRoutes');
 const categoryRoutes = require('./routes/category');
 const carRoutes = require('./routes/carRoutes');
 const seatsRoutes = require('./routes/seatsRoute');
+
+
+
+
+const db = require('./models'); // Sequelize models
+const Message = db.Message;
+
 const reportRoutes = require('./routes/reportRoutes');
 const payment = require('./routes/PaymentRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
@@ -68,6 +72,10 @@ app.use(cors({
 
 app.use(express.json());
 // app.use(cors());
+
+
+// ✅ API routes
+app.use('/api', weatherRoutes);
 
 // API Routes
 app.use('/api/users', userRoutes);
@@ -131,38 +139,43 @@ const io = new Server(server, {
   },
 });
 
-io.on('connection', (socket) => {
-  socket.on('send_message', async (msg, callback) => {
-    try {
-      // Save message to DB
-      const savedMsg = await Message.create({
-        senderId: msg.senderId,
-        receiverId: msg.receiverId,
-        sender: msg.sender,
-        receiver: msg.receiver,
-        message: msg.message,
-      });
+// Middleware
+app.use(cors({
+  origin: 'http://localhost:3000', // Your frontend URL
+  credentials: true,
+}));
+app.use(express.json());
 
-      // Emit to both sender and receiver rooms
-      io.to(msg.senderId.toString()).emit('receive_message', savedMsg);
-      io.to(msg.receiverId.toString()).emit('receive_message', savedMsg);
+// Routes
+app.use('/api', weatherRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/messages', messageRoutes);
+app.use('/api/bookings', bookingRoutes);
+app.use('/api/flightbookings', flightRoutes);
+app.use('/api/boatbookings', boatBookingRoutes);
+app.use('/api/transports', transportRoutes);
+app.use('/api/hotels', hotelRoutes);
+app.use('/api/hotel-booking', hotelBookingRoutes);
+app.use('/api/locations', locationRoutes);
+app.use('/api/foods', foodRoutes);
+app.use('/api/orders', orderFoodRoutes);
+app.use('/api/featured-stories', featuredStoriesRoutes);
+app.use('/api/travel-guides', travelGuidesRoutes);
+app.use('/api/gallery-photos', galleryPhotosRoutes);
+app.use('/api/itineraries', itineraryRoutes);
+app.use('/api/payments', payment);
+app.use('/api/cars', carRoutes);
+app.use('/api/seats', seatsRoutes);
+app.use('/api/categories', categoryRoutes);
+// Uncomment if you want admin user routes
+// app.use('/api/admin-users', adminUserRoutes);
 
-      // Confirm to sender
-      callback({ status: 'ok' });
-    } catch (error) {
-      console.error('Error saving message:', error);
-      callback({ status: 'error', error: error.message });
-    }
-  });
 
-  // Join user to their room on connection
-  socket.on('join', (userId) => {
-    socket.join(userId);
-  });
+// Basic socket.io test
+io.on("connection", (socket) => {
+  console.log("✅ A user connected");
+  socket.on("disconnect", () => console.log("❌ User disconnected"));
 });
-
-
-
 
 
 const PORT = process.env.PORT || 5000;

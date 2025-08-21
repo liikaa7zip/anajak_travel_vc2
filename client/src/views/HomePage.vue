@@ -412,7 +412,7 @@
       <div class="relative z-10 text-white w-full px-4 sm:px-8 lg:px-16">
         <!-- Header -->
         <div class="text-center mb-16">
-          <h2 class="text-3xl lg:text-4xl font-bold mb-6">{{ $t('customerReviewsTitle') }}</h2>
+          <h2 class="text-3xl lg:text-4xl font-bold mb-6">{{ $t('reviewsTitle') }}</h2>
           <div class="w-16 h-1 bg-white mx-auto"></div>
         </div>
 
@@ -491,6 +491,8 @@ import museum from "@/assets/img-home-page/museum.jpg";
 import food from "@/assets/img-home-page/food.jpg";
 import hiking from "@/assets/img-home-page/hiking.jpg";
 import city from "@/assets/img-home-page/city.jpg";
+import { useI18n } from 'vue-i18n'
+
 
 export default {
   data() {
@@ -512,44 +514,44 @@ export default {
         {
           id: 1,
           src: cruises,
-          name: 'Cruises',
-          description: 'Explore the beautiful waterways and enjoy luxurious amenities.',
-          badge: 'Popular'
+          name: this.$t('TrendingDestination.Cruises.name'),
+          description: this.$t('TrendingDestination.Cruises.description'),
+          badge: this.$t('TrendingDestination.Cruises.badge')
         },
         {
           id: 2,
           src: kohrong,
-          name: 'Beach Tours',
-          description: 'Relax on the pristine beaches and soak up the sun.',
-          badge: 'Popular'
+          name: this.$t('TrendingDestination.BeachTours.name'),
+          description: this.$t('TrendingDestination.BeachTours.description'),
+          badge: this.$t('TrendingDestination.BeachTours.badge')
         },
         {
           id: 3,
           src: museum,
-          name: 'Museum Tours',
-          description: 'Explore the world-class museums and cultural landmarks.',
-          badge: 'Popular'
+          name: this.$t('TrendingDestination.MuseumTour.name'),
+          description: this.$t('TrendingDestination.MuseumTour.description'),
+          badge: this.$t('TrendingDestination.MuseumTour.badge')
         },
         {
           id: 4,
           src: food,
-          name: 'Food Tours',
-          description: 'Indulge in the local cuisine and savor the flavors of the region.',
-          badge: 'Popular'
+          name: this.$t('TrendingDestination.FoodTours.name'),
+          description: this.$t('TrendingDestination.FoodTours.description'),
+          badge: this.$t('TrendingDestination.FoodTours.badge')
         },
         {
           id: 5,
           src: hiking,
-          name: 'Hiking Tours',
-          description: 'Experience the breathtaking landscapes and challenging trails.',
-          badge: 'Popular'
+          name: this.$t('TrendingDestination.HikingTours.name'),
+          description: this.$t('TrendingDestination.HikingTours.description'),
+          badge: this.$t('TrendingDestination.HikingTours.badge')
         },
         {
           id: 6,
           src: city,
-          name: 'City Tours',
-          description: 'Discover the vibrant culture and history of the city.',
-          badge: 'Popular'
+          name: this.$t('TrendingDestination.cityTours.name'),
+          description: this.$t('TrendingDestination.cityTours.description'),
+          badge: this.$t('TrendingDestination.cityTours.badge')
         }
       ];
     },
