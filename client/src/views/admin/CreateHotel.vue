@@ -42,12 +42,29 @@
           <img :src="form.imageUrl" alt="Preview" class="rounded-md shadow-sm max-h-28 object-cover border border-gray-200" />
         </div>
       </div>
+      
 
       <!-- Description -->
       <div class="flex flex-col md:col-span-2">
         <label class="text-sm font-semibold text-gray-700 mb-1">Description</label>
         <textarea v-model="form.description" rows="3" class="input-field" placeholder="A lovely hotel with a scenic view..."></textarea>
       </div>
+
+      <!-- Restaurant Availability -->
+<div class="flex flex-col md:col-span-2">
+  <label class="text-sm font-semibold text-gray-700 mb-1">Does the hotel have a restaurant?</label>
+  <div class="flex items-center gap-4 mt-1">
+    <label class="flex items-center gap-1">
+      <input type="radio" v-model="form.hasRestaurant" :value="true" />
+      Yes
+    </label>
+    <label class="flex items-center gap-1">
+      <input type="radio" v-model="form.hasRestaurant" :value="false" />
+      No
+    </label>
+  </div>
+</div>
+
 
       <!-- Submit + Cancel -->
       <div class="md:col-span-2 flex justify-end gap-2">
@@ -84,7 +101,8 @@ const form = ref({
   pricePerNight: null,
   imageUrl: '',
   locationId: null,
-  ownerEmail: '' // bind email directly
+  ownerEmail: '', // bind email directly
+  hasRestaurant: false,
 })
 
 const message = ref('')

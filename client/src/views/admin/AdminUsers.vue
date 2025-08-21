@@ -9,12 +9,13 @@
         </h1>
         <p class="text-gray-400 text-sm">Manage, search, and review all users in the system.</p>
       </div>
-      <button
-  @click="$router.push({ name: 'CreateUser' })"
-  class="bg-purple-600 hover:bg-purple-700 text-white px-5 py-2 rounded-lg font-semibold flex items-center gap-2 shadow transition mt-4 md:mt-0"
->
-  <span class="text-lg">+</span> Add New User
-</button>
+      <router-link
+        to="/admin/add-user"
+        class="bg-purple-600 hover:bg-purple-700 text-white px-5 py-2 rounded-lg font-semibold flex items-center gap-2 shadow transition mt-4 md:mt-0 inline-flex"
+        >
+        <span class="text-lg">+</span> Add New User
+      </router-link>
+
 
     </div>
 

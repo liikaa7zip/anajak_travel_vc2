@@ -370,30 +370,34 @@ exports.getHotelRooms = async (req, res) => {
 
 exports.createRoom = async (req, res) => {
   try {
-    const ownerId = req.user.id; // hotel owner
-    const { hotelId, roomNumber, type, amenities, images, pricePerNight, categoryId, maxOccupancy } = req.body;
+    const ownerId = req.user.id;
+    const hotel = await Hotel.findOne({ where: { ownerId } });
+    if (!hotel) return res.status(403).json({ message: 'No hotel assigned to you' });
 
-    // Check if this hotel belongs to this owner
-    const hotel = await Hotel.findOne({ where: { id: hotelId, ownerId } });
-    if (!hotel) return res.status(403).json({ message: 'Access denied: Not your hotel' });
+    const { roomNumber, type, amenities, pricePerNight, categoryId, maxOccupancy } = req.body;
+
+    // Map uploaded files to paths
+    const imagePaths = req.files.map(file => '/uploads/' + file.filename);
 
     const room = await Room.create({
-      hotelId,
+      hotelId: hotel.id,
       roomNumber,
       type,
-      amenities,
-      images,
+      amenities: JSON.parse(amenities),
+      images: imagePaths,
       pricePerNight,
       categoryId,
       maxOccupancy
     });
 
     res.status(201).json(room);
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     res.status(500).json({ message: 'Failed to create room' });
   }
 };
+
+
 
 
 

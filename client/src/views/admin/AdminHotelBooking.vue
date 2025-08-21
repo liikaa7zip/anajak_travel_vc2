@@ -42,6 +42,7 @@
             <th class="px-5 py-3 text-left">Price/Night</th>
             <th class="px-5 py-3 text-left">Owner Email</th>
             <th class="px-5 py-3 text-left">Location</th>
+            <th class="px-5 py-3 text-center">Restaurant</th>
             <th class="px-5 py-3 text-center">Actions</th>
           </tr>
         </thead>
@@ -51,10 +52,14 @@
             <td class="px-5 py-3 font-semibold">${{ hotel.pricePerNight.toFixed(2) }}</td>
             <td class="px-5 py-3">{{ hotel.owner?.email || '—' }}</td>
             <td class="px-5 py-3">{{ hotel.Location?.name || '—' }}</td>
+            <td class="px-5 py-3 text-center">
+              {{ hotel.amenities?.hasRestaurant ? '✅ Yes' : '❌ No' }}
+            </td>
+
             <td class="px-5 py-3 text-center flex justify-center gap-2">
-  <button @click="deleteHotel(hotel.id)" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg">Delete</button>
-  <button @click="editHotel(hotel)" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-lg">Edit</button>
-</td>
+              <button @click="deleteHotel(hotel.id)" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg">Delete</button>
+              <button @click="editHotel(hotel)" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded-lg">Edit</button>
+          </td>
 
           </tr>
         </tbody>
@@ -111,6 +116,21 @@
           rows="3"
         ></textarea>
       </div>
+
+      <div>
+  <label class="text-gray-700 font-semibold mb-1 block">Has Restaurant?</label>
+  <div class="flex items-center gap-4 mt-1">
+    <label class="flex items-center gap-1">
+      <input type="radio" v-model="editingHotel.amenities.hasRestaurant" :value="true" />
+      Yes
+    </label>
+    <label class="flex items-center gap-1">
+      <input type="radio" v-model="editingHotel.amenities.hasRestaurant" :value="false" />
+      No
+    </label>
+  </div>
+</div>
+
     </div>
 
     <!-- Actions -->
@@ -151,11 +171,17 @@ const fetchHotels = async () => {
     const res = await axios.get('http://localhost:5000/api/admin-hotels', {
       headers: { Authorization: `Bearer ${token}` }
     })
-    hotels.value = res.data
+
+    // parse amenities
+    hotels.value = res.data.map(h => ({
+      ...h,
+      amenities: h.amenities ? JSON.parse(h.amenities) : {}
+    }))
   } catch (err) {
     console.error('[FETCH HOTELS ERROR]', err)
   }
 }
+
 
 onMounted(fetchHotels)
 
@@ -237,9 +263,9 @@ const editHotel = (hotel) => {
 const saveHotel = async () => {
   if (!editingHotel.value) return
   try {
-    const { id, name, pricePerNight, imageUrl, description } = editingHotel.value
+    const { id, name, pricePerNight, imageUrl, description, amenities } = editingHotel.value
     await axios.put(`http://localhost:5000/api/admin-hotels/${id}`, 
-      { name, pricePerNight, imageUrl, description },
+      { name, pricePerNight, imageUrl, description, hasRestaurant: amenities?.hasRestaurant },
       { headers: { Authorization: `Bearer ${token}` } }
     )
 
@@ -254,6 +280,7 @@ const saveHotel = async () => {
     alert('Failed to update hotel.')
   }
 }
+
 
 </script>
 

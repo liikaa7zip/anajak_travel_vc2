@@ -115,7 +115,7 @@
       <div>Created: <span class="font-medium text-gray-700">{{ new Date(food.createdAt).toLocaleDateString() }}</span></div>
       <div>Updated: <span class="font-medium text-gray-700">{{ new Date(food.updatedAt).toLocaleDateString() }}</span></div>
       <div>Times Ordered: <span class="font-medium text-gray-700">{{ food.timesOrdered || 0 }}</span></div>
-      <div>Quantity: <span class="font-medium text-gray-700">{{ food.quantity || 0 }}</span></div>
+      <div>Hotel: <span class="font-medium text-gray-700">{{ food.hotelName || 'N/A' }}</span></div>
     </div>
 
     <!-- Activate / Deactivate Listing Button -->
@@ -185,13 +185,14 @@
               </select>
             </div>
 
-            <!-- Quantity -->
+            <!-- Replace Quantity Input with Hotel Name -->
             <div>
-              <label for="quantity" class="block font-medium text-gray-700 mb-1">Quantity</label>
-              <input id="quantity" v-model.number="form.quantity" type="number" min="0"
+              <label for="hotelName" class="block font-medium text-gray-700 mb-1">Hotel Name</label>
+              <input id="hotelName" v-model="form.hotelName" type="text"
                 class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 required />
             </div>
+
 
 
             <!-- Image -->
@@ -286,7 +287,7 @@ export default {
         image: "",
         locationId: "",
         categoryId: "",
-        quantity: 0,
+        hotelName: "", 
       },
       placeholderImage: "https://via.placeholder.com/100x70?text=No+Image",
     };
@@ -345,6 +346,7 @@ export default {
         image: food.image,
         locationId: food.locationId ? String(food.locationId) : "",
         categoryId: "",  // set empty first
+        hotelName: food.hotelName || "",  // 🔹
       };
       // explicitly set categoryId string for reactivity
       this.form.categoryId = food.categoryId ? String(food.categoryId) : "";
@@ -372,7 +374,7 @@ export default {
         price: Number(this.form.price),
         locationId: Number(this.form.locationId),
         categoryId: Number(this.form.categoryId),
-        uantity: Number(this.form.quantity) 
+        hotelName: this.form.hotelName, 
       };
 
       axios
@@ -393,7 +395,7 @@ export default {
         price: Number(this.form.price),
         locationId: Number(this.form.locationId),
         categoryId: Number(this.form.categoryId),
-        quantity: Number(this.form.quantity)
+        hotelName: this.form.hotelName, // 🔹
       };
 
       axios

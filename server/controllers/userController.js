@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const User = db.User;
 const saltRounds = 10;
 const secretKey = process.env.JWT_SECRET || 'your-secret-key';
+const {  Hotel } = require('../models');
 
 
 
@@ -42,8 +43,9 @@ const validRoles = ['user', 'restaurant_owner', 'hotel_owner', 'transport_owner'
 // Admin creates user with specified role
 exports.adminCreateUser = async (req, res) => {
   try {
-    const { username, email, password, role } = req.body;
+    const { username, email, password, role, hotelId, hasRestaurant } = req.body;
 
+    // Basic validation
     if (!username || !email || !password || !role) {
       return res.status(400).json({ message: 'Username, email, password, and role are required' });
     }
@@ -52,27 +54,58 @@ exports.adminCreateUser = async (req, res) => {
       return res.status(400).json({ message: 'Invalid role' });
     }
 
-    const existingUser = await User.findOne({ where: { email } });
-    if (existingUser) {
-      return res.status(409).json({ message: 'Email already in use' });
+    // If restaurant_owner, check selected hotel
+    let assignedHotelId = null;
+    if (role === 'restaurant_owner') {
+      if (!hotelId) {
+        return res.status(400).json({ message: 'Please select a hotel for the restaurant owner' });
+      }
+
+      const hotel = await Hotel.findByPk(hotelId);
+
+      if (!hotel) {
+        return res.status(400).json({ message: 'Selected hotel not found' });
+      }
+
+      // Parse amenities JSON
+      let amenities = {};
+      try {
+        amenities = hotel.amenities ? JSON.parse(hotel.amenities) : {};
+      } catch (err) {
+        console.warn('Invalid amenities JSON for hotel', hotel.id);
+      }
+
+      if (!amenities.hasRestaurant) {
+        return res.status(400).json({ message: 'Selected hotel does not have a restaurant' });
+      }
+
+      assignedHotelId = hotel.id;
     }
 
+    // Hash password
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
+    // Create user
     const newUser = await User.create({
       username,
       email,
       password: hashedPassword,
       role,
+      hotelId: assignedHotelId
     });
 
     const { password: _, ...userWithoutPassword } = newUser.toJSON();
-    res.status(201).json(userWithoutPassword);
+    res.status(201).json({
+      message: 'User created successfully!',
+      user: userWithoutPassword
+    });
+
   } catch (err) {
-    console.error('Admin create user error:', err);
+    console.error('[ADMIN CREATE USER] Error:', err);
     res.status(500).json({ message: 'Server error' });
   }
 };
+
 
 // User login
 exports.loginUser = async (req, res) => {
@@ -190,3 +223,22 @@ exports.updateUser = async (req, res) => {
     res.status(500).json({ message: 'Server error' })
   }
 }
+
+
+// Get all hotels that have restaurants
+exports.getHotelsWithRestaurants = async (req, res) => {
+  try {
+    const hotels = await User.findAll({
+      where: {
+        role: 'hotel_owner',
+        hasRestaurant: 'has_restaurant'
+      },
+      attributes: ['id', 'username', 'email'] // only return needed fields
+    });
+
+    res.json(hotels);
+  } catch (err) {
+    console.error('Error fetching hotels with restaurants:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
+};

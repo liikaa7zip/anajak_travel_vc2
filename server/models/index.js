@@ -111,5 +111,12 @@ db.Food.belongsToMany(db.Order, {
 db.User.hasMany(db.Review, { foreignKey: 'userId', as: 'reviews', onDelete: 'CASCADE' });
 db.Review.belongsTo(db.User, { foreignKey: 'userId', as: 'user' });
 
+// User (restaurant_owner) ↔ Hotel
+db.User.belongsTo(db.Hotel, { foreignKey: 'hotelId', as: 'restaurantHotel' });
+db.Hotel.hasMany(db.User, { foreignKey: 'hotelId', as: 'restaurantOwners' });
+
+// Food belongs to a hotel
+db.Hotel.hasMany(db.Food, { foreignKey: 'hotelId', as: 'foods' });
+db.Food.belongsTo(db.Hotel, { foreignKey: 'hotelId', as: 'hotel' });
 
 module.exports = db;
