@@ -412,7 +412,7 @@
       <div class="relative z-10 text-white w-full px-4 sm:px-8 lg:px-16">
         <!-- Header -->
         <div class="text-center mb-16">
-          <h2 class="text-3xl lg:text-4xl font-bold mb-6">{{ $t('customerReviewsTitle') }}</h2>
+          <h2 class="text-3xl lg:text-4xl font-bold mb-6">{{ $t('reviewsTitle') }}</h2>
           <div class="w-16 h-1 bg-white mx-auto"></div>
         </div>
 
