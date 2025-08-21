@@ -9,8 +9,8 @@
       />
       <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center px-6">
         <h1 class="text-white text-3xl sm:text-6xl font-bold">
-          <i class="fa-notdog fa-solid fa-location-dot"></i>Siem Reap <br />
-          <span class="text-4xl">Province</span>
+          <i class="fa-notdog fa-solid fa-location-dot"></i>{{ $t("Province.SiemReap.SRHeroTitle") }}<br />
+          <span class="text-5xl">{{ $t("Province.SiemReap.SRHeroSubtitle") }}</span>
         </h1>
       </div>
     </section>
@@ -18,10 +18,10 @@
     <!-- About Section -->
     <section class="pt-12 pb-6 pr-16 pl-16">
       <div class="bg-white rounded-lg shadow p-4 flex flex-col sm:flex-row items-start justify-between gap-4">
-        <div class="max-w-xl">
-          <h2 class="text-2xl font-semibold mb-2 text-purple-600">About Siem Reap</h2>
-          <p class="text-sm text-gray-700">
-            Siem Reap, meaning “Defeat of Siam”, is the tourism capital of Cambodia. While its name originates from historical conflict, today Siem Reap is a peaceful hub that blends ancient Khmer heritage with a bustling modern lifestyle. The city offers a wide range of experiences — from exploring ancient temples and traditional villages to enjoying luxury hotels, nightlife, and artisan markets.
+        <div class="max-w-xl m-8">
+          <h2 class="text-3xl font-semibold mb-2 text-purple-600">{{ $t("Province.SiemReap.aboutSR") }}</h2>
+          <p class="text-lg text-gray-700">
+            {{ $t("Province.SiemReap.aboutSRDescription") }}
           </p>
         </div>
         <img
@@ -34,7 +34,7 @@
 
     <!-- Top Attractions -->
     <section class="pt-12 pb-6 pr-16 pl-16">
-      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Top Attractions</h2>
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">{{ $t("Province.SiemReap.Attractions.AttractionTitle") }}</h2>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div v-for="(attraction, index) in topAttractions" :key="index" class="bg-white rounded shadow overflow-hidden">
           <img :src="attraction.img" alt="" class="w-full h-40 object-cover" />
@@ -46,26 +46,26 @@
     <!-- Things to Do & Travel Tips -->
     <section class="pt-12 pb-6 pr-16 pl-16 grid sm:grid-cols-2 gap-6">
       <div>
-        <h2 class="text-2xl font-semibold mb-2 text-purple-600">Things to Do</h2>
-        <ul class="list-disc pl-5 text-sm text-gray-700">
-          <li>Explore Angkor Wat</li>
-          <li>Visit the Floating Villages on Tonle Sap Lake</li>
-          <li>Enjoy the night market</li>
+        <h2 class="text-2xl font-semibold mb-2 text-purple-600">{{ $t("Province.SiemReap.ThingsToDo") }}</h2>
+        <ul class="list-disc pl-5 text-lg text-gray-700">
+          <li>{{ $t("Province.SiemReap.First") }}</li>
+          <li>{{ $t("Province.SiemReap.Second") }}</li>
+          <li>{{ $t("Province.SiemReap.Third") }}</li>
         </ul>
       </div>
       <div>
-        <h2 class="text-2xl font-semibold mb-2 text-purple-600">Travel Tips</h2>
-        <ul class="list-disc pl-5 text-sm text-gray-700">
-          <li>Best time: Nov – Feb</li>
-          <li>Transport: Tuk-tuk, Taxi, Bicycle</li>
-          <li>Wear comfortable shoes for temple visits</li>
+        <h2 class="text-2xl font-semibold mb-2 text-purple-600">{{ $t("Province.SiemReap.TravelTips") }}</h2>
+        <ul class="list-disc pl-5 text-lg text-gray-700">
+          <li>{{ $t("Province.SiemReap.BestTime") }}</li>
+          <li>{{ $t("Province.SiemReap.Transport") }}</li>
+          <li>{{ $t("Province.SiemReap.DressCode") }}</li>
         </ul>
       </div>
     </section>
 
     <!-- Photo Gallery -->
     <section class="pt-12 pb-6 pr-16 pl-16">
-      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Photo Gallery</h2>
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">{{ $t("Province.SiemReap.PhotoGallery") }}</h2>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <img v-for="(photo, index) in galleryPhotos" :key="index" :src="photo" alt="" class="rounded shadow object-cover h-28 w-full" />
       </div>
@@ -73,7 +73,7 @@
 
     <!-- Province Map -->
     <section class="pt-12 pb-6 pr-16 pl-16">
-      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Province Map</h2>
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">{{ $t("Province.SiemReap.Map") }}</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3819.1234567890123!2d103.8600!3d13.3600!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a5f5f5f5f5f5f%3A0x9b1c2d3e4f5a6b7c!2sSiem%20Reap!5e0!3m2!1sen!2skh!4v1627180800000"

@@ -202,7 +202,7 @@
         v-for="hotel in paginatedHotels.slice(4)"
         :key="'rest-' + hotel.id"
         class="bg-white shadow-xl rounded-3xl overflow-hidden transform transition duration-500 hover:shadow-3xl hover:-translate-y-3 cursor-pointer flex flex-col"
-        @click="$router.push(`/hotels/${hotel.id}`)"
+         @click="viewHotelDetails(hotel.id)"
         role="button"
         tabindex="0"
         @keyup.enter="$router.push(`/hotels/${hotel.id}`)"
@@ -313,35 +313,63 @@ export default {
     },
   },
   methods: {
+
+    viewHotelDetails(hotelId) {
+  this.fetchRooms(hotelId);
+  this.$router.push(`/hotels/${hotelId}`);
+},
+
     async fetchHotels() {
-      this.loading = true;
-      this.error = null;
-      try {
-        const params = {};
-        if (this.selectedLocationId)
-          params.locationId = this.selectedLocationId;
-        const res = await axios.get("http://localhost:5000/api/hotels", {
-          params,
-        });
-        this.hotels = res.data;
+  this.loading = true;
+  this.error = null;
 
-        this.mostPicked = this.hotels
-          .filter((h) => h.popularity !== undefined)
-          .sort((a, b) => b.popularity - a.popularity)
-          .slice(0, 4);
+  try {
+    // Build query params
+    const params = {};
+    if (this.selectedLocationId) {
+      params.locationId = this.selectedLocationId;
+    }
 
-        if (this.mostPicked.length === 0) {
-          this.mostPicked = this.hotels.slice(0, 4);
-        }
+    // Fetch hotels from backend
+    const res = await axios.get("http://localhost:5000/api/hotels", { params });
+    this.hotels = res.data;
 
-        this.currentPage = 1;
-      } catch (err) {
-        this.error = "Failed to load hotels. Please try again later.";
-        console.error(err);
-      } finally {
-        this.loading = false;
-      }
-    },
+    // Determine Most Picked hotels
+    this.mostPicked = this.hotels
+      .filter((hotel) => hotel.popularity !== undefined)
+      .sort((a, b) => b.popularity - a.popularity)
+      .slice(0, 4);
+
+    // Fallback if no popularity data
+    if (this.mostPicked.length === 0) {
+      this.mostPicked = this.hotels.slice(0, 4);
+    }
+
+    // Reset pagination
+    this.currentPage = 1;
+  } catch (err) {
+    // Handle errors
+    this.error = "Failed to load hotels. Please try again later.";
+    console.error("Error fetching hotels:", err);
+  } finally {
+    // Stop loading indicator
+    this.loading = false;
+  }
+},
+
+async fetchRooms(hotelId) {
+  try {
+    console.log("Fetching rooms for hotel:", hotelId);
+    const res = await axios.get(`http://localhost:5000/api/hotels/${hotelId}/rooms`);
+    this.rooms = res.data;
+    console.log("Rooms fetched:", this.rooms);
+  } catch (err) {
+    console.error("Error fetching rooms:", err);
+    this.error = "Failed to load rooms for this hotel.";
+  }
+},
+
+
     async fetchLocations() {
       try {
         const res = await axios.get("http://localhost:5000/api/locations");

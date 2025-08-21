@@ -9,8 +9,8 @@
       />
       <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center px-10">
         <h1 class="text-white text-3xl sm:text-6xl font-bold">
-          <i class="fa-solid fa-location-dot"></i> Koh Kong <br />
-          <span class="text-4xl">Province</span>
+          <i class="fa-solid fa-location-dot"></i>{{ $t("Province.KohKong.KKHeroTitle") }}<br />
+          <span class="text-5xl">{{ $t("Province.KohKong.KKHeroSubtitle") }}</span>
         </h1>
       </div>
     </section>
@@ -18,10 +18,10 @@
     <!-- About Section -->
     <section class="pt-12 pb-6 px-16">
       <div class="bg-white rounded-lg shadow p-4 flex flex-col sm:flex-row items-start justify-between gap-4">
-        <div class="max-w-xl">
-          <h2 class="text-2xl font-semibold mb-2 text-purple-600">About Koh Kong</h2>
-          <p class="text-sm text-gray-700">
-            Koh Kong is a province located in southwest Cambodia, known for its lush rainforests, pristine beaches, and the Cardamom Mountains. It borders Thailand and offers adventure activities like trekking, waterfall visits, and wildlife spotting. The region is still largely untouched by mass tourism, offering a tranquil nature escape.
+        <div class="max-w-xl m-8">
+          <h2 class="text-3xl font-semibold mb-2 text-purple-600">{{ $t("Province.KohKong.aboutKK") }}</h2>
+          <p class="text-lg text-gray-700">
+            {{ $t("Province.KohKong.aboutKKDescription") }}
           </p>
         </div>
         <img
@@ -34,7 +34,7 @@
 
     <!-- Top Attractions -->
     <section class="py-6 px-16">
-      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Top Attractions</h2>
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">{{ $t("Province.KohKong.Attractions.AttractionTitle") }}</h2>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div v-for="(attraction, index) in topAttractions" :key="index" class="bg-white rounded shadow overflow-hidden">
           <img :src="attraction.img" alt="" class="w-full h-40 object-cover" />
@@ -46,26 +46,26 @@
     <!-- Things to Do & Travel Tips -->
     <section class="py-6 px-16 grid sm:grid-cols-2 gap-6">
       <div>
-        <h2 class="text-2xl font-semibold mb-2 text-purple-600">Things to Do</h2>
-        <ul class="list-disc pl-5 text-sm text-gray-700">
-          <li>Explore the Cardamom Mountains and waterfalls</li>
-          <li>Relax on Koh Kong’s secluded beaches</li>
-          <li>Visit the Tatai River and nearby islands</li>
+        <h2 class="text-2xl font-semibold mb-2 text-purple-600">{{ $t("Province.KohKong.ThingsToDo") }}</h2>
+        <ul class="list-disc pl-5 text-lg text-gray-700">
+          <li>{{ $t("Province.KohKong.First") }}</li>
+          <li>{{ $t("Province.KohKong.Second") }}</li>
+          <li>{{ $t("Province.KohKong.Third") }}</li>
         </ul>
       </div>
       <div>
-        <h2 class="text-2xl font-semibold mb-2 text-purple-600">Travel Tips</h2>
-        <ul class="list-disc pl-5 text-sm text-gray-700">
-          <li>Best time to visit: Nov – Apr</li>
-          <li>Prepare for remote travel conditions and limited facilities</li>
-          <li>Use local guides for trekking and eco-tours</li>
+        <h2 class="text-2xl font-semibold mb-2 text-purple-600">{{ $t("Province.KohKong.TravelTips") }}</h2>
+        <ul class="list-disc pl-5 text-lg text-gray-700">
+          <li>{{ $t("Province.KohKong.BestTime") }}</li>
+          <li>{{ $t("Province.KohKong.Transport") }}</li>
+          <li>{{ $t("Province.KohKong.DressCode") }}</li>
         </ul>
       </div>
     </section>
 
     <!-- Photo Gallery -->
     <section class="py-6 px-16">
-      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Photo Gallery</h2>
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">{{ $t("Province.KohKong.PhotoGallery") }}</h2>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <img v-for="(photo, index) in galleryPhotos" :key="index" :src="photo" alt="" class="rounded shadow object-cover h-28 w-full" />
       </div>
@@ -73,7 +73,7 @@
 
     <!-- Province Map -->
     <section class="py-6 px-16">
-      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Province Map</h2>
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">{{ $t("Province.KohKong.Map") }}</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3930.3492891275144!2d102.91396701580631!3d11.580879291790091!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3104e1603d3f1445%3A0x6ea972ba96d412ff!2sKoh%20Kong%20Province!5e0!3m2!1sen!2skh!4v1710000000021"

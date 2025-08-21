@@ -9,8 +9,8 @@
       />
       <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center px-10">
         <h1 class="text-white text-3xl sm:text-6xl font-bold">
-          <i class="fa-solid fa-location-dot"></i> Pursat <br />
-          <span class="text-4xl">Province</span>
+          <i class="fa-solid fa-location-dot"></i> {{ $t("Province.PurSat.PSHeroTitle") }} <br />
+          <span class="text-5xl">{{ $t("Province.PurSat.PSHeroSubtitle") }}</span>
         </h1>
       </div>
     </section>
@@ -18,10 +18,10 @@
     <!-- About Section -->
     <section class="pt-12 pb-6 px-16">
       <div class="bg-white rounded-lg shadow p-4 flex flex-col sm:flex-row items-start justify-between gap-4">
-        <div class="max-w-xl">
-          <h2 class="text-2xl font-semibold mb-2 text-purple-600">About Pursat</h2>
-          <p class="text-sm text-gray-700">
-            Pursat province lies in western Cambodia, nestled between the Tonle Sap lake and the Cardamom Mountains. Known for its rich natural landscapes, including rivers and waterfalls, Pursat is also famous for its skilled stone carvers and traditional silk weaving. The province offers a mix of cultural heritage and scenic beauty.
+        <div class="max-w-xl m-8">
+          <h2 class="text-2xl font-semibold mb-2 text-purple-600">{{ $t("Province.PurSat.aboutPS") }}</h2>
+          <p class="text-lg text-gray-700">
+            {{ $t("Province.PurSat.aboutPSDescription") }}
           </p>
         </div>
         <img
@@ -34,7 +34,7 @@
 
     <!-- Top Attractions -->
     <section class="py-6 px-16">
-      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Top Attractions</h2>
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">{{ $t("Province.PurSat.Attractions.AttractionTitle") }}</h2>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div v-for="(attraction, index) in topAttractions" :key="index" class="bg-white rounded shadow overflow-hidden">
           <img :src="attraction.img" alt="" class="w-full h-40 object-cover" />
@@ -46,26 +46,26 @@
     <!-- Things to Do & Travel Tips -->
     <section class="py-6 px-16 grid sm:grid-cols-2 gap-6">
       <div>
-        <h2 class="text-2xl font-semibold mb-2 text-purple-600">Things to Do</h2>
-        <ul class="list-disc pl-5 text-sm text-gray-700">
-          <li>Visit Phnom Sampov and its caves</li>
-          <li>Explore Tonle Sap lake fishing villages</li>
-          <li>Discover traditional stone carving workshops</li>
+        <h2 class="text-2xl font-semibold mb-2 text-purple-600">{{ $t("Province.PurSat.ThingsToDo") }}</h2>
+        <ul class="list-disc pl-5 text-lg text-gray-700">
+          <li>{{ $t("Province.PurSat.First") }}</li>
+          <li>{{ $t("Province.PurSat.Second") }}</li>
+          <li>{{ $t("Province.PurSat.Third") }}</li>
         </ul>
       </div>
       <div>
-        <h2 class="text-2xl font-semibold mb-2 text-purple-600">Travel Tips</h2>
-        <ul class="list-disc pl-5 text-sm text-gray-700">
-          <li>Best season: Nov – Feb for cool weather</li>
-          <li>Use local boats to explore lakeside areas</li>
-          <li>Hire guides for mountain trekking and cave visits</li>
+        <h2 class="text-2xl font-semibold mb-2 text-purple-600">{{ $t("Province.PurSat.TravelTips") }}</h2>
+        <ul class="list-disc pl-5 text-lg text-gray-700">
+          <li>{{ $t("Province.PurSat.BestTime") }}</li>
+          <li>{{ $t("Province.PurSat.Transport") }}</li>
+          <li>{{ $t("Province.PurSat.DressCode") }}</li>
         </ul>
       </div>
     </section>
 
     <!-- Photo Gallery -->
     <section class="py-6 px-16">
-      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Photo Gallery</h2>
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">{{ $t("Province.PurSat.GalleryTitle") }}</h2>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <img v-for="(photo, index) in galleryPhotos" :key="index" :src="photo" alt="" class="rounded shadow object-cover h-28 w-full" />
       </div>
@@ -73,7 +73,7 @@
 
     <!-- Province Map -->
     <section class="py-6 px-16">
-      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Province Map</h2>
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">{{ $t("Province.PurSat.MapTitle") }}</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3917.315974401594!2d103.58106221580523!3d11.585547591672619!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3106297db63b38af%3A0xc5ee4a388a30ceaf!2sPursat%20Province!5e0!3m2!1sen!2skh!4v1710000000025"
@@ -90,7 +90,7 @@
 
 <script setup>
 const topAttractions = [
-  { name: 'Phnom Sampov', img: 'https://visitlocaltravel.com/blog/wp-content/uploads/2023/12/Phnom-Sampeau.jpg' },
+  { name: '1005 Mountain', img: 'https://www.vstltravel.com/userfiles/images/Domestic/Pursat%20-%20Pailin%20-%20Battambang/5.jpg' },
   { name: 'Tonle Sap Fishing Villages', img: 'https://angkorfocus.com/userfiles/Pursat-Floating-Village.jpg' },
   { name: 'Stone Carving Workshops', img: 'https://www.thefairtradevillage.com/wp-content/gallery/stone-production/FTV-Stone-Product_AHA-7333.jpg' },
   { name: 'Pursat River', img: 'https://www.guidetrip.info/asset/img/gallery_resort/5cc01e75b634b.jpg' }

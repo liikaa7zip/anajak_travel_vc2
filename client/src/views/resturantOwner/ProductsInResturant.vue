@@ -46,47 +46,92 @@
 
     <!-- Food Cards -->
     <div class="grid gap-6 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      
       <div v-for="food in filteredFoods" :key="food.id"
-        class="relative bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transform hover:-translate-y-2 hover:scale-105 transition-all duration-400 cursor-pointer">
-        <div class="relative h-48 overflow-hidden rounded-t-3xl">
-          <img :src="food.image || placeholderImage" alt="Food"
-            class="object-cover w-full h-full transition-transform duration-500 ease-in-out hover:scale-110" @error="onImageError" />
-          <div
-            class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-40 hover:opacity-60 transition-opacity duration-500">
-          </div>
-        </div>
+  class="relative bg-white rounded-2xl border border-gray-200 shadow-sm hover:shadow-xl hover:border-indigo-300 transition-all duration-400 cursor-pointer group">
 
-        <div class="p-6 flex flex-col h-[210px]">
-          <h3 class="text-2xl font-extrabold text-gray-900 mb-2 truncate" :title="food.name">
-            {{ food.name }}
-          </h3>
+  <!-- Image Section -->
+  <div class="relative h-44 overflow-hidden rounded-t-2xl">
+    <img :src="food.image || placeholderImage" alt="Food"
+      class="object-cover w-full h-full transition-transform duration-700 ease-in-out group-hover:scale-105"
+      @error="onImageError" />
 
-          <div class="flex items-center gap-3 mb-4">
-            <span
-              class="inline-block bg-indigo-600 text-white px-4 py-1 rounded-full text-sm font-semibold shadow-md">
-              ${{ food.price.toFixed(2) }}
-            </span>
-            <span v-if="food.Location"
-              class="inline-block bg-indigo-100 text-indigo-800 px-4 py-1 rounded-full text-sm font-medium shadow-inner truncate max-w-[150px]"
-              :title="food.Location.name">
-              📍 {{ food.Location.name }}
-            </span>
-          </div>
+    <!-- Gradient Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent group-hover:from-black/50 transition-all duration-500"></div>
 
-          <div class="mt-auto flex gap-4">
-            <button @click="openEditModal(food)"
-              class="flex-1 py-2 bg-indigo-500 hover:bg-indigo-600 text-white font-semibold rounded-xl shadow-lg transition-transform duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-400 flex items-center justify-center gap-2"
-              title="Edit food">
-              ✏️ Edit
-            </button>
-            <button @click="deleteFood(food.id)"
-              class="flex-1 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-xl shadow-lg transition-transform duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-red-400 flex items-center justify-center gap-2"
-              title="Delete food">
-              🗑️ Delete
-            </button>
-          </div>
+    <!-- Status Badge (Top-left) -->
+    <span class="absolute top-3 left-3 px-3 py-1 text-xs font-semibold rounded-full shadow-md"
+      :class="food.isActive ? 'bg-green-100 text-green-700' : 'bg-gray-200 text-gray-600'">
+      {{ food.isActive ? 'Active' : 'Inactive' }}
+    </span>
+
+    <!-- 3-dot Dropdown (Top-right) -->
+    <div class="absolute top-3 right-3 text-gray-500">
+      <div class="relative" @click.stop="food.showDropdown = !food.showDropdown">
+        <button class="p-1 rounded-full hover:bg-gray-100 transition">
+          ⋮
+        </button>
+        <div v-if="food.showDropdown"
+          class="absolute right-0 mt-2 w-32 bg-white shadow-lg rounded-md border border-gray-200 z-50">
+          <button @click="openEditModal(food)"
+            class="w-full text-left px-4 py-2 text-sm text-indigo-600 hover:bg-indigo-50 transition">
+            ✏️ Edit
+          </button>
+          <button @click="deleteFood(food.id)"
+            class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition">
+            🗑️ Delete
+          </button>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Content Section -->
+  <div class="p-5 flex flex-col h-[280px]">
+    <!-- Food Name -->
+    <h3 class="text-lg font-bold text-gray-900 mb-2 truncate" :title="food.name">{{ food.name }}</h3>
+
+    <!-- Category & Location -->
+    <div class="flex flex-wrap gap-2 mb-3 text-sm">
+      <span class="px-2 py-0.5 bg-indigo-50 text-indigo-700 rounded-md">
+        🗂️ {{ food.category ? food.category.name : 'No Category' }}
+      </span>
+      <span v-if="food.Location" class="px-2 py-0.5 bg-gray-100 text-gray-700 rounded-md truncate max-w-[140px]">
+        📍 {{ food.Location.name }}
+      </span>
+    </div>
+
+    <!-- Price -->
+    <div class="flex items-center justify-between mb-3">
+      <span class="text-gray-700 text-sm font-medium">Price</span>
+      <span
+        class="text-lg font-bold text-white px-3 py-1 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 shadow-md">
+        ${{ food.price.toFixed(2) }}
+      </span>
+    </div>
+
+    <!-- Extra Info -->
+    <div class="grid grid-cols-2 gap-2 text-xs text-gray-500 mb-4">
+      <div>Created: <span class="font-medium text-gray-700">{{ new Date(food.createdAt).toLocaleDateString() }}</span></div>
+      <div>Updated: <span class="font-medium text-gray-700">{{ new Date(food.updatedAt).toLocaleDateString() }}</span></div>
+      <div>Times Ordered: <span class="font-medium text-gray-700">{{ food.timesOrdered || 0 }}</span></div>
+      <div>Hotel: <span class="font-medium text-gray-700">{{ food.hotelName || 'N/A' }}</span></div>
+    </div>
+
+    <!-- Activate / Deactivate Listing Button -->
+<div class="mt-auto">
+  <button @click="toggleSell(food)"
+    :class="food.isActive ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'"
+    class="w-full text-white py-2 rounded-lg font-semibold transition">
+    {{ food.isActive ? "Deactivate Listing" : "Activate Listing" }}
+    
+  </button>
+</div>
+
+  </div>
+</div>
+
+
 
       <div v-if="foods.length === 0" class="col-span-full text-center mt-24">
         <p class="text-gray-500 text-xl">🍽️ No foods available yet. Add some delicious dishes!</p>
@@ -139,6 +184,16 @@
                 <option v-for="cat in categories" :key="cat.id" :value="String(cat.id)">{{ cat.name }}</option>
               </select>
             </div>
+
+            <!-- Replace Quantity Input with Hotel Name -->
+            <div>
+              <label for="hotelName" class="block font-medium text-gray-700 mb-1">Hotel Name</label>
+              <input id="hotelName" v-model="form.hotelName" type="text"
+                class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                required />
+            </div>
+
+
 
             <!-- Image -->
             <div>
@@ -232,6 +287,7 @@ export default {
         image: "",
         locationId: "",
         categoryId: "",
+        hotelName: "", 
       },
       placeholderImage: "https://via.placeholder.com/100x70?text=No+Image",
     };
@@ -290,6 +346,7 @@ export default {
         image: food.image,
         locationId: food.locationId ? String(food.locationId) : "",
         categoryId: "",  // set empty first
+        hotelName: food.hotelName || "",  // 🔹
       };
       // explicitly set categoryId string for reactivity
       this.form.categoryId = food.categoryId ? String(food.categoryId) : "";
@@ -317,6 +374,7 @@ export default {
         price: Number(this.form.price),
         locationId: Number(this.form.locationId),
         categoryId: Number(this.form.categoryId),
+        hotelName: this.form.hotelName, 
       };
 
       axios
@@ -337,6 +395,7 @@ export default {
         price: Number(this.form.price),
         locationId: Number(this.form.locationId),
         categoryId: Number(this.form.categoryId),
+        hotelName: this.form.hotelName, // 🔹
       };
 
       axios
@@ -390,6 +449,17 @@ export default {
           alert("Failed to create category.");
         });
     },
+    toggleSell(food) {
+    const updatedStatus = !food.isActive;
+    axios.put(`http://localhost:5000/api/foods/${food.id}`, { ...food, isActive: updatedStatus })
+      .then(() => {
+        food.isActive = updatedStatus;
+      })
+      .catch(err => {
+        console.error('Failed to update selling status:', err);
+        alert('Failed to update selling status');
+      });
+  },
   },
   mounted() {
     this.loadFoods();

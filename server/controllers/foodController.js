@@ -1,20 +1,39 @@
-const { Food, Location } = require('../models');
+const { Food, Location, Category } = require('../models');
 
 exports.getAllFood = async (req, res) => {
   try {
-    const locationId = req.query.locationId;  // get locationId from query string
+    const locationId = req.query.locationId;  
     let whereCondition = {};
 
     if (locationId) {
       whereCondition.locationId = locationId;
     }
 
-    const foods = await Food.findAll({ where: whereCondition });
+    const foods = await Food.findAll({
+  where: whereCondition,
+  include: [
+    {
+      model: Category,
+      as: 'category',   // matches association
+      attributes: ['id', 'name']
+    },
+    {
+      model: Location,
+      as: 'Location',   // ✅ match the alias exactly (capital L)
+      attributes: ['id', 'name', 'country']
+    }
+  ]
+});
+
+
     res.json(foods);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: 'Failed to fetch food' });
   }
 };
+
+
 exports.updateFood = async (req, res) => {
   try {
     const { id } = req.params
@@ -69,7 +88,16 @@ exports.getFoodById = async (req, res) => {
 
 exports.createFood = async (req, res) => {
   try {
+    const user = req.user; // from your JWT auth middleware
     const { name, price, image, locationId, categoryId } = req.body;
+
+    if (user.role !== 'restaurant_owner') {
+      return res.status(403).json({ error: 'Only restaurant owners can add food' });
+    }
+
+    if (!user.hotelId) {
+      return res.status(400).json({ error: 'Restaurant owner is not assigned to a hotel' });
+    }
 
     if (!name || !price || !locationId || !categoryId) {
       return res.status(400).json({ error: 'Name, price, locationId, and categoryId are required' });
@@ -80,7 +108,9 @@ exports.createFood = async (req, res) => {
       price,
       image,
       locationId,
-      categoryId
+      categoryId,
+      hotelId: user.hotelId,          // link food to the restaurant owner's hotel
+      restaurantOwnerId: user.id      // optional: track which owner added it
     });
 
     res.status(201).json(food);
@@ -89,6 +119,7 @@ exports.createFood = async (req, res) => {
     res.status(500).json({ error: 'Failed to create food' });
   }
 };
+
 
 
 

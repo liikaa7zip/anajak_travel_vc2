@@ -13,6 +13,8 @@ import AboutPage from '../views/AboutPage.vue'
 import BlogPage from '../views/BlogPage.vue'
 import TravelingGuide from '../views/TravelingGuide.vue'
 import UserChat from '../views/UserChat.vue'
+import favorite from '@/views/favorite.vue'
+
 
 // Travel Booking
 import BusTickets from '../views/Travelingbooking/BusTickets.vue'
@@ -32,13 +34,11 @@ import UserProfile from '../views/UserProfile.vue'
 import UserSettings from '../views/UserSettings.vue'
 
 // Admin
-import AdminDashboard from '../views/admin/AdminDashboard.vue'
 import AdminUsers from '../views/admin/AdminUsers.vue'
-import CreateUser from '../components/CreateUser.vue'
+import CreateUser from '../views/admin/CreateUser.vue'
 // import AdminBlog from '../views/admin/AdminBlog.vue'
 
-//favorite
-import favorite from '../views/favorite.vue'
+
 
 //Weather
 import WeatherPage from '../views/WeatherPage.vue'
@@ -130,11 +130,25 @@ import AdminBlog from '@/views/admin/AdminBlog.vue'
 // Auth guard helper functions
 
 import UserPlan from '@/views/UserPlan.vue'
-import AdminHotelBooking from '@/views/admin/AdminHotelBooking.vue'
 import AdminFlightBooking from '@/views/admin/AdminFlightBooking.vue'
 import AdminBoatBooking from '@/views/admin/AdminBoatBooking.vue'
 import AdminBusBooking from '@/views/admin/AdminBusBooking.vue'
+import Dashboard from '@/views/admin/Dashboard.vue'
 import Payment from '@/components/Payment.vue'
+import AdminHotelBooking from '@/views/admin/AdminHotelBooking.vue'
+import CreateHotel from '@/views/admin/CreateHotel.vue'
+import TransportDashbord from '@/views/TransportOwner/TransportDashbord.vue'
+import TransportLayout from '@/layouts/TransportLayout.vue'
+import TransportUser from '@/views/TransportOwner/TransportUser.vue'
+import TransportBus from '@/views/TransportOwner/TransportBus.vue'
+import TransportBoat from '@/views/TransportOwner/TransportBoat.vue'
+import TransportOwnerChat from '@/views/TransportOwner/TransportOwnerChat.vue'
+import AdminReport from '@/views/admin/AdminReport.vue'
+import BookingTable from '@/components/AdminReport/BookingTable.vue'
+import HotelChat from '@/views/HotelOwner/HotelChat.vue'
+import CreateRoom from '@/views/HotelOwner/CreateRoom.vue'
+import Review from '@/views/Review.vue'
+import HotelBookings from '@/views/HotelOwner/HotelBookings.vue'
 // Auth guard
 
 const getUserFromStorage = () => {
@@ -163,6 +177,7 @@ const routes = [
       { path: 'guide', component: TravelingGuide },
       { path: 'chat', component: UserChat },
       { path: 'booking-history', component: BookingHistory },
+      { path: "review", name: "Review", component: Review },
 
       // Hotels
       { path: 'hotel', component: HotelList },
@@ -170,6 +185,9 @@ const routes = [
       { path: 'book/:id', component: HotelBookingForm },
       { path: 'confirmation', component: BookingConfirmation },
       {path:'Hotel_history',component: HotelBookinghistory},
+
+      // favorite 
+      { path: 'favorites', component: favorite },
 
       // Travel Booking
       { path: 'Boatickets', component: BoatTickets },
@@ -253,14 +271,19 @@ const routes = [
     meta: { requiresAdmin: true },
     children: [
       { path: '', redirect: 'dashboard' },
-      { path: 'dashboard', component: AdminDashboard, name: 'AdminDashboard' },
+      { path: 'dashboard', component: Dashboard, name: 'Dashboard' },
       { path: 'users', component: AdminUsers, name: 'AdminUsers' },
       { path: 'chat', component: AdminChat },
       { path: 'blog', component: AdminBlog },
-      { path: 'hotel', component: AdminHotelBooking },
+      { path: 'admin-hotel', component: AdminHotelBooking },
       { path: 'flight', component: AdminFlightBooking },
       { path: 'boat', component: AdminBoatBooking },
       { path: 'bus', component: AdminBusBooking},
+      { path: 'admin-hotel', component: AdminHotelBooking },
+      { path : 'create-hotel', component: CreateHotel },
+      { path: 'report', component: AdminReport },
+      { path: 'report/booking-table', component: BookingTable},
+      { path: 'add-user', component: CreateUser },
     ]
   },
   {
@@ -286,19 +309,38 @@ const routes = [
       {path: 'bookingoverview',component:BookingOverview},
       {path: 'housekeeping',component:HouseKeeping},
       {path: 'reversations',component:Reversations},
-      {path: 'rooms',component:Rooms}
+      {path: 'rooms',component:Rooms},
+      { path: 'chat', component: HotelChat, name: 'HotelChat' },
+      { path: 'create-room', component: CreateRoom, name: 'CreateRoom' },
+      { path: 'hotel-bookings', component: HotelBookings, name: 'HotelBookings' },
 
+    ]
+  },
+  {
+    path: '/transport_owner',
+    component: TransportLayout,
+    meta: { requiresAuth: true, role: 'transport_owner' },
+    children: [
+      { path: '', redirect: 'transportdashboard' },
+      { path: 'transportdashboard', component: TransportDashbord, name: 'TransportOwnerDashboard' },
+      { path: 'transportuser', component: TransportUser, name: 'TransportUser'},
+      { path: 'transportbus', component: TransportBus, name: 'TransportBus' },
+      { path: 'transportboat', component: TransportBoat, name: 'TransportBoat' },
+      { path: 'transportownerchat', component: TransportOwnerChat, name: 'TransportOwnerChat' }
     ]
   },
 
   // Separate route for creating user under /users/create (not nested in admin for now)
-  { path: '/users/create', name: 'CreateUser', component: CreateUser },
+  
 
   // Redirect old /dashboard to admin dashboard
   { path: '/dashboard', redirect: '/admin/dashboard' },
 
   // Catch-all 404 redirect
-  { path: '/:pathMatch(.*)*', redirect: '/home' }
+  { path: '/:pathMatch(.*)*', redirect: '/home' },
+
+
+  
 ]
 
 // Create router

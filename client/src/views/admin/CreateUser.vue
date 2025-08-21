@@ -62,6 +62,34 @@
           </select>
         </div>
 
+        <!-- Extra field (only if hotel owner) -->
+        <div v-if="form.role === 'hotel_owner'">
+  <label class="block mb-2 text-gray-600 font-medium">Hotel Restaurant Option</label>
+  <div class="flex items-center gap-4">
+    <label class="flex items-center gap-2">
+      <input type="radio" value="has_restaurant" v-model="form.hasRestaurant" required />
+      Has Restaurant
+    </label>
+    <label class="flex items-center gap-2">
+      <input type="radio" value="no_restaurant" v-model="form.hasRestaurant" required />
+      No Restaurant
+    </label>
+  </div>
+</div>
+
+<div v-if="form.role === 'restaurant_owner'">
+  <label for="hotelId" class="block mb-1 text-gray-600 font-medium">Select Hotel</label>
+  <select v-model="form.hotelId" required class="w-full ...">
+  <option disabled value="">-- Choose a Hotel --</option>
+  <option v-for="hotel in hotels" :key="hotel.id" :value="hotel.id">
+    {{ hotel.name }}
+  </option>
+</select>
+
+</div>
+
+
+
         <!-- Buttons -->
         <div class="flex justify-between">
           <button
@@ -96,17 +124,20 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
+import { reactive, ref, watch } from 'vue'
 
 const form = reactive({
   username: '',
   email: '',
   password: '',
   role: '',
+  hasRestaurant: '',
+  hotelId: ''
 })
 
 const message = ref('')
 const success = ref(false)
+const hotels = ref([]) 
 
 const submitForm = async () => {
   message.value = '';
@@ -155,28 +186,28 @@ const submitForm = async () => {
   }
 };
 
-
+// Watch role change
+watch(() => form.role, async (newRole) => {
+  if (newRole === 'restaurant_owner') {
+    try {
+      const res = await fetch('http://localhost:5000/api/users/hotels/with-restaurants');
+      hotels.value = await res.json();
+    } catch (err) {
+      console.error('Error fetching hotels:', err);
+    }
+  } else {
+    form.hotelId = '';
+    hotels.value = [];
+  }
+});
 
 const resetForm = () => {
   form.username = ''
   form.email = ''
   form.password = ''
   form.role = ''
+  form.hasRestaurant = ''
+    form.hotelId = ''
+  hotels.value = []
 }
 </script>
-
-<style scoped>
-p[role='alert'] {
-  animation: fadeIn 0.3s ease;
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-</style>

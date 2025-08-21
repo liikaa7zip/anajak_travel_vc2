@@ -1,4 +1,4 @@
-const { Booking, User, Car } = require('../models');
+const { Booking, User, Car, BoatBooking } = require('../models');
 
 // Get all bookings
 exports.getAllBookings = async (req, res) => {
@@ -9,12 +9,25 @@ exports.getAllBookings = async (req, res) => {
         { model: Car, attributes: ['name', 'plateNumber'] },
       ],
     });
-    res.json(bookings);
+
+    // Parse seatNumbers before sending response
+    const parsedBookings = bookings.map(booking => {
+      const bookingData = booking.toJSON();
+      try {
+        bookingData.seatNumbers = JSON.parse(bookingData.seatNumbers || '[]');
+      } catch (e) {
+        bookingData.seatNumbers = [];
+      }
+      return bookingData;
+    });
+
+    res.json(parsedBookings);
   } catch (error) {
     console.error('Error fetching bookings:', error.message, error.stack);
     res.status(500).json({ error: 'Failed to fetch bookings' });
   }
 };
+
 
 // Get booking by ID
 exports.getBookingById = async (req, res) => {
@@ -63,6 +76,7 @@ exports.createBooking = async (req, res) => {
       status,
       carId,
       time,
+      phone,
     } = req.body;
 
     // DEBUG: Check the input
@@ -128,6 +142,7 @@ exports.createBooking = async (req, res) => {
       status,
       carId,
       time,
+      phone,
     });
 
     res.status(201).json({
@@ -151,14 +166,23 @@ exports.createBooking = async (req, res) => {
 exports.cancelBooking = async (req, res) => {
   try {
     const booking = await Booking.findByPk(req.params.id);
-    if (!booking) return res.status(404).json({ message: 'Booking not found' });
+
+    if (!booking) {
+      return res.status(404).json({ message: 'Booking not found' });
+    }
+
+    // ✅ Prevent cancellation if already completed
+    if (booking.status === 'completed') {
+      return res.status(400).json({ message: 'Cannot cancel a completed booking.' });
+    }
 
     booking.status = 'cancelled';
     await booking.save();
 
-    res.json({ message: 'Booking cancelled', booking });
+    res.json({ message: 'Booking cancelled successfully.', booking });
   } catch (error) {
-    res.status(500).json({ message: 'Failed to cancel booking', error: error.message });
+    console.error('Error cancelling booking:', error);
+    res.status(500).json({ message: 'Server error' });
   }
 };
 
@@ -193,3 +217,91 @@ exports.getBookedSeats = async (req, res) => {
     res.status(500).json({ message: 'Failed to fetch booked seats', error: error.message });
   }
 };
+
+
+// PATCH /api/bookings/:id/complete
+exports.completeBooking = async (req, res) => {
+  try {
+    const booking = await Booking.findByPk(req.params.id);
+    if (!booking) {
+      return res.status(404).json({ message: 'Booking not found' });
+    }
+
+    booking.status = 'completed';
+    await booking.save();
+
+    res.json({ message: 'Booking marked as completed' });
+  } catch (error) {
+    console.error('Error completing booking:', error);
+    res.status(500).json({ message: 'Failed to complete booking', error: error.message });
+  }
+};
+
+exports.markAsCompleted = async (req, res) => {
+  const bookingId = req.params.id;
+
+  try {
+    const booking = await Booking.findByPk(bookingId);
+    if (!booking) {
+      return res.status(404).json({ message: 'Booking not found' });
+    }
+
+    booking.isCompleted = true;
+    await booking.save();
+
+    res.json({ message: 'Booking marked as completed' });
+  } catch (error) {
+    console.error('Error marking booking as completed:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
+exports.getCompletedBookings = async (req, res) => {
+  try {
+    const completedBookings = await Booking.findAll({
+      where: { isCompleted: true }
+    });
+
+    res.json(completedBookings);
+  } catch (error) {
+    console.error('Error fetching completed bookings:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
+exports.getRecentBookings = async (req, res) => {
+  try {
+    // Fetch recent bus bookings (assuming 'type' field marks 'bus')
+    const recentBus = await Booking.findAll({
+      include: [{ model: User, attributes: ['username'] }],
+      order: [['createdAt', 'DESC']],
+      limit: 5
+    });
+
+    // Fetch recent boat bookings
+    const recentBoat = await BoatBooking.findAll({
+      include: [{ model: User, attributes: ['username'] }],
+      order: [['createdAt', 'DESC']],
+      limit: 5
+    });
+
+    // Combine results with a type field
+    const allRecent = [
+      ...recentBus.map(b => ({ ...b.toJSON(), type: 'bus' })),
+      ...recentBoat.map(b => ({ ...b.toJSON(), type: 'boat' }))
+    ];
+
+    // Sort by createdAt DESC and limit to top 5 overall
+    allRecent.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    res.json(allRecent.slice(0, 5));
+  } catch (error) {
+    console.error('Error fetching recent bookings:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+
+

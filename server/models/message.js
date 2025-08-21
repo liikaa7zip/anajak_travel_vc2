@@ -11,7 +11,21 @@ module.exports = (sequelize, DataTypes) => {
     message: {
       type: DataTypes.TEXT,
       allowNull: false
+    },
+    senderId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    receiverId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    seen: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
     }
+
   });
 
   return Message;

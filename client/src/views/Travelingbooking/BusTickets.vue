@@ -75,6 +75,17 @@
     </select>
   </div>
 
+  <div class="w-1/2 mt-4">
+    <label for="time" class="block mb-1 font-semibold text-gray-700">Phone</label>
+    <input
+      id="phone"
+      type="phone"
+      v-model="form.phone"
+      required
+      class="w-full date border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-400"
+    />
+  </div>
+
   <!-- <div class="w-1/2 mt-4">
     <label for="type" class="block mb-1 font-semibold text-gray-700">Transport Type</label>
     <select id="type" v-model="form.type" required
@@ -351,6 +362,8 @@ const resetForm = () => {
   form.value.date = ''
   form.value.price = 0
   form.value.timeOfDay = ''
+  form.value.phone = ''
+  form.value.seatNumbers = []
   form.value.email = isLoggedIn.value ? userProfile.value.email : ''
   form.value.UserId = isLoggedIn.value ? userProfile.value.id : null
 }
@@ -367,7 +380,8 @@ const form = ref({
   price: 0,
   seatNumbers: [], 
   carId: null,
-  UserId: null, // Set dynamically from auth
+  UserId: null, // Set dynamically from auth\
+  phone: '',
 })
 
 const showPreConfirmationModal = ref(false)
@@ -466,6 +480,7 @@ const submitBooking = async () => {
     seatNumbers: form.value.seatNumbers,
     carId: form.value.carId,
     time: form.value.time, 
+    phone: form.value.phone,
   };
 
   try {

@@ -1,20 +1,14 @@
 const express = require('express');
 const router = express.Router();
+
 const hotelController = require('../controllers/hotelController');
 
-// Get all hotels with optional locationId filtering
+// Public routes - no auth middleware
+
 router.get('/', hotelController.getAllHotels);
 
-// Get a single hotel by ID
 router.get('/:id', hotelController.getHotelById);
 
-// Create a new hotel
-router.post('/', hotelController.createHotel);
-
-// Update a hotel
-router.put('/:id', hotelController.updateHotel);
-
-// Delete a hotel
-router.delete('/:id', hotelController.deleteHotel);
+router.get('/:hotelId/rooms', hotelController.getRoomsByHotel);
 
 module.exports = router;

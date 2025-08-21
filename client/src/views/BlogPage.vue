@@ -1,92 +1,72 @@
 <template>
-  <div :class="darkMode ? 'bg-gray-900 text-gray-100' : ' text-indigo-900'" class="min-h-screen transition-colors  font-sans">
+  <div :class="darkMode ? 'bg-gray-900 text-gray-100' : ' text-indigo-900'"
+    class="min-h-screen transition-colors  font-sans">
 
     <!-- Hero with Dynamic Stats -->
- <section
-  class="relative min-h-[600px] p-14 text-center overflow-hidden text-white  shadow-lg bg-cover bg-center"
-  style="background-image: url('https://i.natgeofe.com/n/fdbadebb-1db9-41a9-9ac6-e7ee41f199aa/ta-prohm-siem-reap-cambodia.jpg');"
->
-  <!-- Optional: dark overlay for readability -->
-  <div class="absolute inset-0 bg-black bg-opacity-50 -z-10"></div>
+    <section class="relative min-h-[600px] p-14 text-center overflow-hidden text-white  shadow-lg bg-cover bg-center"
+      style="background-image: url('https://i.natgeofe.com/n/fdbadebb-1db9-41a9-9ac6-e7ee41f199aa/ta-prohm-siem-reap-cambodia.jpg');">
+      <!-- Optional: dark overlay for readability -->
+      <div class="absolute inset-0 bg-black bg-opacity-50 -z-10"></div>
 
-  <!-- Content -->
-  <h1 class="text-6xl font-extrabold mb-6 drop-shadow-lg z-10 relative">
-    Explore the World with Us
-  </h1>
-  <p class="max-w-3xl mx-auto mb-8 text-xl font-light drop-shadow-md z-10 relative">
-    Discover inspiring travel stories, expert tips, and stunning photo galleries from around the globe.
-  </p>
+      <!-- Content -->
+      <h1 class="text-6xl font-extrabold mb-6 drop-shadow-lg z-10 relative">
+        Explore the World with Us
+      </h1>
+      <p class="max-w-3xl mx-auto mb-8 text-xl font-light drop-shadow-md z-10 relative">
+        Discover inspiring travel stories, expert tips, and stunning photo galleries from around the globe.
+      </p>
 
-  <!-- Stats -->
-  <div class="flex justify-center space-x-12 text-yellow-300 mb-8 select-none font-semibold text-lg z-10 relative">
-    <div>
-      <div class="text-5xl font-bold">{{ featuredPosts.length }}</div>
-      <div>Stories Shared</div>
-    </div>
-    <div>
-      <div class="text-5xl font-bold">{{ travelGuides.length }}</div>
-      <div>Travel Guides</div>
-    </div>
-    <div>
-      <div class="text-5xl font-bold">{{ galleryPhotos.length }}</div>
-      <div>Photos Captured</div>
-    </div>
-  </div>
+      <!-- Stats -->
+      <div class="flex justify-center space-x-12 text-yellow-300 mb-8 select-none font-semibold text-lg z-10 relative">
+        <div>
+          <div class="text-5xl font-bold">{{ featuredPosts.length }}</div>
+          <div>Stories Shared</div>
+        </div>
+        <div>
+          <div class="text-5xl font-bold">{{ travelGuides.length }}</div>
+          <div>Travel Guides</div>
+        </div>
+        <div>
+          <div class="text-5xl font-bold">{{ galleryPhotos.length }}</div>
+          <div>Photos Captured</div>
+        </div>
+      </div>
 
-  <!-- Button -->
-  <button
-    class="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-8 py-4 rounded-full font-semibold shadow-lg hover:bg-yellow-300 transition transform hover:-translate-y-1 z-10 relative"
-  >
-    Start Your Journey
-  </button>
-</section>
+      <!-- Button -->
+      <button
+        class="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-8 py-4 rounded-full font-semibold shadow-lg hover:bg-yellow-300 transition transform hover:-translate-y-1 z-10 relative">
+        Start Your Journey
+      </button>
+    </section>
 
 
     <!-- Featured Stories with author and reading time -->
     <section class="max-w-7xl mx-auto px-4">
-      <h2
-        class="text-4xl font-bold mt-12  mb-8 text-gray-700 border-b-4 border-pink-300 inline-block pb-3"
-      >
+      <h2 class="text-4xl font-bold mt-12  mb-8 text-gray-700 border-b-4 border-pink-300 inline-block pb-3">
         Featured Stories
       </h2>
       <div class="grid md:grid-cols-3 gap-10">
-        <article
-          v-for="post in featuredPosts"
-          :key="post.id"
-          :class="darkMode ? 'bg-gray-800' : 'bg-white'"
-          class="rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-transform transform hover:scale-105 cursor-pointer"
-        >
-          <img
-            :src="post.image"
-            :alt="post.title"
-            class="w-full h-56 object-cover"
-          />
+        <article v-for="post in featuredPosts" :key="post.id" :class="darkMode ? 'bg-gray-800' : 'bg-white'"
+          class="rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-transform transform hover:scale-105 cursor-pointer">
+          <img :src="post.image" :alt="post.title" class="w-full h-56 object-cover" />
           <div class="p-6">
             <div class="flex items-center space-x-3 mb-3 text-sm text-pink-600 dark:text-white-300 font-semibold">
-              <span class="bg-indigo-200 dark:bg-pink-400 rounded-full px-3 py-1 uppercase tracking-wide">{{ post.category || 'Travel' }}</span>
+              <span class="bg-indigo-200 dark:bg-pink-400 rounded-full px-3 py-1 uppercase tracking-wide">{{
+                post.category || 'Travel' }}</span>
               <span>By {{ post.author || 'Admin' }}</span>
               <time>{{ post.date || 'Aug 2025' }}</time>
               <span>• {{ post.readingTime || 5 }} min read</span>
             </div>
             <h3 class="text-2xl text-gray-700 font-semibold mb-3">{{ post.title }}</h3>
-            <p
-              :class="darkMode ? 'text-gray-300' : 'text-gray-700'"
-              class="mb-4 line-clamp-3"
-            >
+            <p :class="darkMode ? 'text-gray-300' : 'text-gray-700'" class="mb-4 line-clamp-3">
               {{ post.excerpt }}
             </p>
-            <button
-              @click="bookmarkPost(post.id)"
-              class="mr-3 px-3 py-1 rounded bg-purple-600 text-white hover:bg-purple-700 transition"
-            >
+            <button @click="bookmarkPost(post.id)"
+              class="mr-3 px-3 py-1 rounded bg-purple-600 text-white hover:bg-purple-700 transition">
               ⭐ Bookmark
             </button>
-            <a
-              v-if="post.link"
-              :href="post.link"
-              target="_blank"
-              class="inline-block text-indigo-600 dark:text-yellow-400 hover:underline font-semibold"
-            >
+            <a v-if="post.link" :href="post.link" target="_blank"
+              class="inline-block text-indigo-600 dark:text-yellow-400 hover:underline font-semibold">
               Read More →
             </a>
           </div>
@@ -100,13 +80,8 @@
         Travel Guides & Tips
       </h2>
       <ul class="space-y-10">
-        <li
-          v-for="guide in travelGuides"
-          :key="guide.id"
-          :class="darkMode ? 'bg-gray-800' : 'bg-white'"
-          class="rounded-lg shadow-md p-8 hover:shadow-lg transition cursor-pointer"
-          @click="toggleGuide(guide.id)"
-        >
+        <li v-for="guide in travelGuides" :key="guide.id" :class="darkMode ? 'bg-gray-800' : 'bg-white'"
+          class="rounded-lg shadow-md p-8 hover:shadow-lg transition cursor-pointer" @click="toggleGuide(guide.id)">
           <h3 class="text-3xl font-semibold mb-3 flex justify-between items-center">
             {{ guide.title }}
             <span class="text-indigo-500 dark:text-yellow-400 text-xl select-none">
@@ -116,15 +91,13 @@
           <p v-if="expandedGuides.includes(guide.id)" class="mb-4 text-lg">{{ guide.description }}</p>
           <p v-else class="mb-4 text-lg line-clamp-3">{{ guide.description }}</p>
           <div class="space-x-3">
-            <span
-              v-for="tag in guide.tags"
-              :key="tag"
-              class="inline-block bg-gradient-to-tr from-purple-400 to-purple-600 text-yellow-200 rounded-full px-4 py-1 text-sm font-semibold"
-            >
+            <span v-for="tag in guide.tags" :key="tag"
+              class="inline-block bg-gradient-to-tr from-purple-400 to-purple-600 text-yellow-200 rounded-full px-4 py-1 text-sm font-semibold">
               {{ tag }}
             </span>
           </div>
-          <div v-if="guide.isPopular" class="mt-3 inline-block bg-yellow-400 text-indigo-900 rounded-full px-3 py-1 font-semibold text-sm select-none">
+          <div v-if="guide.isPopular"
+            class="mt-3 inline-block bg-yellow-400 text-indigo-900 rounded-full px-3 py-1 font-semibold text-sm select-none">
             Popular
           </div>
         </li>
@@ -133,21 +106,18 @@
 
     <!-- Popular Destinations Section -->
     <section class="max-w-7xl mx-auto px-4">
-      <h2
-        class="text-4xl text-gray-700 font-bold mb-8 mt-10 border-b-4 border-pink-300 inline-block pb-3"
-      >
+      <h2 class="text-4xl text-gray-700 font-bold mb-8 mt-10 border-b-4 border-pink-300 inline-block pb-3">
         Popular Destinations
       </h2>
       <div class="grid md:grid-cols-4 gap-8">
-        <div v-for="dest in popularDestinations" :key="dest.id" class="rounded-lg shadow-md overflow-hidden bg-white dark:bg-white-800 cursor-pointer hover:shadow-xl transition">
-          <img :src="dest.image" :alt="dest.name" class="w-full h-44 object-cover"/>
+        <div v-for="dest in popularDestinations" :key="dest.id"
+          class="rounded-lg shadow-md overflow-hidden bg-white dark:bg-white-800 cursor-pointer hover:shadow-xl transition">
+          <img :src="dest.image" :alt="dest.name" class="w-full h-44 object-cover" />
           <div class="p-5">
             <h3 class="text-xl font-semibold mb-2">{{ dest.name }}</h3>
             <p class="text-sm mb-3 line-clamp-3">{{ dest.description }}</p>
-            <button
-              @click="goToDestination(dest.id)"
-              class="bg-indigo-600 dark:bg-purple-600 text-white dark:text-white-900 px-4 py-2 rounded hover:bg-purple-700 dark:hover:bg-white-500 transition"
-            >
+            <button @click="goToDestination(dest.id)"
+              class="bg-indigo-600 dark:bg-purple-600 text-white dark:text-white-900 px-4 py-2 rounded hover:bg-purple-700 dark:hover:bg-white-500 transition">
               Explore →
             </button>
           </div>
@@ -157,15 +127,13 @@
 
     <!-- Gallery with captions -->
     <section>
-      <h2 class="text-4xl font-bold mb-6 ml-10 mt-10 border-b text-gray-700 border-pink-300 pb-2">Travel Photo Gallery</h2>
+      <h2 class="text-4xl font-bold mb-6 ml-10 mt-10 border-b text-gray-700 border-pink-300 pb-2">Travel Photo Gallery
+      </h2>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-6xl mx-auto">
-        <div
-          v-for="photo in galleryPhotos"
-          :key="photo.id"
+        <div v-for="photo in galleryPhotos" :key="photo.id"
           class="cursor-pointer rounded-lg shadow-md overflow-hidden hover:shadow-xl transition"
-          @click="openModal(photo.url)"
-        >
-          <img :src="photo.url" :alt="photo.title" class="w-full h-36 object-cover" />
+          @click="openModal(photo.url)">
+          <img :src="photo.image" :alt="photo.title" class="w-full h-36 object-cover" />
           <div class="p-3 bg-white dark:bg-white">
             <h3 class="font-semibold text-lg text-gray-900 dark:text-purple-700">{{ photo.title }}</h3>
             <p class="text-sm text-gray-600 dark:text-gray-500">{{ photo.description }}</p>
@@ -174,63 +142,39 @@
       </div>
 
       <!-- Modal -->
-      <div
-        v-if="showModal"
+      <div v-if="showModal"
         class="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50 cursor-pointer"
-        @click="closeModal"
-      >
+        @click="closeModal">
         <img :src="modalImage" alt="Modal photo" class="max-h-[90vh] max-w-[90vw] rounded shadow-lg" />
       </div>
     </section>
 
     <!-- Newsletter with interests -->
-    <section
-      class="bg-purple-100 rounded-lg mt-10 p-12 text-center text-gray-600 max-w-xl mx-auto shadow-lg"
-    >
+    <section class="bg-purple-100 rounded-lg mt-10 p-12 text-center text-gray-600 max-w-xl mx-auto shadow-lg">
       <h3 class="text-3xl font-bold mb-6">Subscribe to our newsletter</h3>
       <p class="mb-4 italic">Join {{ subscriberCount }}+ travelers for exclusive tips!</p>
-      <form
-        @submit.prevent="subscribe"
-        class="flex flex-col sm:flex-row justify-center items-center gap-5"
-      >
+      <form @submit.prevent="subscribe" class="flex flex-col sm:flex-row justify-center items-center gap-5">
         <div class="relative flex-grow max-w-md w-full">
-          <input
-            v-model="email"
-            type="email"
-            placeholder="Your email address"
-            required
-            class="rounded-full px-6 py-4 text-indigo-900 w-full focus:outline-none focus:ring-4 focus:ring-purple-400"
-          />
+          <input v-model="email" type="email" placeholder="Your email address" required
+            class="rounded-full px-6 py-4 text-indigo-900 w-full focus:outline-none focus:ring-4 focus:ring-purple-400" />
         </div>
-        <button
-          type="submit"
-          class="bg-purple-600 text-white px-8 py-4 rounded-full font-semibold hover:bg-purple-300 shadow-lg transition transform hover:-translate-y-1"
-        >
+        <button type="submit"
+          class="bg-purple-600 text-white px-8 py-4 rounded-full font-semibold hover:bg-purple-300 shadow-lg transition transform hover:-translate-y-1">
           Subscribe
         </button>
       </form>
       <div class="mt-6 text-left max-w-md mx-auto">
         <p class="mb-2 font-semibold">Select your travel interests:</p>
         <div class="flex flex-wrap justify-center gap-3">
-          <label
-            v-for="interest in travelInterests"
-            :key="interest"
-            class="inline-flex items-center space-x-2 cursor-pointer"
-          >
-            <input
-              type="checkbox"
-              :value="interest"
-              v-model="selectedInterests"
-              class="rounded"
-            />
+          <label v-for="interest in travelInterests" :key="interest"
+            class="inline-flex items-center space-x-2 cursor-pointer">
+            <input type="checkbox" :value="interest" v-model="selectedInterests" class="rounded" />
             <span>{{ interest }}</span>
           </label>
         </div>
       </div>
-      <p
-        class="mt-5 font-semibold transition-colors duration-300"
-        :class="message.includes('Thanks') ? 'text-green-400' : 'text-red-400'"
-      >
+      <p class="mt-5 font-semibold transition-colors duration-300"
+        :class="message.includes('Thanks') ? 'text-green-400' : 'text-red-400'">
         {{ message }}
       </p>
     </section>
@@ -307,19 +251,32 @@ async function fetchData() {
       axios.get(`${API_BASE}/featured-stories`),
       axios.get(`${API_BASE}/travel-guides`),
       axios.get(`${API_BASE}/gallery-photos`),
-    ])
+    ]);
 
-    featuredPosts.value = featuredRes.data
+    featuredPosts.value = featuredRes.data.map(post => ({
+      ...post,
+      image: post.image ? `http://localhost:5000${post.image}` : null,
+    }));
+
     travelGuides.value = guideRes.data.map(g => ({
       ...g,
       tags: typeof g.tags === 'string' ? g.tags.split(',').map(t => t.trim()) : [],
       isPopular: g.isPopular || false,
-    }))
-    galleryPhotos.value = galleryRes.data
+    }));
+
+    galleryPhotos.value = galleryRes.data.map(photo => ({
+      ...photo,
+      image: photo.image || null,  // already a full URL
+    }));
+
+
+
   } catch (err) {
-    console.error('Error fetching data:', err)
+    console.error('Error fetching data:', err);
   }
 }
+
+
 
 function subscribe() {
   if (!validateEmail(email.value)) {

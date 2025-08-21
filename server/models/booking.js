@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     // type: {
     //   type: DataTypes.STRING,
     //   allowNull: false,
@@ -59,15 +63,20 @@ module.exports = (sequelize, DataTypes) => {
     carId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {
-        model: 'cars',
-        key: 'id',
-      },
+      // references: {
+      //   model: 'cars',
+      //   key: 'id',
+      // },
     },
 
     time: {
       type: DataTypes.STRING,  // store hour as integer (e.g., 7, 18, 21)
       allowNull: false,
+    },
+
+    isCompleted: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     },
     
   }, {

@@ -9,8 +9,8 @@
       />
       <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center px-6">
         <h1 class="text-white text-3xl sm:text-6xl font-bold">
-          <i class="fa-notdog fa-solid fa-location-dot"></i>Kampong Cham <br />
-          <span class="text-4xl">Province</span>
+          <i class="fa-notdog fa-solid fa-location-dot"></i>{{ $t("Province.KampongCham.KPCHeroTitle") }}<br />
+          <span class="text-5xl">{{ $t("Province.KampongCham.KPCHeroSubtitle") }}</span>
         </h1>
       </div>
     </section>
@@ -18,10 +18,10 @@
     <!-- About Section -->
     <section class="pt-12 pb-6 pr-16 pl-16">
       <div class="bg-white rounded-lg shadow p-4 flex flex-col sm:flex-row items-start justify-between gap-4">
-        <div class="max-w-xl">
-          <h2 class="text-2xl font-semibold mb-2 text-purple-600">About Kampong Cham</h2>
-          <p class="text-sm text-gray-700">
-            Kampong Cham is one of Cambodia’s most culturally rich provinces. The name means "Port of the Chams," referencing the Cham people, an ethnic minority group with Islamic heritage. The province is known for its peaceful riverside atmosphere, historical temples, and old French colonial buildings. It offers an authentic glimpse into rural Cambodian life.
+        <div class="max-w-xl m-8">
+          <h2 class="text-2xl font-semibold mb-2 text-purple-600">{{ $t("Province.KampongCham.aboutKPC") }}</h2>
+          <p class="text-lg text-gray-700">
+            {{ $t("Province.KampongCham.aboutKPCDescription") }}
           </p>
         </div>
         <img
@@ -34,7 +34,7 @@
 
     <!-- Top Attractions -->
     <section class="pt-12 pb-6 pr-16 pl-16">
-      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Top Attractions</h2>
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">{{ $t("Province.KampongCham.Attractions.AttractionTitle") }}</h2>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div v-for="(attraction, index) in topAttractions" :key="index" class="bg-white rounded shadow overflow-hidden">
           <img :src="attraction.img" alt="" class="w-full h-40 object-cover" />
@@ -46,26 +46,26 @@
     <!-- Things to Do & Travel Tips -->
     <section class="pt-12 pb-6 pr-16 pl-16 grid sm:grid-cols-2 gap-6">
       <div>
-        <h2 class="text-2xl font-semibold mb-2 text-purple-600">Things to Do</h2>
-        <ul class="list-disc pl-5 text-sm text-gray-700">
-          <li>Visit Phnom Pros and Phnom Srei</li>
-          <li>Explore the Bamboo Bridge</li>
-          <li>Enjoy the Mekong River views</li>
+        <h2 class="text-2xl font-semibold mb-2 text-purple-600">{{ $t("Province.KampongCham.ThingsToDo") }}</h2>
+        <ul class="list-disc pl-5 text-lg text-gray-700">
+          <li>{{ $t("Province.KampongCham.First") }}</li>
+          <li>{{ $t("Province.KampongCham.Second") }}</li>
+          <li>{{ $t("Province.KampongCham.Third") }}</li>
         </ul>
       </div>
       <div>
-        <h2 class="text-2xl font-semibold mb-2 text-purple-600">Travel Tips</h2>
-        <ul class="list-disc pl-5 text-sm text-gray-700">
-          <li>Best time: Nov – Mar</li>
-          <li>Transport: Bus, Motorbike</li>
-          <li>Bring a hat for sun protection</li>
+        <h2 class="text-2xl font-semibold mb-2 text-purple-600">{{ $t("Province.KampongCham.TravelTips") }}</h2>
+        <ul class="list-disc pl-5 text-lg text-gray-700">
+          <li>{{ $t("Province.KampongCham.BestTime") }}</li>
+          <li>{{ $t("Province.KampongCham.Transport") }}</li>
+          <li>{{ $t("Province.KampongCham.DressCode") }}</li>
         </ul>
       </div>
     </section>
 
     <!-- Photo Gallery -->
     <section class="pt-12 pb-6 pr-16 pl-16">
-      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Photo Gallery</h2>
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">{{ $t("Province.KampongCham.PhotoGallery") }}</h2>
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <img v-for="(photo, index) in galleryPhotos" :key="index" :src="photo" alt="" class="rounded shadow object-cover h-28 w-full" />
       </div>
@@ -73,7 +73,7 @@
 
     <!-- Province Map -->
     <section class="pt-12 pb-6 pr-16 pl-16">
-      <h2 class="text-2xl font-semibold mb-4 text-purple-600">Province Map</h2>
+      <h2 class="text-2xl font-semibold mb-4 text-purple-600">{{ $t("Province.KampongCham.Map") }}</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3819.1234567890123!2d105.4667!3d11.9833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a5f5f5f5f5f5f%3A0x9b1c2d3e4f5a6b7c!2sKampong%20Cham!5e0!3m2!1sen!2skh!4v1627180800000"

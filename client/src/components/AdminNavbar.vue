@@ -63,9 +63,7 @@
             <li>
               <router-link to="/admin/bus" class="block py-1 hover:text-blue-500">Bus</router-link>
             </li>
-            <li>
-              <router-link to="/admin/hotel" class="block py-1 hover:text-blue-500">Hotel</router-link>
-            </li>
+            
           </ul>
         </li>
 
@@ -83,6 +81,12 @@
           </router-link>
         </li>
         <li>
+          <router-link to="/admin/admin-hotel" class="nav-link" active-class="router-link-exact-active">
+            <i class="icon ri-article-line"></i>
+            Hotel
+          </router-link>
+        </li>
+        <li>
           <a href="#" class="nav-link">
             <i class="icon ri-map-pin-line"></i>
             Travel Guide
@@ -91,14 +95,14 @@
         <li>
           <router-link to="/admin/chat" class="nav-link" active-class="router-link-exact-active">
             <i class="icon ri-message-3-line"></i>
-            Contact Messages
+            Messages
           </router-link>
         </li>
         <li>
-          <a href="#" class="nav-link">
+          <router-link to="/admin/report" class="nav-link" active-class="router-link-exact-active">
             <i class="icon ri-bar-chart-2-line"></i>
             Reports
-          </a>
+          </router-link>
         </li>
       </ul>
     </div>
