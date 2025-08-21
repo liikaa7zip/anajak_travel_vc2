@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     quantity: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0 },
     hotelId: { type: DataTypes.INTEGER, allowNull: false },
     restaurantOwnerId: { type: DataTypes.INTEGER, allowNull: false },
+    isActive: { type: DataTypes.BOOLEAN, defaultValue: false },
   });
 
   Food.associate = (models) => {
