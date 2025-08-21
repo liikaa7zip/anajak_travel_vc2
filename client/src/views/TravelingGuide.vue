@@ -53,6 +53,17 @@
       </div>
     </section>
 
+    <!-- Weather Section -->
+    <section class="mx-6 mb-6 p-6 rounded-xl shadow-md bg-white flex flex-col items-center">
+      <h2 class="text-2xl font-bold mb-4 text-purple-800">Check Weather in Cambodia</h2>
+      <router-link to="/WeatherPage">
+        <button class="bg-purple-600 text-white px-6 py-3 rounded-full hover:bg-purple-700 transition text-lg font-semibold flex items-center gap-2">
+          <i class="fa-solid fa-cloud-sun"></i>
+          Go to Weather Page
+        </button>
+      </router-link>
+    </section>
+
     <!-- Destinations List -->
     <section class="px-6 md:px-12 lg:px-18 py-6">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -95,7 +106,7 @@
               </router-link>
               <router-link :to="`/guide/${toKebab(province.routeName)}/ProvinceList`"
                 class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm">
-                <i class="fa-solid fa-utensils"></i>
+                <i class="fa-solid fa-hotel"></i>
               </router-link>
               <!-- Booking Toggle Button -->
               <button @click.stop.prevent="toggleBookingOptions(province)"

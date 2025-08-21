@@ -20,7 +20,7 @@
             <input 
               v-model="username" 
               type="text" 
-              :placeholder="$t('Register.placeholderName')" 
+              placeholder="Enter your name" 
               autocomplete="username"
               class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 transition-all duration-300 hover:border-purple-500" 
               required
@@ -32,7 +32,7 @@
             <input 
               v-model="email" 
               type="email" 
-              :placeholder="$t('Register.placeholderEmail')" 
+              placeholder="name@gmail.com" 
               autocomplete="email"
               class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 transition-all duration-300 hover:border-purple-500" 
               required
