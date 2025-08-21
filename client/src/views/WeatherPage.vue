@@ -72,6 +72,8 @@
                 @click="onDayClick(day)"
               >
                 <span>{{ day.day }}</span>
+                <!-- ✅ Add this line for the forecast icon -->
+                <span class="text-2xl">{{ day.icon }}</span>
                 <span class="text-xl font-semibold">{{ day.temp }}°C</span>
               </div>
             </div>
