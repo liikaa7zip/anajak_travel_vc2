@@ -245,6 +245,7 @@ const routes = [
       { path: 'guide/:province/ProvinceList', name: 'ProvinceProvinceList', component: ProvinceList, props: true },
       { path: 'guide/:view/favorite', name: 'Provincefavorite', component: favorite, props: true },
       { path: 'guide/:view/WeatherPage', name: 'ProvinceWeatherPage', component: WeatherPage, props: true },
+      { path: 'WeatherPage', component: WeatherPage, beforeEnter: requireAuth },
 
       // Food routes
       { path: 'foods', component: FoodListView, name: 'FoodList' },
