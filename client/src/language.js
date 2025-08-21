@@ -1065,7 +1065,6 @@ const messages = {
             Welcome: "Welcome back!",
             TitleSignIn: "Sign In",
             Email: "Email",
-            placeholderEmail: "name@gmail.com",
             Password: "Password",
             SignIn: 'Sign In',
             DoNotHaveAcc: 'Do not have an account?',
@@ -1077,9 +1076,7 @@ const messages = {
             Explore: "Explore the world with us!",
             CreateAcc: "Create Account",
             Name: "Name",
-            placeholderName: "Enter your name",
             Email: "Email",
-            placeholderEmail: "name@gmail.com",
             Password: "Password",
             Text: "By signing up you agree to terms and conditions at blah.",
             RegisterBtn: 'Register',
@@ -2267,7 +2264,6 @@ const messages = {
                 description: "ខេត្តជាប់ព្រំដែន ល្បីពីប្រាសាទនិងផ្សារ",
             }
         },
-
         // Customer Reviews
         Reviews: {
             Title: "ការពិនិត្យអតិថិជន",
