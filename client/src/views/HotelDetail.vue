@@ -47,6 +47,16 @@
           </p>
         </div>
 
+        <!-- Inside your Details Section, after rooms/amenities -->
+<router-link
+  :to="`/hotel/${hotel.id}/food-menu`"
+  class="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
+>
+  🍽️ View Food Menu
+</router-link>
+
+
+
         <!-- Amenities -->
         <div>
           <h2 class="text-xl font-semibold text-gray-800 mb-2">Amenities</h2>
@@ -80,14 +90,13 @@
 >
 <img
   :src="room.images && room.images.length > 0
-        ? room.images[0].startsWith('http')
-          ? room.images[0]
-          : `http://localhost:5000/${room.images[0]}`
+        ? room.images[0]
         : 'https://placehold.co/400x250?text=No+Image'"
   :alt="`Room ${room.roomNumber}`"
   class="w-full h-[200px] object-cover"
   @error="handleImageError"
 />
+
 
 
 
@@ -160,10 +169,19 @@ const unavailableRooms = ref([]); // Stores room IDs that are unavailable
 const isValidPrice = (price) => typeof price === 'number' && !isNaN(price);
 
 const handleImageError = (event) => {
-  const altText = event.target.alt || 'Room/Hotel';
-  console.warn(`Image load failed: ${altText}`);
+  const failedUrl = event.target.src;   // the exact URL that failed
+  const altText = event.target.alt || 'Room/Hotel';  // usually "Room 33" or "Hotel"
+  
+  console.warn(
+    `❌ Image load failed\n` +
+    `Alt: ${altText}\n` +
+    `URL: ${failedUrl}`
+  );
+
+  // Replace with placeholder
   event.target.src = 'https://placehold.co/400x250?text=No+Image';
 };
+
 
 const fetchRooms = async (hotelId) => {
   try {
@@ -187,12 +205,16 @@ const fetchRooms = async (hotelId) => {
           ? room.images
           : JSON.parse(room.images || '[]');
 
-        // Normalize images to full URLs
+        // ✅ Normalize images to avoid double "/uploads/"
         images = images.map(img => {
           if (!img) return '';
-          return img.startsWith('http')
-            ? img
-            : `http://localhost:5000/uploads/${img.replace(/^uploads\//, '')}`;
+          if (img.startsWith('http')) {
+            return img; // already a full URL
+          }
+          if (img.startsWith('/uploads')) {
+            return `http://localhost:5000${img}`; // already has /uploads
+          }
+          return `http://localhost:5000/uploads/${img}`; // add uploads if missing
         });
       } catch (err) {
         console.warn(`Failed to parse images for room ${room.id}:`, err);
@@ -206,7 +228,7 @@ const fetchRooms = async (hotelId) => {
     });
 
     // Debug log: show images for all rooms
-    console.log('Fetched rooms with normalized images:', fetchedRooms.map(r => ({
+    console.log('✅ Fetched rooms with normalized images:', fetchedRooms.map(r => ({
       id: r.id,
       images: r.images
     })));
@@ -219,6 +241,7 @@ const fetchRooms = async (hotelId) => {
     console.error('Error fetching rooms:', err);
   }
 };
+
 
 
 

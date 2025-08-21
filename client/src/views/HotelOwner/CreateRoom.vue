@@ -92,17 +92,26 @@
       </div>
 
       <!-- Images -->
-      <div v-for="(img, index) in room.images" :key="index" class="flex gap-2 items-center">
+      <!-- Images -->
+<div>
+  <label class="block text-gray-700 font-medium mb-1">Upload Images</label>
   <input
     type="file"
-    @change="onFileChange($event, index)"
-    class="border rounded-lg px-3 py-2 w-full focus:ring-2 focus:ring-purple-500 outline-none"
+    @change="onFileChange"
+    class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-purple-500 outline-none"
+    multiple
   />
-  <button type="button" @click="removeImage(index)" class="bg-red-500 text-white px-2 py-1 rounded-lg">Remove</button>
+  <div class="mt-2 flex gap-2 flex-wrap">
+    <img
+      v-for="(img, index) in room.images"
+      :key="index"
+      :src="img.preview"
+      class="w-24 h-24 object-cover rounded-lg border"
+      alt="Room Image"
+    />
+  </div>
 </div>
-<button type="button" @click="room.images.push({ file: null, preview: '' })" class="mt-2 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700">
-  Add Image
-</button>
+
 
 
 
@@ -194,13 +203,17 @@ const submitRoom = async () => {
 };
 
 
-const onFileChange = (e, index) => {
-  const file = e.target.files[0];
-  if (file) {
-    room.value.images[index].file = file;
-    room.value.images[index].preview = URL.createObjectURL(file);
+const onFileChange = (e) => {
+  const files = e.target.files;
+  room.value.images = [];
+  for (let i = 0; i < files.length; i++) {
+    room.value.images.push({
+      file: files[i],
+      preview: URL.createObjectURL(files[i]),
+    });
   }
 };
+
 
 const handleFileUpload = (event, index) => {
   const file = event.target.files[0];
