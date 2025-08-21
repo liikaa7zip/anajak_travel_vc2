@@ -37,7 +37,10 @@
               <span class="text-7xl font-light">{{ weather.temperature }}°</span>
               <span class="text-5xl">{{ weather.icon }}</span>
             </div>
-            <p class="mt-2 text-lg">{{ formattedDateTime }}</p>
+            <p class="mt-2 text-lg">
+              <span v-if="displayedDay">{{ getFullDayName(displayedDay) }} - {{ formattedDateTime.split(' - ')[1] || formattedDateTime }}</span>
+              <span v-else>{{ formattedDateTime }}</span>
+            </p>
           </div>
 
           <!-- Right Column -->
@@ -62,9 +65,11 @@
                 v-for="day in forecast"
                 :key="day.day"
                 :class="[
-                  'rounded-lg p-4 flex flex-col items-center w-20',
-                  day.isToday ? 'bg-purple-600 text-white' : 'bg-white/50 text-black'
+                  'rounded-lg p-4 flex flex-col items-center w-20 cursor-pointer',
+                  day.isToday ? '' : '',
+                  selectedDay && selectedDay.day === day.day ? 'bg-purple-600 text-white' : 'bg-white/50 text-black'
                 ]"
+                @click="onDayClick(day)"
               >
                 <span>{{ day.day }}</span>
                 <span class="text-xl font-semibold">{{ day.temp }}°C</span>
@@ -171,7 +176,22 @@ const backgroundImageUrl = computed(() => {
     : "url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?auto=format&fit=crop&w=2071&q=80')";
 });
 
+
 // Methods
+const selectedDay = ref(null);
+const displayedDay = ref('');
+function onDayClick(day) {
+  selectedDay.value = day;
+  weather.value = {
+    temperature: day.temp,
+    icon: day.icon || '',
+    precipitation: day.precipitation !== undefined ? day.precipitation : weather.value.precipitation,
+    humidity: day.humidity !== undefined ? day.humidity : weather.value.humidity,
+    wind: day.wind !== undefined ? day.wind : weather.value.wind
+  };
+  displayedDay.value = day.day;
+}
+
 async function fetchWeatherData(loc) {
   try {
     const response = await axios.get(
@@ -255,6 +275,19 @@ async function submitNewLocation() {
 
 function retryFetchWeather() {
   updateWeather(location.value);
+}
+
+function getFullDayName(shortDay) {
+  const days = {
+    Sun: 'Sunday',
+    Mon: 'Monday',
+    Tue: 'Tuesday',
+    Wed: 'Wednesday',
+    Thu: 'Thursday',
+    Fri: 'Friday',
+    Sat: 'Saturday'
+  };
+  return days[shortDay] || shortDay;
 }
 
 // Lifecycle
