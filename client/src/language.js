@@ -1132,10 +1132,57 @@ const messages = {
                 Culture: "Culture",
                 Food: "Food",
             }
+        },
+        // Flight Reservations
+        FlightReservations: {
+            Title: "Flight Reservations",
+            Origin: "Origin",
+            Destination: "Destination",
+            SelectDestination: "Select a destination",
+            PhnomPenh: "Phnom Penh",
+            SiemReap: "Siem Reap",
+            Sihanoukville: "Sihanoukville",
+            Date: "Date",
+            Airline: "Airline",
+            ClassType: "Class Type",
+            Economy: "Economy",
+            Business: "Business",
+            Passengers: "Passengers",
+            Passengers: "Passenger(s)",
+            Price: "Price ($)",
+            Text: "Auto-calculated based on airline, class, and passengers.",
+            YourName: "Your Name",
+            Email: "Email",
+            BookNow: "Book Now",
+            ViewBookingHistory: "View Booking History"
         }
     },
 
     km: {
+        // Flight Reservations
+        FlightReservations: {
+            Title: "ការកក់ជើងហោះហើរ",
+            Origin: "ទីកន្លែងចេញ",
+            Destination: "ទីកន្លែងទៅ",
+            SelectDestination: "ជ្រើសរើសទីកន្លែងទៅ",
+            PhnomPenh: "ភ្នំពេញ",
+            SiemReap: "សៀមរាប",
+            Sihanoukville: "ព្រះសីហនុ",
+            Date: "កាលបរិច្ឆេទ",
+            Airline: "ក្រុមហ៊ុនអាកាសចរណ៍",
+            ClassType: "ប្រភេទថ្នាក់",
+            Economy: "សេដ្ឋកិច្ច",
+            Business: "អាជីវកម្ម",
+            Passengers: "អ្នកដំណើរ",
+            Passengers: "អ្នកដំណើរ",
+            Price: "តម្លៃ ($)",
+            Text: "គណនាដោយស្វ័យប្រវត្តិដោយផ្អែកលើក្រុមហ៊ុនអាកាសចរណ៍ ថ្នាក់ និងអ្នកដំណើរ",
+            YourName: "ឈ្មោះរបស់អ្នក",
+            Email: "អ៊ីមែល",
+            BookNow: "កក់ឥឡូវនេះ",
+            ViewBookingHistory: "មើលប្រវត្តិការកក់"
+        },
+
         // Blog page
         Blog: {
             HeroTitle: "រុករកពិភពលោកជាមួយយើង",
