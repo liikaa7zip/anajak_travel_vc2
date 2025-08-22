@@ -1,4 +1,4 @@
-const { Food, Location, Category } = require('../models');
+const { Food, Location, Category, User } = require('../models');
 
 exports.getAllFood = async (req, res) => {
   try {
@@ -83,13 +83,14 @@ exports.getFoodById = async (req, res) => {
 };
 
 
-
-
-
 exports.createFood = async (req, res) => {
   try {
-    const user = req.user; // from your JWT auth middleware
-    const { name, price, image, locationId, categoryId } = req.body;
+    // 1. Fetch the full user from the database
+    const user = await User.findByPk(req.user.id);
+
+    if (!user) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
 
     if (user.role !== 'restaurant_owner') {
       return res.status(403).json({ error: 'Only restaurant owners can add food' });
@@ -99,24 +100,84 @@ exports.createFood = async (req, res) => {
       return res.status(400).json({ error: 'Restaurant owner is not assigned to a hotel' });
     }
 
+    // 2. Get food data from request body
+    const { name, price, image, locationId, categoryId } = req.body;
+
     if (!name || !price || !locationId || !categoryId) {
       return res.status(400).json({ error: 'Name, price, locationId, and categoryId are required' });
     }
 
+    // 3. Create the food item
     const food = await Food.create({
       name,
       price,
       image,
       locationId,
       categoryId,
-      hotelId: user.hotelId,          // link food to the restaurant owner's hotel
-      restaurantOwnerId: user.id      // optional: track which owner added it
+      hotelId: user.hotelId,          // assign to the restaurant owner's hotel
+      restaurantOwnerId: user.id      // track which owner added it
     });
 
     res.status(201).json(food);
+
   } catch (error) {
-    console.error('Error creating food:', error);
+    console.error('[ADD FOOD ERROR]', error);
     res.status(500).json({ error: 'Failed to create food' });
+  }
+};
+
+
+exports.toggleActive = async (req, res) => {
+  try {
+    const foodId = req.params.id;
+    const userId = req.user.id; // from verifyToken middleware
+
+    // Fetch the logged-in user
+    const user = await User.findByPk(userId);
+
+    if (!user || user.role !== 'restaurant_owner') {
+      return res.status(403).json({ error: "Not authorized" });
+    }
+
+    // Find the food by ID (any food, not restricted by restaurantOwnerId)
+    const food = await Food.findByPk(foodId);
+
+    if (!food) {
+      return res.status(404).json({ error: "Food not found" });
+    }
+
+    // Toggle isActive
+    food.isActive = !food.isActive;
+    await food.save();
+
+    return res.json({ message: `Food is now ${food.isActive ? 'Active' : 'Inactive'}`, food });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "Something went wrong" });
+  }
+};
+
+
+
+
+exports.getMyFoods = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const user = await User.findByPk(userId);
+
+    if (!user || user.role !== 'restaurant_owner') {
+      return res.status(403).json({ message: 'Not authorized' });
+    }
+
+    const foods = await Food.findAll({
+      where: { hotelId: user.hotelId },
+      include: ['hotel', 'category']
+    });
+
+    res.json(foods);
+  } catch (err) {
+    console.error('[GET MY FOODS ERROR]', err);
+    res.status(500).json({ message: 'Server error' });
   }
 };
 
@@ -141,5 +202,39 @@ exports.getFoodsByLocation = async (req, res) => {
     res.json(foods);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch foods by location' });
+  }
+};
+
+
+// Get all active foods for a specific hotel
+exports.getFoodsByHotel = async (req, res) => {
+  try {
+    const hotelId = req.params.hotelId;
+
+    const foods = await Food.findAll({
+      where: { hotelId, isActive: true },
+      include: [
+        {
+          model: Category,
+          as: 'category',
+          attributes: ['id', 'name']
+        },
+        {
+          model: Location,
+          as: 'Location',
+          attributes: ['id', 'name', 'country']
+        }
+      ]
+    });
+
+    if (!foods || foods.length === 0) {
+      return res.status(404).json({ message: 'No foods found for this hotel' });
+    }
+
+    res.json(foods);
+
+  } catch (err) {
+    console.error('Error fetching foods by hotel:', err);
+    res.status(500).json({ error: 'Failed to fetch foods' });
   }
 };

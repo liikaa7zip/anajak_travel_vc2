@@ -171,10 +171,34 @@ app.use('/api/categories', categoryRoutes);
 // app.use('/api/admin-users', adminUserRoutes);
 
 
-// Basic socket.io test
-io.on("connection", (socket) => {
-  console.log("✅ A user connected");
-  socket.on("disconnect", () => console.log("❌ User disconnected"));
+io.on('connection', (socket) => {
+  socket.on('send_message', async (msg, callback) => {
+    try {
+      // Save message to DB
+      const savedMsg = await Message.create({
+        senderId: msg.senderId,
+        receiverId: msg.receiverId,
+        sender: msg.sender,
+        receiver: msg.receiver,
+        message: msg.message,
+      });
+
+      // Emit to both sender and receiver rooms
+      io.to(msg.senderId.toString()).emit('receive_message', savedMsg);
+      io.to(msg.receiverId.toString()).emit('receive_message', savedMsg);
+
+      // Confirm to sender
+      callback({ status: 'ok' });
+    } catch (error) {
+      console.error('Error saving message:', error);
+      callback({ status: 'error', error: error.message });
+    }
+  });
+
+  // Join user to their room on connection
+  socket.on('join', (userId) => {
+    socket.join(userId);
+  });
 });
 
 
