@@ -1155,10 +1155,68 @@ const messages = {
             Email: "Email",
             BookNow: "Book Now",
             ViewBookingHistory: "View Booking History"
+        },
+        // Car Ticket Booking
+        CarTicketBooking: {
+            Title: "Car Ticket Booking",
+            PickupLocation: "Pickup Location",
+            DropoffLocation: "Drop-off Location",
+            VehicleType: "Vehicle Type",
+            PrivateCar: "Private Car",
+            Van: "Van",
+            LuxuryCar: "Luxury Car",
+            Price: "Price ($)",
+            YourName: "Your Name",
+            Email: "Email",
+            BookNow: "Book Now",
+            ViewBookingHistory: "View Booking History",
+            CurrentPrice: "Current Price:",
+            TravelDate: "Travel Date",
+            Email: "Email",
+            BookCar: "Book Car",
+            ConfirmYourBooking: "Confirm Your Booking",
+            ProceedWithBooking: "Proceed With Booking",
+            to: "to",
+            for: "for",
+            Cancel: "Cancel",
+            YesBookNow: "Yes, Book Now",
+            BookingSuccessful: "Booking Successful!",
+            OK: "OK",
+            ViewBookingHistory: "View Booking History",
+            ExploreCarTickets: "Explore Car Tickets"
         }
     },
 
     km: {
+        // Car Ticket Booking
+        CarTicketBooking: {
+            Title: "ការកក់សំបុត្រឡាន",
+            PickupLocation: "ទីតាំងទទួល",
+            DropoffLocation: "ទីតាំងទៅដល់",
+            VehicleType: "ប្រភេទយានយន្ត",
+            PrivateCar: "ឡានឯកជន",
+            Van: "ឡានសានយ៉ុង",
+            LuxuryCar: "ឡានប្រណិត",
+            Price: "តម្លៃ ($)",
+            YourName: "ឈ្មោះរបស់អ្នក",
+            Email: "អ៊ីមែល",
+            BookNow: "កក់ឥឡូវនេះ",
+            ViewBookingHistory: "មើលប្រវត្តិការកក់",
+            CurrentPrice: "តម្លៃបច្ចុប្បន្ន:",
+            TravelDate: "កាលបរិច្ឆេទដំណើរ",
+            Email: "អ៊ីមែល",
+            BookCar: "កក់ឡាន",
+            ConfirmYourBooking: "បញ្ជាក់ការកក់របស់អ្នក",
+            ProceedWithBooking: "បន្តការកក់",
+            to: "ទៅ",
+            for: "សម្រាប់",
+            Cancel: "បោះបង់",
+            YesBookNow: "បាទ កក់ឥឡូវនេះ",
+            BookingSuccessful: "ការកក់បានជោគជ័យ!",
+            OK: "យល់ព្រម",
+            ViewBookingHistory: "មើលប្រវត្តិការកក់",
+            ExploreCarTickets: "រុករកសំបុត្រឡាន"
+        },
         // Flight Reservations
         FlightReservations: {
             Title: "ការកក់ជើងហោះហើរ",
