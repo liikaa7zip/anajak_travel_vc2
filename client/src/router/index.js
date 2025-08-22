@@ -149,6 +149,7 @@ import HotelChat from '@/views/HotelOwner/HotelChat.vue'
 import CreateRoom from '@/views/HotelOwner/CreateRoom.vue'
 import Review from '@/views/Review.vue'
 import HotelBookings from '@/views/HotelOwner/HotelBookings.vue'
+import FoodPage from '@/views/resturantOwner/FoodPage.vue'
 // Auth guard
 
 const getUserFromStorage = () => {
@@ -185,6 +186,7 @@ const routes = [
       { path: 'book/:id', component: HotelBookingForm },
       { path: 'confirmation', component: BookingConfirmation },
       {path:'Hotel_history',component: HotelBookinghistory},
+      { path: '/hotel/:id/food-menu', component: FoodPage },
 
       // favorite 
       { path: 'favorites', component: favorite },
@@ -199,6 +201,7 @@ const routes = [
       { path: 'BookBoatHistory', component: BookingboatHistory },
       { path: 'user-plan', component: UserPlan },
       { path: 'payment', component: Payment},
+
 
 
       // User Profile

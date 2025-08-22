@@ -6,7 +6,7 @@ const hotelBookingController = require('../controllers/hotelBookingController');
 
 // Public routes (with optional authentication)
 router.get('/', hotelBookingController.getAllBookings);
-router.get('/stats', hotelBookingController.getBookingStats);
+router.get('/stats', hotelBookingController.getBookingStats);   
 router.get('/:id', hotelBookingController.getBookingById);
 router.post('/', hotelBookingController.createBooking);
 router.put('/:id/status', hotelBookingController.updateBookingStatus);

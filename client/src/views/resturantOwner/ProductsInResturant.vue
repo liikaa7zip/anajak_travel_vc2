@@ -185,14 +185,6 @@
               </select>
             </div>
 
-            <!-- Replace Quantity Input with Hotel Name -->
-            <div>
-              <label for="hotelName" class="block font-medium text-gray-700 mb-1">Hotel Name</label>
-              <input id="hotelName" v-model="form.hotelName" type="text"
-                class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                required />
-            </div>
-
 
 
             <!-- Image -->
@@ -301,16 +293,24 @@ export default {
   },
   methods: {
     loadFoods() {
-      axios
-        .get("http://localhost:5000/api/foods?includeLocation=true")
-        .then((res) => {
-          this.foods = res.data;
-        })
-        .catch((err) => {
-          console.error("Failed to load foods:", err);
-          this.foods = [];
-        });
-    },
+  axios
+    .get("http://localhost:5000/api/foods/my-foods", {
+      headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+    })
+    .then((res) => {
+      // Initialize extra properties for Vue
+      this.foods = res.data.map(food => ({
+        ...food,
+        showDropdown: false,   // for dropdown menu
+        isActive: food.isActive || false,  // for activate/deactivate button
+      }));
+    })
+    .catch((err) => {
+      console.error("Failed to load foods:", err);
+      this.foods = [];
+    });
+},
+
     loadLocations() {
       axios
         .get("http://localhost:5000/api/locations")
@@ -339,20 +339,18 @@ export default {
       this.showModal = true;
     },
     openEditModal(food) {
-      this.form = {
-        id: food.id,
-        name: food.name,
-        price: food.price,
-        image: food.image,
-        locationId: food.locationId ? String(food.locationId) : "",
-        categoryId: "",  // set empty first
-        hotelName: food.hotelName || "",  // 🔹
-      };
-      // explicitly set categoryId string for reactivity
-      this.form.categoryId = food.categoryId ? String(food.categoryId) : "";
-      this.isEditing = true;
-      this.showModal = true;
-    },
+  this.form = {
+    id: food.id,
+    name: food.name,
+    price: food.price,
+    image: food.image,
+    locationId: food.locationId ? String(food.locationId) : "",
+    categoryId: food.categoryId ? String(food.categoryId) : "",
+  };
+  this.isEditing = true;
+  this.showModal = true;
+},
+
     closeModal() {
       this.showModal = false;
     },
@@ -370,20 +368,19 @@ export default {
     // CRUD
     createFood() {
       const payload = {
-        ...this.form,
-        price: Number(this.form.price),
-        locationId: Number(this.form.locationId),
-        categoryId: Number(this.form.categoryId),
-        hotelName: this.form.hotelName, 
-      };
+  name: this.form.name,
+  price: Number(this.form.price),
+  image: this.form.image,
+  locationId: Number(this.form.locationId),
+  categoryId: Number(this.form.categoryId),
+};
 
-      axios
-        .post("http://localhost:5000/api/foods", payload)
-        .then(() => {
-          this.loadFoods();
-          this.closeModal();
-          alert("Food added successfully!");
-        })
+
+      axios.post("http://localhost:5000/api/foods", payload, {
+  headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+})
+.then(() => { this.loadFoods(); })
+
         .catch((err) => {
           console.error("Failed to create food:", err);
           alert("Failed to create food.");
@@ -450,16 +447,17 @@ export default {
         });
     },
     toggleSell(food) {
-    const updatedStatus = !food.isActive;
-    axios.put(`http://localhost:5000/api/foods/${food.id}`, { ...food, isActive: updatedStatus })
-      .then(() => {
-        food.isActive = updatedStatus;
-      })
-      .catch(err => {
-        console.error('Failed to update selling status:', err);
-        alert('Failed to update selling status');
-      });
-  },
+  axios.put(`http://localhost:5000/api/foods/toggle/${food.id}`, {}, {
+    headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+  })
+  .then(res => {
+    food.isActive = res.data.food.isActive;
+  })
+  .catch(err => {
+    console.error('Failed to update selling status:', err);
+    alert('Failed to update selling status');
+  });
+},
   },
   mounted() {
     this.loadFoods();
