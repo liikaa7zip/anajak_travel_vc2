@@ -69,11 +69,14 @@ const getWeather = async (req, res) => {
         // Use only top-level iconMap
         const dayIcon = iconMap[iconCode] || "❓";
 
+        // Convert precipitation (mm) to percent (simple mapping: 0mm = 0%, >=5mm = 100%)
+        let precipMm = firstItem.rain?.["1h"] || firstItem.snow?.["1h"] || 0;
+        let precipitationPercent = Math.min(Math.round((precipMm / 5) * 100), 100);
         forecastDays.push({
           day: days[date.getDay()],
           temp: Math.round(maxTemp),
           icon: dayIcon,
-          precipitation: firstItem.rain?.["1h"] || firstItem.snow?.["1h"] || 0,
+          precipitation: precipitationPercent,
           humidity: firstItem.main.humidity,
           wind: Math.round(firstItem.wind.speed * 3.6),
           isToday: dateStr === todayStr
@@ -84,12 +87,15 @@ const getWeather = async (req, res) => {
     // Use only top-level iconMap
     const icon = iconMap[currentData.weather[0].icon] || "❓";
 
+    // Convert precipitation (mm) to percent for current weather
+    let precipMm = currentData.rain?.["1h"] || currentData.snow?.["1h"] || 0;
+    let precipitationPercent = Math.min(Math.round((precipMm / 5) * 100), 100);
     res.json({
       location,
       weather: {
         temperature: Math.round(currentData.main.temp),
         icon,
-        precipitation: currentData.rain?.["1h"] || currentData.snow?.["1h"] || 0,
+        precipitation: precipitationPercent,
         humidity: currentData.main.humidity,
         wind: Math.round(currentData.wind.speed * 3.6)
       },
@@ -113,12 +119,15 @@ const getAllProvincesWeather = async (req, res) => {
           `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(province.query)}&appid=${apiKey}&units=metric`
         );
         const iconCode = response.data.weather[0].icon;
+        // Convert precipitation (mm) to percent for province
+        let precipMm = response.data.rain?.["1h"] || response.data.snow?.["1h"] || 0;
+        let precipitationPercent = Math.min(Math.round((precipMm / 5) * 100), 100);
         return {
           province: province.name,
           weather: {
             temperature: Math.round(response.data.main.temp),
             icon: iconMap[iconCode] || "❓",
-            precipitation: response.data.rain?.["1h"] || response.data.snow?.["1h"] || 0,
+            precipitation: precipitationPercent,
             humidity: response.data.main.humidity,
             wind: Math.round(response.data.wind.speed * 3.6)
           }

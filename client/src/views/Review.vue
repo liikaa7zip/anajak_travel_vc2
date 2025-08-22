@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-3xl mx-auto p-6 space-y-8">
+  <div class="font-khmer max-w-3xl mx-auto p-6 space-y-8">
     <!-- Review List -->
     <div>
       <h2 class="text-3xl font-bold mb-6 text-gray-800">{{ $t("Reviews.Title") }}</h2>

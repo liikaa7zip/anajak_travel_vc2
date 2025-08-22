@@ -1,5 +1,5 @@
 <template>
-  <div class="font-sans bg-gray-100 text-gray-900 min-h-screen">
+  <div class="font-khmer bg-gray-100 text-gray-900 min-h-screen">
     <!-- Hero Section -->
     <section class="relative w-full h-80 sm:h-96">
       <img
@@ -13,6 +13,13 @@
           <span class="text-5xl">{{ $t("Province.KampongSpeu.KPSHeroSubtitle") }}</span>
         </h1>
       </div>
+    </section>
+
+    <!-- Back Button -->
+    <section class="pt-6 pr-16 pl-16">
+      <router-link to="/guide" class="text-purple-600 hover:underline">
+        <i class="fa-solid fa-arrow-left"></i> {{ $t('BackToGuide') }}
+      </router-link>
     </section>
 
     <!-- About Section -->
