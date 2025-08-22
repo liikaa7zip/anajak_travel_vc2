@@ -66,24 +66,35 @@
     </span>
 
     <!-- 3-dot Dropdown (Top-right) -->
-    <div class="absolute top-3 right-3 text-gray-500">
-      <div class="relative" @click.stop="food.showDropdown = !food.showDropdown">
-        <button class="p-1 rounded-full hover:bg-gray-100 transition">
-          ⋮
-        </button>
-        <div v-if="food.showDropdown"
-          class="absolute right-0 mt-2 w-32 bg-white shadow-lg rounded-md border border-gray-200 z-50">
-          <button @click="openEditModal(food)"
-            class="w-full text-left px-4 py-2 text-sm text-indigo-600 hover:bg-indigo-50 transition">
-            ✏️ Edit
-          </button>
-          <button @click="deleteFood(food.id)"
-            class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition">
-            🗑️ Delete
-          </button>
-        </div>
-      </div>
+<div class="absolute top-3 right-3 text-gray-500">
+  <div class="relative" @click.stop="food.showDropdown = !food.showDropdown">
+    <button class="p-1 rounded-full hover:bg-gray-100 transition">
+      ⋮
+    </button>
+    <div v-if="food.showDropdown"
+      class="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-md border border-gray-200 z-50">
+      
+      <!-- Edit -->
+      <button @click="openEditModal(food)"
+        class="w-full text-left px-4 py-2 text-sm text-indigo-600 hover:bg-indigo-50 transition">
+        ✏️ Edit
+      </button>
+
+      <!-- Toggle Top Pick -->
+      <button @click="toggleTopPick(food)"
+        class="w-full text-left px-4 py-2 text-sm text-yellow-600 hover:bg-yellow-50 transition">
+        {{ food.isTopPick ? "⭐ Remove Top Pick" : "⭐ Mark as Top Pick" }}
+      </button>
+
+      <!-- Delete -->
+      <button @click="deleteFood(food.id)"
+        class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition">
+        🗑️ Delete
+      </button>
     </div>
+  </div>
+</div>
+
   </div>
 
   <!-- Content Section -->
@@ -310,6 +321,20 @@ export default {
       this.foods = [];
     });
 },
+
+toggleTopPick(food) {
+    axios.put(`http://localhost:5000/api/foods/top-pick/${food.id}`, {}, {
+      headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+    })
+    .then(res => {
+      food.isTopPick = res.data.food.isTopPick; // ✅ update in UI instantly
+      alert(`"${food.name}" has been ${food.isTopPick ? "added to" : "removed from"} Top Picks.`);
+    })
+    .catch(err => {
+      console.error("Failed to toggle Top Pick:", err);
+      alert("Failed to update Top Pick status.");
+    });
+  },
 
     loadLocations() {
       axios
