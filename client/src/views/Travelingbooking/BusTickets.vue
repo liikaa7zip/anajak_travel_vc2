@@ -1,92 +1,67 @@
 <template>
   <div class="max-w-2xl mx-auto px-6 py-10 bg-white rounded-2xl shadow-lg mt-12 border border-purple-100">
     <h1 class="text-3xl font-extrabold text-center text-purple-700 mb-8">
-      Bus Tickets Across Cambodia
+      {{ $t('BusTickets.Title') }}
     </h1>
-
     <!-- Booking Form -->
-    <!-- Booking Form -->
-<form @submit.prevent="submitBooking" class="bg-white border border-purple-200 rounded-xl shadow-lg overflow-hidden md:flex">
-  <!-- Left Panel (Form) -->
-  <div class="md:w-3/4 p-6 space-y-4">
-    <h2 class="text-xl font-bold text-purple-700 mb-4">Book Your Trip</h2>
+    <form @submit.prevent="submitBooking"
+      class="bg-white border border-purple-200 rounded-xl shadow-lg overflow-hidden md:flex">
+      <!-- Left Panel (Form) -->
+      <div class="md:w-3/4 p-6 space-y-4">
+        <h2 class="text-xl font-bold text-purple-700 mb-4">{{ $t('BusTickets.BookYourTrip') }}</h2>
 
-    <!-- From / To -->
-    <div class="flex gap-3">
-  <div class="w-1/2">
-    <label for="depart" class="block mb-1 font-semibold text-gray-700">From</label>
-    <input
-      id="depart"
-      v-model="form.depart"
-      required
-      placeholder="From"
-      class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-400"
-    />
-  </div>
-  <div class="w-1/2">
-    <label for="arrive" class="block mb-1 font-semibold text-gray-700">To</label>
-    <input
-      id="arrive"
-      v-model="form.arrive"
-      required
-      placeholder="To"
-      class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-400"
-    />
-  </div>
-</div>
+        <!-- From / To -->
+        <div class="flex gap-3">
+          <div class="w-1/2">
+            <label for="depart" class="block mb-1 font-semibold text-gray-700">{{ $t('BusTickets.From') }}</label>
+            <input id="depart" v-model="form.depart" required placeholder="From"
+              class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-400" />
+          </div>
+          <div class="w-1/2">
+            <label for="arrive" class="block mb-1 font-semibold text-gray-700">{{ $t('BusTickets.To') }}</label>
+            <input id="arrive" v-model="form.arrive" required placeholder="To"
+              class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-400" />
+          </div>
+        </div>
 
-<!-- Date & Type -->
-<div class="flex gap-3">
-  <div class="w-1/2">
-    <label for="date" class="block mb-1 font-semibold text-gray-700">Date</label>
-    <input
-      id="date"
-      type="date"
-      v-model="form.date"
-      required
-      class="w-full date border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-400"
-    />
-  </div>
-  <div class="w-1/2">
-  <label for="timeOfDay" class="block mb-1 font-semibold text-gray-700">Time Of Day</label>
-  <select
-    id="timeOfDay"
-    v-model="form.timeOfDay"
-    @change="updateTimeOptions"
-    required
-    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-400"
-  >
-    <option disabled value="">Time Of Day</option>
-    <option value="day">Day</option>
-    <option value="night">Night</option>
-  </select>
-</div>
-</div>
+        <!-- Date & Type -->
+        <div class="flex gap-3">
+          <div class="w-1/2">
+            <label for="date" class="block mb-1 font-semibold text-gray-700">{{ $t('BusTickets.Date') }}</label>
+            <input id="date" type="date" v-model="form.date" required
+              class="w-full date border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-400" />
+          </div>
+          <div class="w-1/2">
+            <label for="timeOfDay" class="block mb-1 font-semibold text-gray-700">{{ $t('BusTickets.TimeOfDay')
+            }}</label>
+            <select id="timeOfDay" v-model="form.timeOfDay" @change="updateTimeOptions" required
+              class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-400">
+              <option disabled value="">{{ $t('BusTickets.TimeOfDay') }}</option>
+              <option value="day">{{ $t('BusTickets.Day') }}</option>
+              <option value="night">{{ $t('BusTickets.Night') }}</option>
+            </select>
+          </div>
+        </div>
 
-<div class="flex gap-3">
-  <div class="w-1/2 mt-4">
-    <label for="time" class="block mb-1 font-semibold text-gray-700">Time</label>
-    <select v-model="form.time" required
-    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-400">
-      <option disabled value="">Select Time</option>
-      <option v-for="time in timeOptions" :key="time.value" :value="time.value">
-        {{ time.label }}
-      </option>
-    </select>
-  </div>
+        <div class="flex gap-3">
+          <div class="w-1/2 mt-4">
+            <label for="time" class="block mb-1 font-semibold text-gray-700">{{ $t('BusTickets.Time') }}</label>
+            <select v-model="form.time" required
+              class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-400">
+              <option disabled value="">{{ $t('BusTickets.SelectTime') }}</option>
+              <option v-for="time in timeOptions" :key="time.value" :value="time.value">
+                {{ time.label }}
+              </option>
+            </select>
+          </div>
 
-  <div class="w-1/2 mt-4">
-    <label for="time" class="block mb-1 font-semibold text-gray-700">Phone</label>
-    <input
-      id="phone"
-      type="phone"
-      v-model="form.phone"
-      required
-      class="w-full date border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-400"
-    />
-  </div>
+          <div class="w-1/2 mt-4">
+            <label for="phone" class="block mb-1 font-semibold text-gray-700">{{ $t('BusTickets.Phone') }}</label>
+            <input id="phone" type="phone" v-model="form.phone" required
+              class="w-full date border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-400" />
+          </div>
 
-  <!-- <div class="w-1/2 mt-4">
+          <!-- <div class="w-1/2 mt-4">
     <label for="type" class="block mb-1 font-semibold text-gray-700">Transport Type</label>
     <select id="type" v-model="form.type" required
       class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-400">
@@ -99,234 +74,170 @@
 
 
 
-</div>
+        </div>
 
 
 
-<div>
-  <label for="email" class="block mb-1 font-semibold text-gray-700">Email</label>
-  <input
-    id="email"
-    type="email"
-    v-model="form.email"
-    required
-    placeholder="Your Email"
-    :readonly="isLoggedIn"
-    class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-400"
-  />
-</div>
+        <div>
+          <label for="email" class="block mb-1 font-semibold text-gray-700">{{ $t('BusTickets.Email') }}</label>
+          <input id="email" type="email" v-model="form.email" required placeholder="Your Email" :readonly="isLoggedIn"
+            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-purple-400" />
+        </div>
 
 
-    <!-- Submit -->
-    <button
-      type="submit"
-      class="w-full mt-2 bg-purple-600 text-white py-2 rounded-lg font-semibold hover:bg-purple-700 transition"
-      :disabled="loading"
-    >
-      Book Now
-    </button>
-  </div>
+        <!-- Submit -->
+        <button type="submit"
+          class="w-full mt-2 bg-purple-600 text-white py-2 rounded-lg font-semibold hover:bg-purple-700 transition"
+          :disabled="loading">
+          {{ $t('BusTickets.BookNow') }}
+        </button>
+      </div>
 
-  <!-- Right Panel (Seat selection + price) -->
-  <div class="md:w-1/2 bg-purple-50 p-6 flex flex-col justify-between">
-   <div>
-    <h3 class="text-lg font-bold text-purple-800 mb-2">Choose Seat</h3>
-    <div class="grid grid-cols-[1fr_auto_1fr] gap-2 w-full max-w-md mx-auto">
-      <!-- Left side seats (6 rows x 2 columns) -->
-      <div class="grid grid-cols-2 gap-2">
-  <!-- Left side seats -->
-  <button
-  v-for="seat in leftSeats"
-  :key="seat.number"
-  :class="[
-    'py-2 rounded text-xs font-bold w-full h-10',
-    seat.booked ? 'bg-gray-300 text-gray-500 cursor-not-allowed opacity-50' :
-    form.seatNumbers.includes(seat.number) ? 'bg-purple-600 text-white' :
-    'bg-white border border-purple-400 text-purple-700 hover:bg-purple-100'
-  ]"
-  :disabled="seat.booked"
-  @click="toggleSeat(seat.number)"
-  type="button"
->
-  {{ seat.number }}
-</button>
+      <!-- Right Panel (Seat selection + price) -->
+      <div class="md:w-1/2 bg-purple-50 p-6 flex flex-col justify-between">
+        <div>
+          <h3 class="text-lg font-bold text-purple-800 mb-2">{{ $t('BusTickets.ChooseSeat') }}</h3>
+          <div class="grid grid-cols-[1fr_auto_1fr] gap-2 w-full max-w-md mx-auto">
+            <!-- Left side seats (6 rows x 2 columns) -->
+            <div class="grid grid-cols-2 gap-2">
+              <!-- Left side seats -->
+              <button v-for="seat in leftSeats" :key="seat.number" :class="[
+                'py-2 rounded text-xs font-bold w-full h-10',
+                seat.booked ? 'bg-gray-300 text-gray-500 cursor-not-allowed opacity-50' :
+                  form.seatNumbers.includes(seat.number) ? 'bg-purple-600 text-white' :
+                    'bg-white border border-purple-400 text-purple-700 hover:bg-purple-100'
+              ]" :disabled="seat.booked" @click="toggleSeat(seat.number)" type="button">
+                {{ seat.number }}
+              </button>
 
 
-</div>
+            </div>
 
-<!-- Middle aisle with 1 special seat -->
-<div class="grid grid-rows-6">
-  <div v-for="i in 5" :key="i" class="flex-grow"></div>
-  <button
-    v-if="middleSeat"
-    :key="middleSeat.number"
-    :class="[
-      'py-2 rounded text-xs font-bold w-8 h-10 mt-2',
-      middleSeat.booked ? 'bg-gray-300 text-gray-500 cursor-not-allowed' :
-      form.seatNumbers.includes(middleSeat.number) ? 'bg-purple-600 text-white' :
-      'bg-white border border-purple-400 text-purple-700 hover:bg-purple-100'
-    ]"
-    :disabled="middleSeat.booked"
-    @click="toggleSeat(middleSeat.number)"
-    type="button"
-  >
-    {{ middleSeat.number }}
-  </button>
-</div>
+            <!-- Middle aisle with 1 special seat -->
+            <div class="grid grid-rows-6">
+              <div v-for="i in 5" :key="i" class="flex-grow"></div>
+              <button v-if="middleSeat" :key="middleSeat.number" :class="[
+                'py-2 rounded text-xs font-bold w-8 h-10 mt-2',
+                middleSeat.booked ? 'bg-gray-300 text-gray-500 cursor-not-allowed' :
+                  form.seatNumbers.includes(middleSeat.number) ? 'bg-purple-600 text-white' :
+                    'bg-white border border-purple-400 text-purple-700 hover:bg-purple-100'
+              ]" :disabled="middleSeat.booked" @click="toggleSeat(middleSeat.number)" type="button">
+                {{ middleSeat.number }}
+              </button>
+            </div>
 
-<!-- Right side seats -->
-<div class="grid grid-cols-2 gap-2">
-  <button
-    v-for="seat in rightSeats"
-    :key="seat.number"
-    :class="[
-      'py-2 rounded text-xs font-bold w-full h-10',
-      seat.booked ? 'bg-gray-300 text-gray-500 cursor-not-allowed' :
-      form.seatNumbers.includes(seat.number) ? 'bg-purple-600 text-white' :
-      'bg-white border border-purple-400 text-purple-700 hover:bg-purple-100'
-    ]"
-    :disabled="seat.booked"
-    @click="toggleSeat(seat.number)"
-    type="button"
-  >
-    {{ seat.number }}
-  </button>
-</div>
-</div>
-  </div>
+            <!-- Right side seats -->
+            <div class="grid grid-cols-2 gap-2">
+              <button v-for="seat in rightSeats" :key="seat.number" :class="[
+                'py-2 rounded text-xs font-bold w-full h-10',
+                seat.booked ? 'bg-gray-300 text-gray-500 cursor-not-allowed' :
+                  form.seatNumbers.includes(seat.number) ? 'bg-purple-600 text-white' :
+                    'bg-white border border-purple-400 text-purple-700 hover:bg-purple-100'
+              ]" :disabled="seat.booked" @click="toggleSeat(seat.number)" type="button">
+                {{ seat.number }}
+              </button>
+            </div>
+          </div>
+        </div>
 
-    <!-- Price and seat summary -->
-    <div class="mt-6 bg-white border border-purple-300 rounded-lg p-4 text-center shadow">
-  <p class="text-sm text-gray-500">Selected Seats</p>
-  <p class="text-lg font-bold text-purple-800">
-    {{ form.seatNumbers.length > 0 ? form.seatNumbers.join(', ') : 'None' }}
-  </p>
-  <p class="mt-2 text-sm text-gray-500">Ticket Price</p>
-  <p class="text-xl font-extrabold text-purple-700">
-  ${{ form.price }}
-</p>
+        <!-- Price and seat summary -->
+        <div class="mt-6 bg-white border border-purple-300 rounded-lg p-4 text-center shadow">
+          <p class="text-sm text-gray-500">{{ $t('BusTickets.SelectedSeats') }}</p>
+          <p class="text-lg font-bold text-purple-800">
+            {{ form.seatNumbers.length > 0 ? form.seatNumbers.join(', ') : 'None' }}
+          </p>
+          <p class="mt-2 text-sm text-gray-500">{{ $t('BusTickets.TicketPrice') }}</p>
+          <p class="text-xl font-extrabold text-purple-700">
+            ${{ form.price }}
+          </p>
 
-</div>
+        </div>
 
-  </div>
-</form>
+      </div>
+    </form>
 
 
     <!-- Confirmation Modal -->
-    <div
-      v-if="showPreConfirmationModal"
+    <div v-if="showPreConfirmationModal"
       class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50 transition-opacity duration-300"
-      @click.self="cancelBookingPreConfirmation"
-    >
+      @click.self="cancelBookingPreConfirmation">
       <div
         class="bg-white rounded-2xl shadow-xl max-w-sm w-full p-6 relative transform transition-transform duration-300 scale-100"
-        role="alertdialog"
-        aria-modal="true"
-      >
-        <h2 class="text-center text-xl font-bold text-gray-800 mb-4">Confirm Your Booking</h2>
-        <p class="text-center text-gray-600 mb-6">Do you want to continue with this booking?</p>
+        role="alertdialog" aria-modal="true">
+        <h2 class="text-center text-xl font-bold text-gray-800 mb-4">{{ $t('BusTickets.ConfirmYourBooking') }}</h2>
+        <p class="text-center text-gray-600 mb-6">{{ $t('BusTickets.ConfirmYourBookingMessage') }}</p>
         <div class="flex justify-center gap-4">
-          <button
-            @click="cancelBookingPreConfirmation"
-            class="px-6 py-2 rounded-full border border-gray-300 text-gray-700 hover:bg-gray-100 transition"
-          >
-            Cancel
+          <button @click="cancelBookingPreConfirmation"
+            class="px-6 py-2 rounded-full border border-gray-300 text-gray-700 hover:bg-gray-100 transition">
+            {{ $t('BusTickets.Cancel') }}
           </button>
-          <button
-            @click="proceedBooking"
+          <button @click="proceedBooking"
             class="px-6 py-2 rounded-full bg-purple-600 text-white font-semibold hover:bg-purple-700 transition"
-            :disabled="loading"
-          >
-            Yes, Book Now
+            :disabled="loading">
+            {{ $t('BusTickets.YesBookNow') }}
           </button>
         </div>
       </div>
     </div>
 
     <!-- Success Confirmation Modal -->
-    <div
-      v-if="confirmation"
+    <div v-if="confirmation"
       class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50 transition-opacity duration-300 ease-out"
-      @click.self="confirmation = ''"
-    >
+      @click.self="confirmation = ''">
       <div
         class="bg-white rounded-3xl shadow-xl max-w-md w-full p-8 relative transform scale-95 transition-transform duration-300 ease-out"
-        role="alertdialog"
-        aria-modal="true"
-      >
-        <button
-          @click="confirmation = ''"
-          aria-label="Close"
-          class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 focus:outline-none text-2xl"
-        >
+        role="alertdialog" aria-modal="true">
+        <button @click="confirmation = ''" aria-label="Close"
+          class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 focus:outline-none text-2xl">
           &times;
         </button>
 
         <div
-          class="mx-auto mb-6 flex items-center justify-center w-20 h-20 rounded-full bg-green-600 text-white shadow-lg relative overflow-hidden"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="w-10 h-10 animate-pulse-once"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
+          class="mx-auto mb-6 flex items-center justify-center w-20 h-20 rounded-full bg-green-600 text-white shadow-lg relative overflow-hidden">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 animate-pulse-once" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
           </svg>
           <div class="absolute inset-0 rounded-full bg-white opacity-10 blur-xl scale-125"></div>
         </div>
 
         <h2 class="text-center text-2xl font-extrabold mb-3 text-green-800">
-          Booking Successful!
+          {{ $t('BusTickets.BookingSuccessful') }}
         </h2>
 
         <p class="text-center text-gray-700 mb-8 text-base leading-relaxed">
           {{ confirmation }}
         </p>
 
-    <div class="flex justify-center">
-      <button
-  @click="() => { confirmation = ''; resetForm() }"
-  class="px-8 py-3 rounded-full bg-green-600 text-white font-bold hover:bg-green-700"
->
-  OK
-</button>
+        <div class="flex justify-center">
+          <button @click="() => { confirmation = ''; resetForm() }"
+            class="px-8 py-3 rounded-full bg-green-600 text-white font-bold hover:bg-green-700">
+            {{ $t('BusTickets.OK') }}
+          </button>
 
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
 
-        <Payment
-  v-if="showPaymentModal && lastBooking && lastBooking.id"
-  :amount="form.price"
-  :bookingType="form.type"
-  :bookingId="lastBooking.id"
-  @cancel="showPaymentModal = false"
-  @paid="handlePaymentComplete"
-/>
+    <Payment v-if="showPaymentModal && lastBooking && lastBooking.id" :amount="form.price" :bookingType="form.type"
+      :bookingId="lastBooking.id" @cancel="showPaymentModal = false" @paid="handlePaymentComplete" />
 
 
 
     <!-- View Booking History -->
     <div class="mt-8 text-center">
-      <router-link
-        to="/booking-history"
-        class="inline-block bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition duration-200"
-      >
-        View Booking History
+      <router-link to="/booking-history"
+        class="inline-block bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition duration-200">
+        {{ $t('BusTickets.ViewBookingHistory') }}
       </router-link>
     </div>
 
     <!-- Explore More -->
     <div class="mt-4 text-center">
-      <router-link
-        to="/Bustickets"
-        class="inline-block text-purple-600 font-medium hover:underline hover:text-blue-800"
-      >
-        Explore Available Bus Tickets
+      <router-link to="/Bustickets"
+        class="inline-block text-purple-600 font-medium hover:underline hover:text-blue-800">
+        {{ $t('BusTickets.ExploreAvailableBusTickets') }}
       </router-link>
     </div>
   </div>
@@ -378,7 +289,7 @@ const form = ref({
   time: '',
   email: '',
   price: 0,
-  seatNumbers: [], 
+  seatNumbers: [],
   carId: null,
   UserId: null, // Set dynamically from auth\
   phone: '',
@@ -389,7 +300,7 @@ const loading = ref(false)
 const confirmation = ref('')
 const isError = ref(false)
 const showPaymentModal = ref(false)
-const lastBooking = ref({}) 
+const lastBooking = ref({})
 const seats = ref([])
 const message = ref('')
 const success = ref(false)
@@ -400,45 +311,45 @@ const timeOptions = ref([])
 
 function updatePrice() {
   console.log('Updating price', {
-  time: form.value.timeOfDay,
-  seatCount: form.value.seatNumbers.length,
-  seats: form.value.seatNumbers
-})
+    time: form.value.timeOfDay,
+    seatCount: form.value.seatNumbers.length,
+    seats: form.value.seatNumbers
+  })
 
-function updateTimeOptions() {
-  if (form.value.timeOfDay === 'day') {
-    timeOptions.value = [
-      { value: 7, label: '07:00 AM' },
-      { value: 8, label: '08:00 AM' },
-      { value: 9, label: '09:00 AM' },
-      { value: 10, label: '10:00 AM' },
-      { value: 11, label: '11:00 AM' },
-      { value: 12, label: '12:00 PM' },
-      { value: 13, label: '01:00 PM' },
-      { value: 14, label: '02:00 PM' },
-      { value: 15, label: '03:00 PM' },
-      { value: 16, label: '04:00 PM' },
-      { value: 17, label: '05:00 PM' },
-    ];
-  } else if (form.value.timeOfDay === 'night') {
-    timeOptions.value = [
-      { value: 18, label: '06:00 PM' },
-      { value: 19, label: '07:00 PM' },
-      { value: 20, label: '08:00 PM' },
-      { value: 21, label: '09:00 PM' },
-      { value: 22, label: '10:00 PM' },
-      { value: 23, label: '11:00 PM' },
-      { value: 0, label: '12:00 AM' },
-    ];
-  } else {
-    timeOptions.value = [];
+  function updateTimeOptions() {
+    if (form.value.timeOfDay === 'day') {
+      timeOptions.value = [
+        { value: 7, label: '07:00 AM' },
+        { value: 8, label: '08:00 AM' },
+        { value: 9, label: '09:00 AM' },
+        { value: 10, label: '10:00 AM' },
+        { value: 11, label: '11:00 AM' },
+        { value: 12, label: '12:00 PM' },
+        { value: 13, label: '01:00 PM' },
+        { value: 14, label: '02:00 PM' },
+        { value: 15, label: '03:00 PM' },
+        { value: 16, label: '04:00 PM' },
+        { value: 17, label: '05:00 PM' },
+      ];
+    } else if (form.value.timeOfDay === 'night') {
+      timeOptions.value = [
+        { value: 18, label: '06:00 PM' },
+        { value: 19, label: '07:00 PM' },
+        { value: 20, label: '08:00 PM' },
+        { value: 21, label: '09:00 PM' },
+        { value: 22, label: '10:00 PM' },
+        { value: 23, label: '11:00 PM' },
+        { value: 0, label: '12:00 AM' },
+      ];
+    } else {
+      timeOptions.value = [];
+    }
+    form.value.time = '';  // reset selected time
   }
-  form.value.time = '';  // reset selected time
-}
 
-watch(() => form.value.timeOfDay, () => {
-  updateTimeOptions();
-});
+  watch(() => form.value.timeOfDay, () => {
+    updateTimeOptions();
+  });
 
 
   const type = form.value.type
@@ -479,7 +390,7 @@ const submitBooking = async () => {
     timeOfDay: form.value.timeOfDay,
     seatNumbers: form.value.seatNumbers,
     carId: form.value.carId,
-    time: form.value.time, 
+    time: form.value.time,
     phone: form.value.phone,
   };
 
@@ -518,7 +429,7 @@ const proceedBooking = async () => {
 
   try {
     const response = await axios.post('http://localhost:5000/api/bookings', form.value)
-    
+
     // Store booking info
     lastBooking.value = response.data.booking || form.value
 
@@ -702,7 +613,8 @@ watch(
 
 <style scoped>
 .grid.grid-cols-2 {
-  grid-template-rows: repeat(6, minmax(0, 1fr)); /* Ensure consistent row heights */
+  grid-template-rows: repeat(6, minmax(0, 1fr));
+  /* Ensure consistent row heights */
 }
 
 .flex-col.relative {
@@ -710,14 +622,17 @@ watch(
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%; /* Match the height of the side grids */
+  height: 100%;
+  /* Match the height of the side grids */
 }
 
 /* Align middle seat with the third row (L11, L12, R11, R12) */
 .flex-col.relative button {
   position: relative;
-  top: calc(2 * (100% / 5)); /* Align with the third row (2 rows down in a 6-row grid) */
-  transform: translateY(-50%); /* Center the button vertically within its row */
+  top: calc(2 * (100% / 5));
+  /* Align with the third row (2 rows down in a 6-row grid) */
+  transform: translateY(-50%);
+  /* Center the button vertically within its row */
 }
 
 .date {
@@ -729,5 +644,4 @@ watch(
   filter: grayscale(100%);
   opacity: 0.5;
 }
-
 </style>

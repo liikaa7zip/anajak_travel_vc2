@@ -1184,10 +1184,66 @@ const messages = {
             OK: "OK",
             ViewBookingHistory: "View Booking History",
             ExploreCarTickets: "Explore Car Tickets"
-        }
+        },
+        // Bus Tickets
+        BusTickets: {
+            Title: "Bus Tickets Across Cambodia",
+            BookYourTrip: "Book Your Trip",
+            From: "From",
+            To: "To",
+            Date: "Date",
+            TimeOfDay: "Time Of Day",
+            Day: "Day",
+            Night: "Night",
+            Time: "Time",
+            SelectTime: "Select Time",
+            None: "None",
+            Phone: "Phone",
+            Email: "Email",
+            BookNow: "Book Now",
+            ChooseSeat: "Choose Seat",
+            SelectedSeats: "Selected Seats:",
+            TicketPrice: "Ticket Price",
+            ConfirmYourBooking: "Confirm Your Booking",
+            ConfirmYourBookingMessage: "Do you want to continue with this booking?",
+            Cancel: "Cancel",
+            YesBookNow: "Yes, Book Now",
+            BookingSuccessful: "Booking Successful!",
+            OK: "OK",
+            ViewBookingHistory: "View Booking History",
+            ExploreAvailableBusTickets: "Explore Available Bus Tickets"
+        },
     },
 
     km: {
+        // Bus Tickets
+        BusTickets: {
+            Title: "សំបុត្រឡានក្រុងទូទាំងប្រទេសកម្ពុជា",
+            BookYourTrip: "កក់ការធ្វើដំណើររបស់អ្នក",
+            From: "ពី",
+            To: "ទៅ",
+            Date: "កាលបរិច្ឆេទ",
+            TimeOfDay: "ម៉ោងក្នុងថ្ងៃ",
+            Day: "ថ្ងៃ",
+            Night: "យប់",
+            Time: "ម៉ោង",
+            SelectTime: "ជ្រើសរើសម៉ោង",
+            Phone: "ទូរស័ព្ទ",
+            Email: "អ៊ីមែល",
+            BookNow: "កក់ឥឡូវនេះ",
+            ChooseSeat: "ជ្រើសរើសកៅអី",
+            None: "គ្មាន",
+            SelectedSeats: "កៅអីដែលបានជ្រើសរើស:",
+            TicketPrice: "តម្លៃសំបុត្រ",
+            ConfirmYourBooking: "បញ្ជាក់ការកក់របស់អ្នក",
+            ConfirmYourBookingMessage: "តើអ្នកចង់បន្តជាមួយការកក់នេះទេ?",
+            Cancel: "បោះបង់",
+            YesBookNow: "បាទ/ចាស, កក់ឥឡូវនេះ",
+            BookingSuccessful: "ការកក់បានជោគជ័យ!",
+            OK: "យល់ព្រម",
+            ViewBookingHistory: "មើលប្រវត្តិការកក់",
+            ExploreAvailableBusTickets: "រុករកសំបុត្រឡានក្រុងដែលមានស្រាប់"
+        },
         // Car Ticket Booking
         CarTicketBooking: {
             Title: "ការកក់សំបុត្រឡាន",
