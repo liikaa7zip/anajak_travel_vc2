@@ -6,6 +6,15 @@ const { provinces } = require('../models/weatherModel');
 console.log("OpenWeather API key:", process.env.OPENWEATHERMAP_API_KEY);
 
 
+// Weather icon mapping (top-level, only one declaration)
+const iconMap = {
+  "01d": "☀️", "01n": "🌑", "02d": "🌤", "02n": "☁️",
+  "03d": "☁️", "03n": "☁️", "04d": "☁️", "04n": "☁️",
+  "09d": "🌧", "09n": "🌧", "10d": "🌦", "10n": "🌧",
+  "11d": "⛈", "11n": "⛈", "13d": "❄️", "13n": "❄️",
+  "50d": "🌫", "50n": "🌫"
+};
+
 // ✅ Single province with forecast
 const getWeather = async (req, res) => {
   let { location } = req.query;
@@ -44,7 +53,6 @@ const getWeather = async (req, res) => {
     const sortedDates = Object.keys(grouped).sort();
     const todayIndex = sortedDates.indexOf(todayStr);
 
-
     const forecastDays = [];
     for (let i = 0; i < 4; i++) {
       const targetIndex = todayIndex + i;
@@ -58,12 +66,13 @@ const getWeather = async (req, res) => {
         // Pick the first icon of the day (or you could calculate most frequent)
         const firstItem = grouped[dateStr][0];
         const iconCode = firstItem.weather[0].icon;
+        // Use only top-level iconMap
         const dayIcon = iconMap[iconCode] || "❓";
 
         forecastDays.push({
           day: days[date.getDay()],
           temp: Math.round(maxTemp),
-          icon: dayIcon,                  // ✅ send icon
+          icon: dayIcon,
           precipitation: firstItem.rain?.["1h"] || firstItem.snow?.["1h"] || 0,
           humidity: firstItem.main.humidity,
           wind: Math.round(firstItem.wind.speed * 3.6),
@@ -72,16 +81,7 @@ const getWeather = async (req, res) => {
       }
     }
 
-
-
-    // Icons
-    const iconMap = {
-      "01d": "☀️", "01n": "🌑", "02d": "🌤", "02n": "☁️",
-      "03d": "☁️", "03n": "☁️", "04d": "☁️", "04n": "☁️",
-      "09d": "🌧", "09n": "🌧", "10d": "🌦", "10n": "🌧",
-      "11d": "⛈", "11n": "⛈", "13d": "❄️", "13n": "❄️",
-      "50d": "🌫", "50n": "🌫"
-    };
+    // Use only top-level iconMap
     const icon = iconMap[currentData.weather[0].icon] || "❓";
 
     res.json({
@@ -105,14 +105,7 @@ const getWeather = async (req, res) => {
 
 const getAllProvincesWeather = async (req, res) => {
   const apiKey = process.env.OPENWEATHERMAP_API_KEY;
-  // Weather icon mapping
-  const iconMap = {
-    "01d": "☀️", "01n": "🌑", "02d": "🌤", "02n": "☁️",
-    "03d": "☁️", "03n": "☁️", "04d": "☁️", "04n": "☁️",
-    "09d": "🌧", "09n": "🌧", "10d": "🌦", "10n": "🌧",
-    "11d": "⛈", "11n": "⛈", "13d": "❄️", "13n": "❄️",
-    "50d": "🌫", "50n": "🌫"
-  };
+  // Use top-level iconMap
   try {
     const weatherPromises = provinces.map(async (province) => {
       try {
