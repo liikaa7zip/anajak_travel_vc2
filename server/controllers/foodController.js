@@ -238,3 +238,36 @@ exports.getFoodsByHotel = async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch foods' });
   }
 };
+
+
+// Toggle Top Pick
+exports.toggleTopPick = async (req, res) => {
+  try {
+    const foodId = req.params.id;
+    const userId = req.user.id; // from auth middleware
+
+    // Verify the user is a restaurant owner
+    const user = await User.findByPk(userId);
+    if (!user || user.role !== 'restaurant_owner') {
+      return res.status(403).json({ error: "Not authorized" });
+    }
+
+    // Find the food
+    const food = await Food.findByPk(foodId);
+    if (!food) {
+      return res.status(404).json({ error: "Food not found" });
+    }
+
+    // Toggle isTopPick
+    food.isTopPick = !food.isTopPick;
+    await food.save();
+
+    return res.json({
+      message: `Food "${food.name}" is now ${food.isTopPick ? '⭐ Top Pick' : 'removed from Top Picks'}`,
+      food,
+    });
+  } catch (err) {
+    console.error("[TOGGLE TOP PICK ERROR]", err);
+    res.status(500).json({ error: "Failed to update Top Pick status" });
+  }
+};

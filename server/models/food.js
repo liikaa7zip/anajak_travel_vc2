@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     hotelId: { type: DataTypes.INTEGER, allowNull: false },
     restaurantOwnerId: { type: DataTypes.INTEGER, allowNull: false },
     isActive: { type: DataTypes.BOOLEAN, defaultValue: false },
+    isTopPick: { type: DataTypes.BOOLEAN, defaultValue: false,},
   });
 
   Food.associate = (models) => {

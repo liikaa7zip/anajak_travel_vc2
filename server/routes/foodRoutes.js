@@ -28,5 +28,7 @@ router.put('/toggle/:id', verifyToken, verifyRestaurantOwner, foodController.tog
 
 // Route to get foods by hotel
 router.get('/by-hotel/:hotelId', foodController.getFoodsByHotel);
+
+router.put("/top-pick/:id", verifyToken, foodController.toggleTopPick);
 module.exports = router;
 
