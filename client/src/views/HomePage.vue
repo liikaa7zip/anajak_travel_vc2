@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-white w-full">
+  <div class="font-khmer min-h-screen bg-white w-full">
     <!-- Hero Section -->
     <section class="min-h-screen flex items-center sm:px-8 lg:px-16 mx-4">
       <div class="grid lg:grid-cols-2 gap-12 items-center max-w-none ">
@@ -700,4 +700,5 @@ export default {
 }
 
 /* Additional styles can be added here */
+
 </style>

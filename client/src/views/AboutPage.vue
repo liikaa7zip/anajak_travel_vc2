@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-white">
+  <div class="font-khmer min-h-screen bg-white">
     <!-- Hero Section -->
     <section class="relative h-[550px] overflow-hidden">
       <button
