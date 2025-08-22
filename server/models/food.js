@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     name: { type: DataTypes.STRING, allowNull: false },
     price: { type: DataTypes.FLOAT, allowNull: false },
     image: { type: DataTypes.STRING },
+    description: { type: DataTypes.TEXT },
     locationId: { type: DataTypes.INTEGER },
     categoryId: { type: DataTypes.INTEGER },
     quantity: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0 },
@@ -12,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     restaurantOwnerId: { type: DataTypes.INTEGER, allowNull: false },
     isActive: { type: DataTypes.BOOLEAN, defaultValue: false },
     isTopPick: { type: DataTypes.BOOLEAN, defaultValue: false,},
+    
   });
 
   Food.associate = (models) => {
