@@ -3,6 +3,12 @@
     <!-- Header -->
     <header class="bg-white shadow-md px-6 py-4 flex justify-between items-center">
       <h1 class="text-3xl font-bold text-blue-800">Weather</h1>
+      <!-- Back Button -->
+    <section>
+      <router-link to="/guide" class="text-purple-600 hover:underline">
+        <i class="fa-solid fa-arrow-left"></i> {{ $t('BackToGuide') }}
+      </router-link>
+    </section>
     </header>
 
     <!-- Loading State -->
