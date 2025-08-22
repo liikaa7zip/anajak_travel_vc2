@@ -5,7 +5,11 @@ module.exports = {
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        khmer: ['Noto Sans Khmer', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 }

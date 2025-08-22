@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full font-poppins bg-gray-100 text-gray-900 min-h-screen">
+  <div class="font-khmer w-full font-poppins bg-gray-100 text-gray-900 min-h-screen">
     <!-- Hero Section -->
     <section class="relative w-full h-80 overflow-hidden rounded-b-md">
       <img src="https://asiapioneertravel.com/wp-content/uploads/2024/04/cambodia-family-holiday.jpg" alt="Cambodia"

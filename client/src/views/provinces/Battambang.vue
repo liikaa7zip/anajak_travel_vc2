@@ -1,5 +1,5 @@
 <template>
-  <div class="font-sans bg-gray-100 text-gray-900">
+  <div class="font-khmer bg-gray-100 text-gray-900">
     <!-- Hero Section -->
     <section class="relative w-full h-80 sm:h-96">
       <img

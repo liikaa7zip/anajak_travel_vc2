@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full min-h-screen  font-poppins px-4 py-8">
+    <div class="font-khmer w-full min-h-screen  font-poppins px-4 py-8">
         <h2 class="text-4xl font-bold mb-10 text-purple-700 text-center drop-shadow-lg">{{ $t('FavoriteTitle') }}</h2>
         <div v-if="favorites.length === 0" class="text-center text-gray-500 text-lg mt-20">
             <i class="fa-regular fa-heart text-3xl mb-2"></i>
