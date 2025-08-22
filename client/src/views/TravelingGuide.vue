@@ -116,19 +116,23 @@
 
               <!-- Booking Options Dropdown -->
               <div v-if="province.showBookingOptions"
-                class="absolute top-12  flex flex-col items-center gap-2 bg-white shadow-md rounded p-2 w-40 z-10">
+                class="absolute top-12 left-0 right-0 mx-auto bg-white rounded shadow-md text-black max-w-xs p-4 z-10 flex flex-col gap-3 border border-gray-200"
+                @mouseleave="closeBookingOptions(province)">
+                <label class="block mb-2 font-semibold text-purple-800">Select Booking Option:</label>
                 <router-link :to="`/guide/${toKebab(province.routeName)}/BusTickets`"
-                  class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm w-full text-left">
+                  class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition text-sm w-full text-left flex items-center gap-2">
                   <i class="fa-solid fa-bus"></i> Bus
                 </router-link>
                 <router-link :to="`/guide/${toKebab(province.routeName)}/CarRental`"
-                  class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm w-full text-left">
+                  class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition text-sm w-full text-left flex items-center gap-2">
                   <i class="fa-solid fa-car"></i> Car
                 </router-link>
                 <router-link :to="`/guide/${toKebab(province.routeName)}/FlightReservation`"
-                  class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm w-full text-left">
+                  class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition text-sm w-full text-left flex items-center gap-2">
                   <i class="fa-solid fa-plane"></i> Flight
                 </router-link>
+                <button @click.stop="toggleBookingOptions(province)"
+                  class="mt-2 px-4 py-2 rounded bg-gray-300 hover:bg-gray-400 transition text-sm w-full">Cancel</button>
               </div>
 
               <router-link :to="`/guide/${toKebab(province.routeName)}/WeatherPage`"
@@ -349,8 +353,11 @@ export default {
   },
   methods: {
     toggleBookingOptions(province) {
-      // Toggle the showBookingOptions flag for the selected province
+      // Toggle only the clicked province's dropdown
       province.showBookingOptions = !province.showBookingOptions;
+    },
+    closeBookingOptions(province) {
+      province.showBookingOptions = false;
     },
     toggleFavorite(province) {
       province.favorite = !province.favorite;
