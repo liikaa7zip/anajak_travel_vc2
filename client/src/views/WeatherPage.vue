@@ -135,14 +135,24 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
+import { useRoute } from 'vue-router';
 import axios from 'axios';
 import { io } from 'socket.io-client';
 
 const STORAGE_KEY = 'weatherAppData';
 
 // State
-const location = ref('Phnom Penh');
+const route = useRoute();
+const location = ref(route.query.province || 'Phnom Penh');
+
+// Watch for province query changes and update weather
+watch(() => route.query.province, async (newProvince) => {
+  if (newProvince && newProvince !== location.value) {
+    location.value = newProvince;
+    await updateWeather(newProvince);
+  }
+});
 const weather = ref({
   temperature: null,
   icon: '',
@@ -310,10 +320,17 @@ onMounted(async () => {
     forecast.value = data.forecast;
   });
 
+  // Use province from query if present, otherwise fallback to localStorage/default
+  const initialProvince = route.query.province || location.value;
   if (!loadFromLocalStorage()) {
-    await updateWeather(location.value);
+    await updateWeather(initialProvince);
   } else {
-    isLoading.value = false;
+    // If localStorage loaded, but query param is present and different, update to query
+    if (route.query.province && route.query.province !== location.value) {
+      await updateWeather(route.query.province);
+    } else {
+      isLoading.value = false;
+    }
   }
 });
 
