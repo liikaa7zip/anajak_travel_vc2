@@ -3,7 +3,7 @@
     <!-- Hero Section -->
     <section class="relative w-full h-80 sm:h-96">
       <img
-        src="https://aicdn.picsart.com/94db8fd0-3b7e-4f1c-90fe-7c1d9f60fb3e.png"
+        src="https://aicdn.picsart.com/54783571-0c96-410d-b004-0e37ff2a82e4.png"
         alt="Kratie"
         class="w-full h-full object-cover rounded-b-md"
       />
@@ -13,6 +13,13 @@
           <span class="text-5xl">{{ $t("Province.Kratie.KTHeroSubtitle") }}</span>
         </h1>
       </div>
+    </section>
+
+    <!-- Back Button -->
+    <section class="pt-6 pr-16 pl-16">
+      <router-link to="/guide" class="text-purple-600 hover:underline">
+        <i class="fa-solid fa-arrow-left"></i> {{ $t('BackToGuide') }}
+      </router-link>
     </section>
 
     <!-- About Section -->

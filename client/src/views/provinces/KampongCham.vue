@@ -15,6 +15,13 @@
       </div>
     </section>
 
+    <!-- Back Button -->
+    <section class="pt-6 pr-16 pl-16">
+      <router-link to="/guide" class="text-purple-600 hover:underline">
+        <i class="fa-solid fa-arrow-left"></i> {{ $t('BackToGuide') }}
+      </router-link>
+    </section>
+
     <!-- About Section -->
     <section class="pt-12 pb-6 pr-16 pl-16">
       <div class="bg-white rounded-lg shadow p-4 flex flex-col sm:flex-row items-start justify-between gap-4">
@@ -91,7 +98,7 @@
 <script setup>
 const topAttractions = [
   { name: 'Phnom Pros and Phnom Srey', img: 'https://images.squarespace-cdn.com/content/v1/5c8c8f74b2cf79ed86c06cd0/ef24bf13-97a7-4f89-80a1-9ee1d2551ed2/Phnom%2BPros%2BPhnom%2BSrey%2BKampong%2BCham%2B%2817%29.JPG' },
-  { name: 'Bamboo Bridge', img: 'https://lh7-rt.googleusercontent.com/docsz/AD_4nXcBTomFvnywf0FedwIMQhtj2W45MrDBiSXMlHMFzVXPnDGgz82C6cfM74IPAVodcTmj8wkWq8WSyzXvHhN7HjGHBEILEzcFYqRwjqslteCut4afhHvqM7hUndOHA_B05IWiYXP_vg?key=Wm2Mv5a8bAPtHYKYBPf4bPuY' },
+  { name: 'Bamboo Bridge', img: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/16/2b/f2/caption.jpg?w=1200&h=-1&s=1' },
   { name: 'Mekong River', img: 'https://c.foc.info/images/2019/01/mekong-river-1-1547201726.jpg' },
   { name: 'Wat Nokor', img: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/14/cb/a2/92/a-colourful-structure.jpg?w=300&h=300&s=1' }
 ];

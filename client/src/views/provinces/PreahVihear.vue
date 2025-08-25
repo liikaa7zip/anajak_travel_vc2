@@ -15,6 +15,14 @@
       </div>
     </section>
 
+
+  <!-- Back Button -->
+    <section class="pt-6 pr-16 pl-16">
+      <router-link to="/guide" class="text-purple-600 hover:underline">
+        <i class="fa-solid fa-arrow-left"></i> {{ $t('BackToGuide') }}
+      </router-link>
+    </section>
+
     <!-- About Section -->
     <section class="pt-12 pb-6 pr-16 pl-16">
       <div class="bg-white rounded-lg shadow p-4 flex flex-col sm:flex-row items-start justify-between gap-4">

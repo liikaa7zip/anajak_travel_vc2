@@ -36,29 +36,28 @@ exports.getAllFood = async (req, res) => {
 
 exports.updateFood = async (req, res) => {
   try {
-    const { id } = req.params
-    const { name, price, locationId } = req.body
-    const image = req.file ? req.file.filename : null
+    const { id } = req.params;
+    const { name, price, locationId, categoryId, description } = req.body;
+    const imagePath = req.file ? `/uploads/${req.file.filename}` : null;
 
-    const food = await Food.findByPk(id)
-    if (!food) {
-      return res.status(404).json({ message: 'Food not found' })
-    }
+    const food = await Food.findByPk(id);
+    if (!food) return res.status(404).json({ message: 'Food not found' });
 
-    food.name = name
-    food.price = price
-    food.locationId = locationId
-    if (image) {
-      food.image = image
-    }
+    food.name = name;
+    food.price = price;
+    food.locationId = locationId;
+    food.categoryId = categoryId;
+    food.description = description;
+    if (imagePath) food.image = imagePath; // update image only if new file uploaded
 
-    await food.save()
-    res.json({ message: 'Food updated successfully', food })
+    await food.save();
+    res.json({ message: 'Food updated successfully', food });
   } catch (error) {
-    console.error(error)
-    res.status(500).json({ message: 'Failed to update food' })
+    console.error('[UPDATE FOOD ERROR]', error);
+    res.status(500).json({ message: 'Failed to update food' });
   }
-}
+};
+
 exports.getFoodById = async (req, res) => {
   try {
     console.log('Fetching food with ID:', req.params.id);
@@ -85,46 +84,37 @@ exports.getFoodById = async (req, res) => {
 
 exports.createFood = async (req, res) => {
   try {
-    // 1. Fetch the full user from the database
     const user = await User.findByPk(req.user.id);
+    if (!user) return res.status(401).json({ error: 'Unauthorized' });
+    if (user.role !== 'restaurant_owner') return res.status(403).json({ error: 'Only restaurant owners can add food' });
+    if (!user.hotelId) return res.status(400).json({ error: 'Restaurant owner is not assigned to a hotel' });
 
-    if (!user) {
-      return res.status(401).json({ error: 'Unauthorized' });
-    }
-
-    if (user.role !== 'restaurant_owner') {
-      return res.status(403).json({ error: 'Only restaurant owners can add food' });
-    }
-
-    if (!user.hotelId) {
-      return res.status(400).json({ error: 'Restaurant owner is not assigned to a hotel' });
-    }
-
-    // 2. Get food data from request body
-    const { name, price, image, locationId, categoryId } = req.body;
-
+    const { name, price, locationId, categoryId, description } = req.body;
     if (!name || !price || !locationId || !categoryId) {
       return res.status(400).json({ error: 'Name, price, locationId, and categoryId are required' });
     }
 
-    // 3. Create the food item
+    const imagePath = req.file ? `/uploads/${req.file.filename}` : null;
+
     const food = await Food.create({
       name,
       price,
-      image,
+      description,
+      image: imagePath,
       locationId,
       categoryId,
-      hotelId: user.hotelId,          // assign to the restaurant owner's hotel
-      restaurantOwnerId: user.id      // track which owner added it
+      hotelId: user.hotelId,
+      restaurantOwnerId: user.id,
+
     });
 
     res.status(201).json(food);
-
   } catch (error) {
     console.error('[ADD FOOD ERROR]', error);
     res.status(500).json({ error: 'Failed to create food' });
   }
 };
+
 
 
 exports.toggleActive = async (req, res) => {
@@ -206,35 +196,73 @@ exports.getFoodsByLocation = async (req, res) => {
 };
 
 
-// Get all active foods for a specific hotel
-exports.getFoodsByHotel = async (req, res) => {
+  // Get all active foods for a specific hotel
+  exports.getFoodsByHotel = async (req, res) => {
+    try {
+      const hotelId = req.params.hotelId;
+
+      const foods = await Food.findAll({
+        where: { hotelId, isActive: true },
+        include: [
+          {
+            model: Category,
+            as: 'category',
+            attributes: ['id', 'name']
+          },
+          {
+            model: Location,
+            as: 'Location',
+            attributes: ['id', 'name', 'country']
+          }
+        ],
+        order: [['createdAt', 'DESC']]
+      });
+
+      if (!foods || foods.length === 0) {
+        return res.status(404).json({ message: 'No foods found for this hotel' });
+      }
+
+      // separate into top picks and regular foods
+      const topPicks = foods.filter(f => f.isTopPick);
+      const regularFoods = foods.filter(f => !f.isTopPick);
+
+      res.json({ topPicks, regularFoods });
+    } catch (err) {
+      console.error('Error fetching foods by hotel:', err);
+      res.status(500).json({ error: 'Failed to fetch foods' });
+    }
+  };
+
+
+
+// Toggle Top Pick
+exports.toggleTopPick = async (req, res) => {
   try {
-    const hotelId = req.params.hotelId;
+    const foodId = req.params.id;
+    const userId = req.user.id; // from auth middleware
 
-    const foods = await Food.findAll({
-      where: { hotelId, isActive: true },
-      include: [
-        {
-          model: Category,
-          as: 'category',
-          attributes: ['id', 'name']
-        },
-        {
-          model: Location,
-          as: 'Location',
-          attributes: ['id', 'name', 'country']
-        }
-      ]
-    });
-
-    if (!foods || foods.length === 0) {
-      return res.status(404).json({ message: 'No foods found for this hotel' });
+    // Verify the user is a restaurant owner
+    const user = await User.findByPk(userId);
+    if (!user || user.role !== 'restaurant_owner') {
+      return res.status(403).json({ error: "Not authorized" });
     }
 
-    res.json(foods);
+    // Find the food
+    const food = await Food.findByPk(foodId);
+    if (!food) {
+      return res.status(404).json({ error: "Food not found" });
+    }
 
+    // Toggle isTopPick
+    food.isTopPick = !food.isTopPick;
+    await food.save();
+
+    return res.json({
+      message: `Food "${food.name}" is now ${food.isTopPick ? '⭐ Top Pick' : 'removed from Top Picks'}`,
+      food,
+    });
   } catch (err) {
-    console.error('Error fetching foods by hotel:', err);
-    res.status(500).json({ error: 'Failed to fetch foods' });
+    console.error("[TOGGLE TOP PICK ERROR]", err);
+    res.status(500).json({ error: "Failed to update Top Pick status" });
   }
 };

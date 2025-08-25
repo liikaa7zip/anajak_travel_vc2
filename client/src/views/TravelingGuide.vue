@@ -2,95 +2,146 @@
   <div class="font-khmer w-full font-poppins bg-gray-100 text-gray-900 min-h-screen">
     <!-- Hero Section -->
     <section class="relative w-full h-80 overflow-hidden rounded-b-md">
-      <img src="https://asiapioneertravel.com/wp-content/uploads/2024/04/cambodia-family-holiday.jpg" alt="Cambodia"
-        class="w-full h-full object-cover" />
-      <div class="absolute inset-0 bg-black bg-opacity-40 justify-center flex items-center px-6">
+      <img
+        src="https://asiapioneertravel.com/wp-content/uploads/2024/04/cambodia-family-holiday.jpg"
+        alt="Cambodia"
+        class="w-full h-full object-cover"
+      />
+      <div
+        class="absolute inset-0 bg-black bg-opacity-40 justify-center flex items-center px-6"
+      >
         <h1 class="text-white text-3xl sm:text-5xl font-bold text-center">
-          {{ $t('heroTitle') }} <br />
-          <span class="text-3xl">{{ $t('heroSubtitle') }}</span>
+          {{ $t("heroTitle") }} <br />
+          <span class="text-3xl">{{ $t("heroSubtitle") }}</span>
         </h1>
       </div>
     </section>
 
     <section class="bg-white mx-6 mb-6 p-6 rounded-xl shadow-md sm:mx-1 sm:p-4">
-      <h2 class="text-3xl font-bold mb-6 text-purple-800">{{ $t('travelGuideTitle') }}</h2>
+      <h2 class="text-3xl font-bold mb-6 text-purple-800">
+        {{ $t("travelGuideTitle") }}
+      </h2>
       <div class="flex flex-wrap gap-8 sm:gap-4 justify-between">
         <div class="min-w-[140px] flex flex-col gap-1 text-sm">
-          <span>{{ $t('BanteayMeanchey') }}</span>
-          <span>{{ $t('KampongThom') }}</span>
-          <span>{{ $t('StungTreng') }}</span>
-          <span>{{ $t('Rattanakiri') }}</span>
-          <span>{{ $t('OddarMeanchey') }}</span>
+          <span>{{ $t("BanteayMeanchey") }}</span>
+          <span>{{ $t("KampongThom") }}</span>
+          <span>{{ $t("StungTreng") }}</span>
+          <span>{{ $t("Rattanakiri") }}</span>
+          <span>{{ $t("OddarMeanchey") }}</span>
         </div>
         <div class="min-w-[140px] flex flex-col gap-1 text-sm">
-          <span>{{ $t('PreahVihear') }}</span>
-          <span>{{ $t('Takeo') }}</span>
-          <span>{{ $t('SihanoukVille') }}</span>
-          <span>{{ $t('Pursat') }}</span>
-          <span>{{ $t('Mondulkiri') }}</span>
+          <span>{{ $t("PreahVihear") }}</span>
+          <span>{{ $t("Takeo") }}</span>
+          <span>{{ $t("SihanoukVille") }}</span>
+          <span>{{ $t("Pursat") }}</span>
+          <span>{{ $t("Mondulkiri") }}</span>
         </div>
         <div class="min-w-[140px] flex flex-col gap-1 text-sm">
-          <span>{{ $t('SvayRieng') }}</span>
-          <span>{{ $t('SiemReap') }}</span>
-          <span>{{ $t('PreyVeng') }}</span>
-          <span>{{ $t('Kratie') }}</span>
-          <span>{{ $t('KampongChhnang') }}</span>
+          <span>{{ $t("SvayRieng") }}</span>
+          <span>{{ $t("SiemReap") }}</span>
+          <span>{{ $t("PreyVeng") }}</span>
+          <span>{{ $t("Kratie") }}</span>
+          <span>{{ $t("KampongChhnang") }}</span>
         </div>
         <div class="min-w-[140px] flex flex-col gap-1 text-sm">
-          <span>{{ $t('KampongCham') }}</span>
-          <span>{{ $t('Battambang') }}</span>
-          <span>{{ $t('PhnomPenh') }}</span>
-          <span>{{ $t('TbongKhmum') }}</span>
-          <span>{{ $t('KohKong') }}</span>
+          <span>{{ $t("KampongCham") }}</span>
+          <span>{{ $t("Battambang") }}</span>
+          <span>{{ $t("PhnomPenh") }}</span>
+          <span>{{ $t("TbongKhmum") }}</span>
+          <span>{{ $t("KohKong") }}</span>
         </div>
         <div class="min-w-[140px] flex flex-col gap-1 text-sm">
-          <span>{{ $t('Kep') }}</span>
-          <span>{{ $t('Kandal') }}</span>
-          <span>{{ $t('Kampot') }}</span>
-          <span>{{ $t('KampongSpeu') }}</span>
-          <span>{{ $t('Pailin') }}</span>
+          <span>{{ $t("Kep") }}</span>
+          <span>{{ $t("Kandal") }}</span>
+          <span>{{ $t("Kampot") }}</span>
+          <span>{{ $t("KampongSpeu") }}</span>
+          <span>{{ $t("Pailin") }}</span>
         </div>
       </div>
     </section>
 
     <!-- Weather Section -->
-    <section class="mx-6 mb-6 p-6 rounded-xl shadow-md bg-white flex flex-col items-center">
+    <section
+      class="mx-6 mb-6 p-6 rounded-xl shadow-md bg-white flex flex-col items-center"
+    >
       <h2 class="text-2xl font-bold mb-4 text-purple-800">Check Weather in Cambodia</h2>
       <router-link to="/WeatherPage">
-        <button class="bg-purple-600 text-white px-6 py-3 rounded-full hover:bg-purple-700 transition text-lg font-semibold flex items-center gap-2">
+        <button
+          class="bg-purple-600 text-white px-6 py-3 rounded-full hover:bg-purple-700 transition text-lg font-semibold flex items-center gap-2"
+        >
           <i class="fa-solid fa-cloud-sun"></i>
           Go to Weather Page
         </button>
       </router-link>
+      <!-- Back Button to Home -->
+      <section class="px-6 py-4">
+        <router-link to="/" class="text-purple-600 hover:underline">
+          <i class="fa-solid fa-arrow-left"></i> {{ $t("BackToHome") }}
+        </router-link>
+      </section>
     </section>
 
     <!-- Destinations List -->
     <section class="px-6 md:px-12 lg:px-18 py-6">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div v-for="province in provinces" :key="province.name" :to="{ name: province.routeName }"
-          class="group block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition duration-300">
+        <div
+          v-for="province in provinces"
+          :key="province.name"
+          :to="{ name: province.routeName }"
+          class="group block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition duration-300"
+        >
           <div class="relative">
             <router-link :to="`/guide/${toKebab(province.routeName)}`">
-              <img :src="province.image" :alt="province.name"
-                class="w-full h-48 object-cover group-hover:scale-105 transition duration-300" />
+              <img
+                :src="province.image"
+                :alt="province.name"
+                class="w-full h-48 object-cover group-hover:scale-105 transition duration-300">
             </router-link>
-
-            <router-link :to="`/guide/${toKebab(province.routeName)}/favorite`"
-              class="absolute top-2 right-2 px-3 py-2 rounded-full" aria-label="Favorite">
-              <button @click.stop="toggleFavorite(province)"
+            <div
+              v-if="province.showBookingOptions"
+              class="absolute left-0 right-0 top-full mt-2 bg-white rounded-xl shadow-lg text-black w-full p-5 z-20 flex flex-col gap-4 border border-gray-300 focus-within:ring-2 focus-within:ring-purple-500"
+              @mouseleave="closeBookingOptions(province)"
+            >
+              <!-- ...existing code for dropdown... -->
+            </div>
+            <router-link
+              :to="`/guide/${toKebab(province.routeName)}/favorite`"
+              class="absolute top-2 right-2 px-3 py-2 rounded-full"
+              aria-label="Favorite"
+            >
+              <button
+                @click.stop="toggleFavorite(province)"
                 class="absolute top-2 right-2 px-3 py-2 rounded-full transition text-sm shadow-lg"
-                aria-label="Favorite">
-                <svg v-if="province.favorite" xmlns="http://www.w3.org/2000/svg" width="30" height="30"
-                  viewBox="0 0 24 24">
+                aria-label="Favorite"
+              >
+                <svg
+                  v-if="province.favorite"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="30"
+                  height="30"
+                  viewBox="0 0 24 24"
+                >
                   <!-- Filled heart -->
-                  <path fill="pink" fill-rule="evenodd"
-                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                  <path
+                    fill="pink"
+                    fill-rule="evenodd"
+                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+                  />
                 </svg>
-                <svg v-else xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+                <svg
+                  v-else
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="30"
+                  height="30"
+                  viewBox="0 0 24 24"
+                >
                   <!-- Outlined heart -->
-                  <path fill="pink" fill-rule="evenodd"
+                  <path
+                    fill="pink"
+                    fill-rule="evenodd"
                     d="m12.012 5.572l-1.087-1.087a5.5 5.5 0 1 0-7.778 7.778l8.839 8.839l.002-.002l.026.026l8.839-8.839a5.5 5.5 0 1 0-7.778-7.778zm-.024 12.7l4.936-4.937l1.45-1.4h.002l1.063-1.062a3.5 3.5 0 1 0-4.95-4.95L12.013 8.4l-.007-.007h-.001L9.511 5.9a3.5 3.5 0 1 0-4.95 4.95l2.54 2.54l.001-.003z"
-                    clip-rule="evenodd" />
+                    clip-rule="evenodd"
+                  />
                 </svg>
               </button>
             </router-link>
@@ -100,39 +151,61 @@
             <p class="text-sm text-gray-600 mb-4">{{ province.description }}</p>
             <div class="flex items-center gap-3">
               <router-link :to="`/guide/${toKebab(province.routeName)}`">
-                <button class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm">
+                <button
+                  class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm"
+                >
                   <i class="fa-solid fa-house-chimney"></i>
                 </button>
               </router-link>
-              <router-link :to="`/guide/${toKebab(province.routeName)}/ProvinceList`"
-                class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm">
+              <router-link
+                :to="`/guide/${toKebab(province.routeName)}/ProvinceList`"
+                class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm"
+              >
                 <i class="fa-solid fa-hotel"></i>
               </router-link>
-              <!-- Booking Toggle Button -->
-              <button @click.stop.prevent="toggleBookingOptions(province)"
-                class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm">
-                <i class="fa-solid fa-ticket"></i>
-              </button>
 
-              <!-- Booking Options Dropdown -->
-              <div v-if="province.showBookingOptions"
-                class="absolute top-12  flex flex-col items-center gap-2 bg-white shadow-md rounded p-2 w-40 z-10">
-                <router-link :to="`/guide/${toKebab(province.routeName)}/BusTickets`"
-                  class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm w-full text-left">
-                  <i class="fa-solid fa-bus"></i> Bus
-                </router-link>
-                <router-link :to="`/guide/${toKebab(province.routeName)}/CarRental`"
-                  class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm w-full text-left">
-                  <i class="fa-solid fa-car"></i> Car
-                </router-link>
-                <router-link :to="`/guide/${toKebab(province.routeName)}/FlightReservation`"
-                  class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm w-full text-left">
-                  <i class="fa-solid fa-plane"></i> Flight
-                </router-link>
+
+              <!-- Booking Toggle Button with Drop-up Dropdown -->
+              <div class="relative flex flex-col items-center">
+                <button
+                  @click.stop.prevent="toggleBookingOptions(province)"
+                  class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm"
+                >
+                  <i class="fa-solid fa-ticket"></i>
+                </button>
+                <div
+                  v-if="province.showBookingOptions"
+                  class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-white rounded-xl shadow-lg text-black w-64 p-5 z-30 flex flex-col gap-4 border border-gray-300 focus-within:ring-2 focus-within:ring-purple-500"
+                  @mouseleave="closeBookingOptions(province)"
+                >
+                  <label class="block mb-2 font-semibold text-purple-800"
+                    >Select Booking Options:</label
+                  >
+                  <router-link
+                    :to="`/guide/${toKebab(province.routeName)}/BusTickets`"
+                    class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition text-sm w-full text-left flex items-center gap-2"
+                  >
+                    <i class="fa-solid fa-bus"></i> Bus
+                  </router-link>
+                  <router-link
+                    :to="`/guide/${toKebab(province.routeName)}/CarRental`"
+                    class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition text-sm w-full text-left flex items-center gap-2"
+                  >
+                    <i class="fa-solid fa-car"></i> Car
+                  </router-link>
+                  <router-link
+                    :to="`/guide/${toKebab(province.routeName)}/FlightReservation`"
+                    class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition text-sm w-full text-left flex items-center gap-2"
+                  >
+                    <i class="fa-solid fa-plane"></i> Flight
+                  </router-link>
+                </div>
               </div>
 
-              <router-link :to="`/guide/${toKebab(province.routeName)}/WeatherPage`"
-                class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm">
+              <router-link
+                :to="`/guide/${toKebab(province.routeName)}/WeatherPage`"
+                class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm"
+              >
                 <i class="fa-solid fa-cloud-sun"></i>
               </router-link>
             </div>
@@ -140,7 +213,6 @@
         </div>
       </div>
     </section>
-
   </div>
 </template>
 <script>
@@ -348,9 +420,14 @@ export default {
     };
   },
   methods: {
-    toggleBookingOptions(province) {
-      // Toggle the showBookingOptions flag for the selected province
-      province.showBookingOptions = !province.showBookingOptions;
+    toggleBookingOptions(selectedProvince) {
+      // Always show dropdown only for the clicked province, close all others
+      this.provinces.forEach(province => {
+        province.showBookingOptions = (province === selectedProvince);
+      });
+    },
+    closeBookingOptions(province) {
+      province.showBookingOptions = false;
     },
     toggleFavorite(province) {
       province.favorite = !province.favorite;
