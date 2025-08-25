@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-2xl mx-auto px-6 py-10 bg-white rounded-2xl shadow-xl mt-12 border border-purple-100">
+  <div class="font-khmer max-w-2xl mx-auto px-6 py-10 bg-white rounded-2xl shadow-xl mt-12 border border-purple-100">
     <h1 class="text-3xl font-extrabold text-center text-purple-700 mb-8">{{ $t("CarTicketBooking.Title") }}</h1>
 
     <!-- Booking Form -->

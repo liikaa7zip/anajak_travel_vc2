@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-6xl mx-auto p-6">
+  <div class="font-khmer max-w-6xl mx-auto p-6">
     <h2 class="text-2xl font-bold text-purple-700 text-center mb-6"> {{ $t('BoatTickets.Title') }}</h2>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">

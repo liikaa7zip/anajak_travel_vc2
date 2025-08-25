@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto px-6 py-12 max-w-7xl">
+  <div class="font-khmer container mx-auto px-6 py-12 max-w-7xl">
     <!-- Breadcrumb & Subtitle -->
     <nav
       aria-label="Breadcrumb"
