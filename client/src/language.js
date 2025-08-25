@@ -1257,9 +1257,53 @@ const messages = {
                 KampongChhnangToPhnomPenh: "Kampong Chhnang → Phnom Penh"
             }
         },
+        // Hotel List
+        HotelList: {
+            Home: "Home",
+            Tours: "Tours",
+            SelectALocation: "Select a Location",
+            The10Best: "The 10 Best",
+            All: "All",
+            ToursExcursions: "Tours & Excursions",
+            ForgetBusyWork: "Forget Busy Work,",
+            StartYourNextVacation: "Start Your Next Vacation",
+            MyBookings: "My Bookings",
+            ChooseYourDestination: "Choose Your Destination",
+            MostPicked: "Most Picked",
+            DiscoverTopFavorites: "Discover the top favorites chosen by our travelers.",
+            Night: "/ Night",
+            ViewDetails: "View Details",
+            UnknownLocation: "Unknown Location",
+            UnnamedHotel: "Unnamed Hotel",
+            NoDescriptionAvailable: "No description available",
+            UnknownLocation: "Unknown Location",
+            PriceUnavailable: "Price unavailable"
+        },
     },
 
     km: {
+        // Hotel List
+        HotelList: {
+            Home: "ទំព័រដើម",
+            Tours: "ទស្សនកិច្ច",
+            SelectALocation: "ជ្រើសរើសទីតាំង",
+            The10Best: "10 កន្លែងល្អបំផុត",
+            All: "ទាំងអស់",
+            ToursExcursions: "ទស្សនកិច្ច & ការធ្វើដំណើរ",
+            ForgetBusyWork: "បំភ្លេចការងាររវល់",
+            StartYourNextVacation: "ចាប់ផ្តើមការធ្វើដំណើរបន្ទាប់របស់អ្នក",
+            MyBookings: "ការកក់របស់ខ្ញុំ",
+            ChooseYourDestination: "ជ្រើសរើសទីតាំងរបស់អ្នក",
+            MostPicked: "ជ្រើសរើសច្រើនបំផុត",
+            DiscoverTopFavorites: "ស្វែងរកចំណូលចិត្តល្អបំផុតដែលបានជ្រើសរើសដោយអ្នកធ្វើដំណើររបស់យើង។",
+            Night: "/ មួយយប់",
+            ViewDetails: "មើលព័ត៌មានលម្អិត",
+            UnknownLocation: "ទីតាំងមិនស្គាល់",
+            UnnamedHotel: "សណ្ឋាគារមិនមានឈ្មោះ",
+            NoDescriptionAvailable: "មិនមានការពិពណ៌នាអាចប្រើបាន",
+            UnknownLocation: "ទីតាំងមិនស្គាល់",
+            PriceUnavailable: "តម្លៃមិនមានទេ"
+        },
         // Boat Tickets
         BoatTickets: {
             Title: "ជ្រើសរើសខេត្តសម្រាប់ការកក់ទូក",
