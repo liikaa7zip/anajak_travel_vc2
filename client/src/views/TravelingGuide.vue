@@ -179,7 +179,7 @@
                   @mouseleave="closeBookingOptions(province)"
                 >
                   <label class="block mb-2 font-semibold text-purple-800"
-                    >Select Booking Option:</label
+                    >Select Booking Options:</label
                   >
                   <router-link
                     :to="`/guide/${toKebab(province.routeName)}/BusTickets`"
