@@ -64,13 +64,13 @@
     <section
       class="mx-6 mb-6 p-6 rounded-xl shadow-md bg-white flex flex-col items-center"
     >
-      <h2 class="text-2xl font-bold mb-4 text-purple-800">Check Weather in Cambodia</h2>
+      <h2 class="text-2xl font-bold mb-4 text-purple-800">{{ $t("CheckWeather") }}</h2>
       <router-link to="/WeatherPage">
         <button
           class="bg-purple-600 text-white px-6 py-3 rounded-full hover:bg-purple-700 transition text-lg font-semibold flex items-center gap-2"
         >
           <i class="fa-solid fa-cloud-sun"></i>
-          Go to Weather Page
+          {{ $t("GoToWeatherPage") }}
         </button>
       </router-link>
       <!-- Back Button to Home -->
