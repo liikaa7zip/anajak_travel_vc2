@@ -18,6 +18,7 @@ import TbongKhmum from './views/provinces/TbongKhmum.vue'
 import Register from './views/Register.vue'
 import { Title } from 'chart.js'
 import Login from './views/Login.vue'
+import BoatTickets from './views/Travelingbooking/BoatTickets.vue'
 // Translation messages
 const messages = {
     en: {
@@ -1213,9 +1214,95 @@ const messages = {
             ViewBookingHistory: "View Booking History",
             ExploreAvailableBusTickets: "Explore Available Bus Tickets"
         },
+        // Boat Tickets
+        BoatTickets: {
+            Title: "Choose a Province for Boat Booking",
+            River: "River:",
+            PhnomPenh: {
+                MekongTonleSap: "Mekong / Tonle Sap",
+                PhnomPenhToKratie: "Phnom Penh → Kratie",
+                PhnomPenhToSiemReap: "Phnom Penh → Siem Reap"
+            },
+            Kampot: {
+                KampotRiver: "Kampot River",
+                KampotToKep: "Kampot → Kep",
+                KampotToRabbitIsland: "Kampot → Rabbit Island"
+            },
+            Kep: {
+                GulfOfThailand: "Gulf of Thailand",
+                KepToRabbitIsland: "Kep → Rabbit Island"
+            },
+            Sihanoukville: {
+                GulfOfThailand: "Gulf of Thailand",
+                SihanoukvilleToKohRong: "Sihanoukville → Koh Rong"
+            },
+            Kratie: {
+                MekongRiver: "Mekong River",
+                KratieToStungTreng: "Kratie → Stung Treng"
+            },
+            StungTreng: {
+                MekongRiver: "Mekong River",
+                StungTrengToLaosBorder: "Stung Treng → Laos Border"
+            },
+            SiemReap: {
+                TonleSapLake: "Tonle Sap Lake",
+                SiemReapToBattambang: "Siem Reap → Battambang"
+            },
+            Battambang: {
+                SangkerRiver: "Sangker River",
+                BattambangToSiemReap: "Battambang → Siem Reap"
+            },
+            KampongChhnang: {
+                TonleSapRiver: "Tonle Sap River",
+                KampongChhnangToPhnomPenh: "Kampong Chhnang → Phnom Penh"
+            }
+        },
     },
 
     km: {
+        // Boat Tickets
+        BoatTickets: {
+            Title: "ជ្រើសរើសខេត្តសម្រាប់ការកក់ទូក",
+            River: "ទន្លេ:",
+            PhnomPenh: {
+                MekongTonleSap: "មេគង្គ/ទន្លេសាប",
+                PhnomPenhToKratie: "ភ្នំពេញ → ក្រចេះ",
+                PhnomPenhToSiemReap: "ភ្នំពេញ → សៀមរាប"
+            },
+            Kampot: {
+                KampotRiver: "ទន្លេកំពត",
+                KampotToKep: "កំពត → កែប",
+                KampotToRabbitIsland: "កំពត → កោះទន្សាយ"
+            },
+            Kep: {
+                GulfOfThailand: "ឈូងសមុទ្រថៃ",
+                KepToRabbitIsland: "កែប → កោះទន្សាយ"
+            },
+            Sihanoukville: {
+                GulfOfThailand: "ឈូងសមុទ្រថៃ",
+                SihanoukvilleToKohRong: "ក្រុងព្រះសីហនុ → កោះរ៉ុង"
+            },
+            Kratie: {
+                MekongRiver: "ទន្លេមេគង្គ",
+                KratieToStungTreng: "ក្រចេះ → ស្ទឹងត្រែង"
+            },
+            StungTreng: {
+                MekongRiver: "ទន្លេមេគង្គ",
+                StungTrengToLaosBorder: "ស្ទឹងត្រែង → ព្រំដែនឡាវ"
+            },
+            SiemReap: {
+                TonleSapLake: "ទន្លេសាប",
+                SiemReapToBattambang: "សៀមរាប → បាត់ដំបង"
+            },
+            Battambang: {
+                SangkerRiver: "ស្ទឹងសង្កែ",
+                BattambangToSiemReap: "បាត់ដំបង → សៀមរាប"
+            },
+            KampongChhnang: {
+                TonleSapRiver: "ទន្លេសាប",
+                KampongChhnangToPhnomPenh: "កំពង់ឆ្នាំង → ភ្នំពេញ"
+            }
+        },
         // Bus Tickets
         BusTickets: {
             Title: "សំបុត្រឡានក្រុងទូទាំងប្រទេសកម្ពុជា",
