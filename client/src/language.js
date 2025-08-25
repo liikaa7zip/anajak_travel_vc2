@@ -1,24 +1,4 @@
 import { createI18n } from 'vue-i18n'
-import PhnomPenh from './views/provinces/PhnomPenh.vue'
-import KohKong from './views/provinces/KohKong.vue'
-import Kandal from './views/provinces/Kandal.vue'
-import KampongCham from './views/provinces/KampongCham.vue'
-import KampongChhnang from './views/provinces/KampongChhnang.vue'
-import KampongSpeu from './views/provinces/KampongSpeu.vue'
-import KampongThom from './views/provinces/KampongThom.vue'
-import Kratie from './views/provinces/Kratie.vue'
-import PreyVeng from './views/provinces/PreyVeng.vue'
-import SvayRieng from './views/provinces/SvayRieng.vue'
-import Pursat from './views/provinces/Pursat.vue'
-import OddarMeanchey from './views/provinces/OddarMeanchey.vue'
-import StungTreng from './views/provinces/StungTreng.vue'
-import Rattanakiri from './views/provinces/Rattanakiri.vue'
-import Mondulkiri from './views/provinces/Mondulkiri.vue'
-import TbongKhmum from './views/provinces/TbongKhmum.vue'
-import Register from './views/Register.vue'
-import { Title } from 'chart.js'
-import Login from './views/Login.vue'
-import BoatTickets from './views/Travelingbooking/BoatTickets.vue'
 // Translation messages
 const messages = {
     en: {
@@ -348,6 +328,9 @@ const messages = {
         heroTitle: '🗺️ Welcome to the travel guide, ',
         heroSubtitle: 'and go to your dream place in Cambodia.',
         travelGuideTitle: 'Explore Cambodian Provinces',
+        CheckWeather: 'Check Weather in Cambodia',
+        BackToHome: 'Back to Home',
+        GoToWeatherPage: 'Go to Weather Page',
         BanteayMeanchey: "Banteay Meanchey",
         KampongThom: "Kampong Thom",
         StungTreng: "Stung Treng",
@@ -1219,40 +1202,49 @@ const messages = {
             Title: "Choose a Province for Boat Booking",
             River: "River:",
             PhnomPenh: {
+                Name: "Phnom Penh",
                 MekongTonleSap: "Mekong / Tonle Sap",
                 PhnomPenhToKratie: "Phnom Penh → Kratie",
                 PhnomPenhToSiemReap: "Phnom Penh → Siem Reap"
             },
             Kampot: {
+                Name: "Kampot",
                 KampotRiver: "Kampot River",
                 KampotToKep: "Kampot → Kep",
                 KampotToRabbitIsland: "Kampot → Rabbit Island"
             },
             Kep: {
+                Name: "Kep",
                 GulfOfThailand: "Gulf of Thailand",
                 KepToRabbitIsland: "Kep → Rabbit Island"
             },
             Sihanoukville: {
+                Name: "Sihanoukville",
                 GulfOfThailand: "Gulf of Thailand",
                 SihanoukvilleToKohRong: "Sihanoukville → Koh Rong"
             },
             Kratie: {
+                Name: "Kratie",
                 MekongRiver: "Mekong River",
                 KratieToStungTreng: "Kratie → Stung Treng"
             },
             StungTreng: {
+                Name: "Stung Treng",
                 MekongRiver: "Mekong River",
                 StungTrengToLaosBorder: "Stung Treng → Laos Border"
             },
             SiemReap: {
+                Name: "Siem Reap",
                 TonleSapLake: "Tonle Sap Lake",
                 SiemReapToBattambang: "Siem Reap → Battambang"
             },
             Battambang: {
+                Name: "Battambang",
                 SangkerRiver: "Sangker River",
                 BattambangToSiemReap: "Battambang → Siem Reap"
             },
             KampongChhnang: {
+                Name: "Kampong Chhnang",
                 TonleSapRiver: "Tonle Sap River",
                 KampongChhnangToPhnomPenh: "Kampong Chhnang → Phnom Penh"
             }
@@ -1309,40 +1301,49 @@ const messages = {
             Title: "ជ្រើសរើសខេត្តសម្រាប់ការកក់ទូក",
             River: "ទន្លេ:",
             PhnomPenh: {
+                Name: "ភ្នំពេញ",
                 MekongTonleSap: "មេគង្គ/ទន្លេសាប",
                 PhnomPenhToKratie: "ភ្នំពេញ → ក្រចេះ",
                 PhnomPenhToSiemReap: "ភ្នំពេញ → សៀមរាប"
             },
             Kampot: {
+                Name: "កំពត",
                 KampotRiver: "ទន្លេកំពត",
                 KampotToKep: "កំពត → កែប",
                 KampotToRabbitIsland: "កំពត → កោះទន្សាយ"
             },
             Kep: {
+                Name: "កែប",
                 GulfOfThailand: "ឈូងសមុទ្រថៃ",
                 KepToRabbitIsland: "កែប → កោះទន្សាយ"
             },
             Sihanoukville: {
+                Name: "ក្រុងព្រះសីហនុ",
                 GulfOfThailand: "ឈូងសមុទ្រថៃ",
                 SihanoukvilleToKohRong: "ក្រុងព្រះសីហនុ → កោះរ៉ុង"
             },
             Kratie: {
+                Name: "ក្រចេះ",
                 MekongRiver: "ទន្លេមេគង្គ",
                 KratieToStungTreng: "ក្រចេះ → ស្ទឹងត្រែង"
             },
             StungTreng: {
+                Name: "ស្ទឹងត្រែង",
                 MekongRiver: "ទន្លេមេគង្គ",
                 StungTrengToLaosBorder: "ស្ទឹងត្រែង → ព្រំដែនឡាវ"
             },
             SiemReap: {
+                Name: "សៀមរាប",
                 TonleSapLake: "ទន្លេសាប",
                 SiemReapToBattambang: "សៀមរាប → បាត់ដំបង"
             },
             Battambang: {
+                Name: "បាត់ដំបង",
                 SangkerRiver: "ស្ទឹងសង្កែ",
                 BattambangToSiemReap: "បាត់ដំបង → សៀមរាប"
             },
             KampongChhnang: {
+                Name: "កំពង់ឆ្នាំង",
                 TonleSapRiver: "ទន្លេសាប",
                 KampongChhnangToPhnomPenh: "កំពង់ឆ្នាំង → ភ្នំពេញ"
             }
@@ -2429,6 +2430,9 @@ const messages = {
         heroTitle: 'សូមស្វាគមន៍មកកាន់មគ្គុទ្ទេសក៍ទេសចរណ៍,',
         heroSubtitle: 'ហើយទៅកន្លែងសុបិន្តរបស់អ្នកក្នុងប្រទេសកម្ពុជា',
         travelGuideTitle: 'ស្វែងយល់ពីខេត្តនានារបស់កម្ពុជា',
+        CheckWeather: 'ពិនិត្យអាកាសធាតុ',
+        BackToHome: 'ត្រឡប់ទៅទំព័រដើម',
+        GoToWeatherPage: 'ទៅកាន់ទំព័រអាកាសធាតុ',
         BanteayMeanchey: "បន្ទាយមានជ័យ",
         KampongThom: "កំពង់ធំ",
         StungTreng: "ស្ទឹងត្រែង",
