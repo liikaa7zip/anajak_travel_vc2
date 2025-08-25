@@ -21,12 +21,13 @@
 
 <script setup>
 import { useRouter } from 'vue-router'
-import { useI18n } from 'vue-i18n';
-const { t } = useI18n();
+import { useI18n } from 'vue-i18n'
+import { computed } from 'vue'
 
+const { t } = useI18n()
 const router = useRouter()
 
-const boatRoutes = [
+const boatRoutes = computed(() => [
   { province: 'Phnom Penh', river: t('BoatTickets.PhnomPenh.MekongTonleSap'), routes: [t('BoatTickets.PhnomPenh.PhnomPenhToKratie'), t('BoatTickets.PhnomPenh.PhnomPenhToSiemReap')] },
   { province: 'Kampot', river: t('BoatTickets.Kampot.KampotRiver'), routes: [t('BoatTickets.Kampot.KampotToKep'), t('BoatTickets.Kampot.KampotToRabbitIsland')] },
   { province: 'Kep', river: t('BoatTickets.Kep.GulfOfThailand'), routes: [t('BoatTickets.Kep.KepToRabbitIsland')] },
@@ -36,7 +37,7 @@ const boatRoutes = [
   { province: 'Siem Reap', river: t('BoatTickets.SiemReap.TonleSapLake'), routes: [t('BoatTickets.SiemReap.SiemReapToBattambang')] },
   { province: 'Battambang', river: t('BoatTickets.Battambang.SangkerRiver'), routes: [t('BoatTickets.Battambang.BattambangToSiemReap')] },
   { province: 'Kampong Chhnang', river: t('BoatTickets.KampongChhnang.TonleSapRiver'), routes: [t('BoatTickets.KampongChhnang.KampongChhnangToPhnomPenh')] }
-]
+])
 
 function selectProvince(route) {
   const destination = route.routes[0]?.split('→')[1].trim() || ''
@@ -49,3 +50,4 @@ function selectProvince(route) {
   })
 }
 </script>
+
