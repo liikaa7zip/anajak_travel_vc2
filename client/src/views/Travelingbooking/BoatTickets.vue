@@ -28,15 +28,15 @@ const { t } = useI18n()
 const router = useRouter()
 
 const boatRoutes = computed(() => [
-  { province: 'Phnom Penh', river: t('BoatTickets.PhnomPenh.MekongTonleSap'), routes: [t('BoatTickets.PhnomPenh.PhnomPenhToKratie'), t('BoatTickets.PhnomPenh.PhnomPenhToSiemReap')] },
-  { province: 'Kampot', river: t('BoatTickets.Kampot.KampotRiver'), routes: [t('BoatTickets.Kampot.KampotToKep'), t('BoatTickets.Kampot.KampotToRabbitIsland')] },
-  { province: 'Kep', river: t('BoatTickets.Kep.GulfOfThailand'), routes: [t('BoatTickets.Kep.KepToRabbitIsland')] },
-  { province: 'Sihanoukville', river: t('BoatTickets.Sihanoukville.GulfOfThailand'), routes: [t('BoatTickets.Sihanoukville.SihanoukvilleToKohRong')] },
-  { province: 'Kratie', river: t('BoatTickets.Kratie.MekongRiver'), routes: [t('BoatTickets.Kratie.KratieToStungTreng')] },
-  { province: 'Stung Treng', river: t('BoatTickets.StungTreng.MekongRiver'), routes: [t('BoatTickets.StungTreng.StungTrengToLaosBorder')] },
-  { province: 'Siem Reap', river: t('BoatTickets.SiemReap.TonleSapLake'), routes: [t('BoatTickets.SiemReap.SiemReapToBattambang')] },
-  { province: 'Battambang', river: t('BoatTickets.Battambang.SangkerRiver'), routes: [t('BoatTickets.Battambang.BattambangToSiemReap')] },
-  { province: 'Kampong Chhnang', river: t('BoatTickets.KampongChhnang.TonleSapRiver'), routes: [t('BoatTickets.KampongChhnang.KampongChhnangToPhnomPenh')] }
+  { province: t('BoatTickets.PhnomPenh.Name'), river: t('BoatTickets.PhnomPenh.MekongTonleSap'), routes: [t('BoatTickets.PhnomPenh.PhnomPenhToKratie'), t('BoatTickets.PhnomPenh.PhnomPenhToSiemReap')] },
+  { province: t('BoatTickets.Kampot.Name'), river: t('BoatTickets.Kampot.KampotRiver'), routes: [t('BoatTickets.Kampot.KampotToKep'), t('BoatTickets.Kampot.KampotToRabbitIsland')] },
+  { province: t('BoatTickets.Kep.Name'), river: t('BoatTickets.Kep.GulfOfThailand'), routes: [t('BoatTickets.Kep.KepToRabbitIsland')] },
+  { province: t('BoatTickets.Sihanoukville.Name'), river: t('BoatTickets.Sihanoukville.GulfOfThailand'), routes: [t('BoatTickets.Sihanoukville.SihanoukvilleToKohRong')] },
+  { province: t('BoatTickets.Kratie.Name'), river: t('BoatTickets.Kratie.MekongRiver'), routes: [t('BoatTickets.Kratie.KratieToStungTreng')] },
+  { province: t('BoatTickets.StungTreng.Name'), river: t('BoatTickets.StungTreng.MekongRiver'), routes: [t('BoatTickets.StungTreng.StungTrengToLaosBorder')] },
+  { province: t('BoatTickets.SiemReap.Name'), river: t('BoatTickets.SiemReap.TonleSapLake'), routes: [t('BoatTickets.SiemReap.SiemReapToBattambang')] },
+  { province: t('BoatTickets.Battambang.Name'), river: t('BoatTickets.Battambang.SangkerRiver'), routes: [t('BoatTickets.Battambang.BattambangToSiemReap')] },
+  { province: t('BoatTickets.KampongChhnang.Name'), river: t('BoatTickets.KampongChhnang.TonleSapRiver'), routes: [t('BoatTickets.KampongChhnang.KampongChhnangToPhnomPenh')] }
 ])
 
 function selectProvince(route) {
