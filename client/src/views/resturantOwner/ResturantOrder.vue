@@ -1,272 +1,317 @@
-<template>
-  <div class="p-6 max-w-screen-xl mx-auto min-h-screen">
-    <h1 class="text-4xl font-extrabold mb-6 text-gray-900 flex items-center justify-between">
-      <span>📦 Order History</span>
-      <div class="flex items-center gap-4 relative">
-        <!-- Filter Button -->
-        <div class="relative">
-          <button @click="toggleFilterDropdown"
-            class="text-gray-700 font-semibold text-base px-4 py-2 rounded-md flex items-center gap-2 hover:text-blue-600 hover:bg-gray-100 focus:outline-none transition">
-            Filter:
-            <span class="capitalize">{{ filterStatus || 'all' }}</span>
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-          <div v-if="filterDropdownOpen"
-            class="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-xl shadow-lg z-50">
-            <ul class="divide-y divide-gray-200">
-              <li @click="applyFilter('')" :class="[
-                'px-4 py-2 hover:bg-blue-50 text-sm capitalize cursor-pointer transition duration-150 ease-in-out',
-                filterStatus === '' ? 'bg-blue-100 text-blue-700 font-medium' : 'text-gray-700'
-              ]">
-                All
-              </li>
-              <li v-for="status in statuses" :key="status" @click="applyFilter(status)" :class="[
-                'px-4 py-2 hover:bg-blue-50 text-sm capitalize cursor-pointer transition duration-150 ease-in-out',
-                filterStatus === status ? 'bg-blue-100 text-blue-700 font-medium' : 'text-gray-700'
-              ]">
-                {{ status }}
-              </li>
-            </ul>
-          </div>
-        </div>
+  <template>
+    <div class="container mx-auto p-6">
+      <h1 class="text-3xl font-bold mb-6 text-purple-700">📦 Restaurant Orders</h1>
 
-        <!-- Notification Icon -->
-        <button @click="handleNotificationClick"
-          class="relative p-2 rounded-full hover:bg-gray-200 focus:outline-none" title="Refresh orders"
-          aria-label="Refresh orders">
-          <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 10-12 0v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-          </svg>
-          <span v-if="newOrdersCount > 0"
-            class="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-semibold rounded-full w-5 h-5 flex items-center justify-center animate-pulse">
-            {{ newOrdersCount }}
-          </span>
+      <!-- Filter & Export -->
+      <div class="mb-4 flex gap-3 flex-wrap items-center justify-between">
+<div class="flex gap-2 relative">
+  <button
+    v-for="s in ['all','pending','completed','cancelled']"
+    :key="s"
+    @click="filterStatus = s"
+    :class="[
+      'relative py-2 px-5 rounded-full font-semibold transition-all duration-300 transform hover:scale-105',
+      filterStatus === s 
+        ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg' 
+        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+    ]"
+  >
+    <span v-if="s === 'pending'">⏳</span>
+    <span v-else-if="s === 'completed'">✅</span>
+    <span v-else-if="s === 'cancelled'">❌</span>
+    <span v-else>📋</span>
+    {{ s.charAt(0).toUpperCase() + s.slice(1) }}
+    
+    <span
+      v-if="filterStatus === s"
+      class="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-2 rounded-full bg-white shadow-md"
+    ></span>
+  </button>
+</div>
+
+
+        <!-- Export Button -->
+        <button
+          @click="exportCSV"
+          class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg font-semibold shadow-lg transition transform hover:scale-105 flex items-center gap-2"
+        >
+          📥 Export CSV
         </button>
       </div>
-    </h1>
 
-    <div v-if="loading" class="text-center py-20 text-gray-500">Loading orders...</div>
+      <!-- Orders Table -->
+      <div class="overflow-x-auto shadow-lg rounded-xl mt-10">
+        <table class="min-w-full bg-white">
+          <thead class="bg-purple-600 text-white">
+            <tr>
+              <th class="py-3 px-4 text-left">Food</th>
+              <th class="py-3 px-4 text-left">Customer</th>
+              <th class="py-3 px-4 text-left">Phone</th>
+              <th class="py-3 px-4 text-left">Room</th>
+              <th class="py-3 px-4 text-left">Quantity</th>
+              <th class="py-3 px-4 text-left">Total</th>
+              <th class="py-3 px-4 text-left">Status</th>
+              <th class="py-3 px-4 text-left">Ordered At</th>
+              <th class="py-3 px-4 text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="order in paginatedOrders" :key="order.id" class="border-b hover:bg-purple-50 transition">
 
-    <div v-else-if="filteredOrders.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-      <div v-for="order in filteredOrders" :key="order.id" @click="selectOrder(order)"
-        class="bg-white border border-gray-200 rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col cursor-pointer">
-        <div class="flex justify-between items-start mb-5">
-          <div>
-            <h2 class="text-xl font-semibold text-gray-800 mb-1">Order #{{ order.id }}</h2>
-            <p class="text-sm text-gray-600 mb-1">
-              By: <span class="font-medium">{{ order.customerName }}</span>
-            </p>
-            <p class="text-xs text-gray-400">{{ formatDateTime(order.createdAt) }}</p>
-          </div>
-          <span class="px-3 py-1 text-xs rounded-full font-semibold whitespace-nowrap capitalize" :class="{
-            'bg-green-100 text-green-700': order.status === 'confirmed',
-            'bg-red-100 text-red-600': order.status === 'rejected',
-            'bg-yellow-100 text-yellow-700': order.status === 'pending',
-            'bg-gray-200 text-gray-500': !['confirmed', 'rejected', 'pending'].includes(order.status)
-          }">
-            {{ order.status }}
-          </span>
-        </div>
+              <td class="py-3 px-4 flex items-center gap-2 ">
+                <img :src="order.foodImage || placeholderImage" class="w-12 h-12 rounded-lg object-cover"/>
+                <span>{{ order.foodName || 'Unknown Food' }}</span>
+              </td>
+              <td class="py-3 px-4">{{ order.customerName || 'Unknown' }}</td>
+              <td class="py-3 px-4">{{ order.customerPhone || 'N/A' }}</td>
+              <td class="py-3 px-4">{{ order.roomNumber || 'N/A' }}</td>
+              <td class="py-3 px-4">{{ order.quantity }}</td>
+              <td class="py-3 px-4 font-bold text-green-600">${{ order.totalPrice.toFixed(2) }}</td>
+              <td class="py-3 px-4">
+                <span :class="statusClass(order.status) + ' px-2 py-1 rounded-full text-xs font-semibold'">
+                  {{ normalizeStatus(order.status) }}
+                </span>
+              </td>
+              <td class="py-3 px-4">{{ formatDate(order.createdAt) }}</td>
 
-        <div class="space-y-4 flex-grow" v-if="order.Food && order.Food.length">
-          <div v-for="food in order.Food" :key="food.id"
-            class="flex items-center gap-4 border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition">
-            <img :src="food.image" alt="food image"
-              class="w-14 h-14 rounded-lg object-cover flex-shrink-0" loading="lazy" />
-            <div class="flex-1 min-w-0">
-              <p class="font-semibold text-gray-900 truncate">{{ food.name }}</p>
-              <p class="text-sm text-gray-500">${{ food.price.toFixed(2) }}</p>
-            </div>
-            <div class="text-sm text-gray-700 font-medium whitespace-nowrap">
-              Qty: {{ food.OrderFoodItem.quantity }}
-            </div>
-          </div>
-        </div>
-        <div v-else class="text-center text-gray-500 py-4">No items available</div>
+              <td class="py-3 px-4 text-center align-middle whitespace-nowrap">
+  <div class="inline-flex space-x-2">
+    <!-- Complete button -->
+    <button
+      v-if="order.status === 'pending'"
+      @click="completeOrder(order.id)"
+      class="bg-green-200 text-green-800 min-w-[70px] py-1 px-2 text-xs rounded-full shadow-sm hover:bg-green-300 transition"
+    >
+      ✅ Complete
+    </button>
 
-        <div class="mt-6 pt-4 border-t border-gray-200 text-right text-gray-800 font-semibold">
-          Total: ${{ order.totalPrice.toFixed(2) }}
-        </div>
-      </div>
-    </div>
+    <!-- Cancel button -->
+    <button
+      v-if="order.status === 'pending'"
+      @click="cancelOrder(order.id)"
+      class="bg-red-200 text-red-800 min-w-[70px] py-1 px-2 text-xs rounded-full shadow-sm hover:bg-red-300 transition"
+    >
+      ❌ Cancel
+    </button>
 
-    <div v-else class="text-center text-gray-500 mt-20 text-lg">No orders found.</div>
-
-    <!-- Order Detail Modal -->
-    <div v-if="selectedOrder" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div class="bg-white rounded-xl shadow-xl p-6 w-full max-w-lg relative">
-        <button @click="selectedOrder = null"
-          class="absolute top-3 right-3 text-gray-500 hover:text-red-500 text-xl font-bold">
-          &times;
-        </button>
-
-        <h2 class="text-2xl font-bold mb-4">Order #{{ selectedOrder.id }} Details</h2>
-        <p class="text-gray-700 mb-2">
-          <strong>Customer:</strong> {{ selectedOrder.customerName }}
-        </p>
-        <p class="text-gray-700 mb-4">
-          <strong>Status:</strong> <span class="capitalize">{{ selectedOrder.status }}</span>
-        </p>
-
-        <div v-if="selectedOrder.Food && selectedOrder.Food.length">
-          <h3 class="font-semibold text-gray-800 mb-2">Items:</h3>
-          <ul class="space-y-3">
-            <li v-for="item in selectedOrder.Food" :key="item.id" class="flex items-center justify-between">
-              <span>{{ item.name }} (x{{ item.OrderFoodItem.quantity }})</span>
-              <span class="text-gray-600">${{ item.price.toFixed(2) }}</span>
-            </li>
-          </ul>
-        </div>
-        <div v-else class="text-gray-500 mt-4">No food items available.</div>
-
-        <div class="text-right mt-6 font-bold text-gray-900">
-          Total: ${{ selectedOrder.totalPrice.toFixed(2) }}
-        </div>
-      </div>
-    </div>
+    <!-- Delete button -->
+    <button
+      v-if="order.status === 'completed' || order.status === 'cancelled'"
+      @click="deleteOrder(order.id)"
+      class="bg-gray-200 text-gray-800 min-w-[70px] py-1 px-2 text-xs rounded-full shadow-sm hover:bg-gray-300 transition"
+    >
+      🗑 Delete
+    </button>
   </div>
-</template>
+</td>
 
 
-<script>
-import axios from 'axios'
 
-export default {
-  name: 'RestaurantOrder',
-  data() {
-    return {
-      orders: [],
-      filterStatus: '',
-      filterDropdownOpen: false,
-      newOrdersCount: 0,
-      lastOrderCount: 0,
-      loading: false,
-      statuses: ['pending', 'confirmed', 'rejected'],
-      showNewOrderAlert: false,
-      alertTimeout: null,
-      selectedOrder: null
-    }
-  },
-  computed: {
-    filteredOrders() {
-      if (!this.filterStatus) {
-        return this.orders
-      }
-      return this.orders.filter(order => order.status === this.filterStatus)
-    }
-  },
-  methods: {
-    async fetchOrders() {
-      this.loading = true
-      try {
-        const response = await axios.get('http://localhost:5000/api/orders')
-        if (response.data && Array.isArray(response.data)) {
-          const currentCount = response.data.length
-          if (currentCount > this.lastOrderCount) {
-            const diff = currentCount - this.lastOrderCount
-            this.newOrdersCount += diff
-            this.showNewOrderAlert = true
-            this.setAlertTimeout()
+
+
+            </tr>
+            <tr v-if="filteredOrders.length === 0">
+              <td colspan="9" class="text-center py-6 text-gray-500 italic">No orders found.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="flex justify-center items-center gap-2 py-4">
+    <button 
+      :disabled="currentPage === 1"
+      @click="currentPage--"
+      class="px-3 py-1 rounded bg-gray-300 hover:bg-gray-400 disabled:opacity-50"
+    >
+      Prev
+    </button>
+
+    <span>Page {{ currentPage }} / {{ totalPages }}</span>
+
+    <button 
+      :disabled="currentPage === totalPages"
+      @click="currentPage++"
+      class="px-3 py-1 rounded bg-gray-300 hover:bg-gray-400 disabled:opacity-50"
+    >
+      Next
+    </button>
+  </div>
+
+      </div>
+    </div>
+  </template>
+
+  <script>
+  import axios from "axios";
+  import { useOrdersStore } from '@/stores/orders'
+
+  export default {
+    data() {
+      return {
+        orders: [],
+        loading: true,
+        apiBase: "http://localhost:5000",
+        placeholderImage: "https://via.placeholder.com/50x50?text=No+Image",
+        filterStatus: "all",
+        currentPage: 1,      // current page
+        pageSize: 10,   
+        dropdownOpen: null, 
+      };
+    },
+
+    directives: {
+    clickOutside: {
+      beforeMount(el, binding) {
+        el.clickOutsideEvent = (event) => {
+          if (!(el === event.target || el.contains(event.target))) {
+            binding.value(event); // call the method
           }
-          this.lastOrderCount = currentCount
-          this.orders = response.data
-        } else {
-          this.orders = []
-          this.lastOrderCount = 0
-          this.newOrdersCount = 0
-          this.showNewOrderAlert = false
-          this.clearAlertTimeout()
-        }
-      } catch (error) {
-        console.error('Error fetching orders:', error)
-        this.orders = []
-        this.lastOrderCount = 0
-        this.newOrdersCount = 0
-        this.showNewOrderAlert = false
-        this.clearAlertTimeout()
-      } finally {
-        this.loading = false
-      }
+        };
+        document.body.addEventListener("click", el.clickOutsideEvent);
+      },
+      unmounted(el) {
+        document.body.removeEventListener("click", el.clickOutsideEvent);
+      },
     },
-    formatDateTime(dateStr) {
-      const date = new Date(dateStr)
-      return date.toLocaleString('en-US', {
-        year: 'numeric',
-        month: 'short',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit'
-      })
+  },
+    computed: {
+    filteredOrders() {
+      let filtered = this.filterStatus === "all" ? this.orders : this.orders.filter(o => o.status === this.filterStatus);
+      return filtered;
     },
-    toggleFilterDropdown() {
-      this.filterDropdownOpen = !this.filterDropdownOpen
-      if (this.newOrdersCount > 0) {
-        this.clearNotifications()
-      }
+    paginatedOrders() {
+      const start = (this.currentPage - 1) * this.pageSize;
+      const end = start + this.pageSize;
+      return this.filteredOrders.slice(start, end);
     },
-    applyFilter(status) {
-      this.filterStatus = status
-      this.filterDropdownOpen = false
-      if (this.newOrdersCount > 0) {
-        this.clearNotifications()
-      }
-    },
-    handleNotificationClick() {
-      this.fetchOrders()
-      if (this.newOrdersCount > 0) {
-        this.clearNotifications()
-      }
-    },
-    clearNotifications() {
-      this.newOrdersCount = 0
-      this.showNewOrderAlert = false
-      this.clearAlertTimeout()
-    },
-    setAlertTimeout() {
-      if (this.alertTimeout) clearTimeout(this.alertTimeout)
-      this.alertTimeout = setTimeout(() => {
-        this.showNewOrderAlert = false
-      }, 8000)
-    },
-    clearAlertTimeout() {
-      if (this.alertTimeout) {
-        clearTimeout(this.alertTimeout)
-        this.alertTimeout = null
-      }
-    },
-    selectOrder(order) {
-      this.selectedOrder = order
+    totalPages() {
+      return Math.ceil(this.filteredOrders.length / this.pageSize);
     }
   },
-  mounted() {
-    this.fetchOrders()
-    this.pollInterval = setInterval(() => {
-      this.fetchOrders()
-    }, 30000)
+
+    mounted() {
+      this.fetchOrders();
+    },
+    methods: {
+      toggleDropdown(orderId) {
+      this.dropdownOpen = this.dropdownOpen === orderId ? null : orderId;
+    },
+    closeDropdown(orderId) {
+      if (this.dropdownOpen === orderId) {
+        this.dropdownOpen = null;
+      }
+    },
+      async fetchOrders() {
+        this.loading = true;
+        try {
+          const token = localStorage.getItem("token");
+          const res = await axios.get(`${this.apiBase}/api/orders`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+
+          const ordersWithFood = await Promise.all(
+            res.data.map(async (order) => {
+              try {
+                const foodRes = await axios.get(`${this.apiBase}/api/foods/${order.foodId}`);
+                return {
+                  ...order,
+                  foodName: foodRes.data.name,
+                  foodImage: foodRes.data.image ? this.apiBase + foodRes.data.image : this.placeholderImage,
+                };
+              } catch {
+                return { ...order, foodName: "Unknown Food", foodImage: this.placeholderImage };
+              }
+            })
+          );
+
+          this.orders = ordersWithFood.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        } catch (err) {
+          console.error("Error fetching orders:", err);
+          alert("Failed to load orders.");
+        } finally {
+          this.loading = false;
+        }
+      },
+      normalizeStatus(status) {
+        if (status === "pending") return "⏳ Pending";
+        if (status === "completed") return "✅ Completed";
+        if (status === "cancelled") return "❌ Cancelled";
+        return status;
+      },
+      statusClass(status) {
+        if (status === "pending") return "bg-yellow-100 text-yellow-700";
+        if (status === "completed") return "bg-green-100 text-green-700";
+        if (status === "cancelled") return "bg-red-100 text-red-700";
+        return "bg-gray-100 text-gray-700";
+      },
+      formatDate(date) {
+    return new Date(date).toLocaleDateString();
   },
-  beforeUnmount() {
-    clearInterval(this.pollInterval)
-    this.clearAlertTimeout()
-  }
-}
-</script>
+      async completeOrder(orderId) {
+        try {
+          const token = localStorage.getItem("token");
+          await axios.put(`${this.apiBase}/api/orders/${orderId}/complete`, {}, { headers: { Authorization: `Bearer ${token}` } });
+          this.fetchOrders();
+        } catch {
+          alert("Failed to complete order.");
+        }
+      },
+      async cancelOrder(orderId) {
+        if (!confirm("Cancel this order?")) return;
+        try {
+          const token = localStorage.getItem("token");
+          await axios.put(`${this.apiBase}/api/orders/${orderId}/cancel`, {}, { headers: { Authorization: `Bearer ${token}` } });
+          this.fetchOrders();
+        } catch {
+          alert("Failed to cancel order.");
+        }
+      },
+      async deleteOrder(orderId) {
+        if (!confirm("Delete this order?")) return;
+        try {
+          const token = localStorage.getItem("token");
+          await axios.delete(`${this.apiBase}/api/orders/${orderId}`, { headers: { Authorization: `Bearer ${token}` } });
+          this.fetchOrders();
+        } catch {
+          alert("Failed to delete order.");
+        }
+      },
 
-<style scoped>
-ul li {
-  cursor: pointer;
-}
+      // ================= Export CSV =================
+      exportCSV() {
+    if (this.filteredOrders.length === 0) {
+      alert("No orders to export.");
+      return;
+    }
 
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.2s ease;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-</style>
+    const header = ["Food", "Customer", "Phone", "Room", "Quantity", "Total", "Status", "Ordered At"];
+    const rows = this.filteredOrders.map(o => [
+      o.foodName || "",
+      o.customerName || "",
+      o.customerPhone || "",
+      o.roomNumber || "",
+      o.quantity,
+      o.totalPrice.toFixed(2),
+      this.normalizeStatus(o.status),
+      this.formatDate(o.createdAt),
+    ]);
+
+    // Add UTF-8 BOM
+    const bom = "\uFEFF";
+
+    let csvContent = bom 
+      + header.join(",") + "\n"
+      + rows.map(e => e.join(",")).join("\n");
+
+    const encodedUri = encodeURI("data:text/csv;charset=utf-8," + csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `orders_${this.filterStatus}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+
+  },
+
+    },};
+  </script>
