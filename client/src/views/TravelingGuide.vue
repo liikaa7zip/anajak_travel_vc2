@@ -199,12 +199,6 @@
                   >
                     <i class="fa-solid fa-plane"></i> Flight
                   </router-link>
-                  <button
-                    @click.stop="toggleBookingOptions(province)"
-                    class="mt-2 px-4 py-2 rounded bg-gray-300 hover:bg-gray-400 transition text-sm w-full"
-                  >
-                    Cancel
-                  </button>
                 </div>
               </div>
 
