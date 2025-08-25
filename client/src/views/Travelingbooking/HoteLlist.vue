@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto px-6 py-12 max-w-7xl">
+  <div class="font-khmer container mx-auto px-6 py-12 max-w-7xl">
     <!-- Breadcrumb & Subtitle -->
     <nav
       aria-label="Breadcrumb"
@@ -10,24 +10,24 @@
           class="hover:text-purple-600 cursor-pointer"
           @click="$router.push('/')"
         >
-          Home
+          {{ $t('HotelList.Home') }}
         </li>
         <li>&gt;</li>
         <li
           class="hover:text-purple-600 cursor-pointer"
           @click="$router.push('/tours')"
         >
-          Tours
+          {{ $t('HotelList.Tours') }}
         </li>
         <li>&gt;</li>
         <li class="text-gray-900 font-semibold cursor-default">
-          {{ currentLocationName || "Select a Location" }}
+          {{ currentLocationName || $t('HotelList.SelectALocation') }}
         </li>
       </ol>
       <div
         class="text-xs text-purple-600 font-semibold uppercase tracking-wider mt-2 sm:mt-0 select-none"
       >
-        The 10 Best {{ currentLocationName || "All" }} Tours & Excursions
+       {{ $t('HotelList.The10Best') }} {{ currentLocationName || $t('HotelList.All') }} {{ $t('HotelList.ToursExcursions') }}
       </div>
     </nav>
 
@@ -36,7 +36,7 @@
   <h1
     class="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight drop-shadow-md"
   >
-    Forget Busy Work, <span class="text-purple-600"> <br>Start Your Next Vacation</span>
+    {{ $t('HotelList.ForgetBusyWork') }} <span class="text-purple-600"> <br>{{ $t('HotelList.StartYourNextVacation') }}</span>
   </h1>
 
   <button
@@ -44,7 +44,7 @@
     @click="$router.push('/Hotel_history')"
   >
     <i class="fas fa-calendar-check text-white"></i>
-    My Bookings
+    {{ $t('HotelList.MyBookings') }}
   </button>
 </div>
 
@@ -58,7 +58,7 @@
             for="locationSelect"
             class="block mb-4 text-lg font-semibold text-gray-700 select-none"
           >
-            Choose Your Destination
+            {{ $t('HotelList.ChooseYourDestination') }}
           </label>
           <select
             id="locationSelect"
@@ -67,7 +67,7 @@
             class="w-full bg-white border border-gray-300 text-gray-700 text-base rounded-full shadow-lg focus:ring-4 focus:ring-purple-400 focus:border-purple-600 px-6 py-4 transition duration-300 ease-in-out hover:border-purple-500 cursor-pointer"
             aria-label="Select Destination"
           >
-            <option value="" disabled>🔍 Select Location</option>
+            <option value="" disabled>🔍 {{ $t('HotelList.SelectALocation') }}</option>
             <option
               v-for="location in locations"
               :key="location.id"
@@ -86,12 +86,12 @@
           <h2
             class="text-3xl font-extrabold text-purple-700 mb-8 border-b-4 border-purple-600 inline-block pb-2 select-none tracking-wide"
           >
-            Most Picked
+            {{ $t('HotelList.MostPicked') }}
           </h2>
           <p
             class="text-purple-800 mb-10 leading-relaxed text-sm font-medium select-none"
           >
-            Discover the top favorites chosen by our travelers.
+            {{ $t('HotelList.DiscoverTopFavorites') }}
           </p>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
             <div
@@ -123,7 +123,7 @@
               <div
                 class="absolute top-5 right-5 bg-purple-700 text-white text-xs px-4 py-1 rounded-full font-semibold shadow-lg select-none"
               >
-                ${{ picked.pricePerNight }} / night
+                ${{ picked.pricePerNight }} {{ $t('HotelList.Night') }}
               </div>
               <div
                 class="absolute bottom-0 left-0 text-white w-full px-6 py-4 bg-gradient-to-t from-black/90 via-black/60 to-transparent"
@@ -168,11 +168,11 @@
               class="text-xl font-semibold text-gray-900 mb-2 truncate"
               :title="hotel.name"
             >
-              {{ hotel.name || "Unnamed Hotel" }}
+              {{ hotel.name || $t('HotelList.UnnamedHotel') }}
             </h2>
             <p class="text-gray-600 text-sm mb-4 flex items-center space-x-2">
               <i class="fas fa-map-marker-alt text-purple-600"></i>
-              <span>{{ hotel.locationName || "Unknown Location" }}</span>
+              <span>{{ hotel.locationName || $t('HotelList.UnknownLocation') }}</span>
             </p>
             <p
               class="text-green-700 font-extrabold text-lg select-none tracking-wide mb-6"
@@ -180,16 +180,16 @@
               ${{
                 isValidPrice(hotel.pricePerNight)
                   ? hotel.pricePerNight.toFixed(2)
-                  : "Price unavailable"
+                  : $t('HotelList.PriceUnavailable')
               }}
-              / night
+              {{ $t('HotelList.Night') }}
             </p>
             <router-link
               :to="`/hotels/${hotel.id}`"
               class="inline-block bg-purple-700 text-white px-5 py-2 rounded-full font-semibold hover:bg-purple-800 shadow-lg transition duration-400 select-none text-center mt-auto"
               @click.stop
             >
-              View Details
+              {{ $t('HotelList.ViewDetails') }}
             </router-link>
           </div>
         </div>
@@ -224,17 +224,17 @@
             class="text-3xl font-semibold text-gray-900 mb-4 truncate"
             :title="hotel.name"
           >
-            {{ hotel.name || "Unnamed Hotel" }}
+            {{ hotel.name || $t('HotelList.UnnamedHotel') }}
           </h2>
           <p class="text-gray-600 text-sm mb-4 flex items-center space-x-3">
             <i class="fas fa-map-marker-alt text-purple-600"></i>
-            <span>{{ hotel.locationName || "Unknown Location" }}</span>
+            <span>{{ hotel.locationName || $t('HotelList.UnknownLocation') }}</span>
           </p>
           <p
             class="text-gray-500 text-base line-clamp-4 mb-8 leading-relaxed flex-grow"
             :title="hotel.description"
           >
-            {{ hotel.description || "No description available" }}
+            {{ hotel.description || $t('HotelList.NoDescriptionAvailable') }}
           </p>
           <p
             class="text-green-700 font-extrabold text-2xl mb-8 select-none tracking-wide"
@@ -244,14 +244,14 @@
                 ? hotel.pricePerNight.toFixed(2)
                 : "Price unavailable"
             }}
-            / night
+            {{ $t('HotelList.Night') }}
           </p>
           <router-link
             :to="`/hotels/${hotel.id}`"
             class="inline-block bg-purple-700 text-white px-8 py-3 rounded-full font-semibold hover:bg-purple-800 shadow-lg transition duration-400 select-none text-center"
             @click.stop
           >
-            View Details
+            {{ $t('HotelList.ViewDetails') }}
           </router-link>
         </div>
       </div>
