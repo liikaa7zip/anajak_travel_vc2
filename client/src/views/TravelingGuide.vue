@@ -64,13 +64,13 @@
     <section
       class="mx-6 mb-6 p-6 rounded-xl shadow-md bg-white flex flex-col items-center"
     >
-      <h2 class="text-2xl font-bold mb-4 text-purple-800">Check Weather in Cambodia</h2>
+      <h2 class="text-2xl font-bold mb-4 text-purple-800">{{ $t("CheckWeather") }}</h2>
       <router-link to="/WeatherPage">
         <button
           class="bg-purple-600 text-white px-6 py-3 rounded-full hover:bg-purple-700 transition text-lg font-semibold flex items-center gap-2"
         >
           <i class="fa-solid fa-cloud-sun"></i>
-          Go to Weather Page
+          {{ $t("GoToWeatherPage") }}
         </button>
       </router-link>
       <!-- Back Button to Home -->
@@ -95,10 +95,15 @@
               <img
                 :src="province.image"
                 :alt="province.name"
-                class="w-full h-48 object-cover group-hover:scale-105 transition duration-300"
-              />
+                class="w-full h-48 object-cover group-hover:scale-105 transition duration-300">
             </router-link>
-
+            <div
+              v-if="province.showBookingOptions"
+              class="absolute left-0 right-0 top-full mt-2 bg-white rounded-xl shadow-lg text-black w-full p-5 z-20 flex flex-col gap-4 border border-gray-300 focus-within:ring-2 focus-within:ring-purple-500"
+              @mouseleave="closeBookingOptions(province)"
+            >
+              <!-- ...existing code for dropdown... -->
+            </div>
             <router-link
               :to="`/guide/${toKebab(province.routeName)}/favorite`"
               class="absolute top-2 right-2 px-3 py-2 rounded-full"
@@ -158,51 +163,47 @@
               >
                 <i class="fa-solid fa-hotel"></i>
               </router-link>
-              <!-- Booking Toggle Button -->
-              <button
-                @click.stop.prevent="toggleBookingOptions(province)"
-                class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm"
-              >
-                <i class="fa-solid fa-ticket"></i>
-              </button>
 
-              <!-- Booking Options Dropdown -->
-              <div
-                v-if="province.showBookingOptions"
-                class="absolute top-12 left-0 right-0 mx-auto bg-white rounded shadow-md text-black max-w-xs p-4 z-10 flex flex-col gap-3 border border-gray-200"
-                @mouseleave="closeBookingOptions(province)"
-              >
-                <label class="block mb-2 font-semibold text-purple-800"
-                  >Select Booking Option:</label
-                >
-                <router-link
-                  :to="`/guide/${toKebab(province.routeName)}/BusTickets`"
-                  class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition text-sm w-full text-left flex items-center gap-2"
-                >
-                  <i class="fa-solid fa-bus"></i> Bus
-                </router-link>
-                <router-link
-                  :to="`/guide/${toKebab(province.routeName)}/CarRental`"
-                  class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition text-sm w-full text-left flex items-center gap-2"
-                >
-                  <i class="fa-solid fa-car"></i> Car
-                </router-link>
-                <router-link
-                  :to="`/guide/${toKebab(province.routeName)}/FlightReservation`"
-                  class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition text-sm w-full text-left flex items-center gap-2"
-                >
-                  <i class="fa-solid fa-plane"></i> Flight
-                </router-link>
+
+              <!-- Booking Toggle Button with Drop-up Dropdown -->
+              <div class="relative flex flex-col items-center">
                 <button
-                  @click.stop="toggleBookingOptions(province)"
-                  class="mt-2 px-4 py-2 rounded bg-gray-300 hover:bg-gray-400 transition text-sm w-full"
+                  @click.stop.prevent="toggleBookingOptions(province)"
+                  class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm"
                 >
-                  Cancel
+                  <i class="fa-solid fa-ticket"></i>
                 </button>
+                <div
+                  v-if="province.showBookingOptions"
+                  class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-white rounded-xl shadow-lg text-black w-64 p-5 z-30 flex flex-col gap-4 border border-gray-300 focus-within:ring-2 focus-within:ring-purple-500"
+                  @mouseleave="closeBookingOptions(province)"
+                >
+                  <label class="block mb-2 font-semibold text-purple-800"
+                    >Select Booking Options:</label
+                  >
+                  <router-link
+                    :to="`/guide/${toKebab(province.routeName)}/BusTickets`"
+                    class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition text-sm w-full text-left flex items-center gap-2"
+                  >
+                    <i class="fa-solid fa-bus"></i> Bus
+                  </router-link>
+                  <router-link
+                    :to="`/guide/${toKebab(province.routeName)}/CarRental`"
+                    class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition text-sm w-full text-left flex items-center gap-2"
+                  >
+                    <i class="fa-solid fa-car"></i> Car
+                  </router-link>
+                  <router-link
+                    :to="`/guide/${toKebab(province.routeName)}/FlightReservation`"
+                    class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition text-sm w-full text-left flex items-center gap-2"
+                  >
+                    <i class="fa-solid fa-plane"></i> Flight
+                  </router-link>
+                </div>
               </div>
 
               <router-link
-                :to="`/guide/${toKebab(province.routeName)}/WeatherPage`"
+                :to="{ path: '/WeatherPage', query: { province: province.name } }"
                 class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm"
               >
                 <i class="fa-solid fa-cloud-sun"></i>
@@ -419,9 +420,11 @@ export default {
     };
   },
   methods: {
-    toggleBookingOptions(province) {
-      // Toggle only the clicked province's dropdown
-      province.showBookingOptions = !province.showBookingOptions;
+    toggleBookingOptions(selectedProvince) {
+      // Always show dropdown only for the clicked province, close all others
+      this.provinces.forEach(province => {
+        province.showBookingOptions = (province === selectedProvince);
+      });
     },
     closeBookingOptions(province) {
       province.showBookingOptions = false;

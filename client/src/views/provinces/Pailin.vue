@@ -3,7 +3,7 @@
     <!-- Hero Section -->
     <section class="relative w-full h-80 sm:h-96">
       <img
-        src="https://aicdn.picsart.com/e9156f57-4811-491c-9a9f-9d7d02da460a.png"
+        src="https://aicdn.picsart.com/5cb22008-bf22-41a6-8e0e-db36b218dcdd.png"
         alt="Pailin"
         class="w-full h-full object-cover rounded-b-md"
       />

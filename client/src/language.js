@@ -1,23 +1,4 @@
 import { createI18n } from 'vue-i18n'
-import PhnomPenh from './views/provinces/PhnomPenh.vue'
-import KohKong from './views/provinces/KohKong.vue'
-import Kandal from './views/provinces/Kandal.vue'
-import KampongCham from './views/provinces/KampongCham.vue'
-import KampongChhnang from './views/provinces/KampongChhnang.vue'
-import KampongSpeu from './views/provinces/KampongSpeu.vue'
-import KampongThom from './views/provinces/KampongThom.vue'
-import Kratie from './views/provinces/Kratie.vue'
-import PreyVeng from './views/provinces/PreyVeng.vue'
-import SvayRieng from './views/provinces/SvayRieng.vue'
-import Pursat from './views/provinces/Pursat.vue'
-import OddarMeanchey from './views/provinces/OddarMeanchey.vue'
-import StungTreng from './views/provinces/StungTreng.vue'
-import Rattanakiri from './views/provinces/Rattanakiri.vue'
-import Mondulkiri from './views/provinces/Mondulkiri.vue'
-import TbongKhmum from './views/provinces/TbongKhmum.vue'
-import Register from './views/Register.vue'
-import { Title } from 'chart.js'
-import Login from './views/Login.vue'
 // Translation messages
 const messages = {
     en: {
@@ -347,6 +328,9 @@ const messages = {
         heroTitle: '🗺️ Welcome to the travel guide, ',
         heroSubtitle: 'and go to your dream place in Cambodia.',
         travelGuideTitle: 'Explore Cambodian Provinces',
+        CheckWeather: 'Check Weather in Cambodia',
+        BackToHome: 'Back to Home',
+        GoToWeatherPage: 'Go to Weather Page',
         BanteayMeanchey: "Banteay Meanchey",
         KampongThom: "Kampong Thom",
         StungTreng: "Stung Treng",
@@ -1132,10 +1116,319 @@ const messages = {
                 Culture: "Culture",
                 Food: "Food",
             }
-        }
+        },
+        // Flight Reservations
+        FlightReservations: {
+            Title: "Flight Reservations",
+            Origin: "Origin",
+            Destination: "Destination",
+            SelectDestination: "Select a destination",
+            PhnomPenh: "Phnom Penh",
+            SiemReap: "Siem Reap",
+            Sihanoukville: "Sihanoukville",
+            Date: "Date",
+            Airline: "Airline",
+            ClassType: "Class Type",
+            Economy: "Economy",
+            Business: "Business",
+            Passengers: "Passengers",
+            Passengers: "Passenger(s)",
+            Price: "Price ($)",
+            Text: "Auto-calculated based on airline, class, and passengers.",
+            YourName: "Your Name",
+            Email: "Email",
+            BookNow: "Book Now",
+            ViewBookingHistory: "View Booking History"
+        },
+        // Car Ticket Booking
+        CarTicketBooking: {
+            Title: "Car Ticket Booking",
+            PickupLocation: "Pickup Location",
+            DropoffLocation: "Drop-off Location",
+            VehicleType: "Vehicle Type",
+            PrivateCar: "Private Car",
+            Van: "Van",
+            LuxuryCar: "Luxury Car",
+            Price: "Price ($)",
+            YourName: "Your Name",
+            Email: "Email",
+            BookNow: "Book Now",
+            ViewBookingHistory: "View Booking History",
+            CurrentPrice: "Current Price:",
+            TravelDate: "Travel Date",
+            Email: "Email",
+            BookCar: "Book Car",
+            ConfirmYourBooking: "Confirm Your Booking",
+            ProceedWithBooking: "Proceed With Booking",
+            to: "to",
+            for: "for",
+            Cancel: "Cancel",
+            YesBookNow: "Yes, Book Now",
+            BookingSuccessful: "Booking Successful!",
+            OK: "OK",
+            ViewBookingHistory: "View Booking History",
+            ExploreCarTickets: "Explore Car Tickets"
+        },
+        // Bus Tickets
+        BusTickets: {
+            Title: "Bus Tickets Across Cambodia",
+            BookYourTrip: "Book Your Trip",
+            From: "From",
+            To: "To",
+            Date: "Date",
+            TimeOfDay: "Time Of Day",
+            Day: "Day",
+            Night: "Night",
+            Time: "Time",
+            SelectTime: "Select Time",
+            None: "None",
+            Phone: "Phone",
+            Email: "Email",
+            BookNow: "Book Now",
+            ChooseSeat: "Choose Seat",
+            SelectedSeats: "Selected Seats:",
+            TicketPrice: "Ticket Price",
+            ConfirmYourBooking: "Confirm Your Booking",
+            ConfirmYourBookingMessage: "Do you want to continue with this booking?",
+            Cancel: "Cancel",
+            YesBookNow: "Yes, Book Now",
+            BookingSuccessful: "Booking Successful!",
+            OK: "OK",
+            ViewBookingHistory: "View Booking History",
+            ExploreAvailableBusTickets: "Explore Available Bus Tickets"
+        },
+        // Boat Tickets
+        BoatTickets: {
+            Title: "Choose a Province for Boat Booking",
+            River: "River:",
+            PhnomPenh: {
+                Name: "Phnom Penh",
+                MekongTonleSap: "Mekong / Tonle Sap",
+                PhnomPenhToKratie: "Phnom Penh → Kratie",
+                PhnomPenhToSiemReap: "Phnom Penh → Siem Reap"
+            },
+            Kampot: {
+                Name: "Kampot",
+                KampotRiver: "Kampot River",
+                KampotToKep: "Kampot → Kep",
+                KampotToRabbitIsland: "Kampot → Rabbit Island"
+            },
+            Kep: {
+                Name: "Kep",
+                GulfOfThailand: "Gulf of Thailand",
+                KepToRabbitIsland: "Kep → Rabbit Island"
+            },
+            Sihanoukville: {
+                Name: "Sihanoukville",
+                GulfOfThailand: "Gulf of Thailand",
+                SihanoukvilleToKohRong: "Sihanoukville → Koh Rong"
+            },
+            Kratie: {
+                Name: "Kratie",
+                MekongRiver: "Mekong River",
+                KratieToStungTreng: "Kratie → Stung Treng"
+            },
+            StungTreng: {
+                Name: "Stung Treng",
+                MekongRiver: "Mekong River",
+                StungTrengToLaosBorder: "Stung Treng → Laos Border"
+            },
+            SiemReap: {
+                Name: "Siem Reap",
+                TonleSapLake: "Tonle Sap Lake",
+                SiemReapToBattambang: "Siem Reap → Battambang"
+            },
+            Battambang: {
+                Name: "Battambang",
+                SangkerRiver: "Sangker River",
+                BattambangToSiemReap: "Battambang → Siem Reap"
+            },
+            KampongChhnang: {
+                Name: "Kampong Chhnang",
+                TonleSapRiver: "Tonle Sap River",
+                KampongChhnangToPhnomPenh: "Kampong Chhnang → Phnom Penh"
+            }
+        },
+        // Hotel List
+        HotelList: {
+            Home: "Home",
+            Tours: "Tours",
+            SelectALocation: "Select a Location",
+            The10Best: "The 10 Best",
+            All: "All",
+            ToursExcursions: "Tours & Excursions",
+            ForgetBusyWork: "Forget Busy Work,",
+            StartYourNextVacation: "Start Your Next Vacation",
+            MyBookings: "My Bookings",
+            ChooseYourDestination: "Choose Your Destination",
+            MostPicked: "Most Picked",
+            DiscoverTopFavorites: "Discover the top favorites chosen by our travelers.",
+            Night: "/ Night",
+            ViewDetails: "View Details",
+            UnknownLocation: "Unknown Location",
+            UnnamedHotel: "Unnamed Hotel",
+            NoDescriptionAvailable: "No description available",
+            UnknownLocation: "Unknown Location",
+            PriceUnavailable: "Price unavailable"
+        },
     },
 
     km: {
+        // Hotel List
+        HotelList: {
+            Home: "ទំព័រដើម",
+            Tours: "ទស្សនកិច្ច",
+            SelectALocation: "ជ្រើសរើសទីតាំង",
+            The10Best: "10 កន្លែងល្អបំផុត",
+            All: "ទាំងអស់",
+            ToursExcursions: "ទស្សនកិច្ច & ការធ្វើដំណើរ",
+            ForgetBusyWork: "បំភ្លេចការងាររវល់",
+            StartYourNextVacation: "ចាប់ផ្តើមការធ្វើដំណើរបន្ទាប់របស់អ្នក",
+            MyBookings: "ការកក់របស់ខ្ញុំ",
+            ChooseYourDestination: "ជ្រើសរើសទីតាំងរបស់អ្នក",
+            MostPicked: "ជ្រើសរើសច្រើនបំផុត",
+            DiscoverTopFavorites: "ស្វែងរកចំណូលចិត្តល្អបំផុតដែលបានជ្រើសរើសដោយអ្នកធ្វើដំណើររបស់យើង។",
+            Night: "/ មួយយប់",
+            ViewDetails: "មើលព័ត៌មានលម្អិត",
+            UnknownLocation: "ទីតាំងមិនស្គាល់",
+            UnnamedHotel: "សណ្ឋាគារមិនមានឈ្មោះ",
+            NoDescriptionAvailable: "មិនមានការពិពណ៌នាអាចប្រើបាន",
+            UnknownLocation: "ទីតាំងមិនស្គាល់",
+            PriceUnavailable: "តម្លៃមិនមានទេ"
+        },
+        // Boat Tickets
+        BoatTickets: {
+            Title: "ជ្រើសរើសខេត្តសម្រាប់ការកក់ទូក",
+            River: "ទន្លេ:",
+            PhnomPenh: {
+                Name: "ភ្នំពេញ",
+                MekongTonleSap: "មេគង្គ/ទន្លេសាប",
+                PhnomPenhToKratie: "ភ្នំពេញ → ក្រចេះ",
+                PhnomPenhToSiemReap: "ភ្នំពេញ → សៀមរាប"
+            },
+            Kampot: {
+                Name: "កំពត",
+                KampotRiver: "ទន្លេកំពត",
+                KampotToKep: "កំពត → កែប",
+                KampotToRabbitIsland: "កំពត → កោះទន្សាយ"
+            },
+            Kep: {
+                Name: "កែប",
+                GulfOfThailand: "ឈូងសមុទ្រថៃ",
+                KepToRabbitIsland: "កែប → កោះទន្សាយ"
+            },
+            Sihanoukville: {
+                Name: "ក្រុងព្រះសីហនុ",
+                GulfOfThailand: "ឈូងសមុទ្រថៃ",
+                SihanoukvilleToKohRong: "ក្រុងព្រះសីហនុ → កោះរ៉ុង"
+            },
+            Kratie: {
+                Name: "ក្រចេះ",
+                MekongRiver: "ទន្លេមេគង្គ",
+                KratieToStungTreng: "ក្រចេះ → ស្ទឹងត្រែង"
+            },
+            StungTreng: {
+                Name: "ស្ទឹងត្រែង",
+                MekongRiver: "ទន្លេមេគង្គ",
+                StungTrengToLaosBorder: "ស្ទឹងត្រែង → ព្រំដែនឡាវ"
+            },
+            SiemReap: {
+                Name: "សៀមរាប",
+                TonleSapLake: "ទន្លេសាប",
+                SiemReapToBattambang: "សៀមរាប → បាត់ដំបង"
+            },
+            Battambang: {
+                Name: "បាត់ដំបង",
+                SangkerRiver: "ស្ទឹងសង្កែ",
+                BattambangToSiemReap: "បាត់ដំបង → សៀមរាប"
+            },
+            KampongChhnang: {
+                Name: "កំពង់ឆ្នាំង",
+                TonleSapRiver: "ទន្លេសាប",
+                KampongChhnangToPhnomPenh: "កំពង់ឆ្នាំង → ភ្នំពេញ"
+            }
+        },
+        // Bus Tickets
+        BusTickets: {
+            Title: "សំបុត្រឡានក្រុងទូទាំងប្រទេសកម្ពុជា",
+            BookYourTrip: "កក់ការធ្វើដំណើររបស់អ្នក",
+            From: "ពី",
+            To: "ទៅ",
+            Date: "កាលបរិច្ឆេទ",
+            TimeOfDay: "ពេលវេលានៃថ្ងៃ",
+            Day: "ថ្ងៃ",
+            Night: "យប់",
+            Time: "ម៉ោង",
+            SelectTime: "ជ្រើសរើសម៉ោង",
+            Phone: "ទូរស័ព្ទ",
+            Email: "អ៊ីមែល",
+            BookNow: "កក់ឥឡូវនេះ",
+            ChooseSeat: "ជ្រើសរើសកៅអី",
+            None: "គ្មាន",
+            SelectedSeats: "កៅអីដែលបានជ្រើសរើស:",
+            TicketPrice: "តម្លៃសំបុត្រ",
+            ConfirmYourBooking: "បញ្ជាក់ការកក់របស់អ្នក",
+            ConfirmYourBookingMessage: "តើអ្នកចង់បន្តជាមួយការកក់នេះទេ?",
+            Cancel: "បោះបង់",
+            YesBookNow: "បាទ/ចាស, កក់ឥឡូវនេះ",
+            BookingSuccessful: "ការកក់បានជោគជ័យ!",
+            OK: "យល់ព្រម",
+            ViewBookingHistory: "មើលប្រវត្តិការកក់",
+            ExploreAvailableBusTickets: "រុករកសំបុត្រឡានក្រុងដែលមានស្រាប់"
+        },
+        // Car Ticket Booking
+        CarTicketBooking: {
+            Title: "ការកក់សំបុត្រឡាន",
+            PickupLocation: "ទីតាំងទទួល",
+            DropoffLocation: "ទីតាំងទៅដល់",
+            VehicleType: "ប្រភេទយានយន្ត",
+            PrivateCar: "ឡានឯកជន",
+            Van: "ឡានសានយ៉ុង",
+            LuxuryCar: "ឡានប្រណិត",
+            Price: "តម្លៃ ($)",
+            YourName: "ឈ្មោះរបស់អ្នក",
+            Email: "អ៊ីមែល",
+            BookNow: "កក់ឥឡូវនេះ",
+            ViewBookingHistory: "មើលប្រវត្តិការកក់",
+            CurrentPrice: "តម្លៃបច្ចុប្បន្ន:",
+            TravelDate: "កាលបរិច្ឆេទដំណើរ",
+            Email: "អ៊ីមែល",
+            BookCar: "កក់ឡាន",
+            ConfirmYourBooking: "បញ្ជាក់ការកក់របស់អ្នក",
+            ProceedWithBooking: "បន្តការកក់",
+            to: "ទៅ",
+            for: "សម្រាប់",
+            Cancel: "បោះបង់",
+            YesBookNow: "បាទ កក់ឥឡូវនេះ",
+            BookingSuccessful: "ការកក់បានជោគជ័យ!",
+            OK: "យល់ព្រម",
+            ViewBookingHistory: "មើលប្រវត្តិការកក់",
+            ExploreCarTickets: "រុករកសំបុត្រឡាន"
+        },
+        // Flight Reservations
+        FlightReservations: {
+            Title: "ការកក់ជើងហោះហើរ",
+            Origin: "ទីកន្លែងចេញ",
+            Destination: "ទីកន្លែងទៅ",
+            SelectDestination: "ជ្រើសរើសទីកន្លែងទៅ",
+            PhnomPenh: "ភ្នំពេញ",
+            SiemReap: "សៀមរាប",
+            Sihanoukville: "ព្រះសីហនុ",
+            Date: "កាលបរិច្ឆេទ",
+            Airline: "ក្រុមហ៊ុនអាកាសចរណ៍",
+            ClassType: "ប្រភេទថ្នាក់",
+            Economy: "សេដ្ឋកិច្ច",
+            Business: "អាជីវកម្ម",
+            Passengers: "អ្នកដំណើរ",
+            Passengers: "អ្នកដំណើរ",
+            Price: "តម្លៃ ($)",
+            Text: "គណនាដោយស្វ័យប្រវត្តិដោយផ្អែកលើក្រុមហ៊ុនអាកាសចរណ៍ ថ្នាក់ និងអ្នកដំណើរ",
+            YourName: "ឈ្មោះរបស់អ្នក",
+            Email: "អ៊ីមែល",
+            BookNow: "កក់ឥឡូវនេះ",
+            ViewBookingHistory: "មើលប្រវត្តិការកក់"
+        },
+
         // Blog page
         Blog: {
             HeroTitle: "រុករកពិភពលោកជាមួយយើង",
@@ -1809,9 +2102,9 @@ const messages = {
         // navbar
         logo: 'អាណាចក្រធ្វើដំណើរ',
         home: 'ទំព័ដើម',
-        about: 'ពួកយើង',
-        guide: 'មគ្គុទ្ទេសក៍ដំណើរ',
-        travelBookings: 'ការកក់ដំណើរ',
+        about: 'អំពីពួកយើង',
+        guide: 'មគ្គុទ្ទេសក៍ដំណើរកំសាន្ត',
+        travelBookings: 'ការកក់ដំណើរកំសាន្ត',
         transportations: 'ការដឹកជញ្ជូន',
         hotelsDining: 'សណ្ឋាគារ និងភោជនីយដ្ឋាន',
         moreServices: 'សេវាកម្មបន្ថែម',
@@ -2137,6 +2430,9 @@ const messages = {
         heroTitle: 'សូមស្វាគមន៍មកកាន់មគ្គុទ្ទេសក៍ទេសចរណ៍,',
         heroSubtitle: 'ហើយទៅកន្លែងសុបិន្តរបស់អ្នកក្នុងប្រទេសកម្ពុជា',
         travelGuideTitle: 'ស្វែងយល់ពីខេត្តនានារបស់កម្ពុជា',
+        CheckWeather: 'ពិនិត្យអាកាសធាតុ',
+        BackToHome: 'ត្រឡប់ទៅទំព័រដើម',
+        GoToWeatherPage: 'ទៅកាន់ទំព័រអាកាសធាតុ',
         BanteayMeanchey: "បន្ទាយមានជ័យ",
         KampongThom: "កំពង់ធំ",
         StungTreng: "ស្ទឹងត្រែង",

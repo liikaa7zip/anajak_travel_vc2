@@ -1,13 +1,13 @@
 <template>
-  <div class="max-w-2xl mx-auto px-6 py-10 bg-white rounded-2xl shadow-lg mt-12 border border-purple-100">
+  <div class="font-khmer max-w-2xl mx-auto px-6 py-10 bg-white rounded-2xl shadow-lg mt-12 border border-purple-100">
     <h1 class="text-3xl font-extrabold text-center text-purple-700 mb-8">
-      Flight Reservations 
+      {{ $t("FlightReservations.Title") }}
     </h1>
 
     <form @submit.prevent="bookFlight" class="space-y-5">
       <!-- Origin -->
       <div>
-        <label class="block text-sm font-medium text-purple-700 mb-1"> Origin</label>
+        <label class="block text-sm font-medium text-purple-700 mb-1"> {{ $t("FlightReservations.Origin") }}</label>
         <input
           v-model="form.origin"
           placeholder="Enter departure province"
@@ -18,22 +18,22 @@
 
       <!-- Destination -->
       <div>
-        <label class="block text-sm font-medium text-purple-700 mb-1"> Destination</label>
+        <label class="block text-sm font-medium text-purple-700 mb-1"> {{ $t("FlightReservations.Destination") }}</label>
         <select
           v-model="form.destination"
           required
           class="w-full border border-purple-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none"
         >
-          <option value="" disabled>Select a destination</option>
-          <option>Phnom Penh</option>
-          <option>Siem Reap</option>
-          <option>Sihanoukville</option>
+          <option value="" disabled>{{ $t("FlightReservations.SelectDestination") }}</option>
+          <option>{{ $t("FlightReservations.PhnomPenh") }}</option>
+          <option>{{ $t("FlightReservations.SiemReap") }}</option>
+          <option>{{ $t("FlightReservations.Sihanoukville") }}</option>
         </select>
       </div>
 
       <!-- Date -->
       <div>
-        <label class="block text-sm font-medium text-purple-700 mb-1"> Date</label>
+        <label class="block text-sm font-medium text-purple-700 mb-1"> {{ $t("FlightReservations.Date") }}</label>
         <input
           type="date"
           v-model="form.date"
@@ -44,7 +44,7 @@
 
       <!-- Airline -->
       <div>
-        <label class="block text-sm font-medium text-purple-700 mb-1"> Airline</label>
+        <label class="block text-sm font-medium text-purple-700 mb-1"> {{ $t("FlightReservations.Airline") }}</label>
         <select
           v-model="form.airline"
           class="w-full border border-purple-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none"
@@ -64,43 +64,43 @@
 
       <!-- Class Type -->
       <div>
-        <label class="block text-sm font-medium text-purple-700 mb-1"> Class Type</label>
+        <label class="block text-sm font-medium text-purple-700 mb-1"> {{ $t("FlightReservations.ClassType") }}</label>
         <select
           v-model="form.classType"
           class="w-full border border-purple-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none"
           required
         >
-          <option>Economy</option>
-          <option>Business</option>
+          <option>{{ $t("FlightReservations.Economy") }}</option>
+          <option>{{ $t("FlightReservations.Business") }}</option>
         </select>
       </div>
 
       <!-- Passengers -->
       <div>
-        <label class="block text-sm font-medium text-purple-700 mb-1"> Passengers</label>
+        <label class="block text-sm font-medium text-purple-700 mb-1"> {{ $t("FlightReservations.Passengers") }}</label>
         <select
           v-model="form.passengers"
           class="w-full border border-purple-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-purple-400 focus:outline-none"
           required
         >
-          <option v-for="n in 5" :key="n" :value="n">{{ n }} Passenger(s)</option>
+          <option v-for="n in 5" :key="n" :value="n">{{ n }} {{ $t("FlightReservations.Passengers") }}</option>
         </select>
       </div>
 
       <!-- Auto-Calculated Price -->
       <div>
-        <label class="block text-sm font-medium text-purple-700 mb-1"> Price ($)</label>
+        <label class="block text-sm font-medium text-purple-700 mb-1"> {{ $t("FlightReservations.Price") }}</label>
         <input
           :value="computedPrice.toFixed(2)"
           readonly
           class="w-full bg-gray-100 border border-purple-300 px-4 py-2 rounded-lg focus:outline-none"
         />
-        <p class="text-sm text-gray-500 mt-1">Auto-calculated based on airline, class, and passengers.</p>
+        <p class="text-sm text-gray-500 mt-1">{{ $t("FlightReservations.Text") }}</p>
       </div>
 
       <!-- Your Name -->
       <div>
-        <label class="block text-sm font-medium text-purple-700 mb-1"> Your Name</label>
+        <label class="block text-sm font-medium text-purple-700 mb-1"> {{ $t("FlightReservations.YourName") }}</label>
         <input
           v-model="passengerName"
           placeholder="Full Name"
@@ -111,7 +111,7 @@
 
       <!-- Email -->
       <div>
-        <label class="block text-sm font-medium text-purple-700 mb-1"> Email</label>
+        <label class="block text-sm font-medium text-purple-700 mb-1"> {{ $t("FlightReservations.Email") }}</label>
         <input
           type="email"
           v-model="email"
@@ -127,7 +127,7 @@
         class="w-full bg-purple-600 text-white py-2 rounded-lg font-semibold hover:bg-purple-700 transition duration-200"
         :disabled="loading"
       >
-        Book Now
+        {{ $t("FlightReservations.BookNow") }}
       </button>
 
       <!-- View History -->
@@ -136,7 +136,7 @@
           to="FlightBookHistory"
           class="inline-block bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition duration-200"
         >
-          View Booking History
+          {{ $t("FlightReservations.ViewBookingHistory") }}
         </router-link>
       </div>
     </form>
