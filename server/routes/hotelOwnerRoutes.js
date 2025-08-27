@@ -15,10 +15,11 @@ router.use(verifyHotelOwner);
 router.get('/dashboard', controller.getDashboard);
 
 // Housekeeping routes
-router.get('/housekeeping', controller.getHousekeepingStatus);
-router.post('/housekeeping/assign', controller.assignHousekeeper);
-router.put('/housekeeping/:id', controller.updateCleaningStatus);
-
+router.get('/housekeeping', controller.getHousekeepingStatus);                
+router.get('/housekeeping/:id', controller.getHousekeepingById);               
+router.post('/housekeeping/assign', controller.assignHousekeeper);            
+router.put('/housekeeping/:id', controller.updateCleaningStatus);      
+        
 // Multer storage setup
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, "uploads/"),
