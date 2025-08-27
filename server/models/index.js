@@ -20,13 +20,13 @@ db.Room = require('./room')(sequelize, DataTypes);
 db.RoomCategory = require('./roomCategory')(sequelize, DataTypes);
 db.Message = require('./message')(sequelize, DataTypes);
 db.Food = require('./food')(sequelize, DataTypes);
-db.Order = require('./orders')(sequelize, DataTypes);
 db.OrderFoodItem = require('./orderFoodItem')(sequelize, DataTypes);
 db.BoatBooking = require('./BoatBooking')(sequelize, DataTypes);
 db.Category = require('./Category')(sequelize, DataTypes);
 db.Payment = require('./Payment')(sequelize, DataTypes);
 db.Car = require('./car')(sequelize, Sequelize.DataTypes);
 db.GalleryPhoto = require('./GalleryPhoto')(sequelize, DataTypes);
+db.Order = require('./order')(sequelize, DataTypes);
 
 db.Review = require('./review')(sequelize, DataTypes);
 // === Define Relationships === //
@@ -85,8 +85,14 @@ db.BoatBooking.belongsTo(db.User, { foreignKey: 'userId' });
 
 db.Car.hasMany(db.Booking, { foreignKey: 'carId' });
 db.Booking.belongsTo(db.Car, { foreignKey: 'carId' });
-db.User.hasMany(db.Order, { foreignKey: 'userId' });
+
+// Each Order belongs to ONE User (nullable, since hotel guests may not register)
+db.User.hasMany(db.Order, { foreignKey: 'userId', onDelete: 'SET NULL' });
 db.Order.belongsTo(db.User, { foreignKey: 'userId' });
+
+// Each Order belongs to ONE Hotel
+db.Hotel.hasMany(db.Order, { foreignKey: 'hotelId', onDelete: 'CASCADE' });
+db.Order.belongsTo(db.Hotel, { foreignKey: 'hotelId' });
 
 // Category ↔ Food
 db.Category.hasMany(db.Food, { foreignKey: 'categoryId', as: 'foods' });

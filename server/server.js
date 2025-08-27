@@ -33,7 +33,6 @@ const createDefaultRoles = require('./seeders/createDefaultRoles');
 
 // orderfood
 const foodRoutes = require('./routes/foodRoutes');
-const orderFoodRoutes = require('./routes/orderFoodRoutes');
 const adminUserRoutes = require('./routes/adminUserRoutes');
 const messageRoutes = require('./routes/messageRoutes');
 const featuredStoriesRoutes = require('./routes/featuredStoriesRoutes');
@@ -43,6 +42,7 @@ const itineraryRoutes = require('./routes/itineraryRoutes');
 const categoryRoutes = require('./routes/category');
 const carRoutes = require('./routes/carRoutes');
 const seatsRoutes = require('./routes/seatsRoute');
+const orderRoutes = require('./routes/orderRoutes');
 
 
 
@@ -91,7 +91,6 @@ app.use('/api/hotel-bookings', hotelBookingRoutes);
 app.use('/api/user-hotels', userHotelRoutes);
 app.use('/api/locations', locationRoutes);
 app.use('/api/foods', foodRoutes);
-app.use('/api/orders', orderFoodRoutes);
 // app.use('/api', locationRoutes);
 app.use('/api/featured-stories', featuredStoriesRoutes);
 app.use('/api/travel-guides', travelGuidesRoutes);
@@ -103,6 +102,7 @@ app.use('/api/seats', seatsRoutes);
 app.use('/api/reports', reportRoutes);
 app.use("/uploads", express.static("uploads"));
 app.use('/api/reviews', reviewRoutes);
+app.use('/api/orders', orderRoutes);
 
 // Serve uploads folder so images can be accessed publicly
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
@@ -140,11 +140,11 @@ const io = new Server(server, {
 });
 
 // Middleware
-app.use(cors({
-  origin: 'http://localhost:3000', // Your frontend URL
-  credentials: true,
-}));
-app.use(express.json());
+// app.use(cors({
+//   origin: 'http://localhost:3000', 
+//   credentials: true,
+// }));
+// app.use(express.json());
 
 // Routes
 app.use('/api', weatherRoutes);
@@ -158,7 +158,6 @@ app.use('/api/hotels', hotelRoutes);
 app.use('/api/hotel-booking', hotelBookingRoutes);
 app.use('/api/locations', locationRoutes);
 app.use('/api/foods', foodRoutes);
-app.use('/api/orders', orderFoodRoutes);
 app.use('/api/featured-stories', featuredStoriesRoutes);
 app.use('/api/travel-guides', travelGuidesRoutes);
 app.use('/api/gallery-photos', galleryPhotosRoutes);

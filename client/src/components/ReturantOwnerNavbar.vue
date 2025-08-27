@@ -39,12 +39,21 @@
         >
           <i class="fas fa-utensils"></i> <span>Products</span>
         </router-link>
-        <router-link
-          to="foodOrder"
-          class="nav-link"
-        >
-          <i class="fas fa-receipt"></i> <span>Orders</span>
-        </router-link>
+<router-link
+  to="foodOrder"
+  class="nav-link"
+>
+  <i class="fas fa-receipt"></i>
+  <span>Orders</span>
+  <span
+    v-if="ordersStore.pendingCount() > 0"
+    class="ml-auto bg-red-500 text-white text-xs px-2 py-0.5 rounded-full font-semibold"
+  >
+    {{ ordersStore.pendingCount() }}
+  </span>
+</router-link>
+
+
       </nav>
 
       <button
@@ -59,10 +68,18 @@
 </template>
 
 <script setup>
-import { useAuth } from "../stores/useAuth";
+import { useOrdersStore } from '@/stores/orders'
+import { onMounted } from 'vue'
 
-const {logout}= useAuth();
+const ordersStore = useOrdersStore()
+
+// Fetch orders when sidebar mounts
+onMounted(() => {
+  ordersStore.fetchOrders()
+})
 </script>
+
+
 
 <style scoped>
 body {

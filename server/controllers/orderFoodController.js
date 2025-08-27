@@ -1,151 +1,181 @@
-const { Order, Food, OrderFoodItem } = require('../models');
+const { Order, Food, Hotel, User } = require('../models');
 
-exports.getAllOrders = async (req, res) => {
-  try {
-    const userId = req.user.id;
-    const role = req.user.role;
-
-    const queryOptions = {
-      include: [
-        {
-          model: Food,
-          through: { model: OrderFoodItem },
-        },
-      ],
-      order: [['createdAt', 'DESC']],
-    };
-
-    // ✅ If normal user → filter by userId
-    if (role !== 'restaurant_owner') {
-      queryOptions.where = { userId };
-    }
-
-    const orders = await Order.findAll(queryOptions);
-
-    res.json(orders);
-  } catch (error) {
-    console.error("Error getting orders:", error);
-    res.status(500).json({ error: "Failed to fetch orders" });
-  }
-};
-
-
-
-
+// ======================
+// ✅ USER: Create new order
+// ======================
 exports.createOrder = async (req, res) => {
   try {
-    console.log('Received order:', req.body);
-    console.log('Authenticated user:', req.user);
+    // Find the food to get its restaurant owner
+    const food = await Food.findByPk(req.body.foodId);
+    if (!food) return res.status(404).json({ message: "Food not found" });
 
-    const { customerName, items } = req.body;
-    if (!req.user || !req.user.id) throw new Error('User not authenticated');
+    const newOrder = await Order.create({
+      userId: req.body.userId,
+      foodId: food.id,
+      hotelId: req.body.hotelId,
+      customerName: req.body.customerName,
+      customerPhone: req.body.customerPhone,
+      roomNumber: req.body.roomNumber,
+      quantity: req.body.quantity,
+      totalPrice: req.body.totalPrice,
+      status: req.body.status || "pending",
+      restaurantOwnerId: food.restaurantOwnerId  // <<< crucial
+    });
+
+    res.status(201).json(newOrder);
+  } catch (err) {
+    console.error("Error creating order:", err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+// ======================
+// ✅ USER: Get logged-in user’s orders
+// ======================
+exports.getOrders = async (req, res) => {
+  try {
+    if (!req.user) return res.status(401).json({ message: 'Unauthorized' });
 
     const userId = req.user.id;
 
-    let totalPrice = 0;
-
-    for (const item of items) {
-      console.log('Fetching food with ID:', item.foodId);
-      const food = await Food.findByPk(item.foodId);
-      if (!food) throw new Error(`Food not found: ID ${item.foodId}`);
-      totalPrice += food.price * item.quantity;
-    }
-
-    const order = await Order.create({ customerName, userId, totalPrice });
-    console.log('Order created:', order);
-
-    for (const item of items) {
-      await OrderFoodItem.create({
-        orderId: order.id,
-        foodId: item.foodId,
-        quantity: item.quantity,
-      });
-    }
-
-    res.status(201).json({ message: 'Order created', orderId: order.id });
-
-  } catch (error) {
-    console.error('❌ Order creation failed:', error);
-    res.status(500).json({ error: 'Order creation failed', details: error.message });
-  }
-};
-
-
-
-exports.getOrderById = async (req, res) => {
-  try {
-    const id = req.params.id;
-
-    const order = await Order.findByPk(id, {
-      include: [{
-        model: Food,
-        attributes: ['id', 'name', 'price', 'image'],
-        through: {
-          attributes: ['quantity'],
-        },
-      }]
+    const orders = await Order.findAll({
+      where: { userId },
+      include: [
+        { model: Food, attributes: ['id', 'name', 'price', 'image'] },
+        { model: Hotel, attributes: ['id', 'name'] }
+      ],
+      order: [['createdAt', 'DESC']]
     });
 
-    if (!order) {
-      return res.status(404).json({ error: 'Order not found' });
-    }
-
-    res.json(order);
+    res.status(200).json(orders);
   } catch (error) {
-    console.error('Error fetching order by ID:', error);
-    res.status(500).json({ error: 'Failed to fetch order' });
+    res.status(500).json({ message: 'Failed to fetch orders', error: error.message });
   }
 };
 
 
-exports.updateOrder = async (req, res) => {
+exports.updateRestaurantOrderStatus = async (req, res) => {
   try {
-    const order = await Order.findByPk(req.params.id);
-    if (!order) return res.status(404).json({ error: 'Order not found' });
-
-    const { customerName, items } = req.body;
-    if (!customerName || !items || !items.length) {
-      return res.status(400).json({ error: 'Invalid order data' });
+    // Only restaurant owners can complete orders
+    if (!req.user || req.user.role !== 'restaurant_owner') {
+      return res.status(403).json({ message: 'Forbidden: Restaurant owner only' });
     }
 
-    let totalPrice = 0;
-    for (const item of items) {
-      const food = await Food.findByPk(item.foodId);
-      if (!food) return res.status(400).json({ error: `Food ID ${item.foodId} not found` });
-      totalPrice += food.price * item.quantity;
+    const orderId = req.params.id;
+
+    // Fetch the order along with its food info
+    const order = await Order.findOne({
+      where: { id: orderId },
+      include: [{ model: Food, attributes: ['id', 'name', 'image'] }],
+    });
+
+    if (!order) return res.status(404).json({ message: 'Order not found' });
+
+    // Check if this order belongs to the logged-in restaurant owner
+    if (order.restaurantOwnerId !== req.user.id) {
+      return res.status(403).json({ message: 'Not your order' });
     }
 
-    await order.update({ customerName, totalPrice });
-
-    // Delete old items
-    await OrderFoodItem.destroy({ where: { orderId: order.id } });
-
-    // Insert new items
-    for (const item of items) {
-      await OrderFoodItem.create({
-        orderId: order.id,
-        foodId: item.foodId,
-        quantity: item.quantity,
-      });
+    // Only allow completing pending orders
+    if (order.status !== 'pending') {
+      return res.status(400).json({ message: 'Order cannot be completed' });
     }
 
-    res.json({ message: 'Order updated', orderId: order.id });
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to update order' });
+    order.status = 'completed';
+    await order.save();
+
+    res.status(200).json({ message: 'Order completed', order });
+  } catch (err) {
+    console.error('Error updating order status:', err);
+    res.status(500).json({ message: 'Failed to update order', error: err.message });
   }
 };
 
+// USER cancel order
 exports.cancelOrder = async (req, res) => {
   try {
-    const order = await Order.findByPk(req.params.id);
+    if (!req.user) return res.status(401).json({ message: 'Unauthorized' });
+
+    const orderId = req.params.id;
+
+    const order = await Order.findOne({ where: { id: orderId } });
+
     if (!order) return res.status(404).json({ message: 'Order not found' });
+
+    // Allow user to cancel their own pending order
+    if (req.user.role === 'user' && order.userId !== req.user.id) {
+      return res.status(403).json({ message: 'Not your order' });
+    }
+
+    if (order.status !== 'pending') {
+      return res.status(400).json({ message: 'Order cannot be cancelled' });
+    }
 
     order.status = 'cancelled';
     await order.save();
 
-    res.json({ message: 'Order cancelled successfully', order });
+    res.status(200).json({ message: 'Order cancelled', order });
   } catch (err) {
-    res.status(500).json({ message: 'Error cancelling order', error: err.message });
+    console.error('Error cancelling order:', err);
+    res.status(500).json({ message: 'Failed to cancel order', error: err.message });
   }
 };
 
+
+// Fetch restaurant orders
+exports.getRestaurantOrders = async (req, res) => {
+  try {
+    if (!req.user || req.user.role !== 'restaurant_owner') {
+      return res.status(403).json({ message: 'Forbidden: Restaurant owner only' });
+    }
+
+    const orders = await Order.findAll({
+      where: { restaurantOwnerId: req.user.id },
+      include: [{ model: Food, attributes: ['id', 'name', 'image'] }],
+      order: [['createdAt', 'DESC']],
+    });
+
+    res.status(200).json(orders);
+  } catch (err) {
+    console.error('Error fetching restaurant orders:', err);
+    res.status(500).json({ message: 'Failed to fetch orders', error: err.message });
+  }
+};
+
+
+// DELETE /api/orders/:id
+exports.deleteOrder = async (req, res) => {
+  try {
+    if (!req.user) return res.status(401).json({ message: 'Unauthorized' });
+
+    const orderId = req.params.id;
+
+    // Fetch the order first
+    const order = await Order.findOne({ where: { id: orderId } });
+    if (!order) return res.status(404).json({ message: 'Order not found' });
+
+    // Only allow:
+    // - restaurant owner to delete their own completed/cancelled orders
+    // - user to delete their own cancelled orders (optional)
+    if (req.user.role === 'restaurant_owner' && order.restaurantOwnerId !== req.user.id) {
+      return res.status(403).json({ message: 'Not your order' });
+    }
+
+    if (req.user.role === 'user' && order.userId !== req.user.id) {
+      return res.status(403).json({ message: 'Not your order' });
+    }
+
+    // Only delete orders that are completed or cancelled
+    if (!['completed','cancelled'].includes(order.status)) {
+      return res.status(400).json({ message: 'Only completed or cancelled orders can be deleted' });
+    }
+
+    await order.destroy();
+
+    res.status(200).json({ message: 'Order deleted successfully' });
+
+  } catch (err) {
+    console.error('Error deleting order:', err);
+    res.status(500).json({ message: 'Failed to delete order', error: err.message });
+  }
+};
