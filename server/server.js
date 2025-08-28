@@ -47,6 +47,7 @@ const orderRoutes = require('./routes/orderRoutes');
 
 
 
+
 const db = require('./models'); // Sequelize models
 const Message = db.Message;
 
@@ -209,6 +210,7 @@ sequelize.sync({ alter: true })
     await createDefaultAdmin();
     await createDefaultLocations();
     await createDefaultCars();
+    
     
 
     server.listen(PORT, () => {
