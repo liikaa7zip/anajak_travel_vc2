@@ -20,14 +20,13 @@
   >
     Add Rooms
   </router-link>
-
-  <!-- View All Bookings Button -->
-  <router-link
-    to="/hotel_owner/hotel-bookings"
-    class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition flex items-center justify-center"
+    <!-- New Category Button -->
+  <button
+    @click="showModal = true"
+    class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition flex items-center justify-center"
   >
-    View All Bookings
-  </router-link>
+    New Category
+  </button>
 </div>
 
 
@@ -95,6 +94,72 @@
     <!-- Feedback -->
     <div v-if="message" class="mt-4 text-center text-green-600 font-medium">{{ message }}</div>
     <div v-if="error" class="mt-4 text-center text-red-600 font-medium">{{ error }}</div>
+
+    <!-- Modal -->
+    <transition name="fade">
+      <div
+        v-if="showModal"
+        class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+      >
+        <transition name="slide-down">
+          <div class="bg-white rounded-3xl p-10 w-1/2 max-w-4xl relative shadow-2xl transform transition-transform duration-300 scale-90">
+            <h2 class="text-3xl font-bold mb-6 text-purple-600">Create Room Category</h2>
+            
+            <form @submit.prevent="createCategory">
+              <div class="mb-6">
+                <label class="block mb-2 font-medium text-gray-700 text-lg">Name</label>
+                <input
+                  type="text"
+                  v-model="form.name"
+                  class="w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition text-lg"
+                  required
+                />
+              </div>
+              <div class="mb-6">
+                <label class="block mb-2 font-medium text-gray-700 text-lg">Description</label>
+                <textarea
+                  v-model="form.description"
+                  class="w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition text-lg"
+                  rows="4"
+                ></textarea>
+              </div>
+              <div class="mb-6">
+                <label class="block mb-2 font-medium text-gray-700 text-lg">Base Price</label>
+                <input
+                  type="number"
+                  v-model="form.basePrice"
+                  class="w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition text-lg"
+                  required
+                />
+              </div>
+              <div class="flex justify-end gap-4 mt-6">
+                <button
+                  type="button"
+                  @click="showModal = false"
+                  class="px-6 py-3 bg-gray-300 rounded-lg hover:bg-gray-400 transition text-lg"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  class="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition text-lg"
+                >
+                  Create
+                </button>
+              </div>
+            </form>
+            
+            <!-- Close button -->
+            <button
+              @click="showModal = false"
+              class="absolute top-5 right-5 text-gray-400 hover:text-gray-700 transition text-2xl"
+            >
+              ✕
+            </button>
+          </div>
+        </transition>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -109,6 +174,26 @@ const error = ref('');
 const message = ref('');
 const searchQuery = ref('');
 const router = useRouter();
+const showModal = ref(false);
+
+const form = ref({
+  name: '',
+  description: '',
+  basePrice: ''
+});
+
+const createCategory = async () => {
+  try {
+    await axios.post('http://localhost:5000/api/hotel-owners/room-categories', form.value);
+    message.value = 'Category created successfully!';
+    showModal.value = false;
+    form.value = { name: '', description: '', basePrice: '' };
+    // Optionally: fetch updated categories list
+  } catch (err) {
+    console.error(err);
+    error.value = 'Failed to create category.';
+  }
+};
 
 const fetchRooms = async () => {
   loading.value = true;
@@ -163,5 +248,26 @@ onMounted(fetchRooms);
 /* Optional: table hover animation */
 table tbody tr:hover {
   transform: translateY(-1px);
+}
+
+/* Fade-in modal */
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.25s ease;
+}
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
+
+/* Slide-down modal */
+.slide-down-enter-active {
+  transition: all 0.3s ease-out;
+}
+.slide-down-enter-from {
+  transform: translateY(-20px) scale(0.95);
+  opacity: 0;
+}
+.slide-down-enter-to {
+  transform: translateY(0) scale(1);
+  opacity: 1;
 }
 </style>
