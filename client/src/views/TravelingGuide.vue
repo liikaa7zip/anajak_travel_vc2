@@ -21,12 +21,12 @@
 
     <!-- Travel Guide -->
     <section
-      class="bg-white mx-3 sm:mx-4 md:mx-8 lg:mx-12 my-6 p-4 sm:p-6 rounded-xl shadow-md"
+      class="bg-white mx-4 sm:mx-4 md:mx-8 lg:mx-12 my-6 p-4 sm:p-6 rounded-xl shadow-md"
     >
       <h2 class="text-xl sm:text-2xl md:text-3xl font-bold mb-6 text-purple-800 text-center sm:text-left">
         {{ $t("travelGuideTitle") }}
       </h2>
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 sm:gap-6">
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 sm:gap-3">
         <span v-for="item in [
             'BanteayMeanchey','KampongThom','StungTreng','Rattanakiri','OddarMeanchey',
             'PreahVihear','Takeo','SihanoukVille','Pursat','Mondulkiri',
