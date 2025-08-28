@@ -81,17 +81,34 @@
 
 
     <!-- Category Filters -->
-    <div class="flex flex-wrap justify-center gap-3 mb-6">
-      <button v-for="cat in categories" :key="cat.id"
-        @click="filterByCategory(cat.id)"
-        class="px-4 py-2 rounded-full border border-purple-400 text-purple-600 hover:bg-purple-600 hover:text-white transition"
-      >
-        {{ cat.name }}
-      </button>
-      <button @click="filterByCategory(null)"
-        class="px-4 py-2 rounded-full border border-gray-400 text-gray-600 hover:bg-gray-600 hover:text-white transition"
-      >All</button>
-    </div>
+<div class="flex flex-wrap justify-center gap-3 mb-2 relative">
+  <div class="flex flex-wrap gap-3">
+    <button v-for="cat in categories" :key="cat.id"
+      @click="filterByCategory(cat.id)"
+      class="px-4 py-2 rounded-full border border-purple-400 text-purple-600 hover:bg-purple-600 hover:text-white transition"
+    >
+      {{ cat.name }}
+    </button>
+    <button @click="filterByCategory(null)"
+      class="px-4 py-2 rounded-full border border-gray-400 text-gray-600 hover:bg-gray-600 hover:text-white transition"
+    >
+      All
+    </button>
+  </div>
+
+  <!-- Right-aligned button -->
+  <div class="w-full flex justify-end mt-2">
+    <router-link
+      to="/my-orders"
+      class="px-4 py-2 rounded-full bg-pink-500 text-white font-semibold hover:bg-pink-600 transition"
+    >
+      View My Orders
+    </router-link>
+  </div>
+</div>
+
+
+    
 
     <!-- Regular Foods Grid -->
 <div ref="foodSection" v-if="filteredFoods.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -132,10 +149,10 @@
         <!-- Buttons -->
         <div class="mt-2 flex gap-2">
           <button
-            @click="buyFood(food)"
+            @click="addToCart(food)"
             class="flex-1 bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-2 rounded-lg font-semibold shadow-lg transform transition hover:scale-105 hover:shadow-2xl"
           >
-            Buy Now
+            Add to Cart
           </button>
           <button
             @click="quickView(food)"
@@ -158,11 +175,70 @@
       <p class="text-lg italic">No foods available for this hotel yet.</p>
     </div>
 
+    <!-- Floating Cart Button -->
+<div class="fixed bottom-6 left-6 z-50">
+  <button @click="showCartModal = true"
+    class="bg-pink-500 text-white px-4 py-3 rounded-full shadow-lg flex items-center gap-2 hover:bg-pink-600 transition">
+    🛒 Cart ({{ cart.length }})
+  </button>
+</div>
+
+<!-- Cart Modal -->
+<div v-if="showCartModal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+  <div class="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-lg relative">
+    <button @click="showCartModal = false"
+      class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-xl">✕</button>
+    
+    <h2 class="text-2xl font-bold text-purple-700 mb-4">🛒 Your Cart</h2>
+
+    <div v-if="cart.length > 0" class="space-y-4 max-h-96 overflow-y-auto">
+      <div v-for="item in cart" :key="item.food.id" class="flex justify-between items-center border-b pb-2">
+        <div>
+          <p class="font-semibold">{{ item.food.name }}</p>
+          <p class="text-sm text-gray-500">Price: ${{ item.food.price.toFixed(2) }}</p>
+          <p class="text-sm text-gray-500">Qty: {{ item.quantity }}</p>
+        </div>
+        <div class="flex flex-col gap-1">
+          <button @click="item.quantity++" class="text-green-600 font-bold">+</button>
+          <button @click="item.quantity = item.quantity > 1 ? item.quantity - 1 : 1" class="text-yellow-600 font-bold">-</button>
+          <button @click="removeFromCart(item.food.id)" class="text-red-600 font-bold">🗑</button>
+        </div>
+      </div>
+
+      <!-- User Info Inputs -->
+      <div class="mt-4 space-y-2">
+        <input v-model="cartOrderForm.name" type="text" placeholder="Your Name"
+          class="w-full border px-3 py-2 rounded-lg" required />
+        <input v-model="cartOrderForm.phone" type="text" placeholder="Phone Number"
+          class="w-full border px-3 py-2 rounded-lg" required />
+        <input v-model="cartOrderForm.room" type="text" placeholder="Room Number (optional)"
+          class="w-full border px-3 py-2 rounded-lg" />
+      </div>
+
+      <p class="font-semibold text-lg text-right mt-2">
+        Total: ${{ cartTotal.toFixed(2) }}
+      </p>
+    </div>
+
+    <div v-else class="text-gray-500 text-center">Your cart is empty.</div>
+
+    <button @click="placeCartOrder"
+      class="mt-4 w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white py-3 rounded-lg font-semibold hover:scale-105 transition"
+      :disabled="cart.length === 0 || !cartOrderForm.name || !cartOrderForm.phone">
+      Confirm Order
+    </button>
   </div>
+</div>
+
+
+  </div>
+
+
+
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
 
@@ -176,8 +252,96 @@ const filteredFoods = ref([])
 const loading = ref(false)
 const error = ref(null)
 const placeholderImage = 'https://via.placeholder.com/400x250?text=No+Image'
+const showCartModal = ref(false)
+const cart = ref([])
 
-const handleImageError = (event) => { event.target.src = placeholderImage }
+const showOrderModal = ref(false)
+const selectedFood = ref(null)
+const orderForm = ref({
+  name: '',
+  phone: '',
+  room: '',
+  quantity: 1
+})
+
+const cartOrderForm = ref({
+  name: '',
+  phone: '',
+  room: ''
+})
+
+const cartTotal = computed(() => {
+  return cart.value.reduce((sum, item) => sum + item.food.price * item.quantity, 0)
+})
+
+const removeFromCart = (foodId) => {
+  const index = cart.value.findIndex(i => i.food.id === foodId)
+  if (index !== -1) cart.value.splice(index, 1)
+}
+
+const cartItems = cart.value.map(item => ({
+  foodId: item.food.id,
+  quantity: item.quantity
+}));
+
+
+const addToCart = (food) => {
+  // Check if already in cart
+  const existing = cart.value.find(item => item.food.id === food.id)
+  if (existing) {
+    existing.quantity += 1 // increment quantity if already in cart
+  } else {
+    cart.value.push({ food, quantity: 1 }) // add new food
+  }
+  alert(`✅ ${food.name} added to cart!`)
+}
+
+// Place cart order
+async function placeCartOrder() {
+  try {
+    if (!cartOrderForm.value.name || !cartOrderForm.value.phone) {
+      alert("Please enter your name and phone");
+      return;
+    }
+
+    const currentUser = JSON.parse(localStorage.getItem('user')) || null;
+    if (!currentUser) {
+      alert("You must be logged in to place an order.");
+      return;
+    }
+
+    const token = localStorage.getItem('token'); // your JWT
+
+    // Use cart.value.map instead of cart.map
+    const orderPayload = cart.value.map(item => ({
+      userId: currentUser.id,
+      foodId: item.food.id,
+      hotelId: item.food.hotelId,
+      customerName: cartOrderForm.value.name,
+      customerPhone: cartOrderForm.value.phone,
+      roomNumber: cartOrderForm.value.room,
+      quantity: item.quantity,
+      totalPrice: item.food.price * item.quantity
+    }));
+
+    for (let order of orderPayload) {
+      await axios.post('http://localhost:5000/api/orders', order, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+    }
+
+    alert("✅ Order placed successfully!");
+    cart.value = [];
+    cartOrderForm.value = { name: '', phone: '', room: '' };
+    showCartModal.value = false;
+
+  } catch (err) {
+    console.error(err);
+    alert("❌ Failed to place order. Check console for details.");
+  }
+}
+
+
 
 const fetchFoods = async () => {
   loading.value = true
@@ -195,8 +359,46 @@ const fetchFoods = async () => {
 }
 
 const buyFood = (food) => {
-  alert(`You clicked Buy for "${food.name}" - $${food.price.toFixed(2)}`)
+  selectedFood.value = food
+  showOrderModal.value = true
 }
+
+const placeOrder = async () => {
+  if (!selectedFood.value) return
+
+  try {
+    // Get logged-in user
+    const currentUser = JSON.parse(localStorage.getItem('user')) || null
+
+    // Build payload
+    const payload = {
+      userId: currentUser ? currentUser.id : null,   // assign logged-in user if exists
+      foodId: selectedFood.value.id,
+      hotelId,
+      customerName: orderForm.value.name,
+      customerPhone: orderForm.value.phone,
+      roomNumber: orderForm.value.room || null,
+      quantity: orderForm.value.quantity,
+      totalPrice: selectedFood.value.price * orderForm.value.quantity,
+      status: "pending"
+    }
+
+    // Send order to backend
+    await axios.post('http://localhost:5000/api/orders', payload)
+
+    alert('✅ Your order has been placed! Food will be delivered to your room.')
+
+    // Reset modal and form
+    showOrderModal.value = false
+    orderForm.value = { name: '', phone: '', room: '', quantity: 1 }
+
+  } catch (err) {
+    console.error('Error placing order:', err)
+    alert('❌ Failed to place order. Try again.')
+  }
+}
+
+
 
 const quickView = (food) => {
   alert(`Quick view for "${food.name}": \nPrice: $${food.price.toFixed(2)} \nDescription: ${food.description || 'Delicious!'}`)
@@ -206,13 +408,9 @@ const filterByCategory = (catId) => {
   filteredFoods.value = catId ? regularFoods.value.filter(f => f.category?.id === catId) : regularFoods.value
 }
 
-const scrollToFoods = () => {
-  const section = document.querySelector('[ref="foodSection"]')
-  section?.scrollIntoView({ behavior: 'smooth' })
-}
-
 onMounted(() => fetchFoods())
 </script>
+
 
 <style scoped>
 .container { max-width: 1200px; }

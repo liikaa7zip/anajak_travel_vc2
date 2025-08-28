@@ -150,6 +150,7 @@ import CreateRoom from '@/views/HotelOwner/CreateRoom.vue'
 import Review from '@/views/Review.vue'
 import HotelBookings from '@/views/HotelOwner/HotelBookings.vue'
 import FoodPage from '@/views/resturantOwner/FoodPage.vue'
+import MyOrders from '@/views/resturantOwner/MyOrders.vue'
 // Auth guard
 
 const getUserFromStorage = () => {
@@ -201,6 +202,7 @@ const routes = [
       { path: 'BookBoatHistory', component: BookingboatHistory },
       { path: 'user-plan', component: UserPlan },
       { path: 'payment', component: Payment},
+      { path: 'my-orders', component: MyOrders, beforeEnter: requireAuth },
 
 
 

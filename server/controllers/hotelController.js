@@ -45,7 +45,7 @@ exports.getAllHotels = async (req, res) => {
       include: [
         {
           model: Location,
-          as: 'Location', // <-- Use the correct alias
+          as: 'Location',
           attributes: ['name'],
         },
       ],
@@ -53,6 +53,18 @@ exports.getAllHotels = async (req, res) => {
 
     if (!hotel) {
       return res.status(404).json({ error: 'Hotel not found' });
+    }
+
+    // Parse amenities if stored as JSON
+    let amenities = {};
+    let hasRestaurant = false;
+    if (hotel.amenities) {
+      try {
+        amenities = typeof hotel.amenities === 'string' ? JSON.parse(hotel.amenities) : hotel.amenities;
+        hasRestaurant = amenities.hasRestaurant === true || amenities.hasRestaurant === 'true';
+      } catch (err) {
+        console.warn('Failed to parse amenities JSON', err);
+      }
     }
 
     res.json({
@@ -63,12 +75,16 @@ exports.getAllHotels = async (req, res) => {
       imageUrl: hotel.imageUrl,
       locationId: hotel.locationId,
       locationName: hotel.Location ? hotel.Location.name : null,
+      amenities,         // send amenities too if needed
+      hasRestaurant      // ✅ send this field for Vue to use
     });
+
   } catch (error) {
     console.error('Error fetching hotel by ID:', error);
     res.status(500).json({ error: 'Failed to fetch hotel' });
   }
 };
+
 exports.getRoomsByHotel = async (req, res) => {
   const { hotelId } = req.params;
 
