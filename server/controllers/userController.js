@@ -5,7 +5,9 @@ const User = db.User;
 const saltRounds = 10;
 const secretKey = process.env.JWT_SECRET || 'your-secret-key';
 const {  Hotel } = require('../models');
-
+const path = require("path");
+const PROFILE_DIR = path.join(__dirname, "../uploads/profile");
+const fs = require("fs");
 
 
 // Public registration — role forced to 'user'
@@ -240,5 +242,90 @@ exports.getHotelsWithRestaurants = async (req, res) => {
   } catch (err) {
     console.error('Error fetching hotels with restaurants:', err);
     res.status(500).json({ message: 'Server error' });
+  }
+};
+
+
+// controllers/userController.js
+exports.getProfile = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const user = await User.findByPk(userId, {
+      attributes: ["id", "username", "email", "role", "profileImage", "bio"],
+    });
+
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    // Construct full URL for profile image
+   const profileImageUrl = user.profileImage
+  ? `http://localhost:5000/uploads/profile/${user.profileImage}`
+  : `http://localhost:5000/uploads/profile/default.png`;
+
+
+    res.json({
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      role: user.role,
+      bio: user.bio,
+      profileImageUrl: profileImageUrl, // ✅ important
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+
+
+// Update profile fields
+exports.updateProfile = async (req, res) => {
+  try {
+    const { username, email, password, bio } = req.body;
+    const user = await User.findByPk(req.user.id);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    if (username) user.username = username;
+    if (email) user.email = email;
+    if (bio) user.bio = bio; // ✅ add bio
+
+    if (password && password.length >= 6) {
+      user.password = await bcrypt.hash(password, 10);
+    }
+
+    await user.save();
+    const clean = user.get({ plain: true });
+    delete clean.password;
+    res.json({ message: "Profile updated", user: clean });
+  } catch (err) {
+    console.error("Profile update error:", err);
+    res.status(500).json({ message: "Failed to update profile" });
+  }
+};
+
+
+exports.uploadProfileImage = async (req, res) => {
+  try {
+    if (!req.file) return res.status(400).json({ message: "No image uploaded" });
+
+    const user = await User.findByPk(req.user.id);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    // Delete old image if not default
+    if (user.profileImage && user.profileImage !== "default.png") {
+      const oldPath = path.join(PROFILE_DIR, user.profileImage);
+      if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
+    }
+
+    user.profileImage = req.file.filename;
+    await user.save();
+
+    res.json({
+      message: "Image updated",
+      imageUrl: `/uploads/profile/${user.profileImage}`,
+    });
+  } catch (err) {
+    console.error("Upload error:", err);
+    res.status(500).json({ message: "Failed to upload image" });
   }
 };

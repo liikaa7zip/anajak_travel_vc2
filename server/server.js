@@ -105,7 +105,7 @@ app.use('/api/reviews', reviewRoutes);
 app.use('/api/orders', orderRoutes);
 
 // Serve uploads folder so images can be accessed publicly
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 const uploadDir = path.join(__dirname, "uploads");
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir);
@@ -128,6 +128,8 @@ app.post("/upload", upload.single("file"), (req, res) => {
   res.json({ file: req.file });
 });
 
+// app.use('/uploads/profile', express.static(path.join(__dirname, 'uploads/profile')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Uncomment if you want admin user routes
 // app.use('/api/admin-users', adminUserRoutes);
 app.use('/api/categories', categoryRoutes);

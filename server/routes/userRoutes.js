@@ -4,6 +4,27 @@ const { User, Hotel } = require('../models');
 const userController = require('../controllers/userController');
 const { verifyToken, verifyAdmin,verifyRestaurantOwner,verifyAdminOrRestaurantOwner , } = require('../middlewares/authMiddleware');
 const { Op } = require('sequelize');
+const multer = require("multer");
+const path = require("path");
+
+
+const fs = require("fs");
+const UPLOAD_DIR = path.join(__dirname, "../uploads/profile");
+
+if (!fs.existsSync(UPLOAD_DIR)) fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, UPLOAD_DIR),
+  filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname)),
+});
+
+const upload = multer({ storage });
+
+
+router.get("/profile", verifyToken, userController.getProfile);
+router.put("/profile", verifyToken, userController.updateProfile);
+router.post("/profile/image", verifyToken, upload.single("profileImage"), userController.uploadProfileImage);
+
 
 // Public routes
 router.post('/register', userController.registerUser);

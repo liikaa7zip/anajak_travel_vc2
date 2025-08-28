@@ -29,7 +29,16 @@ module.exports = (sequelize, DataTypes) => {
     hasRestaurant: {
       type: DataTypes.ENUM('has_restaurant', 'no_restaurant'),
       allowNull: true, // only relevant for hotel_owner
-    }
+    },
+    profileImage: { 
+      type: DataTypes.STRING, 
+      allowNull: true, 
+      defaultValue: "default.png" 
+    },
+    bio: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
   }, {
     tableName: 'users',
     timestamps: true,

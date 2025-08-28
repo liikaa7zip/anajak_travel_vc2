@@ -60,7 +60,7 @@ exports.updateFood = async (req, res) => {
 
 exports.getFoodById = async (req, res) => {
   try {
-    console.log('Fetching food with ID:', req.params.id);
+    // console.log('Fetching food with ID:', req.params.id);
 
     const food = await Food.findByPk(req.params.id, {
       include: {
