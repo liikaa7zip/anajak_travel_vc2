@@ -1,0 +1,174 @@
+const { BoatBooking, User, Payment } = require('../models');
+
+exports.createBooking = async (req, res) => {
+  try {
+    const { boatType } = req.body;
+    let price = 0;
+    switch (boatType) {
+      case 'Speed Boat':
+        price = 50;
+        break;
+      case 'Ferry':
+        price = 30;
+        break;
+      case 'Longtail Boat':
+        price = 20;
+        break;
+      default:
+        price = 0;
+    }
+
+    const userId = req.body.userId || 1; // Replace with auth user ID when available
+
+    const booking = await BoatBooking.create({
+      ...req.body,
+      price,
+      userId,
+    });
+
+    res.status(201).json({ message: 'Booking created', booking });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to create booking', detail: error.message });
+  }
+};
+
+exports.getAllBookings = async (req, res) => {
+  try {
+    const bookings = await BoatBooking.findAll({
+      include: [
+        {
+          model: User,
+          attributes: ['username']
+        }
+      ]
+    });
+    res.json(bookings);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to fetch bookings' });
+  }
+};
+
+exports.getBookingsByUserId = async (req, res) => {
+  try {
+    const bookings = await BoatBooking.findAll({
+      where: { userId: req.params.userId },
+      include: [
+        {
+          model: User,
+          attributes: ['username']
+        }
+      ]
+    });
+    res.json(bookings);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to fetch bookings' });
+  }
+};
+
+// NOTE: function name fixed here to lowercase 'b' to match your route
+exports.getboatBookingById = async (req, res) => {
+  try {
+    const booking = await BoatBooking.findByPk(req.params.id, {
+      include: [
+        { model: User, attributes: ['username'] }
+      ]
+    });
+
+    if (!booking) {
+      return res.status(404).json({ message: 'Booking not found' });
+    }
+
+    res.json(booking);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+exports.deleteboatBooking = async (req, res) => {
+  try {
+    const deleted = await BoatBooking.destroy({ where: { id: req.params.id } });
+    if (!deleted) return res.status(404).json({ message: 'Booking not found' });
+    res.json({ message: 'Booking deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to delete booking' });
+  }
+};
+
+exports.cancelBooking = async (req, res) => {
+  try {
+    const booking = await BoatBooking.findByPk(req.params.id);
+
+    if (!booking) {
+      return res.status(404).json({ message: 'Booking not found' });
+    }
+
+    // ✅ Prevent cancellation if already completed
+    if (booking.status === 'completed') {
+      return res.status(400).json({ message: 'Cannot cancel a completed booking.' });
+    }
+
+    booking.status = 'cancelled';
+    await booking.save();
+
+    res.json({ message: 'Booking cancelled successfully.', booking });
+  } catch (error) {
+    console.error('Error cancelling booking:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+exports.getCompletedBoatBookings = async (req, res) => {
+  try {
+    const completedBookings = await BoatBooking.findAll({
+      where: { isCompleted: true }
+    });
+
+    res.json(completedBookings);
+  } catch (error) {
+    console.error('Error fetching completed bookings:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
+
+exports.createBookingWithPayment = async (req, res) => {
+  const { booking, payment } = req.body
+  if (!booking || !payment) {
+    return res.status(400).json({ message: 'Booking and payment data are required' })
+  }
+  try {
+    let price = 0
+    switch (booking.boatType) {
+      case 'Speed Boat': price = 50; break
+      case 'Ferry': price = 30; break
+      case 'Longtail Boat': price = 20; break
+      default: price = 0
+    }
+
+    // Create booking
+    const createdBooking = await BoatBooking.create({
+      ...booking,
+      price,
+      status: 'paid',
+    })
+
+    // Create payment linked to booking
+    await Payment.create({
+      bookingId: createdBooking.id,
+      bookingType: booking.boatType,
+      amount: price,
+      method: payment.method,
+      cardName: payment.cardName,
+    })
+
+    res.status(201).json({ message: 'Booking and payment saved successfully', booking: createdBooking })
+  } catch (error) {
+    console.error('Error creating booking with payment:', error)
+    res.status(500).json({ message: 'Server error' })
+  }
+}
+
