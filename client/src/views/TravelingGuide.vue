@@ -290,7 +290,7 @@ export default {
         {
           name: this.$t("provinces.SvayRieng.name"),
           routeName: "SvayRieng",
-          image: "https://aicdn.picsart.com/755df232-46fb-452f-b47d-4f640d33b6e0.jpg",
+          image: "https://tourismcambodia.org/storage/uploads/category_banner/ministry-of-tourism-cambodia-2019-02-11-07-23-27am-Svay-Rieng-Taxi-in-Cambodia.png",
           description: this.$t("provinces.SvayRieng.description"),
           showBookingOptions: false,
         },
