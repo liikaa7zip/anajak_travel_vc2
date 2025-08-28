@@ -314,6 +314,16 @@ export default {
   },
   methods: {
 
+    watch: {
+    "$route.query.locationId"(newId) {
+      if (newId) {
+        this.selectedLocationId = parseInt(newId);
+        this.fetchHotels();
+      }
+    },
+  },
+
+
     viewHotelDetails(hotelId) {
   this.fetchRooms(hotelId);
   this.$router.push(`/hotels/${hotelId}`);
@@ -390,8 +400,15 @@ async fetchRooms(hotelId) {
   },
   created() {
     this.fetchLocations();
+
+    if (this.$route.query.locationId) {
+      this.selectedLocationId = parseInt(this.$route.query.locationId);
+    }
+
     this.fetchHotels();
   },
+
+  
 };
 </script>
 

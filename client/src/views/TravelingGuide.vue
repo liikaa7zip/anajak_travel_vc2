@@ -158,11 +158,14 @@
                 </button>
               </router-link>
               <router-link
-                :to="`/guide/${toKebab(province.routeName)}/ProvinceList`"
-                class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm"
-              >
-                <i class="fa-solid fa-hotel"></i>
-              </router-link>
+  v-for="location in locations"
+  :key="location.id"
+  :to="{ path: '/hotels', query: { locationId: location.id } }"
+  class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-100 rounded cursor-pointer"
+>
+  {{ location.name }}
+</router-link>
+
 
 
               <!-- Booking Toggle Button with Drop-up Dropdown -->
