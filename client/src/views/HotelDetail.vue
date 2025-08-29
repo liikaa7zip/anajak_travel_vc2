@@ -81,55 +81,67 @@
         <div>
           <h2 class="text-xl font-semibold text-gray-800 mb-4">Available Rooms</h2>
           <div v-if="rooms.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div
-              v-for="room in rooms"
-              :key="room.id"
-              :class="[
-                'bg-white rounded-2xl overflow-hidden shadow-lg transition-all duration-300 transform',
-                unavailableRooms.includes(room.id) ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-2xl hover:-translate-y-2'
-              ]"
-            >
-              <div class="relative group">
-                <img
-                  :src="room.images && room.images.length > 0 ? room.images[0] : 'https://placehold.co/400x250?text=No+Image'"
-                  :alt="`Room ${room.roomNumber}`"
-                  class="w-full h-[200px] object-cover transition-transform duration-500 group-hover:scale-105"
-                  @error="handleImageError"
-                />
-                <!-- Top Pick Badge -->
-                <span v-if="room.isTopPick" class="absolute top-3 left-3 bg-yellow-400 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg animate-pulse">
-                  ⭐ Top Pick
-                </span>
-                <!-- Price Badge -->
-                <span class="absolute top-3 right-3 bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold shadow">
-                  ${{ room.pricePerNight?.toFixed(2) || 'N/A' }}
-                </span>
-              </div>
+            <div v-for="room in rooms" :key="room.id" class="bg-white rounded-2xl overflow-hidden shadow-lg transition-all duration-300 transform hover:shadow-2xl hover:-translate-y-2">
+  <div class="relative group">
+    <!-- Room Image -->
+    <img
+      :src="room.images && room.images.length > 0 ? room.images[0] : 'https://placehold.co/400x250?text=No+Image'"
+      :alt="`Room ${room.roomNumber}`"
+      class="w-full h-[200px] object-cover transition-transform duration-500 group-hover:scale-105"
+      @error="handleImageError"
+    />
 
-              <!-- Room Details -->
-              <div class="p-4 space-y-2">
-                <h3 class="font-bold text-lg">Room #{{ room.roomNumber }}</h3>
-                <p class="text-sm text-gray-500">{{ room.RoomCategory?.name || room.type }}</p>
-                <p class="text-gray-600 text-sm line-clamp-3">{{ room.RoomCategory?.description || 'No description available' }}</p>
+    <!-- Top Pick Badge -->
+    <span v-if="room.isTopPick" class="absolute top-3 left-3 bg-yellow-400 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg animate-pulse">
+      ⭐ Top Pick
+    </span>
 
-                <div v-if="room.amenities && room.amenities.length" class="flex flex-wrap gap-1">
-                  <span
-                    v-for="(amenity, index) in room.amenities"
-                    :key="index"
-                    class="bg-blue-50 text-blue-700 px-2 py-0.5 rounded text-xs shadow-sm"
-                  >
-                    {{ amenity }}
-                  </span>
-                </div>
+    <!-- Price Badge -->
+    <span class="absolute top-3 right-3 bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold shadow">
+      ${{ room.pricePerNight?.toFixed(2) || 'N/A' }}
+    </span>
 
-                <router-link
-                  :to="`/book/${hotel.id}?roomId=${room.id}`"
-                  class="block w-full text-center bg-purple-600 text-white py-2 rounded-lg font-medium hover:bg-purple-700 transition transform hover:-translate-y-1"
-                >
-                  Book This Room
-                </router-link>
-              </div>
-            </div>
+    <!-- Unavailable Dates -->
+    <div v-if="room.bookings && room.bookings.length > 0" class="absolute bottom-2 left-2 bg-red-600 text-white text-xs px-2 py-1 rounded shadow max-w-[90%]">
+      <span v-for="(b, idx) in room.bookings" :key="idx" class="block">
+        {{ new Date(b.startDate).toLocaleDateString() }} → {{ new Date(b.endDate).toLocaleDateString() }}
+      </span>
+    </div>
+  </div>
+
+  <!-- Room Details -->
+  <div class="p-4 space-y-2">
+    <h3 class="font-bold text-lg text-center">
+  Room #{{ room.roomNumber }} - {{ room.type }}
+</h3>
+
+    <p class="text-sm text-gray-500">{{ room.RoomCategory?.name || room.type }}</p>
+
+    <!-- Room Description -->
+<p class="text-sm text-gray-500 line-clamp-3 text-center">
+  {{ room.description || 'No description available' }}
+</p>
+
+
+    <!-- Amenities -->
+    <div v-if="room.amenities && room.amenities.length" class="flex flex-wrap gap-1">
+      <span v-for="(amenity, index) in room.amenities" :key="index" class="bg-blue-50 text-blue-700 px-2 py-0.5 rounded text-xs shadow-sm">
+        {{ amenity }}
+      </span>
+    </div>
+
+    <!-- Book Button -->
+    <router-link
+      :to="`/book/${hotel.id}?roomId=${room.id}`"
+      class="block w-full text-center py-2 rounded-lg font-medium transition bg-purple-600 text-white hover:bg-purple-700 transform hover:-translate-y-1"
+    >
+      Book This Room
+    </router-link>
+  </div>
+</div>
+
+
+            
           </div>
 
           <div v-else class="text-gray-500 italic">No available rooms for this hotel.</div>
@@ -168,19 +180,37 @@ const fetchRooms = async (hotelId) => {
     const fetchedRooms = res.data.map(room => {
       let amenities = [];
       let images = [];
-      try { amenities = Array.isArray(room.amenities) ? room.amenities : JSON.parse(room.amenities || '[]'); } catch {}
-      try { 
+
+      try {
+        amenities = Array.isArray(room.amenities) ? room.amenities : JSON.parse(room.amenities || '[]');
+      } catch {
+        amenities = [];
+      }
+
+      try {
         images = Array.isArray(room.images) ? room.images : JSON.parse(room.images || '[]');
-        images = images.map(img => img.startsWith('http') ? img : `http://localhost:5000/uploads/${img}`);
-      } catch {}
+        images = images.map(img => {
+          if (img.startsWith('http')) return img;
+          if (img.startsWith('/uploads/')) return `http://localhost:5000${img}`;
+          return `http://localhost:5000/uploads/${img}`;
+        });
+      } catch {
+        images = [];
+      }
+
       return { ...room, amenities, images };
     });
-    rooms.value = fetchedRooms.filter(r => !unavailableRooms.value.includes(r.id));
+
+    // ❌ Remove filter — keep all rooms
+    rooms.value = fetchedRooms;
+
   } catch (err) {
     rooms.value = [];
-    console.error(err);
+    console.error('Error fetching rooms:', err);
   }
 };
+
+
 
 const fetchUnavailableRooms = async (hotelId) => {
   try {

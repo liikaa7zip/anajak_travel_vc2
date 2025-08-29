@@ -39,6 +39,7 @@ db.Hotel.belongsTo(db.User, { foreignKey: 'ownerId', as: 'owner' });
 db.Location.hasMany(db.Hotel, { foreignKey: 'locationId' });
 db.Hotel.belongsTo(db.Location, { foreignKey: 'locationId', as: 'Location' });
 
+
 // Hotel ↔ Room
 db.Hotel.hasMany(db.Room, { foreignKey: 'hotelId', onDelete: 'CASCADE' });
 db.Room.belongsTo(db.Hotel, { foreignKey: 'hotelId' });
