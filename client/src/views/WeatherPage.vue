@@ -263,6 +263,7 @@ async function updateWeather(loc) {
   }
 }
 
+
 function cancelChangeLocation() {
   showLocationInput.value = false;
   newLocation.value = '';
