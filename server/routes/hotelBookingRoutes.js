@@ -38,6 +38,9 @@ router.get('/users', verifyToken, hotelBookingController.getUserBookings);
 // Get bookings for a specific hotel
 router.get('/hotel/:hotelId', hotelBookingController.getBookingsByHotel);
 
+// mark as completed
+// mark as completed
+router.put('/:id/complete', hotelBookingController.completeBooking);
 // --------------------
 // Rooms Routes
 // --------------------

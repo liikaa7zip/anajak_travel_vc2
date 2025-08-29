@@ -117,6 +117,9 @@ exports.getBookingsByHotel = async (req, res) => {
         hotelId,
         status: { [Op.in]: ['pending', 'confirmed'] }
       },
+      include: [
+        { model: User, attributes: ['id', 'username'] } // include guest name
+      ],
       attributes: ['roomId', 'checkInDate', 'checkOutDate', 'status']
     });
 
@@ -126,6 +129,7 @@ exports.getBookingsByHotel = async (req, res) => {
     res.status(500).json({ message: 'Failed to fetch hotel bookings' });
   }
 };
+
 
 // Get bookings by hotelId
 exports.getBookingsByHotelId = async (req, res) => {
@@ -405,5 +409,50 @@ exports.getBookingStats = async (req, res) => {
   } catch (err) {
     console.error('Get booking stats error:', err);
     res.status(500).json({ message: 'Error fetching booking statistics', error: err.message });
+  }
+};
+
+
+// COMPLETE booking
+exports.completeBooking = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const booking = await HotelBooking.findByPk(id);
+
+    if (!booking) {
+      return res.status(404).json({ message: 'Booking not found' });
+    }
+
+    if (booking.status === 'completed') {
+      return res.status(400).json({ message: 'Booking is already completed' });
+    }
+
+    if (booking.status === 'cancelled') {
+      return res.status(400).json({ message: 'Cannot complete a cancelled booking' });
+    }
+
+    // ✅ update status
+    await booking.update({
+      status: 'completed',
+      updatedAt: new Date()
+    });
+
+    const updatedBooking = await HotelBooking.findByPk(id, {
+      include: [
+        { model: Hotel, attributes: ['name'] },
+        { model: User, attributes: ['username', 'email'] },
+        { model: Room, attributes: ['roomNumber', 'type'] }
+      ]
+    });
+
+    res.json({
+      message: 'Booking marked as completed successfully',
+      booking: updatedBooking
+    });
+
+  } catch (err) {
+    console.error('Complete booking error:', err);
+    res.status(500).json({ message: 'Error marking booking as completed', error: err.message });
   }
 };
