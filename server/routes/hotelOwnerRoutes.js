@@ -35,8 +35,9 @@ router.post("/rooms", upload.array("images", 10), controller.createRoom); // all
 router.put("/rooms/:id", upload.array("images", 10), controller.updateRoom);
 
 // Room categories
-router.get('/room-categories', controller.getRoomCategories);
-router.post('/room-categories', controller.createRoomCategory);
+router.get('/room-categories', verifyToken, verifyHotelOwner, controller.getRoomCategories);
+router.post('/room-categories', verifyToken, verifyHotelOwner, controller.createRoomCategory);
+
 
 // Reservation management routes
 router.get('/reservations', controller.getReservations);

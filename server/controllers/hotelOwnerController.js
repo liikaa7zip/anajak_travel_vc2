@@ -412,36 +412,48 @@
   };
 
   exports.getHotelRooms = async (req, res) => {
-    try {
-      const hotelId = req.params.hotelId;
+  try {
+    const hotelId = req.params.hotelId;
 
-      const rooms = await Room.findAll({
-        where: { hotelId },
-        include: [
-          { model: RoomCategory, as: 'RoomCategory', attributes: ['name', 'description'] }
-        ]
-      });
-
-      const formattedRooms = rooms.map(room => {
-        let images = [];
-        let amenities = [];
-
-        if (room.images) {
-          images = Array.isArray(room.images) ? room.images : JSON.parse(room.images || '[]');
+    const rooms = await Room.findAll({
+      where: { hotelId },
+      include: [
+        { model: RoomCategory, as: 'RoomCategory', attributes: ['name', 'description'] },
+        { 
+          model: HotelBooking, 
+          attributes: ['id', 'startDate', 'endDate', 'status'], 
+          where: { status: { [Op.in]: ['pending', 'confirmed'] } }, 
+          required: false // still show rooms with no bookings
         }
-        if (room.amenities) {
-          amenities = Array.isArray(room.amenities) ? room.amenities : JSON.parse(room.amenities || '[]');
-        }
+      ]
+    });
 
-        return { ...room.toJSON(), images, amenities };
-      });
+    const formattedRooms = rooms.map(room => {
+      let images = [];
+      let amenities = [];
 
-      res.json(formattedRooms);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Failed to fetch rooms' });
-    }
-  };
+      if (room.images) {
+        images = Array.isArray(room.images) ? room.images : JSON.parse(room.images || '[]');
+      }
+      if (room.amenities) {
+        amenities = Array.isArray(room.amenities) ? room.amenities : JSON.parse(room.amenities || '[]');
+      }
+
+      return { 
+        ...room.toJSON(), 
+        images, 
+        amenities,
+        bookings: room.HotelBookings || [] // attach booking data
+      };
+    });
+
+    res.json(formattedRooms);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to fetch rooms' });
+  }
+};
+
 
   exports.createRoom = async (req, res) => {
     try {
@@ -449,7 +461,7 @@
       const hotel = await Hotel.findOne({ where: { ownerId } });
       if (!hotel) return res.status(403).json({ message: 'No hotel assigned to you' });
 
-      const { roomNumber, type, amenities, pricePerNight, categoryId, maxOccupancy } = req.body;
+      const { roomNumber, type, amenities, pricePerNight, categoryId, maxOccupancy, description  } = req.body;
 
       // Map uploaded files to paths
       const imagePaths = req.files.map(file => '/uploads/' + file.filename);
@@ -462,7 +474,8 @@
         images: imagePaths,
         pricePerNight,
         categoryId,
-        maxOccupancy
+        maxOccupancy,
+        description, 
       });
 
       res.status(201).json(room);
@@ -752,53 +765,41 @@
 
   // Room Categories Management
   exports.getRoomCategories = async (req, res) => {
-    const ownerId = req.user.id;
-    try {
-      const hotel = await Hotel.findOne({ where: { ownerId } });
-      if (!hotel) {
-        return res.status(404).json({ error: 'No hotel found' });
-      }
-
-      const categories = await RoomCategory.findAll({
-        where: { hotelId: hotel.id }
-      });
-
-      res.json(categories);
-    } catch (error) {
-      console.error('Error fetching room categories:', error);
-      res.status(500).json({ error: 'Failed to fetch room categories' });
-    }
-  };
+  try {
+    const hotelId = req.user.id; // logged-in owner
+    const categories = await RoomCategory.findAll({
+      where: { hotelId } // only this owner’s categories
+    });
+    res.json(categories);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Failed to fetch room categories.' });
+  }
+};
 
   exports.createRoomCategory = async (req, res) => {
-    const ownerId = req.user.id;
+  try {
+    const hotelId = req.user.id; // ensure category belongs to this owner
     const { name, description, basePrice } = req.body;
-    
-    try {
-      const hotel = await Hotel.findOne({ where: { ownerId } });
-      if (!hotel) {
-        return res.status(404).json({ error: 'No hotel found' });
-      }
 
-      const category = await RoomCategory.create({
-        hotelId: hotel.id,
-        name,
-        description,
-        basePrice
-      });
-
-      res.status(201).json(category);
-    } catch (error) {
-      console.error('Error creating room category:', error);
-      res.status(500).json({ error: 'Failed to create room category' });
+    if (!name || !basePrice) {
+      return res.status(400).json({ message: 'Name and basePrice are required.' });
     }
-  };
-  const getAssociationAlias = (Model, TargetModel) => {
-    const association = Object.values(Model.associations).find(
-      assoc => assoc.target === TargetModel
-    );
-    return association ? association.as : null;
-  };
+
+    const newCategory = await RoomCategory.create({
+      hotelId,
+      name,
+      description,
+      basePrice
+    });
+
+    res.status(201).json(newCategory);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Failed to create room category.' });
+  }
+};
+
 
   exports.getRoomById = async (req, res) => {
     const roomId = req.params.id;

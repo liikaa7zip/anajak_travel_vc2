@@ -47,6 +47,7 @@ const orderRoutes = require('./routes/orderRoutes');
 
 
 
+
 const db = require('./models'); // Sequelize models
 const Message = db.Message;
 
@@ -155,7 +156,6 @@ app.use('/api/flightbookings', flightRoutes);
 app.use('/api/boatbookings', boatBookingRoutes);
 app.use('/api/transports', transportRoutes);
 app.use('/api/hotels', hotelRoutes);
-app.use('/api/hotel-booking', hotelBookingRoutes);
 app.use('/api/locations', locationRoutes);
 app.use('/api/foods', foodRoutes);
 app.use('/api/featured-stories', featuredStoriesRoutes);
@@ -209,6 +209,7 @@ sequelize.sync({ alter: true })
     await createDefaultAdmin();
     await createDefaultLocations();
     await createDefaultCars();
+    
     
 
     server.listen(PORT, () => {
