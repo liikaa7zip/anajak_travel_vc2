@@ -158,7 +158,7 @@
                 </button>
               </router-link>
               <router-link
-                :to="`/guide/${toKebab(province.routeName)}/ProvinceList`"
+                :to="`/hotel`"
                 class="bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 transition text-sm"
               >
                 <i class="fa-solid fa-hotel"></i>

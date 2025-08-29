@@ -42,6 +42,19 @@
     <label for="pricePerNight">Price Per Night ($)</label>
   </div>
 
+  <!-- Room Description -->
+<div class="md:col-span-2 relative">
+  <textarea
+    v-model="room.description"
+    id="description"
+    class="input-floating h-24 resize-none"
+    placeholder=" "
+    required
+  ></textarea>
+  <label for="description">Room Description</label>
+</div>
+
+
   <!-- Amenities (full width) -->
   <div class="md:col-span-2">
     <label class="block text-gray-700 font-medium mb-2">Amenities</label>
@@ -99,6 +112,7 @@ const room = ref({
   categoryId: '',
   amenities: [],
   images: [],
+  description: '',
 });
 
 const newAmenity = ref('');
@@ -161,6 +175,7 @@ const submitRoom = async () => {
     formData.append('maxOccupancy', room.value.maxOccupancy);
     formData.append('categoryId', room.value.categoryId);
     formData.append('amenities', JSON.stringify(room.value.amenities));
+    formData.append('description', room.value.description); // <-- Add this line
 
     room.value.images.forEach(img => {
       if (img.file) formData.append('images', img.file);
@@ -171,12 +186,23 @@ const submitRoom = async () => {
     });
 
     message.value = 'Room created successfully!';
-    room.value = { roomNumber: '', type: '', typePrice: null, pricePerNight: null, maxOccupancy: null, categoryId: '', amenities: [], images: [] };
+    room.value = {
+      roomNumber: '',
+      type: '',
+      typePrice: null,
+      pricePerNight: null,
+      maxOccupancy: null,
+      categoryId: '',
+      amenities: [],
+      images: [],
+      description: '' // Reset description
+    };
   } catch (err) {
     console.error(err);
     error.value = err.response?.data?.error || 'Failed to create room';
   }
 };
+
 
 onMounted(fetchCategories);
 </script>
