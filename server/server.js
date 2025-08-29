@@ -156,7 +156,6 @@ app.use('/api/flightbookings', flightRoutes);
 app.use('/api/boatbookings', boatBookingRoutes);
 app.use('/api/transports', transportRoutes);
 app.use('/api/hotels', hotelRoutes);
-app.use('/api/hotel-booking', hotelBookingRoutes);
 app.use('/api/locations', locationRoutes);
 app.use('/api/foods', foodRoutes);
 app.use('/api/featured-stories', featuredStoriesRoutes);

@@ -412,36 +412,48 @@
   };
 
   exports.getHotelRooms = async (req, res) => {
-    try {
-      const hotelId = req.params.hotelId;
+  try {
+    const hotelId = req.params.hotelId;
 
-      const rooms = await Room.findAll({
-        where: { hotelId },
-        include: [
-          { model: RoomCategory, as: 'RoomCategory', attributes: ['name', 'description'] }
-        ]
-      });
-
-      const formattedRooms = rooms.map(room => {
-        let images = [];
-        let amenities = [];
-
-        if (room.images) {
-          images = Array.isArray(room.images) ? room.images : JSON.parse(room.images || '[]');
+    const rooms = await Room.findAll({
+      where: { hotelId },
+      include: [
+        { model: RoomCategory, as: 'RoomCategory', attributes: ['name', 'description'] },
+        { 
+          model: HotelBooking, 
+          attributes: ['id', 'startDate', 'endDate', 'status'], 
+          where: { status: { [Op.in]: ['pending', 'confirmed'] } }, 
+          required: false // still show rooms with no bookings
         }
-        if (room.amenities) {
-          amenities = Array.isArray(room.amenities) ? room.amenities : JSON.parse(room.amenities || '[]');
-        }
+      ]
+    });
 
-        return { ...room.toJSON(), images, amenities };
-      });
+    const formattedRooms = rooms.map(room => {
+      let images = [];
+      let amenities = [];
 
-      res.json(formattedRooms);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Failed to fetch rooms' });
-    }
-  };
+      if (room.images) {
+        images = Array.isArray(room.images) ? room.images : JSON.parse(room.images || '[]');
+      }
+      if (room.amenities) {
+        amenities = Array.isArray(room.amenities) ? room.amenities : JSON.parse(room.amenities || '[]');
+      }
+
+      return { 
+        ...room.toJSON(), 
+        images, 
+        amenities,
+        bookings: room.HotelBookings || [] // attach booking data
+      };
+    });
+
+    res.json(formattedRooms);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to fetch rooms' });
+  }
+};
+
 
   exports.createRoom = async (req, res) => {
     try {
@@ -449,7 +461,7 @@
       const hotel = await Hotel.findOne({ where: { ownerId } });
       if (!hotel) return res.status(403).json({ message: 'No hotel assigned to you' });
 
-      const { roomNumber, type, amenities, pricePerNight, categoryId, maxOccupancy } = req.body;
+      const { roomNumber, type, amenities, pricePerNight, categoryId, maxOccupancy, description  } = req.body;
 
       // Map uploaded files to paths
       const imagePaths = req.files.map(file => '/uploads/' + file.filename);
@@ -462,7 +474,8 @@
         images: imagePaths,
         pricePerNight,
         categoryId,
-        maxOccupancy
+        maxOccupancy,
+        description, 
       });
 
       res.status(201).json(room);

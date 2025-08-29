@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 2,
     },
     status: {
-      type: DataTypes.ENUM('available', 'occupied', 'maintenance'),
+      type: DataTypes.ENUM('available', 'booked', 'maintenance'),
       defaultValue: 'available',
     },
     cleaningStatus: {
@@ -44,6 +44,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     categoryId: {
       type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    description: {
+      type: DataTypes.TEXT, 
       allowNull: true,
     },
   });
