@@ -68,6 +68,26 @@ exports.getAllBookings = async (req, res) => {
   }
 };
 
+exports.getBookingsForOwner = async (req, res) => {
+  try {
+    const ownerId = req.user.id; // from token
+    const hotels = await Hotel.findAll({ where: { ownerId }, attributes: ['id'] });
+    const hotelIds = hotels.map(h => h.id);
+
+    const bookings = await HotelBooking.findAll({
+      where: { hotelId: { [Op.in]: hotelIds } },
+      include: [
+        { model: User, attributes: ['id', 'username'] },
+        { model: Room, attributes: ['id', 'roomNumber'] }
+      ]
+    });
+
+    res.json(bookings);
+  } catch (err) {
+    console.error("Error fetching owner bookings:", err);
+    res.status(500).json({ error: "Failed to fetch owner bookings" });
+  }
+};
 
 // GET single booking by ID with full details
 exports.getBookingById = async (req, res) => {

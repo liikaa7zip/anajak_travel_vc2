@@ -9,10 +9,13 @@ const { verifyHotelOwner,verifyToken} = require('../middlewares/authMiddleware')
 // Booking Routes
 // --------------------
 
+router.get('/owner/bookings', verifyToken, hotelBookingController.getBookingsForOwner);
 // Get all bookings (admin or debug purposes)
 router.get('/', hotelBookingController.getAllBookings);
 
 router.get('/my-bookings', verifyToken, hotelBookingController.getMyBookings);
+
+
 
 // Get booking stats
 router.get('/stats', hotelBookingController.getBookingStats);
