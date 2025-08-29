@@ -63,7 +63,7 @@ const error = ref(null)
 
 const selectedMonthYearText = computed(() => months[selectedMonth.value] + " " + selectedYear.value)
 
-// Generate week (Sunday-Saturday)
+// Generate current week (Sunday → Saturday)
 const generateWeek = () => {
   const startDate = new Date(selectedYear.value, selectedMonth.value, 1)
   const dayOfWeek = startDate.getDay()
@@ -79,35 +79,42 @@ const generateWeek = () => {
   weekDays.value = week
 }
 
-// Watch month/year changes
 watch([selectedMonth, selectedYear], generateWeek, { immediate: true })
 
-// Fetch all rooms and bookings for hotel owner
+// Fetch rooms and bookings
 const fetchData = async () => {
   loading.value = true
   try {
-    // 1. Fetch rooms created by hotel owner
+    // 1. Fetch rooms for hotel owner
     const roomsRes = await axios.get('http://localhost:5000/api/hotel-owners/rooms')
     const ownerRooms = roomsRes.data || []
 
-    // Initialize rooms with empty bookings
     const roomsMap = {}
     ownerRooms.forEach(r => {
       roomsMap[r.id] = { id: r.id, number: r.roomNumber, bookings: [] }
     })
 
-    // 2. Fetch all bookings for this hotel
-    const bookingsRes = await axios.get('http://localhost:5000/api/hotel-bookings')
-    const bookings = bookingsRes.data.bookings || []
+    // 2. Fetch bookings for owner (this includes User info)
+    const bookingsRes = await axios.get('http://localhost:5000/api/hotel-bookings/owner/bookings')
+    const bookings = bookingsRes.data || []
 
     // 3. Attach bookings to rooms
     bookings.forEach(b => {
-      const room = roomsMap[b.Room.id]
-      if (!room) return // skip rooms not created by owner
+      const room = roomsMap[b.roomId]
+      if (!room) return
+      if (b.status === "cancelled") return
+
       const checkIn = new Date(b.checkInDate)
       const checkOut = new Date(b.checkOutDate)
+
       for (let d = new Date(checkIn); d < checkOut; d.setDate(d.getDate() + 1)) {
-        room.bookings.push({ date: new Date(d), guest: b.User.username })
+        // Only include dates in the current week
+        if (weekDays.value.some(wd => wd.date.toDateString() === d.toDateString())) {
+          room.bookings.push({
+            date: new Date(d),
+            guest: b.User ? b.User.username : "Guest"
+          })
+        }
       }
     })
 
@@ -119,6 +126,7 @@ const fetchData = async () => {
     loading.value = false
   }
 }
+
 
 onMounted(fetchData)
 
