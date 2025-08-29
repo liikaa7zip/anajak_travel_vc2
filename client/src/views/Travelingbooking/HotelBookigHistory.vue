@@ -51,10 +51,10 @@
             <td class="py-3 px-5 border-b">{{ formatDate(booking.checkOutDate) }}</td>
             <td class="py-3 px-5 border-b">{{ booking.guests }}</td>
             <td class="py-3 px-5 border-b font-semibold text-purple-700">{{ booking.totalAmount.toFixed(2) }} USD</td>
-            <td class="py-3 px-5 border-b">
+           <td class="py-3 px-5 border-b">
   <div class="flex items-center gap-2">
     <span
-      v-if="!isCancellable(booking) || booking.status === 'cancelled'"
+      v-if="!isCancellable(booking)"
       class="px-2 py-1 bg-gray-200 text-gray-500 rounded text-xs font-semibold"
     >
       Cannot Cancel
@@ -68,6 +68,7 @@
     </button>
   </div>
 </td>
+
 
 
           </tr>
@@ -133,10 +134,11 @@ export default {
 
   const today = new Date();
   const checkIn = new Date(booking.checkInDate);
-  const checkOut = new Date(booking.checkOutDate);
 
-  // Only allow cancel if today is before check-in
-  return today < checkIn && booking.status !== 'cancelled';
+  // Cannot cancel if completed or cancelled, or past check-in
+  return booking.status !== 'completed' &&
+         booking.status !== 'cancelled' &&
+         today < checkIn;
 },
     async fetchBookings() {
       try {

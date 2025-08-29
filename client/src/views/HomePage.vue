@@ -10,7 +10,7 @@
             {{ $t('heroTitleFrom') }}
             <br />{{ $t('heroTitleCambodia') }}
             <br />
-            <span class="text-pink-500">{{ $t('heroTitleWorld') }}</span>
+            <span class="text-pink-500">{{ $t('heroTitleWorld') }}</span> 
           </h1>
           <p class="text-gray-600 text-lg lg:text-xl leading-relaxed max-w-2xl">{{ $t('heroDescription') }}</p>
           <div class="flex flex-col sm:flex-row gap-4">
